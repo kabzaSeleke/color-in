@@ -1,0 +1,2315 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NexusERP &ndash; Business Dashboard</title>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700&family=DM+Sans:wght@300;400;500;600;700&family=DM+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --bg0:#0a1628;--bg1:#0f1f38;--bg2:#13253f;--bg3:#182b49;--bg4:#223655;
+  --border:rgba(255,255,255,.08);--border2:rgba(255,255,255,.14);
+  --txt0:#e2e8f0;--txt1:#b4c2d5;--txt2:#7d8ea5;
+  --blue:#4f8ef7;--blue2:#3a7de8;--blue-dim:#1a2d5a;
+  --green:#22c55e;--green-dim:#0d2e1a;
+  --amber:#f5a623;--amber-dim:#2d1f06;
+  --red:#ef4444;--red-dim:#2d0e0e;
+  --purple:#a855f7;--purple-dim:#1e0d33;
+  --teal:#14b8a6;--teal-dim:#0a1e1c;
+  --orange:#f97316;--orange-dim:#2d1206;
+  --font-head:'DM Sans',sans-serif;--font-mono:'DM Mono',monospace;--font-display:'Cinzel',serif;
+  --r4:4px;--r6:6px;--r8:8px;--r12:12px;--sidebar-w:228px;
+}
+body{font-family:var(--font-head);background:radial-gradient(ellipse 70% 50% at 50% -10%,rgba(79,142,247,.22) 0%,transparent 60%),var(--bg0);color:var(--txt0);display:flex;height:100vh;overflow:hidden}
+#sidebar{width:var(--sidebar-w);background:var(--bg1);border-right:1px solid var(--border);display:flex;flex-direction:column;flex-shrink:0;z-index:100}
+.logo{padding:20px 20px 16px;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:10px}
+.logo-icon{width:32px;height:32px;background:linear-gradient(135deg,var(--blue),var(--purple));border-radius:var(--r8);display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;color:#fff;flex-shrink:0}
+.logo-text{font-size:15px;font-weight:700;letter-spacing:-.3px}.logo-sub{font-size:10px;color:var(--txt2);font-family:var(--font-mono);letter-spacing:.5px;margin-top:1px}
+nav{padding:12px 0;flex:1;overflow-y:auto}
+.nav-section{padding:6px 16px 4px;font-size:10px;color:var(--txt2);font-family:var(--font-mono);letter-spacing:1px;text-transform:uppercase}
+.nav-item{display:flex;align-items:center;gap:10px;padding:9px 16px;cursor:pointer;color:var(--txt1);font-size:13px;font-weight:400;transition:all .15s;border-left:2px solid transparent;margin:1px 0}
+.nav-item:hover{background:var(--bg2);color:var(--txt0)}
+.nav-item.active{background:var(--blue-dim);color:var(--blue);border-left-color:var(--blue);font-weight:500}
+.nav-icon{width:16px;height:16px;opacity:.7;flex-shrink:0}.nav-item.active .nav-icon{opacity:1}
+.nav-badge{margin-left:auto;background:var(--red);color:#fff;font-size:10px;font-family:var(--font-mono);padding:1px 6px;border-radius:10px;font-weight:500}
+.sidebar-footer{padding:14px 16px;border-top:1px solid var(--border)}
+.user-info{display:flex;align-items:center;gap:10px}
+.avatar{width:30px;height:30px;border-radius:50%;background:linear-gradient(135deg,var(--blue),var(--purple));display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:600;color:#fff;flex-shrink:0}
+.user-name{font-size:12px;font-weight:500}.user-role{font-size:10px;color:var(--txt2);font-family:var(--font-mono)}
+#main{flex:1;display:flex;flex-direction:column;overflow:hidden}
+.topbar{background:rgba(15,31,56,.86);backdrop-filter:blur(10px);border-bottom:1px solid var(--border);padding:0 24px;height:54px;display:flex;align-items:center;gap:16px;flex-shrink:0}
+.page-title{font-size:15px;font-weight:600;letter-spacing:-.2px}.page-subtitle{font-size:12px;color:var(--txt2);font-family:var(--font-mono)}
+.topbar-right{margin-left:auto;display:flex;align-items:center;gap:10px}
+.tb-btn{background:rgba(255,255,255,.04);border:1px solid var(--border);border-radius:10px;padding:6px 14px;color:var(--txt1);font-size:12px;cursor:pointer;font-family:var(--font-head);font-weight:500;transition:.15s;display:flex;align-items:center;gap:6px}
+.tb-btn:hover{background:rgba(255,255,255,.08);color:var(--txt0)}
+.tb-btn.primary{background:var(--blue);border-color:var(--blue);color:#fff;font-weight:500}.tb-btn.primary:hover{background:var(--blue2)}
+.notif-dot{width:6px;height:6px;background:var(--red);border-radius:50%}
+.content{flex:1;overflow-y:auto;padding:24px}
+.view{display:none}.view.active{display:block}
+.kpi-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:22px}
+.kpi{background:rgba(255,255,255,.04);border:1px solid var(--border);border-radius:14px;padding:16px 18px;position:relative;overflow:hidden}
+.kpi::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:var(--kpi-color,var(--blue))}
+.kpi-label{font-size:11px;color:var(--txt2);font-family:var(--font-mono);letter-spacing:.5px;text-transform:uppercase;margin-bottom:8px}
+.kpi-value{font-size:24px;font-weight:700;font-family:var(--font-mono);letter-spacing:-1px;color:var(--txt0)}
+.kpi-meta{display:flex;align-items:center;gap:6px;margin-top:6px}
+.kpi-change{font-size:11px;font-family:var(--font-mono);padding:2px 7px;border-radius:var(--r4);font-weight:500}
+.kpi-change.up{background:var(--green-dim);color:var(--green)}.kpi-change.dn{background:var(--red-dim);color:var(--red)}
+.kpi-period{font-size:11px;color:var(--txt2)}
+.chart-grid{display:grid;grid-template-columns:2fr 1fr;gap:14px;margin-bottom:22px}
+.chart-grid-3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px;margin-bottom:22px}
+.card{background:rgba(255,255,255,.03);border:1px solid var(--border);border-radius:14px;padding:18px}
+.card-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px}
+.card-title{font-size:13px;font-weight:600;letter-spacing:-.2px}.card-sub{font-size:11px;color:var(--txt2);font-family:var(--font-mono);margin-top:2px}
+.card-action{font-size:11px;color:var(--blue);cursor:pointer;font-family:var(--font-mono)}
+.table-wrap{overflow-x:auto}
+table{width:100%;border-collapse:collapse}
+th{font-size:11px;font-family:var(--font-mono);letter-spacing:.5px;text-transform:uppercase;color:var(--txt2);padding:9px 12px;border-bottom:1px solid var(--border);text-align:left;font-weight:500;white-space:nowrap;background:rgba(255,255,255,.02)}
+td{padding:10px 12px;border-bottom:1px solid var(--border);font-size:12.5px;vertical-align:middle}
+tr:last-child td{border-bottom:none}tr:hover td{background:rgba(255,255,255,.02)}
+.status-badge{display:inline-flex;align-items:center;gap:5px;font-size:11px;font-family:var(--font-mono);padding:3px 9px;border-radius:20px;font-weight:500;white-space:nowrap}
+.status-badge::before{content:'';width:5px;height:5px;border-radius:50%;background:currentColor;flex-shrink:0}
+.badge-paid{background:var(--green-dim);color:var(--green)}.badge-pending{background:var(--amber-dim);color:var(--amber)}
+.badge-overdue{background:var(--red-dim);color:var(--red)}.badge-draft{background:var(--bg4);color:var(--txt2)}
+.badge-approved{background:var(--blue-dim);color:var(--blue)}.badge-received{background:var(--teal-dim);color:var(--teal)}
+.badge-partial{background:var(--purple-dim);color:var(--purple)}.badge-active{background:var(--green-dim);color:var(--green)}
+.badge-inactive{background:var(--bg4);color:var(--txt2)}.badge-onhold{background:var(--amber-dim);color:var(--amber)}
+.badge-transit{background:var(--blue-dim);color:var(--blue)}.badge-processing{background:var(--amber-dim);color:var(--amber)}
+.amount{font-family:var(--font-mono);font-size:12px;font-weight:500}
+.amount.positive{color:var(--green)}.amount.negative{color:var(--red)}
+.toolbar{display:flex;align-items:center;gap:10px;margin-bottom:14px;flex-wrap:wrap}
+.search-input{background:rgba(255,255,255,.05);border:1px solid var(--border);border-radius:10px;padding:8px 12px;color:var(--txt0);font-size:12px;font-family:var(--font-head);outline:none;width:220px;transition:.15s}
+.search-input:focus{border-color:var(--blue2);box-shadow:0 0 0 3px rgba(79,142,247,.18);background:rgba(255,255,255,.06)}.search-input::placeholder{color:var(--txt2)}
+select.filter-sel{background:rgba(255,255,255,.05);border:1px solid var(--border);border-radius:10px;padding:8px 10px;color:var(--txt1);font-size:12px;font-family:var(--font-head);outline:none;cursor:pointer}
+select.filter-sel:focus{border-color:var(--blue)}
+.spark-row{display:flex;align-items:center;gap:12px;padding:8px 0;border-bottom:1px solid var(--border)}
+.spark-row:last-child{border-bottom:none}
+.spark-name{font-size:12px;flex:1}.spark-bar-bg{flex:2;height:5px;background:var(--bg4);border-radius:3px;overflow:hidden}
+.spark-bar{height:100%;border-radius:3px;background:var(--blue);transition:width .4s}
+.spark-val{font-size:12px;font-family:var(--font-mono);color:var(--txt1);min-width:70px;text-align:right}
+.activity-item{display:flex;gap:12px;padding:8px 0;border-bottom:1px solid var(--border)}
+.activity-item:last-child{border-bottom:none}
+.act-icon{width:28px;height:28px;border-radius:var(--r6);display:flex;align-items:center;justify-content:center;font-size:13px;flex-shrink:0;margin-top:1px}
+.act-text{font-size:12px;line-height:1.5;color:var(--txt1)}.act-text strong{color:var(--txt0);font-weight:500}
+.act-time{font-size:10px;color:var(--txt2);font-family:var(--font-mono);margin-top:2px}
+.modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,.68);backdrop-filter:blur(6px);z-index:1000;display:none;align-items:center;justify-content:center}
+.modal-overlay.open{display:flex}
+.modal{background:var(--bg1);border:1px solid var(--border2);border-radius:16px;padding:26px 24px;width:600px;max-width:95vw;max-height:90vh;overflow-y:auto;box-shadow:0 30px 60px rgba(0,0,0,.5)}
+.modal-wide{width:720px}
+.modal-title{font-size:29px;font-family:var(--font-display);font-weight:600;letter-spacing:.3px;margin-bottom:6px;color:var(--txt0)}.modal-sub{font-size:12px;color:var(--txt2);margin-bottom:20px}
+.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.form-group{display:flex;flex-direction:column;gap:5px}.form-group.full{grid-column:1/-1}
+label{font-size:11px;color:var(--txt2);font-family:var(--font-mono);letter-spacing:.3px}
+input[type=text],input[type=email],input[type=number],input[type=date],textarea,select{background:rgba(255,255,255,.05);border:1px solid var(--border);border-radius:10px;padding:10px 12px;color:var(--txt0);font-family:var(--font-head);font-size:12px;outline:none;width:100%;transition:.15s}
+input:focus,textarea:focus,select:focus{border-color:var(--blue2);box-shadow:0 0 0 3px rgba(79,142,247,.15);background:rgba(255,255,255,.07)}
+textarea{resize:vertical;min-height:70px}
+.modal-actions{display:flex;gap:8px;justify-content:flex-end;margin-top:20px}
+.btn{padding:8px 18px;border-radius:10px;font-size:12.5px;font-family:var(--font-head);cursor:pointer;border:1px solid var(--border);background:rgba(255,255,255,.04);color:var(--txt1);font-weight:500;transition:.15s}
+.btn:hover{background:rgba(255,255,255,.08);color:var(--txt0)}
+.btn-primary{background:var(--blue);border-color:var(--blue);color:#fff;font-weight:500}.btn-primary:hover{background:var(--blue2)}
+.detail-panel{background:rgba(255,255,255,.02);border:1px solid var(--border);border-radius:14px;padding:20px;margin-bottom:14px}
+.detail-row{display:flex;justify-content:space-between;padding:7px 0;border-bottom:1px solid var(--border);font-size:12.5px}
+.detail-row:last-child{border-bottom:none}.detail-label{color:var(--txt2);font-family:var(--font-mono);font-size:11px;letter-spacing:.3px}
+.progress-bar{height:6px;background:var(--bg4);border-radius:3px;overflow:hidden;margin-top:4px}
+.progress-fill{height:100%;border-radius:3px;transition:width .5s}
+.legend{display:flex;flex-wrap:wrap;gap:14px;font-size:11px;color:var(--txt2);margin-bottom:12px}
+.legend-dot{width:8px;height:8px;border-radius:2px;display:inline-block;margin-right:4px;flex-shrink:0}
+.analytics-kpi{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:18px}
+.stat-chip{background:var(--bg3);border:1px solid var(--border);border-radius:var(--r8);padding:12px 14px}
+.stat-chip-lbl{font-size:10px;color:var(--txt2);font-family:var(--font-mono);letter-spacing:.5px;text-transform:uppercase;margin-bottom:5px}
+.stat-chip-val{font-size:20px;font-weight:700;font-family:var(--font-mono);letter-spacing:-1px}
+::-webkit-scrollbar{width:5px;height:5px}::-webkit-scrollbar-track{background:transparent}::-webkit-scrollbar-thumb{background:var(--border2);border-radius:3px}
+.tabs{display:flex;gap:2px;background:var(--bg1);border-radius:var(--r8);padding:3px;margin-bottom:16px;width:fit-content}
+.tab{padding:6px 16px;border-radius:6px;font-size:12px;cursor:pointer;color:var(--txt2);transition:.15s}
+.tab.active{background:var(--bg3);color:var(--txt0);font-weight:500}
+.empty-state{text-align:center;padding:40px;color:var(--txt2);font-size:13px}
+.grid-2{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:14px}
+/* line items */
+.lit{width:100%;border-collapse:collapse;margin-top:8px}
+.lit th{font-size:10px;font-family:var(--font-mono);color:var(--txt2);padding:6px 8px;text-align:left;background:var(--bg1);border-bottom:1px solid var(--border)}
+.lit td{padding:5px 6px;border-bottom:1px solid var(--border);font-size:12px}
+.lit td input,.lit td select{padding:4px 6px;font-size:11px}
+.add-line{background:none;border:1px dashed var(--border2);border-radius:var(--r6);padding:6px 14px;color:var(--txt2);font-size:11px;cursor:pointer;font-family:var(--font-head);transition:.15s;margin-top:6px;display:block}
+.add-line:hover{border-color:var(--blue);color:var(--blue)}
+.del-line{background:none;border:none;color:var(--red);cursor:pointer;font-size:14px;padding:0 4px}
+.totals-bar{background:var(--bg3);border:1px solid var(--border);border-radius:var(--r8);padding:10px 16px;margin-top:8px;display:flex;gap:24px;justify-content:flex-end}
+.total-item{text-align:right}
+.total-lbl{font-size:11px;color:var(--txt2);font-family:var(--font-mono)}
+.action-group{display:flex;gap:4px;align-items:center;white-space:nowrap}
+.link-btn{background:none;border:none;color:var(--blue);cursor:pointer;font-family:var(--font-head);font-size:12.5px;padding:0;text-align:left}
+.link-btn:hover{text-decoration:underline}
+.action-primary{padding:5px 10px;font-size:11px}
+.note-item{background:var(--bg3);border:1px solid var(--border);border-radius:var(--r8);padding:10px;margin-top:8px}
+.note-head{display:flex;justify-content:space-between;align-items:center;font-size:11px;color:var(--txt2);font-family:var(--font-mono)}
+.note-body{font-size:12px;color:var(--txt1);margin-top:6px}
+.line-stack{display:flex;flex-direction:column;gap:10px}
+.line-card{background:var(--bg3);border:1px solid var(--border);border-radius:var(--r8);padding:10px}
+.line-row{display:flex;flex-direction:column;gap:5px;margin-bottom:8px}
+.line-row:last-child{margin-bottom:0}
+.line-row label{font-size:10px;color:var(--txt2);font-family:var(--font-mono)}
+.line-total{font-family:var(--font-mono);font-size:12px;color:var(--txt1)}
+.admin-grid{display:grid;grid-template-columns:2fr 1fr;gap:14px}
+.muted-note{font-size:11px;color:var(--txt2);font-family:var(--font-mono)}
+.metric-pill{font-size:11px;color:var(--txt1);font-family:var(--font-mono);padding:4px 8px;border:1px solid var(--border);border-radius:999px}
+/* tracking timeline */
+.tl-wrap{display:flex;flex-wrap:wrap;gap:0}
+.tl-item{display:flex;gap:12px;padding:6px 0;position:relative;flex:0 0 auto;min-width:140px}
+.tl-dot{width:10px;height:10px;border-radius:50%;background:var(--border2);flex-shrink:0;margin-top:3px;position:relative;z-index:1}
+.tl-dot.done{background:var(--green)}.tl-dot.act{background:var(--blue);box-shadow:0 0 0 3px var(--blue-dim)}.tl-dot.pend{background:var(--border2)}
+.tl-vline{position:absolute;left:4px;top:18px;bottom:-4px;width:2px;background:var(--border);z-index:0}
+.tl-label{font-size:11.5px;font-weight:500;margin-bottom:2px}
+.tl-sub{font-size:10px;color:var(--txt2);font-family:var(--font-mono)}
+.trk-card{background:var(--bg2);border:1px solid var(--border);border-radius:var(--r12);padding:18px;margin-bottom:14px}
+</style>
+</head>
+<body>
+
+<div id="sidebar">
+  <div class="logo"><div class="logo-icon">N</div><div><div class="logo-text">NexusERP</div><div class="logo-sub">v3.0 ENTERPRISE</div></div></div>
+  <nav>
+    <div class="nav-section">Core</div>
+    <div class="nav-item active" data-view="dashboard">
+      <svg class="nav-icon" viewBox="0 0 16 16" fill="none"><rect x="1" y="1" width="6" height="6" rx="1" fill="currentColor"/><rect x="9" y="1" width="6" height="6" rx="1" fill="currentColor" opacity=".6"/><rect x="1" y="9" width="6" height="6" rx="1" fill="currentColor" opacity=".6"/><rect x="9" y="9" width="6" height="6" rx="1" fill="currentColor" opacity=".4"/></svg>Overview
+    </div>
+    <div class="nav-item" data-view="customers">
+      <svg class="nav-icon" viewBox="0 0 16 16" fill="none"><circle cx="6" cy="5" r="3" fill="currentColor"/><path d="M1 13c0-2.76 2.24-5 5-5s5 2.24 5 5" stroke="currentColor" stroke-width="1.5" fill="none"/><circle cx="12" cy="5" r="2" fill="currentColor" opacity=".5"/><path d="M13 13c0-1.66-.89-3.11-2.2-3.87" stroke="currentColor" stroke-width="1.5" fill="none"/></svg>Customers
+    </div>
+    <div class="nav-section">Procurement</div>
+    <div class="nav-item" data-view="suppliers">
+      <svg class="nav-icon" viewBox="0 0 16 16" fill="none"><rect x="1" y="6" width="14" height="8" rx="1" stroke="currentColor" stroke-width="1.2" fill="none"/><path d="M4 6V4a4 4 0 0 1 8 0v2" stroke="currentColor" stroke-width="1.2" fill="none"/><circle cx="8" cy="10" r="1.5" fill="currentColor"/></svg>Suppliers
+    </div>
+    <div class="nav-item" data-view="products">
+      <svg class="nav-icon" viewBox="0 0 16 16" fill="none"><path d="M8 1L14 4.5V11.5L8 15L2 11.5V4.5Z" stroke="currentColor" stroke-width="1.2" fill="none"/><path d="M8 1v14M2 4.5l6 3.5 6-3.5" stroke="currentColor" stroke-width="1.2" fill="none"/></svg>Products &amp; Services
+    </div>
+    <div class="nav-section">Finance</div>
+    <div class="nav-item" data-view="invoices">
+      <svg class="nav-icon" viewBox="0 0 16 16" fill="none"><rect x="2" y="1" width="12" height="14" rx="1" stroke="currentColor" stroke-width="1.2" fill="none"/><line x1="5" y1="5" x2="11" y2="5" stroke="currentColor" stroke-width="1.2"/><line x1="5" y1="8" x2="11" y2="8" stroke="currentColor" stroke-width="1.2"/><line x1="5" y1="11" x2="8" y2="11" stroke="currentColor" stroke-width="1.2"/></svg>Invoices<span class="nav-badge">4</span>
+    </div>
+    <div class="nav-item" data-view="purchase-orders">
+      <svg class="nav-icon" viewBox="0 0 16 16" fill="none"><path d="M2 3h2l2 8h6l2-5H5" stroke="currentColor" stroke-width="1.2" fill="none" stroke-linejoin="round"/><circle cx="7" cy="13.5" r="1" fill="currentColor"/><circle cx="11" cy="13.5" r="1" fill="currentColor"/></svg>Purchase Orders
+    </div>
+    <div class="nav-item" data-view="statements">
+      <svg class="nav-icon" viewBox="0 0 16 16" fill="none"><rect x="1" y="2" width="14" height="12" rx="1" stroke="currentColor" stroke-width="1.2" fill="none"/><line x1="1" y1="6" x2="15" y2="6" stroke="currentColor" stroke-width="1.2"/><line x1="5" y1="9" x2="5" y2="12" stroke="currentColor" stroke-width="1.5"/><line x1="8" y1="8" x2="8" y2="12" stroke="currentColor" stroke-width="1.5"/><line x1="11" y1="10" x2="11" y2="12" stroke="currentColor" stroke-width="1.5"/></svg>Statements
+    </div>
+    <div class="nav-section">Insights</div>
+    <div class="nav-item" data-view="analytics">
+      <svg class="nav-icon" viewBox="0 0 16 16" fill="none"><path d="M1 12L5 7l3 3 4-5 2 2" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linejoin="round"/></svg>Analytics
+    </div>
+    <div class="nav-item" data-view="tracking">
+      <svg class="nav-icon" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="6" stroke="currentColor" stroke-width="1.2" fill="none"/><circle cx="8" cy="8" r="2" fill="currentColor"/><line x1="8" y1="2" x2="8" y2="4" stroke="currentColor" stroke-width="1.2"/><line x1="8" y1="12" x2="8" y2="14" stroke="currentColor" stroke-width="1.2"/><line x1="2" y1="8" x2="4" y2="8" stroke="currentColor" stroke-width="1.2"/><line x1="12" y1="8" x2="14" y2="8" stroke="currentColor" stroke-width="1.2"/></svg>Order Tracking
+    </div>
+    <div class="nav-item" data-view="settings">
+      <svg class="nav-icon" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="2.2" stroke="currentColor" stroke-width="1.2"/><path d="M8 1.5v2M8 12.5v2M1.5 8h2M12.5 8h2M3.1 3.1l1.4 1.4M11.5 11.5l1.4 1.4M12.9 3.1l-1.4 1.4M4.5 11.5l-1.4 1.4" stroke="currentColor" stroke-width="1.1"/></svg>Settings
+    </div>
+    <div class="nav-section" id="admin-nav-section">Administration</div>
+    <div class="nav-item" data-view="admin" id="admin-nav-item">
+      <svg class="nav-icon" viewBox="0 0 16 16" fill="none"><rect x="2" y="2" width="12" height="12" rx="2" stroke="currentColor" stroke-width="1.2" fill="none"/><path d="M8 4v8M4 8h8" stroke="currentColor" stroke-width="1.2"/></svg>Admin
+    </div>
+  </nav>
+  <div class="sidebar-footer"><div class="user-info" style="cursor:pointer" onclick="openProfileModal()"><div class="avatar" id="user-avatar">JD</div><div><div class="user-name" id="user-name">James Donaldson</div><div class="user-role" id="user-role">CFO &middot; Admin</div></div></div></div>
+</div>
+
+<div id="main">
+  <div class="topbar">
+    <div><div class="page-title" id="page-title">Overview</div><div class="page-subtitle" id="page-sub">Tuesday, 21 April 2026 &middot; FY2026 Q2</div></div>
+    <div class="topbar-right">
+      <button class="tb-btn" onclick="showNotifications()">
+        <svg width="13" height="13" viewBox="0 0 16 16" fill="none"><path d="M8 1a5 5 0 0 1 5 5v3l1.5 2.5h-13L3 9V6a5 5 0 0 1 5-5z" stroke="currentColor" stroke-width="1.3" fill="none"/><path d="M6.5 13.5a1.5 1.5 0 0 0 3 0" stroke="currentColor" stroke-width="1.3" fill="none"/></svg>
+        Alerts <div class="notif-dot"></div>
+      </button>
+      <button class="tb-btn" onclick="openProfileModal()">Profile</button>
+      <button class="tb-btn primary" id="action-btn" onclick="openCreateModal()">+ New Invoice</button>
+    </div>
+  </div>
+  <div class="content">
+
+<!-- ===== DASHBOARD VIEW ===== -->
+<div class="view active" id="view-dashboard">
+  <div class="kpi-grid">
+    <div class="kpi" style="--kpi-color:var(--green)"><div class="kpi-label">Total Revenue</div><div class="kpi-value">R3.42M</div><div class="kpi-meta"><span class="kpi-change up">&#8593; 14.8%</span><span class="kpi-period">vs last quarter</span></div></div>
+    <div class="kpi" style="--kpi-color:var(--blue)"><div class="kpi-label">Outstanding AR</div><div class="kpi-value">R614K</div><div class="kpi-meta"><span class="kpi-change dn">&#8593; 6.3%</span><span class="kpi-period">aged 30+ days</span></div></div>
+    <div class="kpi" style="--kpi-color:var(--amber)"><div class="kpi-label">Open POs</div><div class="kpi-value">R6.48M</div><div class="kpi-meta"><span class="kpi-change up">&#8595; 2.1%</span><span class="kpi-period">10 orders active</span></div></div>
+    <div class="kpi" style="--kpi-color:var(--purple)"><div class="kpi-label">Active Clients</div><div class="kpi-value">62</div><div class="kpi-meta"><span class="kpi-change up">&#8593; 8.3%</span><span class="kpi-period">+5 this quarter</span></div></div>
+  </div>
+  <div class="kpi-grid">
+    <div class="kpi" style="--kpi-color:var(--teal)"><div class="kpi-label">Active Suppliers</div><div class="kpi-value">12</div><div class="kpi-meta"><span class="kpi-change up">&#8593; 3</span><span class="kpi-period">this year</span></div></div>
+    <div class="kpi" style="--kpi-color:var(--orange)"><div class="kpi-label">Products Catalogued</div><div class="kpi-value">20</div><div class="kpi-meta"><span class="kpi-change up">&#8593; 5</span><span class="kpi-period">added this quarter</span></div></div>
+    <div class="kpi" style="--kpi-color:var(--blue)"><div class="kpi-label">Services Offered</div><div class="kpi-value">16</div><div class="kpi-meta"><span class="kpi-change up">&#8593; 2</span><span class="kpi-period">new services</span></div></div>
+    <div class="kpi" style="--kpi-color:var(--red)"><div class="kpi-label">Overdue Invoices</div><div class="kpi-value">R402K</div><div class="kpi-meta"><span class="kpi-change dn">&#8593; 11.2%</span><span class="kpi-period">3 invoices</span></div></div>
+  </div>
+  <div class="chart-grid">
+    <div class="card">
+      <div class="card-header"><div><div class="card-title">Revenue vs Collections</div><div class="card-sub">Monthly &middot; FY2026</div></div>
+      <div class="legend"><span><span class="legend-dot" style="background:#4f8ef7"></span>Revenue</span><span><span class="legend-dot" style="background:#22c55e"></span>Collected</span><span><span class="legend-dot" style="background:#f5a623"></span>Outstanding</span></div></div>
+      <div style="position:relative;height:220px"><canvas id="revChart"></canvas></div>
+    </div>
+    <div class="card">
+      <div class="card-header"><div><div class="card-title">Invoice Status</div><div class="card-sub">Current period</div></div></div>
+      <div style="position:relative;height:160px;margin-bottom:12px"><canvas id="donutChart"></canvas></div>
+      <div class="legend" style="justify-content:center"><span><span class="legend-dot" style="background:#22c55e"></span>Paid</span><span><span class="legend-dot" style="background:#f5a623"></span>Pending</span><span><span class="legend-dot" style="background:#ef4444"></span>Overdue</span><span><span class="legend-dot" style="background:#3a4a6a"></span>Draft</span></div>
+    </div>
+  </div>
+  <div class="chart-grid">
+    <div class="card"><div class="card-header"><div class="card-title">Top Clients by Revenue</div></div><div id="top-cust-bars"></div></div>
+    <div class="card"><div class="card-header"><div class="card-title">Recent Activity</div><span class="card-action">View all &rarr;</span></div><div id="activity-feed"></div></div>
+  </div>
+</div>
+
+<!-- ===== CUSTOMERS VIEW ===== -->
+<div class="view" id="view-customers">
+  <div class="toolbar">
+    <input class="search-input" type="text" placeholder="Search customers..." id="cust-search" oninput="filterTable('cust-tbody','cust-search')">
+    <select class="filter-sel" onchange="filterByAttr('cust-tbody',this,'data-seg')">
+      <option value="">All Sectors</option><option>Mining</option><option>Engineering</option><option>Construction</option>
+    </select>
+    <button class="tb-btn primary" onclick="openModal('modal-customer')">+ Add Customer</button>
+  </div>
+  <div class="card" style="padding:0"><div class="table-wrap"><table>
+    <thead><tr><th>Customer</th><th>Sector</th><th>Contact</th><th>Credit Limit</th><th>Balance</th><th>Status</th><th>Actions</th></tr></thead>
+    <tbody id="cust-tbody"></tbody>
+  </table></div></div>
+</div>
+
+<!-- ===== SUPPLIERS VIEW ===== -->
+<div class="view" id="view-suppliers">
+  <div class="toolbar">
+    <input class="search-input" type="text" placeholder="Search suppliers..." id="sup-search" oninput="filterTable('sup-tbody','sup-search')">
+    <select class="filter-sel" onchange="filterByAttr('sup-tbody',this,'data-cat')">
+      <option value="">All Categories</option><option>Mining Equipment</option><option>Steel &amp; Metals</option><option>Safety &amp; PPE</option><option>Civil Materials</option><option>Electrical</option><option>Chemicals</option><option>Tools &amp; Hardware</option>
+    </select>
+    <button class="tb-btn primary" onclick="openModal('modal-supplier')">+ Add Supplier</button>
+  </div>
+  <div class="card" style="padding:0"><div class="table-wrap"><table>
+    <thead><tr><th>Supplier</th><th>Category</th><th>Contact</th><th>Lead Time</th><th>Total POs</th><th>YTD Spend</th><th>Status</th><th>Actions</th></tr></thead>
+    <tbody id="sup-tbody"></tbody>
+  </table></div></div>
+</div>
+
+<!-- ===== PRODUCTS & SERVICES VIEW ===== -->
+<div class="view" id="view-products">
+  <div class="tabs"><div class="tab active" onclick="switchCatTab('products',this)">Products</div><div class="tab" onclick="switchCatTab('services',this)">Services</div></div>
+  <div id="cat-products">
+    <div class="toolbar">
+      <input class="search-input" type="text" placeholder="Search products..." id="prod-search" oninput="filterCat('products')">
+      <select class="filter-sel" id="prod-cat-filter" onchange="filterCat('products')">
+        <option value="">All Categories</option><option>Mining Equipment</option><option>Steel &amp; Structural</option><option>Safety &amp; PPE</option><option>Civil Materials</option><option>Electrical</option><option>Chemicals &amp; Reagents</option><option>Tools &amp; Hardware</option>
+      </select>
+      <button class="tb-btn primary" onclick="openModal('modal-product')">+ Add Product</button>
+    </div>
+    <div class="card" style="padding:0"><div class="table-wrap"><table>
+      <thead><tr><th>SKU</th><th>Product Name</th><th>Category</th><th>Supplier</th><th>Unit Price</th><th>Unit</th><th>Stock</th><th>Status</th><th>Actions</th></tr></thead>
+      <tbody id="prod-tbody"></tbody>
+    </table></div></div>
+  </div>
+  <div id="cat-services" style="display:none">
+    <div class="toolbar">
+      <input class="search-input" type="text" placeholder="Search services..." id="svc-search" oninput="filterCat('services')">
+      <select class="filter-sel" id="svc-cat-filter" onchange="filterCat('services')">
+        <option value="">All Categories</option><option>Engineering</option><option>Mining Operations</option><option>Construction</option><option>Inspections &amp; Testing</option><option>Maintenance</option><option>Consulting</option>
+      </select>
+      <button class="tb-btn primary" onclick="openModal('modal-service')">+ Add Service</button>
+    </div>
+    <div class="card" style="padding:0"><div class="table-wrap"><table>
+      <thead><tr><th>Code</th><th>Service Name</th><th>Category</th><th>Rate Type</th><th>Rate</th><th>Unit</th><th>Lead Time</th><th>Status</th><th>Actions</th></tr></thead>
+      <tbody id="svc-tbody"></tbody>
+    </table></div></div>
+  </div>
+</div>
+
+<!-- ===== INVOICES VIEW ===== -->
+<div class="view" id="view-invoices">
+  <div class="toolbar">
+    <input class="search-input" type="text" placeholder="Search invoices..." id="inv-search" oninput="filterTable('inv-tbody','inv-search')">
+    <select class="filter-sel" onchange="filterByAttr('inv-tbody',this,'data-status')">
+      <option value="">All Status</option><option>Done</option><option>Paid</option><option>Pending</option><option>Overdue</option><option>Draft</option><option>Partial</option>
+    </select>
+    <button class="tb-btn primary" onclick="openModal('modal-invoice')">+ New Invoice</button>
+  </div>
+  <div class="card" style="padding:0"><div class="table-wrap"><table>
+    <thead><tr><th>Invoice #</th><th>Customer</th><th>Issued</th><th>Due</th><th>Amount</th><th>Paid</th><th>Balance</th><th>Status</th><th>Actions</th></tr></thead>
+    <tbody id="inv-tbody"></tbody>
+  </table></div></div>
+</div>
+
+<!-- ===== PURCHASE ORDERS VIEW ===== -->
+<div class="view" id="view-purchase-orders">
+  <div class="toolbar">
+    <input class="search-input" type="text" placeholder="Search POs..." id="po-search" oninput="filterTable('po-tbody','po-search')">
+    <select class="filter-sel" onchange="filterByAttr('po-tbody',this,'data-status')">
+      <option value="">All Status</option><option>Done</option><option>Approved</option><option>Pending</option><option>Received</option><option>Draft</option><option>Partial</option>
+    </select>
+    <button class="tb-btn primary" onclick="openModal('modal-po')">+ New PO</button>
+  </div>
+  <div class="card" style="padding:0"><div class="table-wrap"><table>
+    <thead><tr><th>PO Number</th><th>Supplier</th><th>Ordered</th><th>Expected</th><th>Total Value</th><th>Received</th><th>Status</th><th>Actions</th></tr></thead>
+    <tbody id="po-tbody"></tbody>
+  </table></div></div>
+</div>
+
+<!-- ===== STATEMENTS VIEW ===== -->
+<div class="view" id="view-statements">
+  <div class="toolbar">
+    <select class="filter-sel" style="width:240px" id="stmt-cust"><option>All Customers</option></select>
+    <select class="filter-sel"><option>April 2026</option><option>March 2026</option><option>February 2026</option><option>Q1 2026</option></select>
+    <button class="tb-btn primary" onclick="exportStatements()">Export PDF</button>
+    <button class="tb-btn" onclick="sendStatements()">Send Statement</button>
+  </div>
+  <div class="grid-2">
+    <div class="detail-panel">
+      <div style="font-size:13px;font-weight:600;margin-bottom:12px">Account Summary</div>
+      <div class="detail-row"><span class="detail-label">Opening Balance</span><span class="amount">R84,320.00</span></div>
+      <div class="detail-row"><span class="detail-label">Total Invoiced</span><span class="amount">R218,450.00</span></div>
+      <div class="detail-row"><span class="detail-label">Payments Received</span><span class="amount positive">-R124,680.00</span></div>
+      <div class="detail-row"><span class="detail-label">Credit Notes</span><span class="amount positive">-R8,400.00</span></div>
+      <div class="detail-row" style="border-top:1px solid var(--border2);margin-top:4px;padding-top:10px">
+        <span style="font-weight:600;font-size:13px">Closing Balance</span><span class="amount" style="font-size:16px;color:var(--amber)">R169,690.00</span>
+      </div>
+    </div>
+    <div class="detail-panel">
+      <div style="font-size:13px;font-weight:600;margin-bottom:12px">Ageing Analysis</div>
+      <div style="margin-bottom:10px"><div style="display:flex;justify-content:space-between;font-size:12px;margin-bottom:4px"><span class="detail-label">Current (0-30 days)</span><span class="amount positive">R62,400.00</span></div><div class="progress-bar"><div class="progress-fill" style="width:37%;background:var(--green)"></div></div></div>
+      <div style="margin-bottom:10px"><div style="display:flex;justify-content:space-between;font-size:12px;margin-bottom:4px"><span class="detail-label">31-60 days</span><span class="amount" style="color:var(--amber)">R44,200.00</span></div><div class="progress-bar"><div class="progress-fill" style="width:26%;background:var(--amber)"></div></div></div>
+      <div style="margin-bottom:10px"><div style="display:flex;justify-content:space-between;font-size:12px;margin-bottom:4px"><span class="detail-label">61-90 days</span><span class="amount negative">R36,090.00</span></div><div class="progress-bar"><div class="progress-fill" style="width:21%;background:var(--red)"></div></div></div>
+      <div><div style="display:flex;justify-content:space-between;font-size:12px;margin-bottom:4px"><span class="detail-label">90+ days</span><span class="amount negative">R27,000.00</span></div><div class="progress-bar"><div class="progress-fill" style="width:16%;background:#7c0000"></div></div></div>
+    </div>
+  </div>
+  <div class="card" style="padding:0">
+    <div class="card-header" style="padding:14px 16px 0"><div class="card-title">Transaction History</div></div>
+    <div class="table-wrap"><table>
+      <thead><tr><th>Date</th><th>Reference</th><th>Description</th><th>Debit</th><th>Credit</th><th>Balance</th><th>Status</th><th>Actions</th></tr></thead>
+      <tbody id="stmt-tbody"></tbody>
+    </table></div>
+  </div>
+</div>
+
+<!-- ===== ANALYTICS VIEW ===== -->
+<div class="view" id="view-analytics">
+  <div class="toolbar" style="justify-content:space-between;margin-bottom:10px">
+    <div style="font-size:11px;color:var(--txt2);font-family:var(--font-mono)">Data feed: <span id="analytics-status">Ready</span></div>
+    <button class="tb-btn" onclick="refreshChartsFromAjax()">&#8635; Refresh</button>
+  </div>
+  <div class="analytics-kpi">
+    <div class="stat-chip"><div class="stat-chip-lbl">Monthly Revenue</div><div class="stat-chip-val" style="color:var(--green)">R1.14M</div><div style="font-size:11px;color:var(--txt2);margin-top:4px;font-family:var(--font-mono)">&#8593; 9.6% MoM</div></div>
+    <div class="stat-chip"><div class="stat-chip-lbl">Avg Invoice Value</div><div class="stat-chip-val" style="color:var(--blue)">R310K</div><div style="font-size:11px;color:var(--txt2);margin-top:4px;font-family:var(--font-mono)">&#8593; 3.4% MoM</div></div>
+    <div class="stat-chip"><div class="stat-chip-lbl">Collection Rate</div><div class="stat-chip-val" style="color:var(--amber)">84.7%</div><div style="font-size:11px;color:var(--txt2);margin-top:4px;font-family:var(--font-mono)">&#8595; 1.2% MoM</div></div>
+    <div class="stat-chip"><div class="stat-chip-lbl">Days Sales Outstanding</div><div class="stat-chip-val" style="color:var(--purple)">38.2</div><div style="font-size:11px;color:var(--txt2);margin-top:4px;font-family:var(--font-mono)">&#8593; 1.8 days</div></div>
+    <div class="stat-chip"><div class="stat-chip-lbl">Overdue Invoices</div><div class="stat-chip-val" style="color:var(--red)">3</div><div style="font-size:11px;color:var(--txt2);margin-top:4px;font-family:var(--font-mono)">R402,000 at risk</div></div>
+    <div class="stat-chip"><div class="stat-chip-lbl">Supplier Spend YTD</div><div class="stat-chip-val" style="color:var(--teal)">R4.2M</div><div style="font-size:11px;color:var(--txt2);margin-top:4px;font-family:var(--font-mono)">10 active POs</div></div>
+    <div class="stat-chip"><div class="stat-chip-lbl">Top Sector</div><div class="stat-chip-val" style="color:var(--orange)">Mining</div><div style="font-size:11px;color:var(--txt2);margin-top:4px;font-family:var(--font-mono)">44% of revenue</div></div>
+    <div class="stat-chip"><div class="stat-chip-lbl">New Clients MTD</div><div class="stat-chip-val" style="color:var(--blue)">4</div><div style="font-size:11px;color:var(--txt2);margin-top:4px;font-family:var(--font-mono)">Target: 6/mo</div></div>
+  </div>
+  <div class="chart-grid" style="margin-bottom:14px">
+    <div class="card"><div class="card-header"><div><div class="card-title">Quarterly Revenue by Sector</div><div class="card-sub">8 quarters &middot; Mining / Engineering / Construction</div></div></div><div style="position:relative;height:230px"><canvas id="stackedBar"></canvas></div></div>
+    <div class="card"><div class="card-header"><div><div class="card-title">Revenue by Category</div><div class="card-sub">FY2026 breakdown</div></div></div>
+      <div style="position:relative;height:175px"><canvas id="catPie"></canvas></div>
+      <div class="legend" style="justify-content:center;margin-top:8px"><span><span class="legend-dot" style="background:#4f8ef7"></span>Services 44%</span><span><span class="legend-dot" style="background:#22c55e"></span>Products 36%</span><span><span class="legend-dot" style="background:#f5a623"></span>Contracts 14%</span><span><span class="legend-dot" style="background:#a855f7"></span>Retainer 6%</span></div>
+    </div>
+  </div>
+  <div class="chart-grid-3">
+    <div class="card"><div class="card-header"><div class="card-title">Cash Flow</div><div class="card-sub">Inflow vs outflow 2026</div></div><div style="position:relative;height:180px"><canvas id="cashFlow"></canvas></div></div>
+    <div class="card"><div class="card-header"><div class="card-title">Supplier Spend by Category</div><div class="card-sub">YTD distribution</div></div><div style="position:relative;height:180px"><canvas id="supSpend"></canvas></div></div>
+    <div class="card"><div class="card-header"><div class="card-title">Top Clients &ndash; Revenue</div><div class="card-sub">Current quarter</div></div><div id="top-cust-bars2" style="padding-top:4px"></div></div>
+  </div>
+</div>
+
+<!-- ===== TRACKING VIEW ===== -->
+<div class="view" id="view-tracking">
+  <div class="toolbar">
+    <input class="search-input" type="text" placeholder="Search by ref / description..." id="track-search" oninput="filterTracking()">
+    <select class="filter-sel" id="track-type" onchange="filterTracking()"><option value="">All Types</option><option value="PO">Purchase Orders</option><option value="INV">Invoices</option></select>
+    <select class="filter-sel" id="track-status" onchange="filterTracking()"><option value="">All Status</option><option>In Transit</option><option>At Customs</option><option>Delivered</option><option>Processing</option><option>Awaiting Payment</option></select>
+  </div>
+  <div id="tracking-list"></div>
+</div>
+
+<!-- ===== ADMIN VIEW ===== -->
+<div class="view" id="view-admin">
+  <div class="admin-grid">
+    <div class="card" style="padding:0">
+      <div class="card-header" style="padding:14px 16px 0">
+        <div><div class="card-title">User Management</div><div class="card-sub">Manage access, roles and status</div></div>
+        <button class="tb-btn primary" onclick="openModal('modal-admin-user')">+ Add User</button>
+      </div>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Name</th><th>Email</th><th>Role</th><th>Status</th><th>Last Login</th><th>Actions</th></tr></thead>
+          <tbody id="admin-users-tbody"></tbody>
+        </table>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-title">System Controls</div>
+      <div class="muted-note" style="margin-top:4px;margin-bottom:12px">Session/cookie simulation for realistic app behavior.</div>
+      <div class="detail-row"><span class="detail-label">Current Session</span><span id="session-status">Inactive</span></div>
+      <div class="detail-row"><span class="detail-label">Data Persistence</span><span>Session Storage + Cookie</span></div>
+      <div class="detail-row"><span class="detail-label">Current User</span><span id="admin-current-user">N/A</span></div>
+      <div style="display:flex;gap:8px;margin-top:14px">
+        <button class="tb-btn" onclick="resetSessionData()">Reset Session</button>
+        <button class="tb-btn" onclick="logoutUser()">Log Out</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== SETTINGS VIEW ===== -->
+<div class="view" id="view-settings">
+  <div class="admin-grid">
+    <div class="card">
+      <div class="card-title">Application Settings</div>
+      <div class="muted-note" style="margin-top:4px;margin-bottom:12px">Demo environment controls.</div>
+      <div class="detail-row"><span class="detail-label">Tracking Updates</span><span>Enabled</span></div>
+      <div class="detail-row"><span class="detail-label">Session Persistence</span><span>Cookie + Session Storage</span></div>
+      <div class="detail-row"><span class="detail-label">Role Access</span><span id="settings-role-access">Finance/Manager/Admin</span></div>
+      <div style="display:flex;gap:8px;margin-top:14px">
+        <button class="tb-btn" onclick="openView('admin')">Open Admin</button>
+        <button class="tb-btn" onclick="refreshChartsFromAjax()">Refresh Analytics Feed</button>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-title">Tracking Controls</div>
+      <div class="muted-note" style="margin-top:4px;margin-bottom:12px">Quick actions for logistics timelines.</div>
+      <div style="display:flex;flex-direction:column;gap:8px">
+        <button class="tb-btn" onclick="openView('tracking')">View Tracking Board</button>
+        <button class="tb-btn" onclick="openTrackingUpdateForFirst()">Update First Tracking Item</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+  </div><!-- /content -->
+</div><!-- /main -->
+
+<!-- ===== INVOICE MODAL ===== -->
+<div class="modal-overlay" id="modal-invoice" onclick="closeModalOutside(event,'modal-invoice')">
+  <div class="modal modal-wide">
+    <div class="modal-title">New Invoice</div><div class="modal-sub">Create invoice with products and services as line items</div>
+    <div class="form-grid">
+      <div class="form-group full"><label>Customer *</label><select id="inv-customer"></select></div>
+      <div class="form-group"><label>Invoice Date *</label><input type="date" id="inv-issued" value="2026-04-21"></div>
+      <div class="form-group"><label>Due Date *</label><input type="date" id="inv-due" value="2026-05-21"></div>
+      <div class="form-group"><label>Payment Terms</label><select id="inv-terms"><option>Net 30</option><option>Net 60</option><option>Net 14</option><option>Due on Receipt</option></select></div>
+      <div class="form-group"><label>Project Reference</label><input type="text" id="inv-ref" placeholder="e.g. PROJ-2026-042"></div>
+    </div>
+    <div style="margin-top:14px">
+      <div style="font-size:11px;color:var(--txt2);font-family:var(--font-mono);letter-spacing:.3px;margin-bottom:8px">LINE ITEMS</div>
+      <div id="inv-lines-body" class="line-stack"></div>
+      <button class="add-line" onclick="addInvLine()">+ Add Line Item</button>
+    </div>
+    <div class="form-grid" style="margin-top:12px">
+      <div class="form-group"><label>VAT Rate (%)</label><input type="number" id="inv-tax" value="15" oninput="updateInvTotals()"></div>
+      <div class="form-group"><label>Discount (%)</label><input type="number" id="inv-discount" value="0" oninput="updateInvTotals()"></div>
+      <div class="form-group full"><label>Notes</label><textarea id="inv-desc" placeholder="Payment instructions, site notes..."></textarea></div>
+    </div>
+    <div class="totals-bar">
+      <div class="total-item"><div class="total-lbl">Subtotal</div><div class="amount" id="inv-calc-sub">R0.00</div></div>
+      <div class="total-item"><div class="total-lbl">VAT</div><div class="amount" id="inv-calc-vat">R0.00</div></div>
+      <div class="total-item"><div class="total-lbl">Total</div><div class="amount" style="font-size:16px;color:var(--blue)" id="inv-calc-total">R0.00</div></div>
+    </div>
+    <div class="modal-actions"><button class="btn" onclick="closeModal('modal-invoice')">Cancel</button><button class="btn" onclick="saveDraft()">Save Draft</button><button class="btn-primary btn" onclick="createInvoiceFromForm()">Create Invoice</button></div>
+  </div>
+</div>
+
+<!-- ===== CUSTOMER MODAL ===== -->
+<div class="modal-overlay" id="modal-customer" onclick="closeModalOutside(event,'modal-customer')">
+  <div class="modal"><div class="modal-title">Add Customer</div><div class="modal-sub">Register a new client account</div>
+    <div class="form-grid">
+      <div class="form-group full"><label>Company Name *</label><input type="text" id="cust-name" placeholder="e.g. Kumba Iron Ore Ltd"></div>
+      <div class="form-group"><label>Contact Name</label><input type="text" id="cust-contact" placeholder="Full name"></div>
+      <div class="form-group"><label>Email</label><input type="email" id="cust-email" placeholder="billing@company.com"></div>
+      <div class="form-group"><label>Phone</label><input type="text" id="cust-phone" placeholder="+27 82 000 0000"></div>
+      <div class="form-group"><label>Industry Sector</label><select id="cust-segment"><option>Mining</option><option>Engineering</option><option>Construction</option></select></div>
+      <div class="form-group"><label>Credit Limit (R)</label><input type="number" id="cust-credit" placeholder="500000"></div>
+      <div class="form-group"><label>Payment Terms</label><select id="cust-terms"><option>Net 30</option><option>Net 60</option><option>Net 14</option></select></div>
+      <div class="form-group"><label>VAT Number</label><input type="text" id="cust-tax" placeholder="VAT4012345678"></div>
+      <div class="form-group full"><label>Billing Address</label><textarea id="cust-address" placeholder="Street, City, Province, ZIP"></textarea></div>
+    </div>
+    <div class="modal-actions"><button class="btn" onclick="closeModal('modal-customer')">Cancel</button><button class="btn-primary btn" onclick="createCustomerFromForm()">Add Customer</button></div>
+  </div>
+</div>
+
+<!-- ===== SUPPLIER MODAL ===== -->
+<div class="modal-overlay" id="modal-supplier" onclick="closeModalOutside(event,'modal-supplier')">
+  <div class="modal"><div class="modal-title">Add Supplier</div><div class="modal-sub">Register a new supply partner</div>
+    <div class="form-grid">
+      <div class="form-group full"><label>Company Name *</label><input type="text" id="sup-name" placeholder="e.g. Atlas Copco SA (Pty) Ltd"></div>
+      <div class="form-group"><label>Category *</label><select id="sup-category"><option>Mining Equipment</option><option>Steel &amp; Metals</option><option>Safety &amp; PPE</option><option>Civil Materials</option><option>Electrical</option><option>Chemicals</option><option>Tools &amp; Hardware</option></select></div>
+      <div class="form-group"><label>Contact Name</label><input type="text" id="sup-contact" placeholder="Full name"></div>
+      <div class="form-group"><label>Email</label><input type="email" id="sup-email" placeholder="orders@supplier.com"></div>
+      <div class="form-group"><label>Phone</label><input type="text" id="sup-phone" placeholder="+27 11 000 0000"></div>
+      <div class="form-group"><label>Lead Time (days)</label><input type="number" id="sup-lead" placeholder="14"></div>
+      <div class="form-group"><label>Payment Terms</label><select id="sup-terms"><option>Net 30</option><option>Net 60</option><option>COD</option><option>Prepaid</option></select></div>
+      <div class="form-group"><label>VAT Number</label><input type="text" id="sup-vat" placeholder="VAT4012345678"></div>
+      <div class="form-group full"><label>Address</label><textarea id="sup-address" placeholder="Street, City, Province"></textarea></div>
+    </div>
+    <div class="modal-actions"><button class="btn" onclick="closeModal('modal-supplier')">Cancel</button><button class="btn-primary btn" onclick="createSupplierFromForm()">Add Supplier</button></div>
+  </div>
+</div>
+
+<!-- ===== PRODUCT MODAL ===== -->
+<div class="modal-overlay" id="modal-product" onclick="closeModalOutside(event,'modal-product')">
+  <div class="modal"><div class="modal-title">Add Product</div><div class="modal-sub">Add a product to the catalogue &ndash; link it to a supplier</div>
+    <div class="form-grid">
+      <div class="form-group full"><label>Product Name *</label><input type="text" id="prod-name" placeholder="e.g. Tungsten Carbide Drill Bit 95mm"></div>
+      <div class="form-group"><label>SKU</label><input type="text" id="prod-sku" placeholder="Auto-generated if blank"></div>
+      <div class="form-group"><label>Category *</label><select id="prod-category"><option>Mining Equipment</option><option>Steel &amp; Structural</option><option>Safety &amp; PPE</option><option>Civil Materials</option><option>Electrical</option><option>Chemicals &amp; Reagents</option><option>Tools &amp; Hardware</option></select></div>
+      <div class="form-group"><label>Linked Supplier *</label><select id="prod-supplier"></select></div>
+      <div class="form-group"><label>Unit Price (R) *</label><input type="number" id="prod-price" placeholder="0.00"></div>
+      <div class="form-group"><label>Unit of Measure</label><select id="prod-unit"><option>Each</option><option>Box</option><option>Tonne</option><option>kg</option><option>L</option><option>m</option><option>m2</option><option>m3</option><option>Set</option></select></div>
+      <div class="form-group"><label>Stock on Hand</label><input type="number" id="prod-stock" placeholder="0"></div>
+      <div class="form-group"><label>Reorder Level</label><input type="number" id="prod-reorder" placeholder="10"></div>
+      <div class="form-group full"><label>Description / Specifications</label><textarea id="prod-desc" placeholder="Technical specs, certifications, SANS standards..."></textarea></div>
+    </div>
+    <div class="modal-actions"><button class="btn" onclick="closeModal('modal-product')">Cancel</button><button class="btn-primary btn" onclick="createProductFromForm()">Add Product</button></div>
+  </div>
+</div>
+
+<!-- ===== SERVICE MODAL ===== -->
+<div class="modal-overlay" id="modal-service" onclick="closeModalOutside(event,'modal-service')">
+  <div class="modal"><div class="modal-title">Add Service</div><div class="modal-sub">Add a service to the catalogue with pricing rate</div>
+    <div class="form-grid">
+      <div class="form-group full"><label>Service Name *</label><input type="text" id="svc-name" placeholder="e.g. Structural Welding &amp; Fabrication"></div>
+      <div class="form-group"><label>Service Code</label><input type="text" id="svc-code" placeholder="Auto-generated if blank"></div>
+      <div class="form-group"><label>Category *</label><select id="svc-category"><option>Engineering</option><option>Mining Operations</option><option>Construction</option><option>Inspections &amp; Testing</option><option>Maintenance</option><option>Consulting</option></select></div>
+      <div class="form-group"><label>Rate Type</label><select id="svc-rate-type"><option>Hourly</option><option>Daily</option><option>Per m2</option><option>Per m</option><option>Per Tonne</option><option>Fixed</option><option>Monthly Retainer</option></select></div>
+      <div class="form-group"><label>Rate (R) *</label><input type="number" id="svc-rate" placeholder="0.00"></div>
+      <div class="form-group"><label>Lead Time</label><input type="text" id="svc-lead" placeholder="e.g. 5 days"></div>
+      <div class="form-group full"><label>Description / Scope</label><textarea id="svc-desc" placeholder="Scope of work, deliverables, certifications required..."></textarea></div>
+    </div>
+    <div class="modal-actions"><button class="btn" onclick="closeModal('modal-service')">Cancel</button><button class="btn-primary btn" onclick="createServiceFromForm()">Add Service</button></div>
+  </div>
+</div>
+
+<!-- ===== PO MODAL ===== -->
+<div class="modal-overlay" id="modal-po" onclick="closeModalOutside(event,'modal-po')">
+  <div class="modal modal-wide" style="width:700px"><div class="modal-title">New Purchase Order</div><div class="modal-sub">Linked to supplier and product catalogue</div>
+    <div class="form-grid">
+      <div class="form-group full"><label>Supplier *</label><select id="po-supplier" onchange="loadSupplierProducts()"></select></div>
+      <div class="form-group"><label>Order Date</label><input type="date" id="po-ordered" value="2026-04-21"></div>
+      <div class="form-group"><label>Expected Delivery</label><input type="date" id="po-expected" value="2026-05-10"></div>
+      <div class="form-group"><label>Delivery Site</label><select id="po-warehouse"><option>Main Yard - Johannesburg</option><option>Site Office - Kathu</option><option>Workshop - Rustenburg</option><option>Depot - Richards Bay</option></select></div>
+      <div class="form-group"><label>Priority</label><select id="po-priority"><option>Normal</option><option>Urgent</option><option>Low</option></select></div>
+    </div>
+    <div style="margin-top:14px">
+      <div style="font-size:11px;color:var(--txt2);font-family:var(--font-mono);letter-spacing:.3px;margin-bottom:8px">ORDER ITEMS (Products from selected supplier)</div>
+      <table class="lit"><thead><tr><th style="min-width:200px">Product</th><th>Description</th><th>Qty</th><th>Unit Price (R)</th><th>Total (R)</th><th></th></tr></thead><tbody id="po-lines-body"></tbody></table>
+      <button class="add-line" onclick="addPOLine()">+ Add Product</button>
+    </div>
+    <div class="form-grid" style="margin-top:12px"><div class="form-group full"><label>Delivery Instructions</label><textarea id="po-notes" placeholder="Site contact, access hours, special handling..."></textarea></div></div>
+    <div class="totals-bar">
+      <div class="total-item"><div class="total-lbl">Subtotal</div><div class="amount" id="po-calc-sub">R0.00</div></div>
+      <div class="total-item"><div class="total-lbl">VAT (15%)</div><div class="amount" id="po-calc-vat">R0.00</div></div>
+      <div class="total-item"><div class="total-lbl">Total</div><div class="amount" style="font-size:16px;color:var(--amber)" id="po-calc-total">R0.00</div></div>
+    </div>
+    <div class="modal-actions"><button class="btn" onclick="closeModal('modal-po')">Cancel</button><button class="btn-primary btn" onclick="createPOFromForm()">Create PO</button></div>
+  </div>
+</div>
+
+<!-- NOTIFICATIONS -->
+<div class="modal-overlay" id="modal-notify" onclick="closeModal('modal-notify')">
+  <div class="modal" style="max-width:400px"><div class="modal-title">Alerts &amp; Notifications</div><div class="modal-sub" style="margin-bottom:12px">Items requiring attention</div>
+    <div id="notif-list"></div>
+    <div class="modal-actions"><button class="btn-primary btn" onclick="closeModal('modal-notify')">Dismiss All</button></div>
+  </div>
+</div>
+
+<!-- DETAIL -->
+<div class="modal-overlay" id="modal-detail" onclick="closeModalOutside(event,'modal-detail')">
+  <div class="modal" style="max-width:700px">
+    <div class="modal-title" id="detail-title">Record Details</div><div class="modal-sub" id="detail-sub"></div>
+    <div id="detail-body"></div>
+    <div class="modal-actions"><button class="btn-primary btn" onclick="closeModal('modal-detail')">Close</button></div>
+  </div>
+</div>
+
+<div class="modal-overlay" id="modal-profile" onclick="closeModalOutside(event,'modal-profile')">
+  <div class="modal">
+    <div class="modal-title">User Profile</div>
+    <div class="modal-sub">Manage your session and account details</div>
+    <div class="form-grid">
+      <div class="form-group"><label>Full Name</label><input type="text" id="profile-name"></div>
+      <div class="form-group"><label>Email</label><input type="email" id="profile-email"></div>
+      <div class="form-group"><label>Role</label><select id="profile-role"><option>Admin</option><option>Manager</option><option>Finance</option></select></div>
+      <div class="form-group"><label>Job Title</label><input type="text" id="profile-title"></div>
+      <div class="form-group full"><label>Password (demo)</label><input type="text" id="profile-password" placeholder="Enter new password"></div>
+    </div>
+    <div class="modal-actions">
+      <button class="btn" onclick="closeModal('modal-profile')">Cancel</button>
+      <button class="btn" onclick="logoutUser()">Log Out</button>
+      <button class="btn-primary btn" onclick="saveProfile()">Save Profile</button>
+    </div>
+  </div>
+</div>
+
+<div class="modal-overlay" id="modal-admin-user" onclick="closeModalOutside(event,'modal-admin-user')">
+  <div class="modal">
+    <div class="modal-title">Admin User</div>
+    <div class="modal-sub">Create or edit user access</div>
+    <div class="form-grid">
+      <div class="form-group"><label>Full Name</label><input type="text" id="admin-user-name"></div>
+      <div class="form-group"><label>Email</label><input type="email" id="admin-user-email"></div>
+      <div class="form-group"><label>Role</label><select id="admin-user-role"><option>Admin</option><option>Manager</option><option>Finance</option></select></div>
+      <div class="form-group"><label>Status</label><select id="admin-user-status"><option>Active</option><option>Inactive</option></select></div>
+    </div>
+    <div class="modal-actions">
+      <button class="btn" onclick="closeModal('modal-admin-user')">Cancel</button>
+      <button class="btn-primary btn" onclick="saveAdminUserFromForm()">Save User</button>
+    </div>
+  </div>
+</div>
+
+<div class="modal-overlay" id="modal-login">
+  <div class="modal" style="max-width:460px">
+    <div class="modal-title">Login</div>
+    <div class="modal-sub">Sign in to NexusERP session</div>
+    <div class="form-grid">
+      <div class="form-group full"><label>Email</label><input type="email" id="login-email" placeholder="admin@nexuserp.co.za"></div>
+      <div class="form-group full"><label>Password</label><input type="text" id="login-password" placeholder="••••••••"></div>
+      <div class="form-group full"><label>Role</label><select id="login-role"><option>Admin</option><option>Manager</option><option>Finance</option></select></div>
+    </div>
+    <div class="modal-actions">
+      <button class="btn-primary btn" onclick="loginUser()">Login</button>
+    </div>
+  </div>
+</div>
+
+<div class="modal-overlay" id="modal-invoice-payment" onclick="closeModalOutside(event,'modal-invoice-payment')">
+  <div class="modal">
+    <div class="modal-title">Record Invoice Payment</div>
+    <div class="modal-sub" id="inv-pay-sub">Apply payment to invoice</div>
+    <input type="hidden" id="inv-pay-id">
+    <div class="detail-panel" style="margin-bottom:10px">
+      <div class="detail-row"><span class="detail-label">Invoice</span><span id="inv-pay-ref">-</span></div>
+      <div class="detail-row"><span class="detail-label">Customer</span><span id="inv-pay-customer">-</span></div>
+      <div class="detail-row"><span class="detail-label">Amount</span><span class="amount" id="inv-pay-total">R0.00</span></div>
+      <div class="detail-row"><span class="detail-label">Already Paid</span><span class="amount positive" id="inv-pay-paid">R0.00</span></div>
+      <div class="detail-row"><span class="detail-label">Remaining</span><span class="amount negative" id="inv-pay-remaining">R0.00</span></div>
+    </div>
+    <div class="form-grid">
+      <div class="form-group"><label>Payment Mode</label><select id="inv-pay-mode" onchange="syncInvoicePaymentAmount()"><option value="partial">Partial</option><option value="full">Pay In Full</option></select></div>
+      <div class="form-group"><label>Payment Amount (R)</label><input type="number" id="inv-pay-amount" min="0" step="0.01"></div>
+      <div class="form-group full"><label>Payment Note</label><input type="text" id="inv-pay-note" placeholder="e.g. EFT Batch APR-21"></div>
+    </div>
+    <div class="modal-actions">
+      <button class="btn" onclick="closeModal('modal-invoice-payment')">Cancel</button>
+      <button class="btn-primary btn" onclick="applyInvoicePayment()">Apply Payment</button>
+    </div>
+  </div>
+</div>
+
+<div class="modal-overlay" id="modal-po-receipt" onclick="closeModalOutside(event,'modal-po-receipt')">
+  <div class="modal">
+    <div class="modal-title">Receive Purchase Order Value</div>
+    <div class="modal-sub">Capture partial or full supplier delivery value</div>
+    <input type="hidden" id="po-receive-id">
+    <div class="detail-panel" style="margin-bottom:10px">
+      <div class="detail-row"><span class="detail-label">PO Number</span><span id="po-receive-ref">-</span></div>
+      <div class="detail-row"><span class="detail-label">Supplier</span><span id="po-receive-supplier">-</span></div>
+      <div class="detail-row"><span class="detail-label">PO Value</span><span class="amount" id="po-receive-total">R0.00</span></div>
+      <div class="detail-row"><span class="detail-label">Received</span><span class="amount positive" id="po-receive-received">R0.00</span></div>
+      <div class="detail-row"><span class="detail-label">Outstanding</span><span class="amount negative" id="po-receive-outstanding">R0.00</span></div>
+    </div>
+    <div class="form-grid">
+      <div class="form-group"><label>Receipt Mode</label><select id="po-receive-mode" onchange="syncPOReceiveAmount()"><option value="partial">Partial</option><option value="full">Receive In Full</option></select></div>
+      <div class="form-group"><label>Received Amount (R)</label><input type="number" id="po-receive-amount" min="0" step="0.01"></div>
+      <div class="form-group full"><label>Receipt Note</label><input type="text" id="po-receive-note" placeholder="e.g. GRN-4021"></div>
+    </div>
+    <div class="modal-actions">
+      <button class="btn" onclick="closeModal('modal-po-receipt')">Cancel</button>
+      <button class="btn-primary btn" onclick="applyPOReceipt()">Apply Receipt</button>
+    </div>
+  </div>
+</div>
+
+<div class="modal-overlay" id="modal-status-update" onclick="closeModalOutside(event,'modal-status-update')">
+  <div class="modal" style="max-width:480px">
+    <div class="modal-title">Update Status</div>
+    <div class="modal-sub" id="status-update-sub">Change document status</div>
+    <input type="hidden" id="status-update-type">
+    <input type="hidden" id="status-update-id">
+    <div class="form-group"><label>Status</label><select id="status-update-value"></select></div>
+    <div class="modal-actions">
+      <button class="btn" onclick="closeModal('modal-status-update')">Cancel</button>
+      <button class="btn-primary btn" onclick="applyStatusUpdate()">Update</button>
+    </div>
+  </div>
+</div>
+
+<div class="modal-overlay" id="modal-doc-actions" onclick="closeModalOutside(event,'modal-doc-actions')">
+  <div class="modal" style="max-width:420px">
+    <div class="modal-title">Actions</div>
+    <div class="modal-sub" id="doc-actions-sub">Choose action</div>
+    <div id="doc-actions-list" style="display:flex;flex-direction:column;gap:8px"></div>
+    <div class="modal-actions">
+      <button class="btn" onclick="closeModal('modal-doc-actions')">Close</button>
+    </div>
+  </div>
+</div>
+
+<div class="modal-overlay" id="modal-tracking-update" onclick="closeModalOutside(event,'modal-tracking-update')">
+  <div class="modal" style="max-width:520px">
+    <div class="modal-title">Update Tracking</div>
+    <div class="modal-sub" id="trk-update-sub">Update delivery status and ETA</div>
+    <input type="hidden" id="trk-update-id">
+    <div class="form-grid">
+      <div class="form-group"><label>Status</label><select id="trk-update-status"><option>Processing</option><option>In Transit</option><option>At Customs</option><option>Delivered</option><option>Awaiting Payment</option></select></div>
+      <div class="form-group"><label>ETA</label><input type="date" id="trk-update-eta"></div>
+      <div class="form-group full"><label>Update Note</label><input type="text" id="trk-update-note" placeholder="e.g. ETA extended due to customs hold"></div>
+    </div>
+    <div class="modal-actions">
+      <button class="btn" onclick="extendTrackingEta()">Extend +2 Days</button>
+      <button class="btn" onclick="closeModal('modal-tracking-update')">Cancel</button>
+      <button class="btn-primary btn" onclick="applyTrackingUpdate()">Save Update</button>
+    </div>
+  </div>
+</div>
+
+<!-- TOAST -->
+<div class="modal-overlay" id="modal-toast">
+  <div style="background:var(--bg3);border:1px solid var(--green);border-radius:var(--r8);padding:12px 20px;color:var(--green);font-size:13px;font-family:var(--font-mono);display:flex;align-items:center;gap:10px;max-width:380px">
+    <span style="font-size:18px">&#10004;</span><span id="toast-msg">Saved</span>
+  </div>
+</div>
+
+<script>
+// ============================================================
+// DATA – Mining / Engineering / Construction Industry (South Africa)
+// ============================================================
+let suppliers = [
+  {id:'SUP-001',name:'Atlas Copco SA (Pty) Ltd',category:'Mining Equipment',contact:'Riaan Botha',email:'r.botha@atlascopco.co.za',phone:'+27 11 821 9000',lead:21,ytdSpend:1240000,totalPOs:14,status:'Active',terms:'Net 30'},
+  {id:'SUP-002',name:'Macsteel Service Centres SA',category:'Steel & Metals',contact:'Thembi Dlamini',email:'t.dlamini@macsteel.co.za',phone:'+27 11 871 0000',lead:10,ytdSpend:842000,totalPOs:22,status:'Active',terms:'Net 30'},
+  {id:'SUP-003',name:'Renttech South Africa',category:'Mining Equipment',contact:'Johan van der Berg',email:'j.vdberg@renttech.co.za',phone:'+27 11 235 1600',lead:7,ytdSpend:386000,totalPOs:9,status:'Active',terms:'Net 60'},
+  {id:'SUP-004',name:'MSA Africa Safety',category:'Safety & PPE',contact:'Nomvula Khumalo',email:'n.khumalo@msanet.com',phone:'+27 11 610 2400',lead:5,ytdSpend:218000,totalPOs:18,status:'Active',terms:'Net 30'},
+  {id:'SUP-005',name:'AfriSam (Pty) Ltd',category:'Civil Materials',contact:'Kobus Meyer',email:'k.meyer@afrisam.co.za',phone:'+27 11 670 5500',lead:3,ytdSpend:674000,totalPOs:31,status:'Active',terms:'COD'},
+  {id:'SUP-006',name:'ABB South Africa',category:'Electrical',contact:'Sipho Ndlovu',email:'s.ndlovu@za.abb.com',phone:'+27 10 202 5000',lead:14,ytdSpend:496000,totalPOs:11,status:'Active',terms:'Net 30'},
+  {id:'SUP-007',name:'Protea Chemicals',category:'Chemicals',contact:'Anette Venter',email:'a.venter@proteachem.co.za',phone:'+27 11 316 3200',lead:7,ytdSpend:312000,totalPOs:16,status:'Active',terms:'Net 30'},
+  {id:'SUP-008',name:'Bulldog Projects (Pty) Ltd',category:'Tools & Hardware',contact:'Grant Hendricks',email:'g.hendricks@bulldogprojects.co.za',phone:'+27 83 700 1234',lead:4,ytdSpend:182000,totalPOs:27,status:'Active',terms:'COD'},
+  {id:'SUP-009',name:'Sandvik Mining & Rock Solutions',category:'Mining Equipment',contact:'Pierre Joubert',email:'p.joubert@sandvik.com',phone:'+27 11 570 9400',lead:28,ytdSpend:1680000,totalPOs:8,status:'Active',terms:'Net 60'},
+  {id:'SUP-010',name:'Murray & Roberts Cementation',category:'Civil Materials',contact:'Lerato Mokoena',email:'l.mokoena@murrob.com',phone:'+27 11 456 0000',lead:14,ytdSpend:920000,totalPOs:6,status:'Active',terms:'Net 30'},
+  {id:'SUP-011',name:'Voltex (Pty) Ltd',category:'Electrical',contact:'Willem Eksteen',email:'w.eksteen@voltex.co.za',phone:'+27 11 564 8300',lead:5,ytdSpend:268000,totalPOs:19,status:'Active',terms:'Net 30'},
+  {id:'SUP-012',name:'DRD Safety & Welding Supplies',category:'Safety & PPE',contact:'Fatima Jacobs',email:'f.jacobs@drdsafety.co.za',phone:'+27 21 555 8400',lead:4,ytdSpend:144000,totalPOs:14,status:'On Hold',terms:'COD'},
+];
+
+let products = [
+  {id:'PRD-001',sku:'MC-DB-095',name:'Tungsten Carbide Drill Bit 95mm',category:'Mining Equipment',supplier:'Atlas Copco SA (Pty) Ltd',price:2840,unit:'Each',stock:120,reorder:20,status:'Active'},
+  {id:'PRD-002',sku:'MC-DB-115',name:'Tungsten Carbide Drill Bit 115mm',category:'Mining Equipment',supplier:'Atlas Copco SA (Pty) Ltd',price:3650,unit:'Each',stock:84,reorder:20,status:'Active'},
+  {id:'PRD-003',sku:'SS-IPE-200',name:'IPE 200 Structural Steel Beam',category:'Steel & Structural',supplier:'Macsteel Service Centres SA',price:1840,unit:'m',stock:340,reorder:50,status:'Active'},
+  {id:'PRD-004',sku:'SS-PLT-10',name:'Mild Steel Plate 10mm',category:'Steel & Structural',supplier:'Macsteel Service Centres SA',price:620,unit:'m2',stock:280,reorder:40,status:'Active'},
+  {id:'PRD-005',sku:'PPE-HH-3M',name:'3M Full Brim Hard Hat Class E',category:'Safety & PPE',supplier:'MSA Africa Safety',price:285,unit:'Each',stock:450,reorder:100,status:'Active'},
+  {id:'PRD-006',sku:'PPE-HRN-MSA',name:'MSA V-Gard Safety Harness',category:'Safety & PPE',supplier:'MSA Africa Safety',price:1640,unit:'Each',stock:90,reorder:20,status:'Active'},
+  {id:'PRD-007',sku:'CM-CEM-42',name:'AfriSam Surebuild Cement 42.5N 50kg',category:'Civil Materials',supplier:'AfriSam (Pty) Ltd',price:148,unit:'Each',stock:1800,reorder:300,status:'Active'},
+  {id:'PRD-008',sku:'CM-REBAR-16',name:'Y16 Reinforcing Bar 12m',category:'Civil Materials',supplier:'Murray & Roberts Cementation',price:320,unit:'Each',stock:640,reorder:100,status:'Active'},
+  {id:'PRD-009',sku:'CM-REBAR-20',name:'Y20 Reinforcing Bar 12m',category:'Civil Materials',supplier:'Murray & Roberts Cementation',price:480,unit:'Each',stock:420,reorder:80,status:'Active'},
+  {id:'PRD-010',sku:'EL-CB-ABB',name:'ABB SACE 250A Circuit Breaker',category:'Electrical',supplier:'ABB South Africa',price:3200,unit:'Each',stock:48,reorder:10,status:'Active'},
+  {id:'PRD-011',sku:'EL-CAB-16',name:'16mm2 4-core PVC Armoured Cable 50m',category:'Electrical',supplier:'Voltex (Pty) Ltd',price:4800,unit:'Each',stock:36,reorder:8,status:'Active'},
+  {id:'PRD-012',sku:'CH-XAN-200',name:'Xanthate Collector 200L drum',category:'Chemicals & Reagents',supplier:'Protea Chemicals',price:8400,unit:'Each',stock:24,reorder:4,status:'Active'},
+  {id:'PRD-013',sku:'CH-CYN-50',name:'Sodium Cyanide Solution 50kg',category:'Chemicals & Reagents',supplier:'Protea Chemicals',price:6200,unit:'Each',stock:18,reorder:4,status:'Active'},
+  {id:'PRD-014',sku:'TH-ANG-9',name:'Makita 230mm Angle Grinder 2000W',category:'Tools & Hardware',supplier:'Bulldog Projects (Pty) Ltd',price:2840,unit:'Each',stock:22,reorder:5,status:'Active'},
+  {id:'PRD-015',sku:'MC-SC-SAND',name:'Sandvik LH514 Load-Haul-Dump Unit',category:'Mining Equipment',supplier:'Sandvik Mining & Rock Solutions',price:4850000,unit:'Each',stock:2,reorder:1,status:'Active'},
+  {id:'PRD-016',sku:'SS-SHS-100',name:'Square Hollow Section 100x100x5',category:'Steel & Structural',supplier:'Macsteel Service Centres SA',price:480,unit:'m',stock:560,reorder:80,status:'Active'},
+  {id:'PRD-017',sku:'PPE-N95-BOX',name:'N95 Dust Respirator Half Mask (box/20)',category:'Safety & PPE',supplier:'MSA Africa Safety',price:820,unit:'Box',stock:200,reorder:50,status:'Active'},
+  {id:'PRD-018',sku:'TH-GRD-B7',name:'B7 Threaded Rod Set M20x1000mm',category:'Tools & Hardware',supplier:'Bulldog Projects (Pty) Ltd',price:128,unit:'Set',stock:380,reorder:60,status:'Active'},
+  {id:'PRD-019',sku:'EL-VFD-ABB',name:'ABB ACS880 Variable Speed Drive 75kW',category:'Electrical',supplier:'ABB South Africa',price:48000,unit:'Each',stock:6,reorder:2,status:'Active'},
+  {id:'PRD-020',sku:'MC-DRL-ATLAS',name:'Atlas Copco Simba E7 Drill Rig',category:'Mining Equipment',supplier:'Atlas Copco SA (Pty) Ltd',price:12400000,unit:'Each',stock:1,reorder:1,status:'Active'},
+];
+
+let services = [
+  {id:'SVC-001',code:'ENG-WLD-001',name:'Structural Welding & Fabrication',category:'Engineering',rateType:'Hourly',rate:680,unit:'Hour',lead:'2 days',status:'Active'},
+  {id:'SVC-002',code:'ENG-DES-001',name:'Structural Steel Design & Drafting',category:'Engineering',rateType:'Daily',rate:8400,unit:'Day',lead:'5 days',status:'Active'},
+  {id:'SVC-003',code:'ENG-CIV-001',name:'Civil Engineering & Foundation Design',category:'Engineering',rateType:'Fixed',rate:85000,unit:'Project',lead:'10 days',status:'Active'},
+  {id:'SVC-004',code:'MIN-DRL-001',name:'Underground Drilling Operations',category:'Mining Operations',rateType:'Per Tonne',rate:48,unit:'Tonne',lead:'1 day',status:'Active'},
+  {id:'SVC-005',code:'MIN-BLS-001',name:'Blasting & Explosives Handling',category:'Mining Operations',rateType:'Fixed',rate:42000,unit:'Blast',lead:'3 days',status:'Active'},
+  {id:'SVC-006',code:'MIN-VNT-001',name:'Underground Ventilation Assessment',category:'Mining Operations',rateType:'Daily',rate:12000,unit:'Day',lead:'5 days',status:'Active'},
+  {id:'SVC-007',code:'CON-CON-001',name:'Concrete Pouring & Finishing',category:'Construction',rateType:'Per m2',rate:380,unit:'m2',lead:'1 day',status:'Active'},
+  {id:'SVC-008',code:'CON-SCF-001',name:'Scaffolding Erection & Dismantling',category:'Construction',rateType:'Per m2',rate:180,unit:'m2',lead:'2 days',status:'Active'},
+  {id:'SVC-009',code:'CON-EXC-001',name:'Bulk Earthworks & Excavation',category:'Construction',rateType:'Per m3',rate:220,unit:'m3',lead:'3 days',status:'Active'},
+  {id:'SVC-010',code:'INS-NDT-001',name:'Non-Destructive Testing (NDT/UT)',category:'Inspections & Testing',rateType:'Hourly',rate:920,unit:'Hour',lead:'3 days',status:'Active'},
+  {id:'SVC-011',code:'INS-ELT-001',name:'Electrical Testing & Commissioning',category:'Inspections & Testing',rateType:'Daily',rate:9600,unit:'Day',lead:'2 days',status:'Active'},
+  {id:'SVC-012',code:'INS-ENV-001',name:'Environmental Impact Assessment',category:'Inspections & Testing',rateType:'Fixed',rate:65000,unit:'Report',lead:'21 days',status:'Active'},
+  {id:'SVC-013',code:'MNT-MCH-001',name:'Heavy Equipment Preventive Maintenance',category:'Maintenance',rateType:'Hourly',rate:1200,unit:'Hour',lead:'1 day',status:'Active'},
+  {id:'SVC-014',code:'MNT-ELC-001',name:'Electrical Maintenance & Fault Finding',category:'Maintenance',rateType:'Hourly',rate:760,unit:'Hour',lead:'1 day',status:'Active'},
+  {id:'SVC-015',code:'CON-RET-001',name:'Technical Consulting Retainer',category:'Consulting',rateType:'Monthly Retainer',rate:48000,unit:'Month',lead:'Immediate',status:'Active'},
+  {id:'SVC-016',code:'CON-PMG-001',name:'Project Management – Capital Projects',category:'Consulting',rateType:'Daily',rate:14000,unit:'Day',lead:'5 days',status:'Active'},
+];
+
+let customers = [
+  {id:'C-0012',name:'Kumba Iron Ore Ltd',segment:'Mining',contact:'Gerhard Fourie',email:'g.fourie@kumba.co.za',credit:2000000,balance:284600,status:'Active'},
+  {id:'C-0018',name:'Exxaro Resources Ltd',segment:'Mining',contact:'Zanele Mokoena',email:'z.mokoena@exxaro.com',credit:1800000,balance:168400,status:'Active'},
+  {id:'C-0024',name:'Murray & Roberts Projects',segment:'Engineering',contact:'Alan Pietersen',email:'a.pietersen@murrob.com',credit:1500000,balance:92400,status:'Active'},
+  {id:'C-0031',name:'WBHO Construction (Pty) Ltd',segment:'Construction',contact:'Hendrik du Preez',email:'h.dupreez@wbho.co.za',credit:2500000,balance:412000,status:'Active'},
+  {id:'C-0037',name:'Aveng Moolmans Mining',segment:'Mining',contact:'Thandeka Nzimande',email:'t.nzimande@moolmans.co.za',credit:1200000,balance:76800,status:'Active'},
+  {id:'C-0042',name:'Concor Holdings Ltd',segment:'Construction',contact:'Pieter Smit',email:'p.smit@concor.co.za',credit:900000,balance:38200,status:'Active'},
+  {id:'C-0056',name:'Implats Mine Operations',segment:'Mining',contact:'Bongi Mabaso',email:'b.mabaso@implats.co.za',credit:3000000,balance:684000,status:'Active'},
+  {id:'C-0061',name:'DRA Global Engineering',segment:'Engineering',contact:'Fiona McBride',email:'f.mcbride@draglobal.com',credit:1100000,balance:124000,status:'Active'},
+  {id:'C-0078',name:'Group Five Construction',segment:'Construction',contact:'Sias van Zyl',email:'s.vanzyl@g5.co.za',credit:800000,balance:0,status:'Inactive'},
+  {id:'C-0085',name:'Sibanye-Stillwater Mining',segment:'Mining',contact:'Nkosinathi Cele',email:'n.cele@sibanyestillwater.com',credit:4000000,balance:892000,status:'Active'},
+  {id:'C-0091',name:'Fluor South Africa',segment:'Engineering',contact:'Patrick Olivier',email:'p.olivier@fluor.com',credit:1400000,balance:218000,status:'Active'},
+  {id:'C-0097',name:'PRASA Infrastructure',segment:'Construction',contact:'Lindiwe Dhlamini',email:'l.dhlamini@prasa.com',credit:600000,balance:48600,status:'On Hold'},
+];
+
+let invoices = [
+  {id:'INV-2026-1001',customer:'Kumba Iron Ore Ltd',issued:'2026-04-01',due:'2026-05-01',amount:384200,paid:384200,status:'Paid',items:'Drill Bits 95mm x50, Ventilation Survey, PPE Bundle'},
+  {id:'INV-2026-1002',customer:'Exxaro Resources Ltd',issued:'2026-04-03',due:'2026-05-03',amount:224000,paid:0,status:'Pending',items:'Underground Drilling 4,667t, Safety Harness x20'},
+  {id:'INV-2026-1003',customer:'WBHO Construction (Pty) Ltd',issued:'2026-03-15',due:'2026-04-15',amount:612000,paid:306000,status:'Partial',items:'Y16/Y20 Rebar 1,200t, Concrete Pouring 1,600m2'},
+  {id:'INV-2026-1004',customer:'Murray & Roberts Projects',issued:'2026-03-20',due:'2026-04-20',amount:138000,paid:0,status:'Overdue',items:'Structural Steel Design, NDT Testing'},
+  {id:'INV-2026-1005',customer:'Sibanye-Stillwater Mining',issued:'2026-04-08',due:'2026-05-08',amount:892000,paid:892000,status:'Paid',items:'Sandvik LH514 LHD Lease, Heavy Equipment Maintenance 3mo'},
+  {id:'INV-2026-1006',customer:'Aveng Moolmans Mining',issued:'2026-04-10',due:'2026-05-10',amount:285600,paid:0,status:'Pending',items:'Blasting Operations x4, Drill Rig Rental'},
+  {id:'INV-2026-1007',customer:'Concor Holdings Ltd',issued:'2026-02-28',due:'2026-03-30',amount:96400,paid:0,status:'Overdue',items:'Earthworks 2,400m3, Scaffolding 840m2'},
+  {id:'INV-2026-1008',customer:'DRA Global Engineering',issued:'2026-04-14',due:'2026-05-14',amount:184000,paid:0,status:'Draft',items:'Project Management Retainer Q2'},
+  {id:'INV-2026-1009',customer:'Implats Mine Operations',issued:'2026-04-16',due:'2026-05-16',amount:648000,paid:0,status:'Pending',items:'Xanthate Collector x18, NaCN Solution x4, Lab Services'},
+  {id:'INV-2026-1010',customer:'Kumba Iron Ore Ltd',issued:'2026-04-18',due:'2026-05-18',amount:440000,paid:0,status:'Pending',items:'Sandvik Simba E7 Service Contract'},
+  {id:'INV-2026-1011',customer:'PRASA Infrastructure',issued:'2026-04-05',due:'2026-05-05',amount:52000,paid:0,status:'Pending',items:'Electrical Testing & Commissioning 5 days'},
+  {id:'INV-2026-1012',customer:'Fluor South Africa',issued:'2026-03-01',due:'2026-04-01',amount:168000,paid:0,status:'Overdue',items:'Civil Foundation Design, EIA Report'},
+];
+
+let purchaseOrders = [
+  {id:'PO-2026-0801',supplier:'Atlas Copco SA (Pty) Ltd',ordered:'2026-04-02',expected:'2026-04-23',value:142000,received:142000,status:'Received',products:'Drill Bits 95mm x50, Drill Bits 115mm x20'},
+  {id:'PO-2026-0802',supplier:'Macsteel Service Centres SA',ordered:'2026-04-05',expected:'2026-04-15',value:286400,received:0,status:'Approved',products:'IPE200 Beams 80m, Mild Steel Plate 10mm 120m2'},
+  {id:'PO-2026-0803',supplier:'Sandvik Mining & Rock Solutions',ordered:'2026-04-08',expected:'2026-05-30',value:4850000,received:0,status:'Pending',products:'Sandvik LH514 LHD Unit x1'},
+  {id:'PO-2026-0804',supplier:'MSA Africa Safety',ordered:'2026-04-10',expected:'2026-04-22',value:48600,received:48600,status:'Received',products:'Hard Hats x120, Safety Harness x20, N95 Respirators x500'},
+  {id:'PO-2026-0805',supplier:'AfriSam (Pty) Ltd',ordered:'2026-04-12',expected:'2026-04-16',value:88800,received:0,status:'Approved',products:'Surebuild Cement 42.5N x600 bags'},
+  {id:'PO-2026-0806',supplier:'Protea Chemicals',ordered:'2026-04-15',expected:'2026-05-01',value:184800,received:0,status:'Pending',products:'Xanthate Collector x12 drums, NaCN Solution x4 bags'},
+  {id:'PO-2026-0807',supplier:'ABB South Africa',ordered:'2026-03-28',expected:'2026-04-18',value:192000,received:192000,status:'Received',products:'ABB MCB 250A x60, VFD Drive 75kW x4'},
+  {id:'PO-2026-0808',supplier:'Murray & Roberts Cementation',ordered:'2026-04-18',expected:'2026-05-15',value:320000,received:0,status:'Draft',products:'Y16 Rebar x1000, Y20 Rebar x400'},
+  {id:'PO-2026-0809',supplier:'Voltex (Pty) Ltd',ordered:'2026-04-19',expected:'2026-04-28',value:86400,received:0,status:'Approved',products:'4-core 16mm2 Armoured Cable x18 drums'},
+  {id:'PO-2026-0810',supplier:'Bulldog Projects (Pty) Ltd',ordered:'2026-04-20',expected:'2026-04-24',value:24800,received:0,status:'Pending',products:'Angle Grinders x8, Threaded Rods x120'},
+];
+
+let statements = [
+  {date:'2026-04-18',ref:'INV-2026-1010',desc:'Invoice – Kumba Iron Ore Ltd',debit:440000,credit:0,bal:440000,status:'Pending'},
+  {date:'2026-04-16',ref:'INV-2026-1009',desc:'Invoice – Implats Mine Operations',debit:648000,credit:0,bal:648000,status:'Pending'},
+  {date:'2026-04-10',ref:'PMT-0420',desc:'Payment received – WBHO Construction',debit:0,credit:306000,bal:712000,status:'Cleared'},
+  {date:'2026-04-08',ref:'PMT-0419',desc:'Payment received – Sibanye-Stillwater',debit:0,credit:892000,bal:892000,status:'Cleared'},
+  {date:'2026-04-05',ref:'CN-0091',desc:'Credit note – Murray & Roberts Projects',debit:0,credit:8400,bal:784200,status:'Cleared'},
+  {date:'2026-04-03',ref:'INV-2026-1006',desc:'Invoice – Aveng Moolmans Mining',debit:285600,credit:0,bal:285600,status:'Pending'},
+  {date:'2026-04-01',ref:'PMT-0416',desc:'Payment received – Kumba Iron Ore',debit:0,credit:384200,bal:384200,status:'Cleared'},
+  {date:'2026-03-28',ref:'INV-2026-1003',desc:'Invoice – WBHO Construction',debit:612000,credit:0,bal:612000,status:'Partial'},
+];
+
+const trackingItems = [
+  {id:'TRK-001',ref:'PO-2026-0803',type:'PO',party:'Sandvik Mining & Rock Solutions',desc:'Sandvik LH514 Load-Haul-Dump Unit',from:'Stockholm, Sweden',to:'Main Yard – Johannesburg',status:'In Transit',eta:'2026-05-30',
+   stages:[{l:'Order Confirmed',d:'2026-04-08',s:'done'},{l:'Manufacturing',d:'2026-04-15',s:'done'},{l:'Factory Dispatch',d:'2026-04-30',s:'act'},{l:'Port of Loading – Gothenburg',d:'2026-05-05',s:'pend'},{l:'Customs – Durban',d:'2026-05-20',s:'pend'},{l:'Delivered to Site',d:'2026-05-30',s:'pend'}]},
+  {id:'TRK-002',ref:'PO-2026-0802',type:'PO',party:'Macsteel Service Centres SA',desc:'IPE200 Beams & Mild Steel Plate',from:'Macsteel Witbank',to:'Site Office – Kathu',status:'In Transit',eta:'2026-04-15',
+   stages:[{l:'Order Confirmed',d:'2026-04-05',s:'done'},{l:'Cut to Length',d:'2026-04-08',s:'done'},{l:'Quality Check',d:'2026-04-10',s:'done'},{l:'Truck Dispatched',d:'2026-04-12',s:'act'},{l:'Delivered',d:'2026-04-15',s:'pend'}]},
+  {id:'TRK-003',ref:'PO-2026-0806',type:'PO',party:'Protea Chemicals',desc:'Xanthate Collector & Sodium Cyanide',from:'JHB Chemical Depot',to:'Implats Processing Plant',status:'Processing',eta:'2026-05-01',
+   stages:[{l:'Order Received',d:'2026-04-15',s:'done'},{l:'Hazmat Documentation',d:'2026-04-18',s:'act'},{l:'Hazmat Approval',d:'2026-04-22',s:'pend'},{l:'Dispatch',d:'2026-04-26',s:'pend'},{l:'Delivered',d:'2026-05-01',s:'pend'}]},
+  {id:'TRK-004',ref:'INV-2026-1003',type:'INV',party:'WBHO Construction (Pty) Ltd',desc:'Rebar Supply & Concrete Works Invoice',from:'NexusERP Billing',to:'WBHO Finance Dept',status:'Awaiting Payment',eta:'2026-04-15',
+   stages:[{l:'Invoice Issued',d:'2026-03-15',s:'done'},{l:'Delivered to Client',d:'2026-03-16',s:'done'},{l:'Client Acknowledged',d:'2026-03-20',s:'done'},{l:'Partial Payment R306K',d:'2026-04-10',s:'act'},{l:'Balance Due',d:'2026-04-15',s:'pend'},{l:'Fully Settled',d:'TBD',s:'pend'}]},
+  {id:'TRK-005',ref:'PO-2026-0809',type:'PO',party:'Voltex (Pty) Ltd',desc:'4-core 16mm2 Armoured Cable x18 Drums',from:'Voltex Warehouse – JHB',to:'Main Yard – Johannesburg',status:'In Transit',eta:'2026-04-28',
+   stages:[{l:'PO Confirmed',d:'2026-04-19',s:'done'},{l:'Picking & Packing',d:'2026-04-20',s:'act'},{l:'Out for Delivery',d:'2026-04-24',s:'pend'},{l:'Delivered',d:'2026-04-28',s:'pend'}]},
+];
+
+const notifications = [
+  {icon:'&#9888;',msg:'INV-2026-1004 is 31 days overdue – R138,000 from Murray & Roberts Projects'},
+  {icon:'&#9888;',msg:'INV-2026-1007 is 22 days overdue – R96,400 from Concor Holdings Ltd'},
+  {icon:'&#9888;',msg:'INV-2026-1012 is 20 days overdue – R168,000 from Fluor South Africa'},
+  {icon:'&#9651;',msg:'WBHO Construction exceeded 60-day terms on INV-2026-1003 (R306K outstanding)'},
+  {icon:'&#9711;',msg:'PO-2026-0803 – Sandvik LH514 still in manufacturing phase (R4.85M)'},
+  {icon:'&#8595;',msg:'PRD-012 Xanthate Collector low stock: 24 units (reorder at 4)'},
+];
+
+const charts={};
+let chartsBootstrapped=false;
+let customerCounter=100, invoiceCounter=1015, poCounter=811, supplierCounter=13, productCounter=21, serviceCounter=17;
+let currentUser=null;
+let editState={type:null,id:null};
+let adminEditId=null;
+let appUsers=[
+  {id:'USR-001',name:'James Donaldson',email:'james.d@nexuserp.co.za',role:'Admin',status:'Active',lastLogin:'2026-04-21 09:14'},
+  {id:'USR-002',name:'Lerato Mokoena',email:'lerato.m@nexuserp.co.za',role:'Manager',status:'Active',lastLogin:'2026-04-20 17:42'},
+  {id:'USR-003',name:'Sipho Ndlovu',email:'sipho.n@nexuserp.co.za',role:'Finance',status:'Active',lastLogin:'2026-04-21 08:05'},
+];
+const APP_STATE_KEY='nexuserp_app_state_v2';
+const SESSION_COOKIE='nexuserp_session_user';
+
+// ============================================================
+// UTILS
+// ============================================================
+function fmt(n){return new Intl.NumberFormat('en-ZA',{style:'currency',currency:'ZAR',minimumFractionDigits:2,maximumFractionDigits:2}).format(n);}
+function fmtShort(n){if(n>=1000000)return'R'+(n/1000000).toFixed(1)+'M';if(n>=1000)return'R'+(n/1000).toFixed(0)+'K';return fmt(n);}
+function bc(s){return{Paid:'badge-paid',Done:'badge-paid',Pending:'badge-pending',Overdue:'badge-overdue',Draft:'badge-draft',Approved:'badge-approved',Received:'badge-received',Partial:'badge-partial',Active:'badge-active','On Hold':'badge-onhold',Inactive:'badge-inactive',Cleared:'badge-paid','In Transit':'badge-transit',Processing:'badge-processing','Awaiting Payment':'badge-pending','At Customs':'badge-partial',Delivered:'badge-received'}[s]||'badge-draft';}
+function rowLineSummary(lines){
+  if(!Array.isArray(lines)||!lines.length)return'General';
+  return lines.map(l=>`${l.description||'Item'} x${Number(l.qty)||1}`).join(', ');
+}
+function ensureDocumentLines(){
+  invoices=invoices.map(inv=>{
+    if(Array.isArray(inv.lines)&&inv.lines.length)return inv;
+    return {...inv,lines:[{description:inv.items||'Line item',qty:1,price:inv.amount,total:inv.amount}]};
+  });
+  purchaseOrders=purchaseOrders.map(po=>{
+    if(Array.isArray(po.lines)&&po.lines.length)return po;
+    return {...po,lines:[{description:po.products||'PO item',qty:1,price:po.value,total:po.value}]};
+  });
+}
+function ensureCustomerNotes(){
+  customers=customers.map(c=>({...c,notes:Array.isArray(c.notes)?c.notes:[]}));
+}
+function todayISO(){return new Date().toISOString().slice(0,10);}
+function computeInvoiceStatus(inv){
+  const paid=Math.round((Number(inv.paid)||0)*100)/100;
+  const amount=Math.round((Number(inv.amount)||0)*100)/100;
+  if(amount<=0)return 'Draft';
+  if(paid>=amount)return 'Done';
+  if(paid>0)return 'Partial';
+  if((inv.due||'')<todayISO())return 'Overdue';
+  return inv.status==='Draft'?'Draft':'Pending';
+}
+function computePOStatus(po){
+  const received=Math.round((Number(po.received)||0)*100)/100;
+  const value=Math.round((Number(po.value)||0)*100)/100;
+  if(value<=0)return 'Draft';
+  if(received>=value)return 'Done';
+  if(received>0)return 'Partial';
+  if(po.status==='Approved'||po.status==='Draft')return po.status;
+  return 'Pending';
+}
+function normalizeBusinessStatuses(){
+  invoices.forEach(inv=>{inv.status=computeInvoiceStatus(inv);});
+  purchaseOrders.forEach(po=>{po.status=computePOStatus(po);});
+}
+function renderLineTable(lines){
+  const rows=(Array.isArray(lines)?lines:[]).map(l=>`<tr>
+    <td style="font-size:12px">${l.description||'Item'}</td>
+    <td style="font-family:var(--font-mono);font-size:11px">${Number(l.qty)||1}</td>
+    <td class="amount">${fmt(Number(l.price)||0)}</td>
+    <td class="amount">${fmt((Number(l.qty)||1)*(Number(l.price)||0))}</td>
+  </tr>`).join('');
+  return `<div class="card" style="padding:0;margin-top:12px"><div class="table-wrap"><table>
+    <thead><tr><th>Description</th><th>Qty</th><th>Unit Price</th><th>Line Total</th></tr></thead>
+    <tbody>${rows||'<tr><td colspan="4" class="empty-state">No line items</td></tr>'}</tbody>
+  </table></div></div>`;
+}
+function setCookie(name,val,days){
+  const d=new Date();d.setTime(d.getTime()+(days*24*60*60*1000));
+  document.cookie=`${name}=${encodeURIComponent(val)};expires=${d.toUTCString()};path=/`;
+}
+function getCookie(name){
+  const key=name+'=';
+  return document.cookie.split(';').map(x=>x.trim()).find(x=>x.startsWith(key))?.slice(key.length)||'';
+}
+function delCookie(name){document.cookie=`${name}=;expires=Thu, 01 Jan 1970 00:00:00 UTC;path=/`;}
+function persistState(){
+  const payload={
+    suppliers,products,services,customers,invoices,purchaseOrders,statements,
+    appUsers,counters:{customerCounter,invoiceCounter,poCounter,supplierCounter,productCounter,serviceCounter}
+  };
+  sessionStorage.setItem(APP_STATE_KEY,JSON.stringify(payload));
+}
+function loadPersistedState(){
+  const raw=sessionStorage.getItem(APP_STATE_KEY);
+  if(!raw)return;
+  try{
+    const state=JSON.parse(raw);
+    suppliers=Array.isArray(state.suppliers)?state.suppliers:suppliers;
+    products=Array.isArray(state.products)?state.products:products;
+    services=Array.isArray(state.services)?state.services:services;
+    customers=Array.isArray(state.customers)?state.customers:customers;
+    invoices=Array.isArray(state.invoices)?state.invoices:invoices;
+    purchaseOrders=Array.isArray(state.purchaseOrders)?state.purchaseOrders:purchaseOrders;
+    statements=Array.isArray(state.statements)?state.statements:statements;
+    appUsers=Array.isArray(state.appUsers)?state.appUsers:appUsers;
+    const c=state.counters||{};
+    customerCounter=c.customerCounter||customerCounter;
+    invoiceCounter=c.invoiceCounter||invoiceCounter;
+    poCounter=c.poCounter||poCounter;
+    supplierCounter=c.supplierCounter||supplierCounter;
+    productCounter=c.productCounter||productCounter;
+    serviceCounter=c.serviceCounter||serviceCounter;
+  }catch{}
+}
+
+// ============================================================
+// RENDER TABLES
+// ============================================================
+function renderCustomers(){
+  document.getElementById('cust-tbody').innerHTML=customers.map(c=>`<tr data-seg="${c.segment}">
+    <td><div style="font-weight:500">${c.name}</div><div style="font-size:11px;color:var(--txt2);font-family:var(--font-mono)">${c.id}</div></td>
+    <td><span class="status-badge ${c.segment==='Mining'?'badge-approved':c.segment==='Engineering'?'badge-received':'badge-partial'}">${c.segment}</span></td>
+    <td><div style="font-size:12px">${c.contact}</div><div style="font-size:11px;color:var(--txt2)">${c.email}</div></td>
+    <td class="amount">${fmt(c.credit)}</td>
+    <td class="amount ${c.balance>0?'negative':''}">${fmt(c.balance)}</td>
+    <td><span class="status-badge ${bc(c.status)}">${c.status}</span></td>
+    <td><div class="action-group">
+      <button class="tb-btn" style="padding:4px 8px;font-size:11px" onclick="viewCustomer('${c.id}')">View</button>
+      <button class="tb-btn" style="padding:4px 8px;font-size:11px" onclick="editCustomer('${c.id}')">Edit</button>
+      <button class="tb-btn" style="padding:4px 8px;font-size:11px;color:var(--red);border-color:var(--red)" onclick="deleteCustomer('${c.id}')">Delete</button>
+    </div></td>
+  </tr>`).join('');
+}
+
+function renderSuppliers(){
+  document.getElementById('sup-tbody').innerHTML=suppliers.map(s=>`<tr data-cat="${s.category}">
+    <td><div style="font-weight:500">${s.name}</div><div style="font-size:11px;color:var(--txt2);font-family:var(--font-mono)">${s.id}</div></td>
+    <td><span class="status-badge badge-draft" style="font-size:10px">${s.category}</span></td>
+    <td><div style="font-size:12px">${s.contact}</div><div style="font-size:11px;color:var(--txt2)">${s.email}</div></td>
+    <td style="font-family:var(--font-mono);font-size:12px">${s.lead} days</td>
+    <td style="font-family:var(--font-mono);font-size:12px">${s.totalPOs}</td>
+    <td class="amount">${fmt(s.ytdSpend)}</td>
+    <td><span class="status-badge ${bc(s.status)}">${s.status}</span></td>
+    <td><div class="action-group">
+      <button class="tb-btn" style="padding:4px 8px;font-size:11px" onclick="viewSupplier('${s.id}')">View</button>
+      <button class="tb-btn" style="padding:4px 8px;font-size:11px" onclick="editSupplier('${s.id}')">Edit</button>
+      <button class="tb-btn" style="padding:4px 8px;font-size:11px;color:var(--red);border-color:var(--red)" onclick="deleteSupplier('${s.id}')">Delete</button>
+    </div></td>
+  </tr>`).join('');
+}
+
+function renderProducts(){
+  const tb=document.getElementById('prod-tbody');if(!tb)return;
+  tb.innerHTML=products.map(p=>`<tr data-category="${p.category}">
+    <td style="font-family:var(--font-mono);font-size:11px;color:var(--txt2)">${p.sku}</td>
+    <td><div style="font-weight:500">${p.name}</div></td>
+    <td><span class="status-badge badge-draft" style="font-size:10px">${p.category}</span></td>
+    <td style="font-size:11px;color:var(--txt1)">${p.supplier}</td>
+    <td class="amount">${fmt(p.price)} / ${p.unit}</td>
+    <td style="font-size:11px;color:var(--txt2);font-family:var(--font-mono)">${p.unit}</td>
+    <td style="font-family:var(--font-mono);font-size:12px;color:${p.stock<=p.reorder?'var(--amber)':'var(--txt1)'}">${p.stock}</td>
+    <td><span class="status-badge ${bc(p.status)}">${p.status}</span></td>
+    <td><div class="action-group">
+      <button class="tb-btn" style="padding:4px 8px;font-size:11px" onclick="viewProduct('${p.id}')">View</button>
+      <button class="tb-btn" style="padding:4px 8px;font-size:11px" onclick="editProduct('${p.id}')">Edit</button>
+      <button class="tb-btn" style="padding:4px 8px;font-size:11px;color:var(--red);border-color:var(--red)" onclick="deleteProduct('${p.id}')">Delete</button>
+    </div></td>
+  </tr>`).join('');
+}
+
+function renderServices(){
+  const tb=document.getElementById('svc-tbody');if(!tb)return;
+  tb.innerHTML=services.map(s=>`<tr data-category="${s.category}">
+    <td style="font-family:var(--font-mono);font-size:11px;color:var(--txt2)">${s.code}</td>
+    <td><div style="font-weight:500">${s.name}</div></td>
+    <td><span class="status-badge badge-received" style="font-size:10px">${s.category}</span></td>
+    <td style="font-size:11px;color:var(--txt1)">${s.rateType}</td>
+    <td class="amount">${fmt(s.rate)}</td>
+    <td style="font-size:11px;color:var(--txt2);font-family:var(--font-mono)">${s.unit}</td>
+    <td style="font-size:11px;color:var(--txt2)">${s.lead}</td>
+    <td><span class="status-badge ${bc(s.status)}">${s.status}</span></td>
+    <td><div class="action-group">
+      <button class="tb-btn" style="padding:4px 8px;font-size:11px" onclick="viewService('${s.code}')">View</button>
+      <button class="tb-btn" style="padding:4px 8px;font-size:11px" onclick="editService('${s.code}')">Edit</button>
+      <button class="tb-btn" style="padding:4px 8px;font-size:11px;color:var(--red);border-color:var(--red)" onclick="deleteService('${s.code}')">Delete</button>
+    </div></td>
+  </tr>`).join('');
+}
+
+function renderInvoices(){
+  document.getElementById('inv-tbody').innerHTML=invoices.map(i=>{
+    const bal=i.amount-i.paid;
+    return`<tr data-status="${i.status}">
+    <td style="font-family:var(--font-mono);font-size:12px;color:var(--blue)">${i.id}</td>
+    <td><button class="link-btn" onclick="openCustomerFromInvoice('${i.id}')">${i.customer}</button></td>
+    <td style="font-family:var(--font-mono);font-size:11px">${i.issued}</td>
+    <td style="font-family:var(--font-mono);font-size:11px;color:${i.status==='Overdue'?'var(--red)':'inherit'}">${i.due}</td>
+    <td class="amount">${fmt(i.amount)}</td>
+    <td class="amount positive">${fmt(i.paid)}</td>
+    <td class="amount ${bal>0?'negative':''}">${fmt(bal)}</td>
+    <td><span class="status-badge ${bc(i.status)}">${i.status}</span></td>
+    <td>
+    <div class="action-group">
+      <button class="tb-btn action-primary" onclick="openDocActions('invoice','${i.id}')">Actions</button>
+    </div></td></tr>`;
+  }).join('');
+}
+
+function renderPOs(){
+  document.getElementById('po-tbody').innerHTML=purchaseOrders.map(p=>`<tr data-status="${p.status}">
+    <td style="font-family:var(--font-mono);font-size:12px;color:var(--amber)">${p.id}</td>
+    <td>${p.supplier}</td>
+    <td style="font-family:var(--font-mono);font-size:11px">${p.ordered}</td>
+    <td style="font-family:var(--font-mono);font-size:11px">${p.expected}</td>
+    <td class="amount">${fmt(p.value)}</td>
+    <td class="amount positive">${fmt(p.received)}</td>
+    <td><span class="status-badge ${bc(p.status)}">${p.status}</span></td>
+    <td><div class="action-group">
+      <button class="tb-btn action-primary" onclick="openDocActions('po','${p.id}')">Actions</button>
+    </div></td>
+  </tr>`).join('');
+}
+
+function renderStatements(){
+  document.getElementById('stmt-tbody').innerHTML=statements.map(s=>`<tr>
+    <td style="font-family:var(--font-mono);font-size:11px">${s.date}</td>
+    <td style="font-family:var(--font-mono);font-size:11px;color:var(--blue)">${s.ref}</td>
+    <td style="font-size:12px">${s.desc}</td>
+    <td class="amount ${s.debit>0?'negative':''}">${s.debit>0?fmt(s.debit):'&mdash;'}</td>
+    <td class="amount ${s.credit>0?'positive':''}">${s.credit>0?fmt(s.credit):'&mdash;'}</td>
+    <td class="amount">${fmt(s.bal)}</td>
+    <td><span class="status-badge ${bc(s.status)}">${s.status}</span></td>
+    <td><div class="action-group">
+      <button class="tb-btn" style="padding:4px 8px;font-size:11px" onclick="viewStatement('${s.ref}')">View</button>
+      <button class="tb-btn" style="padding:4px 8px;font-size:11px" onclick="editStatement('${s.ref}')">Edit</button>
+      <button class="tb-btn" style="padding:4px 8px;font-size:11px;color:var(--red);border-color:var(--red)" onclick="deleteStatement('${s.ref}')">Delete</button>
+    </div></td>
+  </tr>`).join('');
+}
+
+function renderAdminUsers(){
+  const tb=document.getElementById('admin-users-tbody');
+  if(!tb)return;
+  tb.innerHTML=appUsers.map(u=>`<tr>
+    <td><div style="font-weight:500">${u.name}</div><div style="font-size:11px;color:var(--txt2);font-family:var(--font-mono)">${u.id}</div></td>
+    <td>${u.email}</td>
+    <td>${u.role}</td>
+    <td><span class="status-badge ${bc(u.status)}">${u.status}</span></td>
+    <td style="font-family:var(--font-mono);font-size:11px">${u.lastLogin||'Never'}</td>
+    <td><div class="action-group">
+      <button class="tb-btn" style="padding:4px 8px;font-size:11px" onclick="editAdminUser('${u.id}')">Edit</button>
+      <button class="tb-btn" style="padding:4px 8px;font-size:11px" onclick="toggleAdminUserStatus('${u.id}')">${u.status==='Active'?'Disable':'Enable'}</button>
+      <button class="tb-btn" style="padding:4px 8px;font-size:11px;color:var(--red);border-color:var(--red)" onclick="deleteAdminUser('${u.id}')">Delete</button>
+    </div></td>
+  </tr>`).join('');
+}
+
+function renderActivity(){
+  const items=[
+    {icon:'&#128176;',bg:'var(--green-dim)',text:'<strong>R892,000</strong> received from Sibanye-Stillwater Mining (INV-2026-1005)',time:'2 hrs ago'},
+    {icon:'&#128230;',bg:'var(--blue-dim)',text:'PO-2026-0804 <strong>fully received</strong> &ndash; MSA Africa Safety (PPE bundle R48,600)',time:'4 hrs ago'},
+    {icon:'&#9888;',bg:'var(--red-dim)',text:'<strong>INV-2026-1004</strong> is 31 days overdue &ndash; Murray &amp; Roberts Projects R138K',time:'Today 08:15'},
+    {icon:'&#128203;',bg:'var(--amber-dim)',text:'New PO created: <strong>PO-2026-0810</strong> &ndash; Bulldog Projects (Angle Grinders, Rods)',time:'Yesterday'},
+    {icon:'&#127981;',bg:'var(--teal-dim)',text:'Sandvik LH514 order in <strong>manufacturing phase</strong> &ndash; ETA 30 May 2026',time:'Yesterday'},
+    {icon:'&#128100;',bg:'var(--purple-dim)',text:'New client added: <strong>Fluor South Africa</strong> (Engineering sector, R1.4M credit)',time:'2 days ago'},
+  ];
+  document.getElementById('activity-feed').innerHTML=items.map(i=>`
+    <div class="activity-item"><div class="act-icon" style="background:${i.bg}">${i.icon}</div><div><div class="act-text">${i.text}</div><div class="act-time">${i.time}</div></div></div>`).join('');
+}
+
+function renderTopCustomers(dataOverride,elId){
+  const id=elId||'top-cust-bars';
+  const data=dataOverride||[
+    {name:'Sibanye-Stillwater',val:892000},{name:'Implats Mine Ops',val:648000},
+    {name:'Kumba Iron Ore',val:440000},{name:'WBHO Construction',val:412000},{name:'Exxaro Resources',val:285600},
+  ];
+  const max=Math.max(...data.map(d=>d.val),1);
+  const el=document.getElementById(id);
+  if(el)el.innerHTML=data.map(d=>`<div class="spark-row"><span class="spark-name">${d.name}</span><div class="spark-bar-bg"><div class="spark-bar" style="width:${Math.round((d.val/max)*100)}%"></div></div><span class="spark-val">${fmtShort(d.val)}</span></div>`).join('');
+}
+
+function renderNotifications(){
+  document.getElementById('notif-list').innerHTML=notifications.map(n=>`
+    <div class="activity-item" style="padding:10px 0"><div class="act-icon" style="background:var(--amber-dim);font-size:14px">${n.icon}</div><div class="act-text">${n.msg}</div></div>`).join('');
+}
+
+function renderTracking(){
+  const container=document.getElementById('tracking-list');
+  container.innerHTML=trackingItems.map(t=>{
+    const stageHtml=t.stages.map((st,i)=>{
+      const isLast=i===t.stages.length-1;
+      return`<div class="tl-item"><div style="position:relative;flex-shrink:0;width:14px"><div class="tl-dot ${st.s}"></div>${!isLast?'<div class="tl-vline"></div>':''}</div><div><div class="tl-label" style="color:${st.s==='done'?'var(--txt0)':st.s==='act'?'var(--blue)':'var(--txt2)'}">${st.l}</div><div class="tl-sub">${st.d}</div></div></div>`;
+    }).join('');
+    return`<div class="trk-card" data-ref="${t.ref}" data-type="${t.type}" data-status="${t.status}">
+      <div style="display:grid;grid-template-columns:1fr 1fr 1fr auto;gap:16px;align-items:start;margin-bottom:16px">
+        <div><div style="font-size:11px;color:var(--txt2);font-family:var(--font-mono);margin-bottom:4px">REFERENCE</div>
+          <div style="font-weight:600;font-family:var(--font-mono);color:${t.type==='PO'?'var(--amber)':'var(--blue)'}">${t.ref}</div>
+          <div style="font-size:11px;color:var(--txt1);margin-top:2px">${t.desc}</div></div>
+        <div><div style="font-size:11px;color:var(--txt2);font-family:var(--font-mono);margin-bottom:4px">${t.type==='PO'?'SUPPLIER':'CLIENT'}</div><div style="font-size:12.5px">${t.party}</div></div>
+        <div><div style="font-size:11px;color:var(--txt2);font-family:var(--font-mono);margin-bottom:4px">ETA &mdash; ROUTE</div>
+          <div style="font-size:12.5px;font-family:var(--font-mono)">${t.eta}</div>
+          <div style="font-size:11px;color:var(--txt2);margin-top:2px">${t.from} &rarr; ${t.to}</div></div>
+        <div style="display:flex;flex-direction:column;gap:6px;align-items:flex-end">
+          <span class="status-badge ${bc(t.status)}">${t.status}</span>
+          <div class="action-group">
+            <button class="tb-btn" style="padding:4px 8px;font-size:11px" onclick="viewTracking('${t.id}')">View</button>
+            <button class="tb-btn" style="padding:4px 8px;font-size:11px" onclick="openTrackingUpdate('${t.id}')">Update</button>
+          </div>
+        </div>
+      </div>
+      <div style="display:flex;flex-wrap:wrap;gap:0">${stageHtml}</div>
+    </div>`;
+  }).join('');
+}
+
+// ============================================================
+// FILTER / SEARCH
+// ============================================================
+function filterTable(tbodyId,inputId){
+  const q=(document.getElementById(inputId)?.value||'').toLowerCase();
+  document.querySelectorAll('#'+tbodyId+' tr').forEach(r=>{r.style.display=r.textContent.toLowerCase().includes(q)?'':'none';});
+}
+function filterByAttr(tbodyId,sel,attr){
+  const v=sel.value;
+  document.querySelectorAll('#'+tbodyId+' tr').forEach(r=>{r.style.display=(!v||r.getAttribute(attr)===v)?'':'none';});
+}
+function filterCat(type){
+  const sId=type==='products'?'prod-search':'svc-search';
+  const cId=type==='products'?'prod-cat-filter':'svc-cat-filter';
+  const tId=type==='products'?'prod-tbody':'svc-tbody';
+  const q=(document.getElementById(sId)?.value||'').toLowerCase();
+  const cat=document.getElementById(cId)?.value||'';
+  document.querySelectorAll('#'+tId+' tr').forEach(r=>{
+    r.style.display=((!q||r.textContent.toLowerCase().includes(q))&&(!cat||r.getAttribute('data-category')===cat))?'':'none';
+  });
+}
+function filterTracking(){
+  const q=(document.getElementById('track-search')?.value||'').toLowerCase();
+  const type=document.getElementById('track-type')?.value||'';
+  const status=document.getElementById('track-status')?.value||'';
+  document.querySelectorAll('.trk-card').forEach(c=>{
+    const matchQ=!q||c.dataset.ref.toLowerCase().includes(q)||c.textContent.toLowerCase().includes(q);
+    const matchT=!type||c.dataset.ref.startsWith(type);
+    const matchS=!status||c.dataset.status===status;
+    c.style.display=(matchQ&&matchT&&matchS)?'block':'none';
+  });
+}
+function viewTracking(id){
+  const t=trackingItems.find(x=>x.id===id);if(!t)return;
+  const body=`<div class="detail-panel">
+    <div class="detail-row"><span class="detail-label">Reference</span><span style="font-family:var(--font-mono)">${t.ref}</span></div>
+    <div class="detail-row"><span class="detail-label">Type</span><span>${t.type}</span></div>
+    <div class="detail-row"><span class="detail-label">Party</span><span>${t.party}</span></div>
+    <div class="detail-row"><span class="detail-label">Status</span><span class="status-badge ${bc(t.status)}">${t.status}</span></div>
+    <div class="detail-row"><span class="detail-label">ETA</span><span>${t.eta}</span></div>
+    <div class="detail-row"><span class="detail-label">Route</span><span>${t.from} → ${t.to}</span></div>
+    <div class="detail-row"><span class="detail-label">Description</span><span>${t.desc}</span></div>
+  </div>`;
+  openDetailModal(`Tracking ${t.ref}`,'Tracking detail',body);
+}
+function openTrackingUpdate(id){
+  const t=trackingItems.find(x=>x.id===id);if(!t)return;
+  document.getElementById('trk-update-id').value=t.id;
+  document.getElementById('trk-update-sub').textContent=`${t.ref} · ${t.party}`;
+  document.getElementById('trk-update-status').value=t.status;
+  document.getElementById('trk-update-eta').value=t.eta||todayISO();
+  document.getElementById('trk-update-note').value='';
+  openModal('modal-tracking-update');
+}
+function extendTrackingEta(){
+  const eta=document.getElementById('trk-update-eta').value;
+  if(!eta)return;
+  const d=new Date(eta+'T00:00:00');
+  d.setDate(d.getDate()+2);
+  document.getElementById('trk-update-eta').value=d.toISOString().slice(0,10);
+}
+function applyTrackingUpdate(){
+  const id=document.getElementById('trk-update-id').value;
+  const t=trackingItems.find(x=>x.id===id);if(!t)return;
+  t.status=document.getElementById('trk-update-status').value;
+  t.eta=document.getElementById('trk-update-eta').value||t.eta;
+  const note=document.getElementById('trk-update-note').value.trim();
+  if(note)t.stages.unshift({l:note,d:todayISO(),s:'done'});
+  const hasAct=t.stages.some(s=>s.s==='act');
+  if(!hasAct&&t.stages.length)t.stages[0].s='act';
+  renderTracking();persistState();
+  closeModal('modal-tracking-update');
+  showToast(`Tracking updated for ${t.ref}`);
+}
+function openTrackingUpdateForFirst(){
+  if(!trackingItems.length){showToast('No tracking items');return;}
+  openView('tracking');
+  openTrackingUpdate(trackingItems[0].id);
+}
+function switchCatTab(tab,el){
+  document.querySelectorAll('.tabs .tab').forEach(t=>t.classList.remove('active'));
+  el.classList.add('active');
+  document.getElementById('cat-products').style.display=tab==='products'?'block':'none';
+  document.getElementById('cat-services').style.display=tab==='services'?'block':'none';
+}
+
+// ============================================================
+// INVOICE LINE ITEMS
+// ============================================================
+let invLineCount=0;
+function addInvLine(){
+  invLineCount++;
+  const id='il'+invLineCount;
+  const prodOpts=products.map(p=>`<option value="${p.price}" data-lbl="${p.name}">&#128230; ${p.name} [${p.sku}]</option>`).join('');
+  const svcOpts=services.map(s=>`<option value="${s.rate}" data-lbl="${s.name}">&#9881; ${s.name} [${s.code}]</option>`).join('');
+  const row=document.createElement('div');row.id=id;row.className='line-card';
+  row.innerHTML=`<div class="line-row"><label>Item (Product/Service)</label><select onchange="onInvItemSel(this,'${id}')"><option value="">-- Select item --</option><optgroup label="Products">${prodOpts}</optgroup><optgroup label="Services">${svcOpts}</optgroup></select></div>
+    <div class="line-row"><label>Description</label><input type="text" id="${id}d" placeholder="Description"></div>
+    <div class="line-row"><label>Quantity</label><input type="number" id="${id}q" value="1" min="0" oninput="calcInvLine('${id}')"></div>
+    <div class="line-row"><label>Unit Price (R)</label><input type="number" id="${id}p" value="0" min="0" oninput="calcInvLine('${id}')"></div>
+    <div class="line-row"><label>Line Total</label><div id="${id}t" class="line-total">R0.00</div></div>
+    <div style="display:flex;justify-content:flex-end"><button class="del-line" onclick="document.getElementById('${id}').remove();updateInvTotals()">Remove</button></div>`;
+  document.getElementById('inv-lines-body').appendChild(row);
+}
+function onInvItemSel(sel,id){
+  const price=Number(sel.value)||0;
+  const lbl=sel.options[sel.selectedIndex]?.getAttribute('data-lbl')||'';
+  document.getElementById(id+'p').value=price;
+  if(lbl)document.getElementById(id+'d').value=lbl;
+  calcInvLine(id);
+}
+function calcInvLine(id){
+  const q=Number(document.getElementById(id+'q')?.value)||0;
+  const p=Number(document.getElementById(id+'p')?.value)||0;
+  const el=document.getElementById(id+'t');if(el)el.textContent=fmt(q*p);
+  updateInvTotals();
+}
+function updateInvTotals(){
+  let sub=0;
+  document.querySelectorAll('#inv-lines-body .line-card').forEach(r=>{
+    const q=Number(r.querySelector('input[id$="q"]')?.value)||0;
+    const p=Number(r.querySelector('input[id$="p"]')?.value)||0;
+    sub+=q*p;
+  });
+  const vat=Number(document.getElementById('inv-tax')?.value||15)/100;
+  const disc=Number(document.getElementById('inv-discount')?.value||0)/100;
+  const vatAmt=sub*vat;const total=(sub+vatAmt)*(1-disc);
+  document.getElementById('inv-calc-sub').textContent=fmt(sub);
+  document.getElementById('inv-calc-vat').textContent=fmt(vatAmt);
+  document.getElementById('inv-calc-total').textContent=fmt(total);
+}
+
+// ============================================================
+// PO LINE ITEMS
+// ============================================================
+let poLineCount=0;
+function loadSupplierProducts(){
+  const supName=document.getElementById('po-supplier')?.value;
+  const supProds=products.filter(p=>p.supplier===supName);
+  if(document.getElementById('po-lines-body').children.length===0) addPOLine();
+  document.querySelectorAll('#po-lines-body select').forEach(sel=>{
+    const v=sel.value;
+    sel.innerHTML='<option value="">-- Select Product --</option>'+supProds.map(p=>`<option value="${p.price}" data-lbl="${p.name}">${p.name} [${p.sku}]</option>`).join('');
+    sel.value=v;
+  });
+}
+function addPOLine(){
+  poLineCount++;
+  const id='pl'+poLineCount;
+  const supName=document.getElementById('po-supplier')?.value||'';
+  const supProds=products.filter(p=>p.supplier===supName);
+  const row=document.createElement('tr');row.id=id;
+  row.innerHTML=`<td><select style="width:200px" onchange="onPOItemSel(this,'${id}')"><option value="">-- Select Product --</option>${supProds.map(p=>`<option value="${p.price}" data-lbl="${p.name}">${p.name} [${p.sku}]</option>`).join('')}</select></td>
+    <td><input type="text" id="${id}d" style="width:130px" placeholder="Description"></td>
+    <td><input type="number" id="${id}q" value="1" min="0" style="width:55px" oninput="calcPOLine('${id}')"></td>
+    <td><input type="number" id="${id}p" value="0" min="0" style="width:95px" oninput="calcPOLine('${id}')"></td>
+    <td id="${id}t" style="font-family:var(--font-mono)">R0.00</td>
+    <td><button class="del-line" onclick="document.getElementById('${id}').remove();updatePOTotals()">&#10005;</button></td>`;
+  document.getElementById('po-lines-body').appendChild(row);
+}
+function onPOItemSel(sel,id){
+  const price=Number(sel.value)||0;
+  const lbl=sel.options[sel.selectedIndex]?.getAttribute('data-lbl')||'';
+  document.getElementById(id+'p').value=price;
+  if(lbl)document.getElementById(id+'d').value=lbl;
+  calcPOLine(id);
+}
+function calcPOLine(id){
+  const q=Number(document.getElementById(id+'q')?.value)||0;
+  const p=Number(document.getElementById(id+'p')?.value)||0;
+  const el=document.getElementById(id+'t');if(el)el.textContent=fmt(q*p);
+  updatePOTotals();
+}
+function updatePOTotals(){
+  let sub=0;
+  document.querySelectorAll('#po-lines-body tr').forEach(r=>{
+    const q=Number(r.querySelector('input[id$="q"]')?.value)||0;
+    const p=Number(r.querySelector('input[id$="p"]')?.value)||0;
+    sub+=q*p;
+  });
+  const vat=sub*0.15;
+  document.getElementById('po-calc-sub').textContent=fmt(sub);
+  document.getElementById('po-calc-vat').textContent=fmt(vat);
+  document.getElementById('po-calc-total').textContent=fmt(sub+vat);
+}
+
+// ============================================================
+// SYNC DROPDOWNS
+// ============================================================
+function syncAllDropdowns(){
+  const custNames=customers.map(c=>c.name);
+  const supNames=suppliers.map(s=>s.name);
+  const invCust=document.getElementById('inv-customer');
+  if(invCust)invCust.innerHTML=custNames.map(n=>`<option>${n}</option>`).join('');
+  const stmtCust=document.getElementById('stmt-cust');
+  if(stmtCust)stmtCust.innerHTML='<option>All Customers</option>'+custNames.map(n=>`<option>${n}</option>`).join('');
+  const poSup=document.getElementById('po-supplier');
+  if(poSup)poSup.innerHTML=supNames.map(n=>`<option>${n}</option>`).join('');
+  const prodSup=document.getElementById('prod-supplier');
+  if(prodSup)prodSup.innerHTML=supNames.map(n=>`<option>${n}</option>`).join('');
+}
+
+// ============================================================
+// CREATE FROM FORM
+// ============================================================
+function createCustomerFromForm(){
+  const name=document.getElementById('cust-name').value.trim();
+  if(!name){showToast('Company name is required');return;}
+  const payload={name,segment:document.getElementById('cust-segment').value,contact:document.getElementById('cust-contact').value.trim()||'N/A',email:document.getElementById('cust-email').value.trim()||'N/A',credit:Number(document.getElementById('cust-credit').value||0)};
+  if(editState.type==='customer'){
+    const idx=customers.findIndex(x=>x.id===editState.id);
+    if(idx>=0)customers[idx]={...customers[idx],...payload};
+  }else{
+    customerCounter++;
+    customers.unshift({id:'C-0'+customerCounter,balance:0,status:'Active',...payload});
+  }
+  editState={type:null,id:null};
+  document.querySelector('#modal-customer .modal-title').textContent='Add Customer';
+  document.querySelector('#modal-customer .btn-primary').textContent='Add Customer';
+  renderCustomers();syncAllDropdowns();closeModal('modal-customer');showToast('Customer added successfully');
+  persistState();
+}
+function createSupplierFromForm(){
+  const name=document.getElementById('sup-name').value.trim();
+  if(!name){showToast('Company name is required');return;}
+  const payload={name,category:document.getElementById('sup-category').value,contact:document.getElementById('sup-contact').value.trim()||'N/A',email:document.getElementById('sup-email').value.trim()||'N/A',phone:document.getElementById('sup-phone').value.trim()||'N/A',lead:Number(document.getElementById('sup-lead').value||7),terms:document.getElementById('sup-terms').value};
+  if(editState.type==='supplier'){
+    const idx=suppliers.findIndex(x=>x.id===editState.id);
+    if(idx>=0)suppliers[idx]={...suppliers[idx],...payload};
+  }else{
+    supplierCounter++;
+    suppliers.unshift({id:'SUP-0'+String(supplierCounter).padStart(2,'0'),ytdSpend:0,totalPOs:0,status:'Active',...payload});
+  }
+  editState={type:null,id:null};
+  document.querySelector('#modal-supplier .modal-title').textContent='Add Supplier';
+  document.querySelector('#modal-supplier .btn-primary').textContent='Add Supplier';
+  renderSuppliers();syncAllDropdowns();closeModal('modal-supplier');showToast('Supplier added successfully');
+  persistState();
+}
+function createProductFromForm(){
+  const name=document.getElementById('prod-name').value.trim();
+  const price=Number(document.getElementById('prod-price').value||0);
+  if(!name||price<=0){showToast('Product name and price are required');return;}
+  const payload={name,category:document.getElementById('prod-category').value,supplier:document.getElementById('prod-supplier').value,price,unit:document.getElementById('prod-unit').value,stock:Number(document.getElementById('prod-stock').value||0),reorder:Number(document.getElementById('prod-reorder').value||10)};
+  if(editState.type==='product'){
+    const idx=products.findIndex(x=>x.id===editState.id);
+    if(idx>=0)products[idx]={...products[idx],...payload,sku:document.getElementById('prod-sku').value.trim()||products[idx].sku};
+  }else{
+    productCounter++;
+    const sku=document.getElementById('prod-sku').value.trim()||'PRD-'+String(productCounter).padStart(3,'0');
+    products.unshift({id:'PRD-'+String(productCounter).padStart(3,'0'),sku,status:'Active',...payload});
+  }
+  editState={type:null,id:null};
+  document.querySelector('#modal-product .modal-title').textContent='Add Product';
+  document.querySelector('#modal-product .btn-primary').textContent='Add Product';
+  renderProducts();closeModal('modal-product');showToast('Product added to catalogue');
+  persistState();
+}
+function createServiceFromForm(){
+  const name=document.getElementById('svc-name').value.trim();
+  const rate=Number(document.getElementById('svc-rate').value||0);
+  if(!name||rate<=0){showToast('Service name and rate are required');return;}
+  const payload={name,category:document.getElementById('svc-category').value,rateType:document.getElementById('svc-rate-type').value,rate,unit:document.getElementById('svc-rate-type').value.split(' ').pop(),lead:document.getElementById('svc-lead').value.trim()||'TBC'};
+  if(editState.type==='service'){
+    const idx=services.findIndex(x=>x.code===editState.id);
+    if(idx>=0)services[idx]={...services[idx],...payload,code:document.getElementById('svc-code').value.trim()||services[idx].code};
+  }else{
+    serviceCounter++;
+    const code=document.getElementById('svc-code').value.trim()||'SVC-'+String(serviceCounter).padStart(3,'0');
+    services.unshift({id:'SVC-'+String(serviceCounter).padStart(3,'0'),code,status:'Active',...payload});
+  }
+  editState={type:null,id:null};
+  document.querySelector('#modal-service .modal-title').textContent='Add Service';
+  document.querySelector('#modal-service .btn-primary').textContent='Add Service';
+  renderServices();closeModal('modal-service');showToast('Service added to catalogue');
+  persistState();
+}
+function createInvoiceFromForm(){
+  const customer=document.getElementById('inv-customer').value;
+  const issued=document.getElementById('inv-issued').value;
+  const due=document.getElementById('inv-due').value;
+  if(!customer||!issued||!due){showToast('Complete required fields first');return;}
+  let sub=0;const lines=[];
+  document.querySelectorAll('#inv-lines-body .line-card').forEach(r=>{
+    const q=Number(r.querySelector('input[id$="q"]')?.value)||0;
+    const p=Number(r.querySelector('input[id$="p"]')?.value)||0;
+    const d=r.querySelector('input[id$="d"]')?.value||'';
+    if(q>0&&p>=0){
+      sub+=q*p;
+      lines.push({description:d||'Line item',qty:q,price:p,total:q*p});
+    }
+  });
+  if(sub<=0){showToast('Add at least one line item with a price');return;}
+  const vat=Number(document.getElementById('inv-tax').value||15)/100;
+  const disc=Number(document.getElementById('inv-discount').value||0)/100;
+  const amount=Math.round((sub+sub*vat)*(1-disc));
+  if(editState.type==='invoice'){
+    const idx=invoices.findIndex(x=>x.id===editState.id);
+    if(idx>=0){
+      invoices[idx]={...invoices[idx],customer,issued,due,amount,lines,items:rowLineSummary(lines)};
+      invoices[idx].status=computeInvoiceStatus(invoices[idx]);
+    }
+  }else{
+    invoiceCounter++;
+    const created={id:'INV-2026-'+invoiceCounter,customer,issued,due,amount,paid:0,status:'Pending',lines,items:rowLineSummary(lines)};
+    created.status=computeInvoiceStatus(created);
+    invoices.unshift(created);
+  }
+  editState={type:null,id:null};
+  document.querySelector('#modal-invoice .modal-title').textContent='New Invoice';
+  document.querySelector('#modal-invoice .btn-primary').textContent='Create Invoice';
+  renderInvoices();
+  document.getElementById('inv-lines-body').innerHTML='';invLineCount=0;updateInvTotals();
+  closeModal('modal-invoice');showToast('Invoice created successfully');
+  persistState();
+}
+function createPOFromForm(){
+  const supplier=document.getElementById('po-supplier').value;
+  const ordered=document.getElementById('po-ordered').value;
+  const expected=document.getElementById('po-expected').value;
+  if(!supplier||!ordered||!expected){showToast('Complete required fields first');return;}
+  let sub=0;const lines=[];
+  document.querySelectorAll('#po-lines-body tr').forEach(r=>{
+    const q=Number(r.querySelector('input[id$="q"]')?.value)||0;
+    const p=Number(r.querySelector('input[id$="p"]')?.value)||0;
+    const d=r.querySelector('input[id$="d"]')?.value||'';
+    if(q>0&&p>=0){
+      sub+=q*p;
+      lines.push({description:d||'PO item',qty:q,price:p,total:q*p});
+    }
+  });
+  if(sub<=0){showToast('Add at least one product with a price');return;}
+  const total=Math.round(sub*1.15);
+  if(editState.type==='po'){
+    const idx=purchaseOrders.findIndex(x=>x.id===editState.id);
+    if(idx>=0){
+      purchaseOrders[idx]={...purchaseOrders[idx],supplier,ordered,expected,value:total,lines,products:rowLineSummary(lines)};
+      purchaseOrders[idx].status=computePOStatus(purchaseOrders[idx]);
+    }
+  }else{
+    poCounter++;
+    const created={id:'PO-2026-0'+poCounter,supplier,ordered,expected,value:total,received:0,status:'Pending',lines,products:rowLineSummary(lines)};
+    created.status=computePOStatus(created);
+    purchaseOrders.unshift(created);
+  }
+  editState={type:null,id:null};
+  document.querySelector('#modal-po .modal-title').textContent='New Purchase Order';
+  document.querySelector('#modal-po .btn-primary').textContent='Create PO';
+  renderPOs();
+  document.getElementById('po-lines-body').innerHTML='';poLineCount=0;updatePOTotals();
+  closeModal('modal-po');showToast('Purchase order created');
+  persistState();
+}
+
+function editCustomer(id){
+  const c=customers.find(x=>x.id===id);if(!c)return;
+  editState={type:'customer',id};
+  document.getElementById('cust-name').value=c.name;
+  document.getElementById('cust-contact').value=c.contact;
+  document.getElementById('cust-email').value=c.email;
+  document.getElementById('cust-segment').value=c.segment;
+  document.getElementById('cust-credit').value=c.credit;
+  document.querySelector('#modal-customer .modal-title').textContent='Edit Customer';
+  document.querySelector('#modal-customer .btn-primary').textContent='Save Customer';
+  openModal('modal-customer');
+}
+function editSupplier(id){
+  const s=suppliers.find(x=>x.id===id);if(!s)return;
+  editState={type:'supplier',id};
+  document.getElementById('sup-name').value=s.name;
+  document.getElementById('sup-category').value=s.category;
+  document.getElementById('sup-contact').value=s.contact;
+  document.getElementById('sup-email').value=s.email;
+  document.getElementById('sup-phone').value=s.phone;
+  document.getElementById('sup-lead').value=s.lead;
+  document.getElementById('sup-terms').value=s.terms;
+  document.querySelector('#modal-supplier .modal-title').textContent='Edit Supplier';
+  document.querySelector('#modal-supplier .btn-primary').textContent='Save Supplier';
+  openModal('modal-supplier');
+}
+function editProduct(id){
+  const p=products.find(x=>x.id===id);if(!p)return;
+  editState={type:'product',id};
+  document.getElementById('prod-name').value=p.name;
+  document.getElementById('prod-sku').value=p.sku;
+  document.getElementById('prod-category').value=p.category;
+  document.getElementById('prod-supplier').value=p.supplier;
+  document.getElementById('prod-price').value=p.price;
+  document.getElementById('prod-unit').value=p.unit;
+  document.getElementById('prod-stock').value=p.stock;
+  document.getElementById('prod-reorder').value=p.reorder;
+  document.querySelector('#modal-product .modal-title').textContent='Edit Product';
+  document.querySelector('#modal-product .btn-primary').textContent='Save Product';
+  openModal('modal-product');
+}
+function editService(code){
+  const s=services.find(x=>x.code===code);if(!s)return;
+  editState={type:'service',id:code};
+  document.getElementById('svc-name').value=s.name;
+  document.getElementById('svc-code').value=s.code;
+  document.getElementById('svc-category').value=s.category;
+  document.getElementById('svc-rate-type').value=s.rateType;
+  document.getElementById('svc-rate').value=s.rate;
+  document.getElementById('svc-lead').value=s.lead;
+  document.querySelector('#modal-service .modal-title').textContent='Edit Service';
+  document.querySelector('#modal-service .btn-primary').textContent='Save Service';
+  openModal('modal-service');
+}
+function editInvoice(id){
+  const i=invoices.find(x=>x.id===id);if(!i)return;
+  editState={type:'invoice',id};
+  document.getElementById('inv-customer').value=i.customer;
+  document.getElementById('inv-issued').value=i.issued;
+  document.getElementById('inv-due').value=i.due;
+  document.getElementById('inv-lines-body').innerHTML='';invLineCount=0;
+  const lines=(i.lines&&i.lines.length)?i.lines:[{description:i.items||'Updated line item',qty:1,price:i.amount,total:i.amount}];
+  lines.forEach(l=>{
+    addInvLine();
+    const row=document.querySelector('#inv-lines-body .line-card:last-child');
+    if(row){
+      row.querySelector('input[id$="d"]').value=l.description||'Line item';
+      row.querySelector('input[id$="q"]').value=Number(l.qty)||1;
+      row.querySelector('input[id$="p"]').value=Number(l.price)||0;
+    }
+  });
+  updateInvTotals();
+  document.querySelector('#modal-invoice .modal-title').textContent='Edit Invoice';
+  document.querySelector('#modal-invoice .btn-primary').textContent='Save Invoice';
+  openModal('modal-invoice');
+}
+function editPO(id){
+  const p=purchaseOrders.find(x=>x.id===id);if(!p)return;
+  editState={type:'po',id};
+  document.getElementById('po-supplier').value=p.supplier;
+  document.getElementById('po-ordered').value=p.ordered;
+  document.getElementById('po-expected').value=p.expected;
+  document.getElementById('po-lines-body').innerHTML='';poLineCount=0;
+  const lines=(p.lines&&p.lines.length)?p.lines:[{description:p.products||'Updated PO item',qty:1,price:p.value,total:p.value}];
+  lines.forEach(l=>{
+    addPOLine();
+    const row=document.querySelector('#po-lines-body tr:last-child');
+    if(row){
+      row.querySelector('input[id$="d"]').value=l.description||'PO item';
+      row.querySelector('input[id$="q"]').value=Number(l.qty)||1;
+      row.querySelector('input[id$="p"]').value=Number(l.price)||0;
+    }
+  });
+  updatePOTotals();
+  document.querySelector('#modal-po .modal-title').textContent='Edit Purchase Order';
+  document.querySelector('#modal-po .btn-primary').textContent='Save PO';
+  openModal('modal-po');
+}
+function editStatement(ref){
+  const s=statements.find(x=>x.ref===ref);if(!s)return;
+  const desc=prompt('Edit statement description:',s.desc);
+  if(desc===null)return;
+  s.desc=desc.trim()||s.desc;
+  const nextStatus=prompt('Status (Pending/Cleared/Partial/Draft):',s.status);
+  if(nextStatus)s.status=nextStatus;
+  renderStatements();persistState();showToast('Statement updated');
+}
+function deleteCustomer(id){
+  if(!confirm('Delete this customer?'))return;
+  customers=customers.filter(x=>x.id!==id);
+  renderCustomers();syncAllDropdowns();persistState();showToast('Customer deleted');
+}
+function deleteSupplier(id){
+  if(!confirm('Delete this supplier?'))return;
+  suppliers=suppliers.filter(x=>x.id!==id);
+  renderSuppliers();syncAllDropdowns();persistState();showToast('Supplier deleted');
+}
+function deleteProduct(id){
+  if(!confirm('Delete this product?'))return;
+  products=products.filter(x=>x.id!==id);
+  renderProducts();persistState();showToast('Product deleted');
+}
+function deleteService(code){
+  if(!confirm('Delete this service?'))return;
+  services=services.filter(x=>x.code!==code);
+  renderServices();persistState();showToast('Service deleted');
+}
+function deleteInvoice(id){
+  if(!confirm('Delete this invoice?'))return;
+  invoices=invoices.filter(x=>x.id!==id);
+  renderInvoices();persistState();showToast('Invoice deleted');
+}
+function deletePO(id){
+  if(!confirm('Delete this purchase order?'))return;
+  purchaseOrders=purchaseOrders.filter(x=>x.id!==id);
+  renderPOs();persistState();showToast('PO deleted');
+}
+function deleteStatement(ref){
+  if(!confirm('Delete this statement entry?'))return;
+  statements=statements.filter(x=>x.ref!==ref);
+  renderStatements();persistState();showToast('Statement deleted');
+}
+function openDocActions(type,id){
+  const isInv=type==='invoice';
+  const rec=isInv?invoices.find(x=>x.id===id):purchaseOrders.find(x=>x.id===id);
+  if(!rec)return;
+  const balance=isInv?Math.max(0,rec.amount-rec.paid):Math.max(0,rec.value-rec.received);
+  const actions=[
+    {label:'View Details',fn:()=>isInv?viewInvoice(id):viewPO(id)},
+    {label:'Edit',fn:()=>isInv?editInvoice(id):editPO(id)},
+    {label:'Update Status',fn:()=>openStatusModal(isInv?'invoice':'po',id)},
+  ];
+  if(balance>0){
+    actions.push({label:isInv?'Record Payment':'Capture Receipt',fn:()=>isInv?openInvoicePayment(id):openPOReceipt(id)});
+  }
+  actions.push({label:'Delete',danger:true,fn:()=>isInv?deleteInvoice(id):deletePO(id)});
+  document.getElementById('doc-actions-sub').textContent=`${isInv?'Invoice':'PO'} ${id}`;
+  document.getElementById('doc-actions-list').innerHTML=actions.map((a,idx)=>`<button class="tb-btn" style="justify-content:flex-start;${a.danger?'color:var(--red);border-color:var(--red);':''}" onclick="runDocAction(${idx})">${a.label}</button>`).join('');
+  window.__docActions=actions;
+  openModal('modal-doc-actions');
+}
+function runDocAction(i){
+  const a=window.__docActions?.[i];
+  if(!a)return;
+  closeModal('modal-doc-actions');
+  a.fn();
+}
+function openCustomerFromInvoice(invId){
+  const inv=invoices.find(x=>x.id===invId);if(!inv)return;
+  const c=customers.find(x=>x.name===inv.customer);
+  openView('customers');
+  if(c)viewCustomer(c.id);
+}
+function renderCustomerNotesHtml(c,ci){
+  const invoiceOpts=`<option value="">No invoice tag</option>`+ci.map(i=>`<option value="${i.id}">${i.id}</option>`).join('');
+  const notes=(c.notes||[]).slice().reverse().map(n=>`<div class="note-item">
+    <div class="note-head"><span>${n.type.toUpperCase()} ${n.invoiceId?`· ${n.invoiceId}`:''}</span><span>${n.ts}</span></div>
+    <div class="note-body">${n.text}</div>
+  </div>`).join('');
+  return `<div class="detail-panel" style="margin-top:14px">
+    <div style="font-size:13px;font-weight:600;margin-bottom:10px">Customer Notes</div>
+    <div class="form-grid">
+      <div class="form-group"><label>Type</label><select id="cust-note-type"><option>Email</option><option>Call</option><option>SMS</option><option>General</option></select></div>
+      <div class="form-group"><label>Invoice Tag</label><select id="cust-note-invoice">${invoiceOpts}</select></div>
+      <div class="form-group full"><label>Note</label><textarea id="cust-note-text" placeholder="Add interaction note..."></textarea></div>
+    </div>
+    <div style="display:flex;justify-content:flex-end;margin-top:8px"><button class="tb-btn primary" onclick="addCustomerNote('${c.id}')">+ Add Note</button></div>
+    <div style="margin-top:10px">${notes||'<div class=\"empty-state\">No notes yet</div>'}</div>
+  </div>`;
+}
+function addCustomerNote(customerId){
+  const c=customers.find(x=>x.id===customerId);if(!c)return;
+  const text=document.getElementById('cust-note-text')?.value.trim();
+  if(!text){showToast('Note text is required');return;}
+  c.notes=c.notes||[];
+  c.notes.push({
+    type:(document.getElementById('cust-note-type')?.value||'General').toLowerCase(),
+    invoiceId:document.getElementById('cust-note-invoice')?.value||'',
+    text,
+    ts:new Date().toLocaleString('en-ZA')
+  });
+  persistState();
+  viewCustomer(customerId);
+  showToast('Customer note added');
+}
+
+// ============================================================
+// VIEW DETAILS
+// ============================================================
+function viewCustomer(id){
+  const c=customers.find(x=>x.id===id);if(!c)return;
+  const ci=invoices.filter(i=>i.customer===c.name);
+  const body=`<div class="detail-panel">
+    <div class="detail-row"><span class="detail-label">Customer ID</span><span>${c.id}</span></div>
+    <div class="detail-row"><span class="detail-label">Industry Sector</span><span>${c.segment}</span></div>
+    <div class="detail-row"><span class="detail-label">Primary Contact</span><span>${c.contact} &mdash; ${c.email}</span></div>
+    <div class="detail-row"><span class="detail-label">Credit Limit</span><span class="amount">${fmt(c.credit)}</span></div>
+    <div class="detail-row"><span class="detail-label">Outstanding Balance</span><span class="amount ${c.balance>0?'negative':''}">${fmt(c.balance)}</span></div>
+    <div class="detail-row"><span class="detail-label">Status</span><span class="status-badge ${bc(c.status)}">${c.status}</span></div>
+  </div>
+  <div class="card" style="padding:0"><div class="card-header" style="padding:14px 16px 0"><div class="card-title">Invoices (${ci.length})</div></div><div class="table-wrap"><table><thead><tr><th>Invoice</th><th>Due</th><th>Amount</th><th>Status</th></tr></thead><tbody>
+    ${ci.length?ci.map(i=>`<tr><td style="font-family:var(--font-mono);color:var(--blue)">${i.id}</td><td>${i.due}</td><td class="amount">${fmt(i.amount)}</td><td><span class="status-badge ${bc(i.status)}">${i.status}</span></td></tr>`).join(''):'<tr><td colspan="4" class="empty-state">No invoices</td></tr>'}
+  </tbody></table></div></div>${renderCustomerNotesHtml(c,ci)}`;
+  openDetailModal(c.name,'Customer account profile',body);
+}
+
+function viewSupplier(id){
+  const s=suppliers.find(x=>x.id===id);if(!s)return;
+  const sp=products.filter(p=>p.supplier===s.name);
+  const po=purchaseOrders.filter(p=>p.supplier===s.name);
+  const body=`<div class="detail-panel">
+    <div class="detail-row"><span class="detail-label">Supplier ID</span><span>${s.id}</span></div>
+    <div class="detail-row"><span class="detail-label">Category</span><span>${s.category}</span></div>
+    <div class="detail-row"><span class="detail-label">Contact</span><span>${s.contact} &mdash; ${s.email} &mdash; ${s.phone}</span></div>
+    <div class="detail-row"><span class="detail-label">Lead Time</span><span>${s.lead} days</span></div>
+    <div class="detail-row"><span class="detail-label">Payment Terms</span><span>${s.terms}</span></div>
+    <div class="detail-row"><span class="detail-label">YTD Spend</span><span class="amount">${fmt(s.ytdSpend)}</span></div>
+    <div class="detail-row"><span class="detail-label">Status</span><span class="status-badge ${bc(s.status)}">${s.status}</span></div>
+  </div>
+  <div style="font-size:13px;font-weight:600;margin-bottom:8px">Linked Products (${sp.length})</div>
+  <div class="card" style="padding:0;margin-bottom:14px"><div class="table-wrap"><table><thead><tr><th>SKU</th><th>Product</th><th>Unit Price</th><th>Stock</th></tr></thead><tbody>
+    ${sp.length?sp.map(p=>`<tr><td style="font-family:var(--font-mono);font-size:11px">${p.sku}</td><td>${p.name}</td><td class="amount">${fmt(p.price)}</td><td>${p.stock} ${p.unit}</td></tr>`).join(''):'<tr><td colspan="4" class="empty-state">No products linked</td></tr>'}
+  </tbody></table></div></div>
+  <div style="font-size:13px;font-weight:600;margin-bottom:8px">Purchase Orders (${po.length})</div>
+  <div class="card" style="padding:0"><div class="table-wrap"><table><thead><tr><th>PO Number</th><th>Value</th><th>Status</th></tr></thead><tbody>
+    ${po.length?po.map(p=>`<tr><td style="font-family:var(--font-mono);color:var(--amber)">${p.id}</td><td class="amount">${fmt(p.value)}</td><td><span class="status-badge ${bc(p.status)}">${p.status}</span></td></tr>`).join(''):'<tr><td colspan="3" class="empty-state">No POs</td></tr>'}
+  </tbody></table></div></div>`;
+  openDetailModal(s.name,'Supplier profile &middot; '+s.category,body);
+}
+
+function viewProduct(id){
+  const p=products.find(x=>x.id===id);if(!p)return;
+  const body=`<div class="detail-panel">
+    <div class="detail-row"><span class="detail-label">SKU</span><span style="font-family:var(--font-mono)">${p.sku}</span></div>
+    <div class="detail-row"><span class="detail-label">Category</span><span>${p.category}</span></div>
+    <div class="detail-row"><span class="detail-label">Supplier</span><span>${p.supplier}</span></div>
+    <div class="detail-row"><span class="detail-label">Unit Price</span><span class="amount" style="font-size:16px">${fmt(p.price)} per ${p.unit}</span></div>
+    <div class="detail-row"><span class="detail-label">Stock on Hand</span><span style="color:${p.stock<=p.reorder?'var(--amber)':'var(--green)'};font-family:var(--font-mono)">${p.stock} ${p.unit}</span></div>
+    <div class="detail-row"><span class="detail-label">Reorder Level</span><span style="font-family:var(--font-mono)">${p.reorder} ${p.unit}</span></div>
+    <div class="detail-row"><span class="detail-label">Status</span><span class="status-badge ${bc(p.status)}">${p.status}</span></div>
+  </div>
+  ${p.stock<=p.reorder?`<div style="background:var(--amber-dim);border:1px solid var(--amber);border-radius:var(--r8);padding:10px 14px;font-size:12px;color:var(--amber)">&#9888; Stock at or below reorder level. Consider raising a PO with ${p.supplier}.</div>`:''}`;
+  openDetailModal(p.name,'Product detail &middot; '+p.sku,body);
+}
+
+function viewService(code){
+  const s=services.find(x=>x.code===code);if(!s)return;
+  const body=`<div class="detail-panel">
+    <div class="detail-row"><span class="detail-label">Code</span><span style="font-family:var(--font-mono)">${s.code}</span></div>
+    <div class="detail-row"><span class="detail-label">Category</span><span>${s.category}</span></div>
+    <div class="detail-row"><span class="detail-label">Rate Type</span><span>${s.rateType}</span></div>
+    <div class="detail-row"><span class="detail-label">Rate</span><span class="amount" style="font-size:16px">${fmt(s.rate)} per ${s.unit}</span></div>
+    <div class="detail-row"><span class="detail-label">Lead Time</span><span>${s.lead}</span></div>
+    <div class="detail-row"><span class="detail-label">Status</span><span class="status-badge ${bc(s.status)}">${s.status}</span></div>
+  </div>`;
+  openDetailModal(s.name,'Service detail &middot; '+s.code,body);
+}
+
+function viewInvoice(id){
+  const i=invoices.find(x=>x.id===id);if(!i)return;
+  const bal=i.amount-i.paid;const pct=i.amount?Math.round((i.paid/i.amount)*100):0;
+  const lines=(i.lines&&i.lines.length)?i.lines:[{description:i.items||'Line item',qty:1,price:i.amount,total:i.amount}];
+  const body=`<div class="detail-panel">
+    <div class="detail-row"><span class="detail-label">Invoice Number</span><span style="font-family:var(--font-mono);color:var(--blue)">${i.id}</span></div>
+    <div class="detail-row"><span class="detail-label">Customer</span><span>${i.customer}</span></div>
+    <div class="detail-row"><span class="detail-label">Items</span><span style="font-size:12px;color:var(--txt1)">${rowLineSummary(lines)}</span></div>
+    <div class="detail-row"><span class="detail-label">Issue Date</span><span>${i.issued}</span></div>
+    <div class="detail-row"><span class="detail-label">Due Date</span><span style="color:${i.status==='Overdue'?'var(--red)':'inherit'}">${i.due}</span></div>
+    <div class="detail-row"><span class="detail-label">Amount</span><span class="amount">${fmt(i.amount)}</span></div>
+    <div class="detail-row"><span class="detail-label">Paid</span><span class="amount positive">${fmt(i.paid)}</span></div>
+    <div class="detail-row"><span class="detail-label">Balance</span><span class="amount ${bal>0?'negative':''}">${fmt(bal)}</span></div>
+    <div class="detail-row"><span class="detail-label">Status</span><span class="status-badge ${bc(i.status)}">${i.status}</span></div>
+    <div style="margin-top:12px"><div style="display:flex;justify-content:space-between;font-size:11px;color:var(--txt2);font-family:var(--font-mono)"><span>Settlement Progress</span><span>${pct}%</span></div><div class="progress-bar"><div class="progress-fill" style="width:${pct}%;background:var(--green)"></div></div></div>
+  </div>${renderLineTable(lines)}`;
+  openDetailModal(i.id,'Invoice detail & settlement status',body);
+}
+
+function viewPO(id){
+  const p=purchaseOrders.find(x=>x.id===id);if(!p)return;
+  const rem=Math.max(0,p.value-p.received);const pct=p.value?Math.round((p.received/p.value)*100):0;
+  const lines=(p.lines&&p.lines.length)?p.lines:[{description:p.products||'PO item',qty:1,price:p.value,total:p.value}];
+  const body=`<div class="detail-panel">
+    <div class="detail-row"><span class="detail-label">PO Number</span><span style="font-family:var(--font-mono);color:var(--amber)">${p.id}</span></div>
+    <div class="detail-row"><span class="detail-label">Supplier</span><span>${p.supplier}</span></div>
+    <div class="detail-row"><span class="detail-label">Products</span><span style="font-size:12px;color:var(--txt1)">${rowLineSummary(lines)}</span></div>
+    <div class="detail-row"><span class="detail-label">Order Date</span><span>${p.ordered}</span></div>
+    <div class="detail-row"><span class="detail-label">Expected Delivery</span><span>${p.expected}</span></div>
+    <div class="detail-row"><span class="detail-label">Total Value</span><span class="amount">${fmt(p.value)}</span></div>
+    <div class="detail-row"><span class="detail-label">Received</span><span class="amount positive">${fmt(p.received)}</span></div>
+    <div class="detail-row"><span class="detail-label">Outstanding</span><span class="amount ${rem>0?'negative':''}">${fmt(rem)}</span></div>
+    <div class="detail-row"><span class="detail-label">Status</span><span class="status-badge ${bc(p.status)}">${p.status}</span></div>
+    <div style="margin-top:12px"><div style="display:flex;justify-content:space-between;font-size:11px;color:var(--txt2);font-family:var(--font-mono)"><span>Receiving Progress</span><span>${pct}%</span></div><div class="progress-bar"><div class="progress-fill" style="width:${pct}%;background:var(--teal)"></div></div></div>
+  </div>${renderLineTable(lines)}`;
+  openDetailModal(p.id,'Purchase order detail',body);
+}
+
+function viewStatement(ref){
+  const s=statements.find(x=>x.ref===ref);if(!s)return;
+  const body=`<div class="detail-panel">
+    <div class="detail-row"><span class="detail-label">Date</span><span>${s.date}</span></div>
+    <div class="detail-row"><span class="detail-label">Reference</span><span style="font-family:var(--font-mono);color:var(--blue)">${s.ref}</span></div>
+    <div class="detail-row"><span class="detail-label">Description</span><span>${s.desc}</span></div>
+    <div class="detail-row"><span class="detail-label">Debit</span><span class="amount ${s.debit>0?'negative':''}">${s.debit>0?fmt(s.debit):'&mdash;'}</span></div>
+    <div class="detail-row"><span class="detail-label">Credit</span><span class="amount ${s.credit>0?'positive':''}">${s.credit>0?fmt(s.credit):'&mdash;'}</span></div>
+    <div class="detail-row"><span class="detail-label">Running Balance</span><span class="amount">${fmt(s.bal)}</span></div>
+    <div class="detail-row"><span class="detail-label">Status</span><span class="status-badge ${bc(s.status)}">${s.status}</span></div>
+  </div>`;
+  openDetailModal(s.ref,'Statement transaction detail',body);
+}
+
+// ============================================================
+// CHARTS
+// ============================================================
+function initCharts(){
+  charts.revChart=new Chart(document.getElementById('revChart'),{type:'bar',data:{labels:[],datasets:[
+    {label:'Revenue',data:[],backgroundColor:'rgba(79,142,247,0.7)',borderColor:'#4f8ef7',borderWidth:1,yAxisID:'y'},
+    {label:'Collected',data:[],backgroundColor:'rgba(34,197,94,0.6)',borderColor:'#22c55e',borderWidth:1,yAxisID:'y'},
+    {label:'Outstanding',data:[],type:'line',borderColor:'#f5a623',borderWidth:2,fill:false,pointBackgroundColor:'#f5a623',pointRadius:3,tension:.3,yAxisID:'y'},
+  ]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},
+    scales:{y:{ticks:{color:'#5a6a8a',font:{family:'DM Mono',size:10},callback:v=>'R'+(v/1000).toFixed(0)+'K'},grid:{color:'rgba(42,52,80,.5)'},border:{color:'transparent'}},
+      x:{ticks:{color:'#5a6a8a',font:{family:'DM Mono',size:10}},grid:{display:false},border:{color:'#2a3450'}}}}});
+
+  charts.donutChart=new Chart(document.getElementById('donutChart'),{type:'doughnut',data:{labels:['Paid','Pending','Overdue','Draft'],datasets:[{data:[0,0,0,0],backgroundColor:['#22c55e','#f5a623','#ef4444','#3a4a6a'],borderWidth:0,hoverOffset:4}]},options:{responsive:true,maintainAspectRatio:false,cutout:'70%',plugins:{legend:{display:false}}}});
+
+  charts.stackedBar=new Chart(document.getElementById('stackedBar'),{type:'bar',data:{labels:[],datasets:[
+    {label:'Mining',data:[],backgroundColor:'rgba(79,142,247,.8)',stack:'a'},
+    {label:'Engineering',data:[],backgroundColor:'rgba(168,85,247,.7)',stack:'a'},
+    {label:'Construction',data:[],backgroundColor:'rgba(20,184,166,.6)',stack:'a'},
+  ]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{labels:{color:'#9aaac8',font:{family:'DM Mono',size:10},boxWidth:10}}},
+    scales:{y:{stacked:true,ticks:{color:'#5a6a8a',font:{family:'DM Mono',size:10},callback:v=>'R'+v+'K'},grid:{color:'rgba(42,52,80,.5)'},border:{color:'transparent'}},
+      x:{stacked:true,ticks:{color:'#5a6a8a',font:{family:'DM Mono',size:10}},grid:{display:false},border:{color:'#2a3450'}}}}});
+
+  charts.catPie=new Chart(document.getElementById('catPie'),{type:'pie',data:{labels:['Services','Products','Contracts','Retainer'],datasets:[{data:[0,0,0,0],backgroundColor:['#4f8ef7','#22c55e','#f5a623','#a855f7'],borderWidth:0}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}}}});
+
+  charts.cashFlow=new Chart(document.getElementById('cashFlow'),{type:'bar',data:{labels:[],datasets:[
+    {label:'Inflow',data:[],backgroundColor:'rgba(34,197,94,.65)',borderWidth:0},
+    {label:'Outflow',data:[],backgroundColor:'rgba(239,68,68,.55)',borderWidth:0},
+  ]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{labels:{color:'#9aaac8',font:{family:'DM Mono',size:9},boxWidth:8}}},
+    scales:{y:{ticks:{color:'#5a6a8a',font:{family:'DM Mono',size:9},callback:v=>'R'+Math.abs(v)+'K'},grid:{color:'rgba(42,52,80,.4)'},border:{color:'transparent'}},
+      x:{ticks:{color:'#5a6a8a',font:{family:'DM Mono',size:9}},grid:{display:false},border:{color:'#2a3450'}}}}});
+
+  charts.supSpend=new Chart(document.getElementById('supSpend'),{type:'doughnut',data:{labels:['Mining Equip','Steel & Metals','Chemicals','Electrical','Civil Matls','Safety & PPE','Tools'],datasets:[{data:[0,0,0,0,0,0,0],backgroundColor:['#4f8ef7','#22c55e','#a855f7','#f5a623','#14b8a6','#ef4444','#f97316'],borderWidth:0}]},options:{responsive:true,maintainAspectRatio:false,cutout:'55%',plugins:{legend:{position:'right',labels:{color:'#9aaac8',font:{family:'DM Mono',size:8},boxWidth:7,padding:5}}}}});
+}
+
+function rnd(v,p){const m=v*(Math.random()*(p*2)-p);return Math.max(0,Math.round(v+m));}
+
+function fetchAnalyticsPayload(){
+  return new Promise(resolve=>{
+    setTimeout(()=>{
+      const months=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+      const rev=[820,760,1040,980,1220,1160,1440,1360,1620,1520,1780,1880].map(v=>rnd(v,0.12));
+      const col=rev.map(v=>Math.max(0,Math.round(v*(0.82+Math.random()*0.12))));
+      const q=['Q1 24','Q2 24','Q3 24','Q4 24','Q1 25','Q2 25','Q3 25','Q4 25'];
+      const mining=[640,720,820,880,960,1080,1240,1380].map(v=>rnd(v,0.1));
+      const eng=[280,320,360,400,440,500,560,620].map(v=>rnd(v,0.1));
+      const con=[180,220,260,300,340,380,420,460].map(v=>rnd(v,0.12));
+      const mo6=['Nov','Dec','Jan','Feb','Mar','Apr'];
+      const inflow=[1680,1840,1560,1740,1820,1892].map(v=>rnd(v,0.12));
+      const outflow=[760,840,720,800,860,896].map(v=>rnd(v,0.1));
+      resolve({months,rev,col,out:rev.map((v,i)=>v-col[i]),
+        donut:[52,26,14,8].map(v=>Math.max(3,rnd(v,0.15))),
+        q,mining,eng,con,cat:[44,36,14,6].map(v=>Math.max(4,rnd(v,0.2))),
+        mo6,inflow,outflow:outflow.map(v=>-v),
+        supSpend:[38,22,12,14,8,4,2].map(v=>Math.max(2,rnd(v,0.2))),
+        topCustomers:[
+          {name:'Sibanye-Stillwater',val:rnd(892000,0.16)},{name:'Implats Mine Ops',val:rnd(648000,0.16)},
+          {name:'Kumba Iron Ore',val:rnd(440000,0.16)},{name:'WBHO Construction',val:rnd(412000,0.16)},{name:'Exxaro Resources',val:rnd(285600,0.16)},
+        ]});
+    },500+Math.floor(Math.random()*500));
+  });
+}
+
+function applyChartPayload(p){
+  charts.revChart.data.labels=p.months;charts.revChart.data.datasets[0].data=p.rev;charts.revChart.data.datasets[1].data=p.col;charts.revChart.data.datasets[2].data=p.out;
+  charts.donutChart.data.datasets[0].data=p.donut;
+  charts.stackedBar.data.labels=p.q;charts.stackedBar.data.datasets[0].data=p.mining;charts.stackedBar.data.datasets[1].data=p.eng;charts.stackedBar.data.datasets[2].data=p.con;
+  charts.catPie.data.datasets[0].data=p.cat;
+  charts.cashFlow.data.labels=p.mo6;charts.cashFlow.data.datasets[0].data=p.inflow;charts.cashFlow.data.datasets[1].data=p.outflow;
+  charts.supSpend.data.datasets[0].data=p.supSpend;
+  Object.values(charts).forEach(ch=>ch.update());
+  renderTopCustomers(p.topCustomers,'top-cust-bars');
+  renderTopCustomers(p.topCustomers,'top-cust-bars2');
+}
+
+async function refreshChartsFromAjax(silent=false){
+  const status=document.getElementById('analytics-status');
+  if(status)status.textContent='Syncing...';
+  try{
+    const payload=await fetchAnalyticsPayload();
+    applyChartPayload(payload);chartsBootstrapped=true;
+    if(status)status.textContent='Updated just now';
+    if(!silent)showToast('Analytics refreshed');
+  }catch{if(status)status.textContent='Feed unavailable';}
+}
+
+// ============================================================
+// NAV
+// ============================================================
+const viewMeta={
+  dashboard:{title:'Overview',sub:'Tuesday, 21 April 2026 &middot; FY2026 Q2',btn:'+ New Invoice',action:()=>openModal('modal-invoice')},
+  customers:{title:'Customers',sub:'12 active accounts &middot; Mining, Engineering & Construction',btn:'+ Add Customer',action:()=>openModal('modal-customer')},
+  suppliers:{title:'Suppliers',sub:'12 active supply partners',btn:'+ Add Supplier',action:()=>openModal('modal-supplier')},
+  products:{title:'Products & Services Catalogue',sub:'20 products &middot; 16 services',btn:'+ Add Item',action:()=>{const t=document.querySelector('.tabs .tab.active')?.textContent||'';openModal(t==='Services'?'modal-service':'modal-product');}},
+  invoices:{title:'Invoices',sub:'Tax invoices with product & service line items',btn:'+ New Invoice',action:()=>openModal('modal-invoice')},
+  'purchase-orders':{title:'Purchase Orders',sub:'Linked to suppliers and product catalogue',btn:'+ New PO',action:()=>openModal('modal-po')},
+  statements:{title:'Account Statements',sub:'Aged receivables & transaction history',btn:'Export Report',action:()=>exportStatements()},
+  analytics:{title:'Analytics & Reports',sub:'Mining / Engineering / Construction business intelligence',btn:'&#8635; Refresh',action:()=>refreshChartsFromAjax()},
+  tracking:{title:'Order Tracking',sub:'Real-time status on POs and invoices',btn:'',action:()=>{}},
+  settings:{title:'Settings',sub:'System preferences and admin quick controls',btn:'Open Admin',action:()=>openView('admin')},
+  admin:{title:'Administration',sub:'Users, permissions and system controls',btn:'+ Add User',action:()=>openModal('modal-admin-user')},
+};
+function openView(v){
+  const item=document.querySelector(`.nav-item[data-view="${v}"]`);
+  if(item)item.click();
+}
+document.querySelectorAll('.nav-item').forEach(item=>{
+  item.addEventListener('click',()=>{
+    const v=item.dataset.view;
+    document.querySelectorAll('.nav-item').forEach(n=>n.classList.remove('active'));item.classList.add('active');
+    document.querySelectorAll('.view').forEach(vw=>vw.classList.remove('active'));
+    document.getElementById('view-'+v).classList.add('active');
+    const m=viewMeta[v];
+    document.getElementById('page-title').innerHTML=m.title;
+    document.getElementById('page-sub').innerHTML=m.sub;
+    const btn=document.getElementById('action-btn');
+    btn.innerHTML=m.btn;btn.style.display=m.btn?'flex':'none';btn.onclick=m.action;
+    if(v==='analytics'&&!chartsBootstrapped)refreshChartsFromAjax(true);
+  });
+});
+
+// ============================================================
+// MODAL HELPERS
+// ============================================================
+function openModal(id){document.getElementById(id).classList.add('open');}
+function resetEditContext(id){
+  if(['modal-customer','modal-supplier','modal-product','modal-service','modal-invoice','modal-po'].includes(id)){editState={type:null,id:null};}
+  if(id==='modal-admin-user'){adminEditId=null;}
+  if(id==='modal-customer'){document.querySelector('#modal-customer .modal-title').textContent='Add Customer';document.querySelector('#modal-customer .btn-primary').textContent='Add Customer';}
+  if(id==='modal-supplier'){document.querySelector('#modal-supplier .modal-title').textContent='Add Supplier';document.querySelector('#modal-supplier .btn-primary').textContent='Add Supplier';}
+  if(id==='modal-product'){document.querySelector('#modal-product .modal-title').textContent='Add Product';document.querySelector('#modal-product .btn-primary').textContent='Add Product';}
+  if(id==='modal-service'){document.querySelector('#modal-service .modal-title').textContent='Add Service';document.querySelector('#modal-service .btn-primary').textContent='Add Service';}
+  if(id==='modal-invoice'){document.querySelector('#modal-invoice .modal-title').textContent='New Invoice';document.querySelector('#modal-invoice .btn-primary').textContent='Create Invoice';}
+  if(id==='modal-po'){document.querySelector('#modal-po .modal-title').textContent='New Purchase Order';document.querySelector('#modal-po .btn-primary').textContent='Create PO';}
+}
+function closeModal(id){document.getElementById(id).classList.remove('open');resetEditContext(id);}
+function closeModalOutside(e,id){if(e.target.id===id)closeModal(id);}
+function openCreateModal(){const v=document.querySelector('.nav-item.active')?.dataset.view||'dashboard';(viewMeta[v]?.action||(() =>openModal('modal-invoice')))();}
+function openDetailModal(title,sub,body){
+  document.getElementById('detail-title').innerHTML=title;
+  document.getElementById('detail-sub').innerHTML=sub;
+  document.getElementById('detail-body').innerHTML=body;
+  openModal('modal-detail');
+}
+function saveDraft(){closeModal('modal-invoice');showToast('Invoice saved as draft');}
+function addPaymentStatement(inv,amount,note){
+  const ref='PMT-'+String(Math.floor(4000+Math.random()*5000));
+  statements.unshift({date:todayISO(),ref,desc:`Payment received – ${inv.customer}${note?` (${note})`:''}`,debit:0,credit:amount,bal:Math.max(0,inv.amount-inv.paid),status:'Cleared'});
+}
+function openInvoicePayment(id){
+  const inv=invoices.find(x=>x.id===id);if(!inv)return;
+  const remaining=Math.max(0,inv.amount-inv.paid);
+  document.getElementById('inv-pay-id').value=inv.id;
+  document.getElementById('inv-pay-ref').textContent=inv.id;
+  document.getElementById('inv-pay-customer').textContent=inv.customer;
+  document.getElementById('inv-pay-total').textContent=fmt(inv.amount);
+  document.getElementById('inv-pay-paid').textContent=fmt(inv.paid);
+  document.getElementById('inv-pay-remaining').textContent=fmt(remaining);
+  document.getElementById('inv-pay-mode').value='partial';
+  document.getElementById('inv-pay-amount').value=remaining>0?remaining:0;
+  document.getElementById('inv-pay-note').value='';
+  openModal('modal-invoice-payment');
+}
+function syncInvoicePaymentAmount(){
+  const id=document.getElementById('inv-pay-id').value;
+  const inv=invoices.find(x=>x.id===id);if(!inv)return;
+  const remaining=Math.max(0,inv.amount-inv.paid);
+  if(document.getElementById('inv-pay-mode').value==='full')document.getElementById('inv-pay-amount').value=remaining;
+}
+function applyInvoicePayment(){
+  const id=document.getElementById('inv-pay-id').value;
+  const inv=invoices.find(x=>x.id===id);if(!inv)return;
+  const remaining=Math.max(0,inv.amount-inv.paid);
+  let amount=Number(document.getElementById('inv-pay-amount').value||0);
+  if(document.getElementById('inv-pay-mode').value==='full')amount=remaining;
+  if(amount<=0){showToast('Enter payment amount');return;}
+  if(amount>remaining){showToast('Amount exceeds remaining balance');return;}
+  inv.paid=Math.round((inv.paid+amount)*100)/100;
+  inv.status=computeInvoiceStatus(inv);
+  addPaymentStatement(inv,amount,document.getElementById('inv-pay-note').value.trim());
+  renderInvoices();renderStatements();persistState();
+  closeModal('modal-invoice-payment');
+  showToast(`Payment ${fmt(amount)} applied to ${inv.id}`);
+}
+function openPOReceipt(id){
+  const po=purchaseOrders.find(x=>x.id===id);if(!po)return;
+  const outstanding=Math.max(0,po.value-po.received);
+  document.getElementById('po-receive-id').value=po.id;
+  document.getElementById('po-receive-ref').textContent=po.id;
+  document.getElementById('po-receive-supplier').textContent=po.supplier;
+  document.getElementById('po-receive-total').textContent=fmt(po.value);
+  document.getElementById('po-receive-received').textContent=fmt(po.received);
+  document.getElementById('po-receive-outstanding').textContent=fmt(outstanding);
+  document.getElementById('po-receive-mode').value='partial';
+  document.getElementById('po-receive-amount').value=outstanding>0?outstanding:0;
+  document.getElementById('po-receive-note').value='';
+  openModal('modal-po-receipt');
+}
+function syncPOReceiveAmount(){
+  const id=document.getElementById('po-receive-id').value;
+  const po=purchaseOrders.find(x=>x.id===id);if(!po)return;
+  const outstanding=Math.max(0,po.value-po.received);
+  if(document.getElementById('po-receive-mode').value==='full')document.getElementById('po-receive-amount').value=outstanding;
+}
+function applyPOReceipt(){
+  const id=document.getElementById('po-receive-id').value;
+  const po=purchaseOrders.find(x=>x.id===id);if(!po)return;
+  const outstanding=Math.max(0,po.value-po.received);
+  let amount=Number(document.getElementById('po-receive-amount').value||0);
+  if(document.getElementById('po-receive-mode').value==='full')amount=outstanding;
+  if(amount<=0){showToast('Enter received amount');return;}
+  if(amount>outstanding){showToast('Amount exceeds outstanding value');return;}
+  po.received=Math.round((po.received+amount)*100)/100;
+  po.status=computePOStatus(po);
+  renderPOs();persistState();
+  closeModal('modal-po-receipt');
+  showToast(`Receipt ${fmt(amount)} captured for ${po.id}`);
+}
+function openStatusModal(type,id){
+  const isInvoice=type==='invoice';
+  const record=isInvoice?invoices.find(x=>x.id===id):purchaseOrders.find(x=>x.id===id);
+  if(!record)return;
+  const opts=isInvoice?['Draft','Pending','Overdue','Partial','Done']:['Draft','Approved','Pending','Partial','Received','Done'];
+  document.getElementById('status-update-type').value=type;
+  document.getElementById('status-update-id').value=id;
+  document.getElementById('status-update-sub').textContent=`${isInvoice?'Invoice':'Purchase Order'} ${id}`;
+  const sel=document.getElementById('status-update-value');
+  sel.innerHTML=opts.map(s=>`<option>${s}</option>`).join('');
+  sel.value=record.status;
+  openModal('modal-status-update');
+}
+function applyStatusUpdate(){
+  const type=document.getElementById('status-update-type').value;
+  const id=document.getElementById('status-update-id').value;
+  const next=document.getElementById('status-update-value').value;
+  if(type==='invoice'){
+    const inv=invoices.find(x=>x.id===id);if(!inv)return;
+    inv.status=next;
+    if(next==='Done'&&inv.paid<inv.amount)inv.paid=inv.amount;
+  }else{
+    const po=purchaseOrders.find(x=>x.id===id);if(!po)return;
+    po.status=next;
+    if(next==='Done'&&po.received<po.value)po.received=po.value;
+    if(next==='Received'&&po.received<po.value)po.received=po.value;
+  }
+  normalizeBusinessStatuses();
+  renderInvoices();renderPOs();persistState();
+  closeModal('modal-status-update');
+  showToast('Status updated');
+}
+function exportStatements(){showToast('Statement export queued');}
+function sendStatements(){showToast('Statements sent to selected customers');}
+function showNotifications(){renderNotifications();openModal('modal-notify');}
+function showToast(msg){
+  document.getElementById('toast-msg').textContent=msg;
+  const t=document.getElementById('modal-toast');t.classList.add('open');
+  setTimeout(()=>t.classList.remove('open'),2600);
+}
+function syncSessionUI(){
+  const section=document.getElementById('admin-nav-section');
+  const item=document.getElementById('admin-nav-item');
+  const status=document.getElementById('session-status');
+  const cur=document.getElementById('admin-current-user');
+  if(status)status.textContent=currentUser?'Active':'Inactive';
+  if(cur)cur.textContent=currentUser?`${currentUser.name} (${currentUser.role})`:'N/A';
+  const showAdmin=currentUser&&currentUser.role==='Admin';
+  if(section)section.style.display=showAdmin?'block':'none';
+  if(item)item.style.display=showAdmin?'flex':'none';
+}
+function updateUserUI(){
+  const u=currentUser||{name:'Guest User',role:'Finance',title:'Viewer',email:'guest@nexuserp.co.za'};
+  const parts=u.name.split(' ').filter(Boolean);
+  const initials=((parts[0]?.[0]||'G')+(parts[1]?.[0]||'U')).toUpperCase();
+  document.getElementById('user-name').textContent=u.name;
+  document.getElementById('user-role').textContent=`${u.title||u.role} · ${u.role}`;
+  document.getElementById('user-avatar').textContent=initials;
+  const roleAccess=document.getElementById('settings-role-access');
+  if(roleAccess)roleAccess.textContent=u.role==='Admin'?'Finance/Manager/Admin (full)':`Finance/Manager/Admin (current: ${u.role})`;
+  syncSessionUI();
+}
+function loginUser(){
+  const email=document.getElementById('login-email').value.trim();
+  const role=document.getElementById('login-role').value;
+  if(!email){showToast('Email required');return;}
+  const existing=appUsers.find(x=>x.email.toLowerCase()===email.toLowerCase());
+  const name=existing?.name||email.split('@')[0].replace('.', ' ');
+  currentUser={id:existing?.id||('USR-'+String(Date.now()).slice(-4)),name:name.split(' ').map(x=>x?x[0].toUpperCase()+x.slice(1):x).join(' '),email,role,title:role==='Admin'?'System Administrator':role,lastLogin:new Date().toLocaleString('en-ZA')};
+  setCookie(SESSION_COOKIE,JSON.stringify(currentUser),1);
+  sessionStorage.setItem(SESSION_COOKIE,JSON.stringify(currentUser));
+  if(!existing)appUsers.unshift({...currentUser,status:'Active'});
+  else existing.lastLogin=currentUser.lastLogin;
+  updateUserUI();
+  renderAdminUsers();
+  closeModal('modal-login');
+  persistState();
+  showToast('Logged in successfully');
+}
+function restoreSession(){
+  const s=sessionStorage.getItem(SESSION_COOKIE)||getCookie(SESSION_COOKIE);
+  if(!s){openModal('modal-login');syncSessionUI();return;}
+  try{currentUser=JSON.parse(s);}catch{currentUser=null;}
+  if(currentUser){
+    const match=appUsers.find(x=>x.email===currentUser.email);
+    if(match)match.lastLogin=currentUser.lastLogin||new Date().toLocaleString('en-ZA');
+    updateUserUI();
+  }else{
+    openModal('modal-login');
+  }
+}
+function logoutUser(){
+  currentUser=null;
+  sessionStorage.removeItem(SESSION_COOKIE);
+  delCookie(SESSION_COOKIE);
+  syncSessionUI();
+  openModal('modal-login');
+}
+function openProfileModal(){
+  if(!currentUser){openModal('modal-login');return;}
+  document.getElementById('profile-name').value=currentUser.name||'';
+  document.getElementById('profile-email').value=currentUser.email||'';
+  document.getElementById('profile-role').value=currentUser.role||'Finance';
+  document.getElementById('profile-title').value=currentUser.title||currentUser.role||'';
+  document.getElementById('profile-password').value='';
+  openModal('modal-profile');
+}
+function saveProfile(){
+  if(!currentUser)return;
+  currentUser.name=document.getElementById('profile-name').value.trim()||currentUser.name;
+  currentUser.email=document.getElementById('profile-email').value.trim()||currentUser.email;
+  currentUser.role=document.getElementById('profile-role').value;
+  currentUser.title=document.getElementById('profile-title').value.trim()||currentUser.title;
+  const idx=appUsers.findIndex(x=>x.id===currentUser.id);
+  if(idx>=0)appUsers[idx]={...appUsers[idx],name:currentUser.name,email:currentUser.email,role:currentUser.role};
+  setCookie(SESSION_COOKIE,JSON.stringify(currentUser),1);
+  sessionStorage.setItem(SESSION_COOKIE,JSON.stringify(currentUser));
+  updateUserUI();
+  renderAdminUsers();
+  closeModal('modal-profile');
+  persistState();
+  showToast('Profile updated');
+}
+function editAdminUser(id){
+  const u=appUsers.find(x=>x.id===id);if(!u)return;
+  adminEditId=id;
+  document.getElementById('admin-user-name').value=u.name;
+  document.getElementById('admin-user-email').value=u.email;
+  document.getElementById('admin-user-role').value=u.role;
+  document.getElementById('admin-user-status').value=u.status||'Active';
+  openModal('modal-admin-user');
+}
+function saveAdminUserFromForm(){
+  const name=document.getElementById('admin-user-name').value.trim();
+  const email=document.getElementById('admin-user-email').value.trim();
+  if(!name||!email){showToast('Name and email required');return;}
+  const role=document.getElementById('admin-user-role').value;
+  const status=document.getElementById('admin-user-status').value;
+  if(adminEditId){
+    const idx=appUsers.findIndex(x=>x.id===adminEditId);
+    if(idx>=0)appUsers[idx]={...appUsers[idx],name,email,role,status};
+  }else{
+    appUsers.unshift({id:'USR-'+String(Date.now()).slice(-4),name,email,role,status,lastLogin:'Never'});
+  }
+  adminEditId=null;
+  renderAdminUsers();
+  closeModal('modal-admin-user');
+  persistState();
+  showToast('User saved');
+}
+function toggleAdminUserStatus(id){
+  const u=appUsers.find(x=>x.id===id);if(!u)return;
+  u.status=u.status==='Active'?'Inactive':'Active';
+  renderAdminUsers();persistState();
+}
+function deleteAdminUser(id){
+  if(!confirm('Delete this admin user?'))return;
+  appUsers=appUsers.filter(x=>x.id!==id);
+  renderAdminUsers();persistState();showToast('User deleted');
+}
+function resetSessionData(){
+  sessionStorage.removeItem(APP_STATE_KEY);
+  showToast('Session data reset. Reload app to restore defaults.');
+}
+
+// ============================================================
+// INIT
+// ============================================================
+loadPersistedState();
+ensureDocumentLines();
+ensureCustomerNotes();
+normalizeBusinessStatuses();
+renderCustomers();
+renderSuppliers();
+renderProducts();
+renderServices();
+renderInvoices();
+renderPOs();
+renderStatements();
+renderAdminUsers();
+renderActivity();
+renderTopCustomers();
+renderNotifications();
+renderTracking();
+syncAllDropdowns();
+initCharts();
+refreshChartsFromAjax(true);
+restoreSession();
+updateUserUI();
+persistState();
+</script>
+</body>
+</html>
