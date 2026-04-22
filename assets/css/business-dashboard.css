@@ -723,6 +723,36 @@ select.filter-sel:focus {
   margin-top: 20px;
 }
 
+/* Modal typography cleanup (applies to all modals) */
+.modal .modal-title {
+  font-family: var(--font-head);
+  font-size: 22px;
+  font-weight: 700;
+  letter-spacing: -0.2px;
+}
+
+.modal .modal-sub {
+  font-family: var(--font-head);
+  font-size: 13px;
+  color: var(--txt1);
+}
+
+.modal label {
+  font-family: var(--font-head);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.2px;
+  text-transform: uppercase;
+  color: var(--txt2);
+}
+
+.modal input,
+.modal select,
+.modal textarea {
+  font-family: var(--font-head);
+  font-size: 13px;
+}
+
 
 /* ── Forms ── */
 
