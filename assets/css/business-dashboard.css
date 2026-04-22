@@ -541,6 +541,7 @@ tr:hover td {
   flex-wrap: wrap;
 }
 
+
 .search-input {
   background: var(--surface-d);
   border: 1px solid var(--border);
@@ -1426,4 +1427,75 @@ textarea {
 
 [data-theme="light"] #sidebar {
   box-shadow: 2px 0 10px rgba(0, 0, 0, .07);
+}
+
+
+/* ── Row Menu Button ── */
+
+.row-menu-btn {
+  background: none;
+  border: 1px solid var(--border);
+  border-radius: var(--r6);
+  color: var(--txt2);
+  cursor: pointer;
+  font-size: 15px;
+  letter-spacing: 2px;
+  line-height: 1;
+  padding: 3px 8px;
+  transition: background .15s, color .15s, border-color .15s;
+}
+
+.row-menu-btn:hover {
+  background: var(--surface-g);
+  border-color: var(--border2);
+  color: var(--txt0);
+}
+
+
+/* ── Row Action Popover ── */
+
+.row-popover {
+  position: fixed;
+  z-index: 9999;
+  min-width: 164px;
+  background: var(--bg1);
+  border: 1px solid var(--border2);
+  border-radius: var(--r8);
+  padding: 4px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, .22), 0 2px 6px rgba(0, 0, 0, .12);
+}
+
+.row-popover-divider {
+  height: 1px;
+  background: var(--border);
+  margin: 4px 0;
+}
+
+.row-popover-item {
+  display: block;
+  width: 100%;
+  padding: 7px 12px;
+  text-align: left;
+  background: none;
+  border: none;
+  border-radius: 6px;
+  font-family: var(--font-head);
+  font-size: 12.5px;
+  color: var(--txt1);
+  cursor: pointer;
+  transition: background .1s, color .1s;
+}
+
+.row-popover-item:hover {
+  background: var(--surface-g);
+  color: var(--txt0);
+}
+
+.row-popover-item.danger {
+  color: var(--red);
+}
+
+.row-popover-item.danger:hover {
+  background: var(--red-dim);
+  color: var(--red);
 }

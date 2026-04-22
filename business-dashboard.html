@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>NexusERP &ndash; Business Dashboard</title>
 <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700&family=DM+Sans:wght@300;400;500;600;700&family=DM+Mono:wght@300;400;500&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="assets/css/business-dashboard.css?v=1.3.0">
+<link rel="stylesheet" href="assets/css/business-dashboard.css?v=1.4.0">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
 
 <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@300;400;600;700;900&family=IBM+Plex+Mono:wght@300;400;500&display=swap" rel="stylesheet">
@@ -1722,11 +1722,7 @@ function renderCustomers(){
     <td class="amount">${fmt(c.creditLimit)}</td>
     <td class="amount ${c.currentBalance>0?'negative':''}">${fmt(c.currentBalance)}</td>
     <td><span class="status-badge ${bc(c.status)}">${c.status}</span></td>
-    <td><div class="action-group">
-      <button class="tb-btn" style="padding:4px 8px;font-size:11px" onclick="viewCustomer('${c.customerCode}')">View</button>
-      <button class="tb-btn" style="padding:4px 8px;font-size:11px" onclick="editCustomer('${c.customerCode}')">Edit</button>
-      <button class="tb-btn" style="padding:4px 8px;font-size:11px;color:var(--red);border-color:var(--red)" onclick="deleteCustomer('${c.customerCode}')">Delete</button>
-    </div></td>
+    <td><button class="row-menu-btn" onclick="rowMenu(this,'customer','${c.customerCode}')">···</button></td>
   </tr>`).join('');
 }
 
@@ -1742,11 +1738,7 @@ function renderSuppliers(){
     <td style="font-family:var(--font-mono);font-size:12px">${s.leadTime} days</td>
     <td class="amount">${fmt(s.spend)}</td>
     <td><span class="status-badge ${bc(s.status)}">${s.status}</span></td>
-    <td><div class="action-group">
-      <button class="tb-btn" style="padding:4px 8px;font-size:11px" onclick="viewSupplier('${s.supplierCode}')">View</button>
-      <button class="tb-btn" style="padding:4px 8px;font-size:11px" onclick="editSupplier('${s.supplierCode}')">Edit</button>
-      <button class="tb-btn" style="padding:4px 8px;font-size:11px;color:var(--red);border-color:var(--red)" onclick="deleteSupplier('${s.supplierCode}')">Delete</button>
-    </div></td>
+    <td><button class="row-menu-btn" onclick="rowMenu(this,'supplier','${s.supplierCode}')">···</button></td>
   </tr>`).join('');
 }
 
@@ -1762,11 +1754,7 @@ function renderProducts(){
     <td style="font-size:11px;color:var(--txt1)">${p.supplierName||p.supplier}</td>
     <td style="font-family:var(--font-mono);font-size:12px;color:${p.stock<=p.reorder?'var(--amber)':'var(--txt1)'}">${p.stock}</td>
     <td><span class="status-badge ${bc(p.status)}">${p.status}</span></td>
-    <td><div class="action-group">
-      <button class="tb-btn" style="padding:4px 8px;font-size:11px" onclick="viewProduct('${p.id}')">View</button>
-      <button class="tb-btn" style="padding:4px 8px;font-size:11px" onclick="editProduct('${p.id}')">Edit</button>
-      <button class="tb-btn" style="padding:4px 8px;font-size:11px;color:var(--red);border-color:var(--red)" onclick="deleteProduct('${p.id}')">Delete</button>
-    </div></td>
+    <td><button class="row-menu-btn" onclick="rowMenu(this,'product','${p.id}')">···</button></td>
   </tr>`).join('');
 }
 
@@ -1785,11 +1773,7 @@ function renderServices(){
     <td style="font-size:11px;color:var(--txt2);font-family:var(--font-mono)">${s.unit}</td>
     <td style="font-size:11px;color:var(--txt2)">${s.supplier||'N/A'}</td>
     <td><span class="status-badge ${bc(s.status)}">${s.status}</span></td>
-    <td><div class="action-group">
-      <button class="tb-btn" style="padding:4px 8px;font-size:11px" onclick="viewService('${s.code}')">View</button>
-      <button class="tb-btn" style="padding:4px 8px;font-size:11px" onclick="editService('${s.code}')">Edit</button>
-      <button class="tb-btn" style="padding:4px 8px;font-size:11px;color:var(--red);border-color:var(--red)" onclick="deleteService('${s.code}')">Delete</button>
-    </div></td>
+    <td><button class="row-menu-btn" onclick="rowMenu(this,'service','${s.code}')">···</button></td>
   </tr>`).join('');
 }
 
@@ -1811,10 +1795,7 @@ function renderInvoices(){
     <td class="amount positive">${fmt(i.paid)}</td>
     <td class="amount ${bal>0?'negative':''}">${fmt(bal)}</td>
     <td><span class="status-badge ${bc(i.status)}">${i.status}</span></td>
-    <td>
-    <div class="action-group">
-      <button class="tb-btn action-primary" onclick="openDocActions('invoice','${i.id}')">Actions</button>
-    </div></td></tr>`;
+    <td><button class="row-menu-btn" onclick="rowMenu(this,'invoice','${i.id}')">···</button></td></tr>`;
   }).join('');
 }
 
@@ -1832,12 +1813,7 @@ function renderProjects(){
     <td class="amount">${fmt(p.budget)}</td>
     <td class="amount">${fmt(p.actualCost)}</td>
     <td><span class="status-badge ${p.status==='Completed'?'badge-paid':p.status==='In Progress'?'badge-pending':p.status==='On Hold'?'badge-onhold':'badge-draft'}">${p.status}</span></td>
-    <td><div class="action-group">
-      <button class="tb-btn" style="padding:4px 8px;font-size:11px" onclick="viewProject('${p.id}')">View</button>
-      ${p.status==='In Progress'?`<button class="tb-btn" style="padding:4px 8px;font-size:11px;color:#f5a623;border-color:#f5a623;background:rgba(245,166,35,.08)" onclick="openConstructionHub('${p.id}')">🏗 Hub</button>`:''}
-      <button class="tb-btn" style="padding:4px 8px;font-size:11px" onclick="editProject('${p.id}')">Edit</button>
-      <button class="tb-btn" style="padding:4px 8px;font-size:11px;color:var(--red);border-color:var(--red)" onclick="deleteProject('${p.id}')">Delete</button>
-    </div></td>
+    <td><button class="row-menu-btn" onclick="rowMenu(this,'project','${p.id}','${p.status}')">···</button></td>
   </tr>`).join('');
 }
 
@@ -1894,9 +1870,7 @@ function renderPOs(){
     <td class="amount">${fmt(p.value)}</td>
     <td class="amount positive">${fmt(p.received)}</td>
     <td><span class="status-badge ${bc(p.status)}">${p.status}</span></td>
-    <td><div class="action-group">
-      <button class="tb-btn action-primary" onclick="openDocActions('po','${p.id}')">Actions</button>
-    </div></td>
+    <td><button class="row-menu-btn" onclick="rowMenu(this,'po','${p.id}')">···</button></td>
   </tr>`).join('');
 }
 
@@ -1909,11 +1883,7 @@ function renderStatements(){
     <td class="amount ${s.credit>0?'positive':''}">${s.credit>0?fmt(s.credit):'&mdash;'}</td>
     <td class="amount">${fmt(s.bal)}</td>
     <td><span class="status-badge ${bc(s.status)}">${s.status}</span></td>
-    <td><div class="action-group">
-      <button class="tb-btn" style="padding:4px 8px;font-size:11px" onclick="viewStatement('${s.ref}')">View</button>
-      <button class="tb-btn" style="padding:4px 8px;font-size:11px" onclick="editStatement('${s.ref}')">Edit</button>
-      <button class="tb-btn" style="padding:4px 8px;font-size:11px;color:var(--red);border-color:var(--red)" onclick="deleteStatement('${s.ref}')">Delete</button>
-    </div></td>
+    <td><button class="row-menu-btn" onclick="rowMenu(this,'statement','${s.ref}')">···</button></td>
   </tr>`).join('');
 }
 
@@ -1926,11 +1896,7 @@ function renderAdminUsers(){
     <td>${u.role}</td>
     <td><span class="status-badge ${bc(u.status)}">${u.status}</span></td>
     <td style="font-family:var(--font-mono);font-size:11px">${u.lastLogin||'Never'}</td>
-    <td><div class="action-group">
-      <button class="tb-btn" style="padding:4px 8px;font-size:11px" onclick="editAdminUser('${u.id}')">Edit</button>
-      <button class="tb-btn" style="padding:4px 8px;font-size:11px" onclick="toggleAdminUserStatus('${u.id}')">${u.status==='Active'?'Disable':'Enable'}</button>
-      <button class="tb-btn" style="padding:4px 8px;font-size:11px;color:var(--red);border-color:var(--red)" onclick="deleteAdminUser('${u.id}')">Delete</button>
-    </div></td>
+    <td><button class="row-menu-btn" onclick="rowMenu(this,'adminuser','${u.id}','${u.status}')">···</button></td>
   </tr>`).join('');
 }
 
@@ -2015,10 +1981,7 @@ function renderTracking(){
           <div style="font-size:11px;color:var(--txt2);margin-top:2px">${t.from} &rarr; ${t.to}</div></div>
         <div style="display:flex;flex-direction:column;gap:6px;align-items:flex-end">
           <span class="status-badge ${bc(t.status)}">${t.status}</span>
-          <div class="action-group">
-            <button class="tb-btn" style="padding:4px 8px;font-size:11px" onclick="viewTracking('${t.id}')">View</button>
-            <button class="tb-btn" style="padding:4px 8px;font-size:11px" onclick="openTrackingUpdate('${t.id}')">Update</button>
-          </div>
+          <button class="row-menu-btn" onclick="rowMenu(this,'tracking','${t.id}')">···</button>
         </div>
       </div>
       <div style="display:flex;flex-wrap:wrap;gap:0">${stageHtml}</div>
@@ -3487,6 +3450,128 @@ refreshChartsFromAjax(true);
 restoreSession();
 updateUserUI();
 persistState();
+
+
+// ── Row popover ──
+let _popover = null;
+function showPopover(trigger, items) {
+  if (_popover) { _popover.remove(); _popover = null; }
+  const menu = document.createElement('div');
+  menu.className = 'row-popover';
+  items.forEach(item => {
+    if (item.divider) {
+      const hr = document.createElement('div');
+      hr.className = 'row-popover-divider';
+      menu.appendChild(hr);
+      return;
+    }
+    const btn = document.createElement('button');
+    btn.className = 'row-popover-item' + (item.danger ? ' danger' : '');
+    btn.textContent = item.label;
+    btn.addEventListener('click', () => { menu.remove(); _popover = null; item.fn(); });
+    menu.appendChild(btn);
+  });
+  document.body.appendChild(menu);
+  _popover = menu;
+  const r = trigger.getBoundingClientRect();
+  const mh = menu.offsetHeight;
+  const top = (window.innerHeight - r.bottom >= mh + 8)
+    ? r.bottom + 4
+    : r.top - mh - 4;
+  menu.style.top  = top + 'px';
+  menu.style.left = Math.min(r.right - 164, window.innerWidth - 172) + 'px';
+  function close(e) {
+    if (!_popover) return;
+    if (e.type === 'keydown' ? e.key === 'Escape' : !menu.contains(e.target)) {
+      menu.remove(); _popover = null;
+      document.removeEventListener('click', close);
+      document.removeEventListener('keydown', close);
+    }
+  }
+  setTimeout(() => {
+    document.addEventListener('click', close);
+    document.addEventListener('keydown', close);
+  }, 0);
+}
+function rowMenu(btn, type, id, extra) {
+  const defs = {
+    customer: () => [
+      { label: 'View',   fn: () => viewCustomer(id) },
+      { label: 'Edit',   fn: () => editCustomer(id) },
+      { divider: true },
+      { label: 'Delete', fn: () => deleteCustomer(id), danger: true }
+    ],
+    supplier: () => [
+      { label: 'View',   fn: () => viewSupplier(id) },
+      { label: 'Edit',   fn: () => editSupplier(id) },
+      { divider: true },
+      { label: 'Delete', fn: () => deleteSupplier(id), danger: true }
+    ],
+    product: () => [
+      { label: 'View',   fn: () => viewProduct(id) },
+      { label: 'Edit',   fn: () => editProduct(id) },
+      { divider: true },
+      { label: 'Delete', fn: () => deleteProduct(id), danger: true }
+    ],
+    service: () => [
+      { label: 'View',   fn: () => viewService(id) },
+      { label: 'Edit',   fn: () => editService(id) },
+      { divider: true },
+      { label: 'Delete', fn: () => deleteService(id), danger: true }
+    ],
+    invoice: () => {
+      const inv = invoices.find(x => x.id === id);
+      const bal = inv ? Math.max(0, inv.amount - inv.paid) : 0;
+      const acts = [
+        { label: 'View Details',  fn: () => viewInvoice(id) },
+        { label: 'Edit',          fn: () => editInvoice(id) },
+        { label: 'Update Status', fn: () => openStatusModal('invoice', id) },
+      ];
+      if (bal > 0) acts.push({ label: 'Record Payment', fn: () => openInvoicePayment(id) });
+      acts.push({ divider: true });
+      acts.push({ label: 'Delete', fn: () => deleteInvoice(id), danger: true });
+      return acts;
+    },
+    po: () => {
+      const po = purchaseOrders.find(x => x.id === id);
+      const bal = po ? Math.max(0, po.value - po.received) : 0;
+      const acts = [
+        { label: 'View Details',  fn: () => viewPO(id) },
+        { label: 'Edit',          fn: () => editPO(id) },
+        { label: 'Update Status', fn: () => openStatusModal('po', id) },
+      ];
+      if (bal > 0) acts.push({ label: 'Capture Receipt', fn: () => openPOReceipt(id) });
+      acts.push({ divider: true });
+      acts.push({ label: 'Delete', fn: () => deletePO(id), danger: true });
+      return acts;
+    },
+    project: () => {
+      const acts = [{ label: 'View', fn: () => viewProject(id) }];
+      if (extra === 'In Progress') acts.push({ label: '\u{1F3D7} Construction Hub', fn: () => openConstructionHub(id) });
+      acts.push({ label: 'Edit', fn: () => editProject(id) });
+      acts.push({ divider: true });
+      acts.push({ label: 'Delete', fn: () => deleteProject(id), danger: true });
+      return acts;
+    },
+    statement: () => [
+      { label: 'View',   fn: () => viewStatement(id) },
+      { label: 'Edit',   fn: () => editStatement(id) },
+      { divider: true },
+      { label: 'Delete', fn: () => deleteStatement(id), danger: true }
+    ],
+    adminuser: () => [
+      { label: 'Edit',   fn: () => editAdminUser(id) },
+      { label: extra === 'Active' ? 'Disable' : 'Enable', fn: () => toggleAdminUserStatus(id) },
+      { divider: true },
+      { label: 'Delete', fn: () => deleteAdminUser(id), danger: true }
+    ],
+    tracking: () => [
+      { label: 'View',   fn: () => viewTracking(id) },
+      { label: 'Update', fn: () => openTrackingUpdate(id) },
+    ],
+  };
+  showPopover(btn, (defs[type] || (() => []))());
+}
 
 // Theme toggle
 (function () {
