@@ -551,8 +551,10 @@ tr:hover td {
   font-size: 12px;
   font-family: var(--font-head);
   outline: none;
-  width: 220px;
+  width: auto !important; 
   transition: .15s;
+  order: 99;
+  margin-left: auto;
 }
 
 .search-input:focus {
@@ -565,20 +567,78 @@ tr:hover td {
   color: var(--txt2);
 }
 
+/* hidden — kept in DOM for value/onchange compatibility */
 select.filter-sel {
-  background: var(--surface-d);
+  display: none;
+}
+
+/* ── Filter Button ── */
+
+.filter-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: var(--surface-c);
   border: 1px solid var(--border);
   border-radius: 10px;
-  padding: 8px 10px;
+  padding: 7px 10px;
   color: var(--txt1);
   font-size: 12px;
   font-family: var(--font-head);
-  outline: none;
+  font-weight: 500;
   cursor: pointer;
+  white-space: nowrap;
+  transition: background .15s, color .15s, border-color .15s;
 }
 
-select.filter-sel:focus {
+.filter-btn:hover {
+  background: var(--surface-g);
+  color: var(--txt0);
+  border-color: var(--border2);
+}
+
+.filter-btn.active {
+  background: var(--blue-dim);
   border-color: var(--blue);
+  color: var(--blue);
+}
+
+.filter-btn svg {
+  flex-shrink: 0;
+  opacity: .7;
+}
+
+.filter-btn.active svg {
+  opacity: 1;
+}
+
+@media (max-width: 767px) {
+  .search-input {
+    flex: 1;
+    min-width: 0;
+    width: 100%;
+  }
+
+  .filter-btn span,
+  .filter-btn svg:last-child {
+    display: none;
+  }
+
+  .filter-btn {
+    padding: 7px 9px;
+  }
+}
+
+.row-popover-item.checked {
+  color: var(--blue);
+  font-weight: 500;
+}
+
+.row-popover-item.checked::after {
+  content: '✓';
+  margin-left: auto;
+  padding-left: 12px;
+  font-size: 11px;
 }
 
 
@@ -1472,7 +1532,8 @@ textarea {
 }
 
 .row-popover-item {
-  display: block;
+  display: flex;
+  align-items: center;
   width: 100%;
   padding: 7px 12px;
   text-align: left;

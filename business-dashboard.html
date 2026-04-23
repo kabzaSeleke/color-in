@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>NexusERP &ndash; Business Dashboard</title>
 <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700&family=DM+Sans:wght@300;400;500;600;700&family=DM+Mono:wght@300;400;500&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="assets/css/business-dashboard.css?v=1.4.0">
+<link rel="stylesheet" href="assets/css/business-dashboard.css?v=1.6.2">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
 
 <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@300;400;600;700;900&family=IBM+Plex+Mono:wght@300;400;500&display=swap" rel="stylesheet">
@@ -325,7 +325,7 @@
 <div class="view" id="view-customers">
   <div class="toolbar">
     <input class="search-input" type="text" placeholder="Search customers..." id="cust-search" oninput="filterTable('cust-tbody','cust-search')">
-    <select class="filter-sel" onchange="filterByAttr('cust-tbody',this,'data-seg')">
+    <button class="filter-btn" onclick="openFilterPopover(this)"><svg width="12" height="12" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M1.5 2.5h13l-5 6.5v5l-3-1.5V9L1.5 2.5z"/></svg><span>All Sectors</span><svg width="10" height="10" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6l5 5 5-5"/></svg></button><select class="filter-sel" onchange="filterByAttr('cust-tbody',this,'data-seg')">
       <option value="">All Sectors</option><option>Mining</option><option>Engineering</option><option>Construction</option>
     </select>
     <button class="tb-btn primary" onclick="openModal('modal-customer')">+ Add Customer</button>
@@ -340,7 +340,7 @@
 <div class="view" id="view-suppliers">
   <div class="toolbar">
     <input class="search-input" type="text" placeholder="Search suppliers..." id="sup-search" oninput="filterTable('sup-tbody','sup-search')">
-    <select class="filter-sel" onchange="filterByAttr('sup-tbody',this,'data-cat')">
+    <button class="filter-btn" onclick="openFilterPopover(this)"><svg width="12" height="12" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M1.5 2.5h13l-5 6.5v5l-3-1.5V9L1.5 2.5z"/></svg><span>All Categories</span><svg width="10" height="10" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6l5 5 5-5"/></svg></button><select class="filter-sel" onchange="filterByAttr('sup-tbody',this,'data-cat')">
       <option value="">All Categories</option><option>Mining Equipment</option><option>Steel &amp; Metals</option><option>Safety &amp; PPE</option><option>Civil Materials</option><option>Electrical</option><option>Chemicals</option><option>Tools &amp; Hardware</option>
     </select>
     <button class="tb-btn primary" onclick="openModal('modal-supplier')">+ Add Supplier</button>
@@ -355,7 +355,7 @@
 <div class="view" id="view-projects">
   <div class="toolbar">
     <input class="search-input" type="text" placeholder="Search projects..." id="proj-search" oninput="filterTable('proj-tbody','proj-search')">
-    <select class="filter-sel" onchange="filterByAttr('proj-tbody',this,'data-status')">
+    <button class="filter-btn" onclick="openFilterPopover(this)"><svg width="12" height="12" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M1.5 2.5h13l-5 6.5v5l-3-1.5V9L1.5 2.5z"/></svg><span>All Status</span><svg width="10" height="10" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6l5 5 5-5"/></svg></button><select class="filter-sel" onchange="filterByAttr('proj-tbody',this,'data-status')">
       <option value="">All Status</option><option>Planned</option><option>In Progress</option><option>On Hold</option><option>Completed</option>
     </select>
     <button class="tb-btn primary" onclick="openModal('modal-project')">+ Add Project</button>
@@ -717,7 +717,7 @@
   <div id="cat-products">
     <div class="toolbar">
       <input class="search-input" type="text" placeholder="Search products..." id="prod-search" oninput="filterCat('products')">
-      <select class="filter-sel" id="prod-cat-filter" onchange="filterCat('products')">
+      <button class="filter-btn" onclick="openFilterPopover(this)"><svg width="12" height="12" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M1.5 2.5h13l-5 6.5v5l-3-1.5V9L1.5 2.5z"/></svg><span>All Categories</span><svg width="10" height="10" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6l5 5 5-5"/></svg></button><select class="filter-sel" id="prod-cat-filter" onchange="filterCat('products')">
         <option value="">All Categories</option><option>Mining Equipment</option><option>Steel &amp; Structural</option><option>Safety &amp; PPE</option><option>Civil Materials</option><option>Electrical</option><option>Chemicals &amp; Reagents</option><option>Tools &amp; Hardware</option>
       </select>
       <button class="tb-btn primary" onclick="openModal('modal-product')">+ Add Product</button>
@@ -730,7 +730,7 @@
   <div id="cat-services" style="display:none">
     <div class="toolbar">
       <input class="search-input" type="text" placeholder="Search services..." id="svc-search" oninput="filterCat('services')">
-      <select class="filter-sel" id="svc-cat-filter" onchange="filterCat('services')">
+      <button class="filter-btn" onclick="openFilterPopover(this)"><svg width="12" height="12" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M1.5 2.5h13l-5 6.5v5l-3-1.5V9L1.5 2.5z"/></svg><span>All Categories</span><svg width="10" height="10" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6l5 5 5-5"/></svg></button><select class="filter-sel" id="svc-cat-filter" onchange="filterCat('services')">
         <option value="">All Categories</option><option>Engineering</option><option>Mining Operations</option><option>Construction</option><option>Inspections &amp; Testing</option><option>Maintenance</option><option>Consulting</option>
       </select>
       <button class="tb-btn primary" onclick="openModal('modal-service')">+ Add Service</button>
@@ -746,7 +746,7 @@
 <div class="view" id="view-invoices">
   <div class="toolbar">
     <input class="search-input" type="text" placeholder="Search invoices..." id="inv-search" oninput="filterTable('inv-tbody','inv-search')">
-    <select class="filter-sel" onchange="filterByAttr('inv-tbody',this,'data-status')">
+    <button class="filter-btn" onclick="openFilterPopover(this)"><svg width="12" height="12" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M1.5 2.5h13l-5 6.5v5l-3-1.5V9L1.5 2.5z"/></svg><span>All Status</span><svg width="10" height="10" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6l5 5 5-5"/></svg></button><select class="filter-sel" onchange="filterByAttr('inv-tbody',this,'data-status')">
       <option value="">All Status</option><option>Draft</option><option>Sent</option><option>Paid</option><option>Overdue</option><option>Partial</option>
     </select>
     <button class="tb-btn primary" onclick="openModal('modal-invoice')">+ New Invoice</button>
@@ -761,7 +761,7 @@
 <div class="view" id="view-purchase-orders">
   <div class="toolbar">
     <input class="search-input" type="text" placeholder="Search POs..." id="po-search" oninput="filterTable('po-tbody','po-search')">
-    <select class="filter-sel" onchange="filterByAttr('po-tbody',this,'data-status')">
+    <button class="filter-btn" onclick="openFilterPopover(this)"><svg width="12" height="12" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M1.5 2.5h13l-5 6.5v5l-3-1.5V9L1.5 2.5z"/></svg><span>All Status</span><svg width="10" height="10" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6l5 5 5-5"/></svg></button><select class="filter-sel" onchange="filterByAttr('po-tbody',this,'data-status')">
       <option value="">All Status</option><option>Draft</option><option>Approved</option><option>Issued</option><option>Received</option><option>Partial</option>
     </select>
     <button class="tb-btn primary" onclick="openModal('modal-po')">+ New PO</button>
@@ -775,8 +775,8 @@
 <!-- ===== STATEMENTS VIEW ===== -->
 <div class="view" id="view-statements">
   <div class="toolbar">
-    <select class="filter-sel" style="width:240px" id="stmt-cust"><option>All Customers</option></select>
-    <select class="filter-sel"><option>April 2026</option><option>March 2026</option><option>February 2026</option><option>Q1 2026</option></select>
+    <button class="filter-btn" onclick="openFilterPopover(this)"><svg width="12" height="12" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M1.5 2.5h13l-5 6.5v5l-3-1.5V9L1.5 2.5z"/></svg><span>All Customers</span><svg width="10" height="10" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6l5 5 5-5"/></svg></button><select class="filter-sel" style="width:240px" id="stmt-cust"><option>All Customers</option></select>
+    <button class="filter-btn" onclick="openFilterPopover(this)"><svg width="12" height="12" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M1.5 2.5h13l-5 6.5v5l-3-1.5V9L1.5 2.5z"/></svg><span>April 2026</span><svg width="10" height="10" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6l5 5 5-5"/></svg></button><select class="filter-sel"><option>April 2026</option><option>March 2026</option><option>February 2026</option><option>Q1 2026</option></select>
     <button class="tb-btn primary" onclick="exportStatements()">Export PDF</button>
     <button class="tb-btn" onclick="sendStatements()">Send Statement</button>
   </div>
@@ -842,8 +842,8 @@
 <div class="view" id="view-tracking">
   <div class="toolbar">
     <input class="search-input" type="text" placeholder="Search by ref / description..." id="track-search" oninput="filterTracking()">
-    <select class="filter-sel" id="track-type" onchange="filterTracking()"><option value="">All Types</option><option value="PO">Purchase Orders</option><option value="INV">Invoices</option></select>
-    <select class="filter-sel" id="track-status" onchange="filterTracking()"><option value="">All Status</option><option>In Transit</option><option>At Customs</option><option>Delivered</option><option>Processing</option><option>Awaiting Payment</option></select>
+    <button class="filter-btn" onclick="openFilterPopover(this)"><svg width="12" height="12" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M1.5 2.5h13l-5 6.5v5l-3-1.5V9L1.5 2.5z"/></svg><span>All Types</span><svg width="10" height="10" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6l5 5 5-5"/></svg></button><select class="filter-sel" id="track-type" onchange="filterTracking()"><option value="">All Types</option><option value="PO">Purchase Orders</option><option value="INV">Invoices</option></select>
+    <button class="filter-btn" onclick="openFilterPopover(this)"><svg width="12" height="12" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M1.5 2.5h13l-5 6.5v5l-3-1.5V9L1.5 2.5z"/></svg><span>All Status</span><svg width="10" height="10" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6l5 5 5-5"/></svg></button><select class="filter-sel" id="track-status" onchange="filterTracking()"><option value="">All Status</option><option>In Transit</option><option>At Customs</option><option>Delivered</option><option>Processing</option><option>Awaiting Payment</option></select>
   </div>
   <div id="tracking-list"></div>
 </div>
@@ -3466,7 +3466,7 @@ function showPopover(trigger, items) {
       return;
     }
     const btn = document.createElement('button');
-    btn.className = 'row-popover-item' + (item.danger ? ' danger' : '');
+    btn.className = 'row-popover-item' + (item.danger ? ' danger' : '') + (item.checked ? ' checked' : '');
     btn.textContent = item.label;
     btn.addEventListener('click', () => { menu.remove(); _popover = null; item.fn(); });
     menu.appendChild(btn);
@@ -3571,6 +3571,24 @@ function rowMenu(btn, type, id, extra) {
     ],
   };
   showPopover(btn, (defs[type] || (() => []))());
+}
+
+
+// ── Filter button popover ──
+function openFilterPopover(btn) {
+  const sel = btn.nextElementSibling;
+  if (!sel || sel.tagName !== 'SELECT') return;
+  const items = Array.from(sel.options).map(opt => ({
+    label: opt.text,
+    checked: opt.value === sel.value,
+    fn: () => {
+      sel.value = opt.value;
+      btn.querySelector('span').textContent = opt.text;
+      btn.classList.toggle('active', sel.selectedIndex > 0);
+      sel.dispatchEvent(new Event('change'));
+    }
+  }));
+  showPopover(btn, items);
 }
 
 // Theme toggle
