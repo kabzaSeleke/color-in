@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>NexusERP &ndash; Business Dashboard</title>
 <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700&family=DM+Sans:wght@300;400;500;600;700&family=DM+Mono:wght@300;400;500&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="assets/css/business-dashboard.css?v=1.6.2">
+<link rel="stylesheet" href="assets/css/business-dashboard.css?v=1.6.4">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
 
 <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@300;400;600;700;900&family=IBM+Plex+Mono:wght@300;400;500&display=swap" rel="stylesheet">
@@ -266,12 +266,12 @@
   <div class="sidebar-footer"><div class="user-info" style="cursor:pointer" onclick="openProfileModal()"><div class="avatar" id="user-avatar">JD</div><div><div class="user-name" id="user-name">James Donaldson</div><div class="user-role" id="user-role">CFO &middot; Admin</div></div></div></div>
 </div>
 
+<button id="sidebar-toggle" aria-label="Toggle sidebar">
+  <svg width="11" height="11" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 3L4 8l6 5"/></svg>
+</button>
 <div class="sidebar-overlay" id="sidebar-overlay"></div>
 <div id="main">
   <div class="topbar">
-    <button class="hamburger" id="sidebar-toggle" aria-label="Toggle sidebar">
-      <span></span><span></span><span></span>
-    </button>
     <div><div class="page-title" id="page-title">Overview</div><div class="page-subtitle" id="page-sub">Tuesday, 21 April 2026 &middot; FY2026 Q2</div></div>
     <div class="topbar-right">
       <button class="tb-btn" onclick="showNotifications()">

@@ -402,6 +402,23 @@ nav {
   margin-bottom: 22px;
 }
 
+@media (max-width: 1024px) {
+  .chart-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .chart-grid-3 {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+@media (max-width: 767px) {
+  .chart-grid,
+  .chart-grid-3 {
+    grid-template-columns: 1fr;
+  }
+}
+
 
 /* ── Cards ── */
 
@@ -1325,31 +1342,43 @@ textarea {
 
 /* ── Hamburger Button ── */
 
-.hamburger {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  gap: 5px;
-  width: 36px;
-  height: 36px;
-  padding: 6px;
-  background: var(--surface-c);
+#sidebar-toggle {
+  position: fixed;
+  top: 50%;
+  left: 0;
+  transform: translateY(-50%);
+  z-index: 101;
+  width: 20px;
+  height: 48px;
+  padding: 0;
+  background: var(--bg2);
   border: 1px solid var(--border);
-  border-radius: var(--r8);
+  border-left: none;
+  border-radius: 0 var(--r8) var(--r8) 0;
   cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--txt2);
+  transition: left .25s ease, background .15s, color .15s;
+}
+
+#sidebar-toggle:hover {
+  background: var(--surface-g);
+  color: var(--txt0);
+}
+
+body.sidebar-open #sidebar-toggle {
+  left: var(--sidebar-w);
+}
+
+#sidebar-toggle svg {
+  transition: transform .25s ease;
   flex-shrink: 0;
 }
 
-.hamburger span {
-  display: block;
-  height: 2px;
-  border-radius: 2px;
-  background: var(--txt1);
-  transition: all .2s;
-}
-
-.hamburger:hover span {
-  background: var(--txt0);
+body.sidebar-open #sidebar-toggle svg {
+  transform: rotate(180deg);
 }
 
 
