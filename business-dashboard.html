@@ -206,13 +206,29 @@
 .hub-frame .hub-alert-card.warn .hub-alert-hdr{color:var(--ha);}
 .hub-frame .hub-alert-card.info .hub-alert-hdr{color:var(--hbl);}
 .hub-frame .hub-alert-body{font-size:10px;color:var(--htd);line-height:1.4;}
-/* SITE INFO CARD */
-.hub-frame .hub-site-info-card{background:rgba(17,19,24,.95);border:1px solid var(--hbr);border-radius:6px;padding:12px 16px;backdrop-filter:blur(10px);}
-.hub-frame .hub-site-name{font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:18px;color:var(--ht);}
-.hub-frame .hub-site-coords{font-family:'IBM Plex Mono',monospace;font-size:9px;color:var(--htm);margin-top:2px;margin-bottom:8px;}
-.hub-frame .hub-site-stats{display:flex;gap:16px;}
-.hub-frame .hub-site-stat-v{font-family:'Barlow Condensed',sans-serif;font-size:20px;font-weight:900;color:var(--ht);}
-.hub-frame .hub-site-stat-l{font-family:'IBM Plex Mono',monospace;font-size:8px;color:var(--htm);letter-spacing:1px;}
+/* ── Project Tracking ── */
+.ptk-tab{background:none;border:none;cursor:pointer;padding:10px 16px;font-size:12px;font-weight:500;color:var(--txt2);border-bottom:2px solid transparent;transition:all .15s;white-space:nowrap;}
+.ptk-tab.active,.ptk-tab:hover{color:var(--blue);border-bottom-color:var(--blue);}
+.ptk-col{background:var(--bg3);border:1px solid var(--border2);border-radius:8px;min-height:260px;display:flex;flex-direction:column;}
+.ptk-col-hdr{padding:10px 14px;border-bottom:1px solid var(--border2);display:flex;align-items:center;justify-content:space-between;}
+.ptk-col-title{font-family:var(--font-mono);font-size:10px;letter-spacing:1.5px;text-transform:uppercase;font-weight:600;}
+.ptk-col-count{font-family:var(--font-mono);font-size:10px;background:var(--bg2);padding:2px 7px;border-radius:10px;color:var(--txt2);}
+.ptk-col-body{padding:10px;display:flex;flex-direction:column;gap:8px;flex:1;}
+.ptk-card{background:var(--bg1);border:1px solid var(--border2);border-radius:6px;padding:10px 12px;cursor:pointer;transition:border-color .15s,box-shadow .15s;}
+.ptk-card:hover{border-color:var(--blue);box-shadow:0 2px 8px rgba(0,0,0,.18);}
+.ptk-card-title{font-size:12.5px;font-weight:500;margin-bottom:6px;line-height:1.4;}
+.ptk-pbar{height:3px;background:var(--border2);border-radius:2px;margin-top:7px;overflow:hidden;}
+.ptk-pbar-fill{height:100%;border-radius:2px;transition:width .3s;}
+.ptk-pri{font-family:var(--font-mono);font-size:9px;padding:2px 6px;border-radius:3px;text-transform:uppercase;letter-spacing:.8px;}
+.ptk-pri-critical{background:rgba(239,68,68,.15);color:var(--red);border:1px solid rgba(239,68,68,.3);}
+.ptk-pri-high{background:rgba(249,115,22,.12);color:#f97316;border:1px solid rgba(249,115,22,.25);}
+.ptk-pri-medium{background:rgba(245,166,35,.12);color:var(--amber);border:1px solid rgba(245,166,35,.25);}
+.ptk-pri-low{background:rgba(100,116,139,.1);color:var(--txt2);border:1px solid var(--border2);}
+.ptk-ms-row{background:var(--bg3);border:1px solid var(--border2);border-radius:8px;padding:14px 18px;display:grid;grid-template-columns:36px 1fr auto;gap:14px;align-items:start;margin-bottom:10px;cursor:pointer;transition:border-color .15s;}
+.ptk-ms-row:hover{border-color:var(--blue);}
+.ptk-risk-row{background:var(--bg3);border-left:4px solid var(--border2);border-radius:0 8px 8px 0;padding:12px 16px;display:grid;grid-template-columns:1fr auto;gap:12px;margin-bottom:10px;cursor:pointer;transition:background .15s;}
+.ptk-risk-row:hover{background:var(--bg2);}
+.ptk-res-card{background:var(--bg3);border:1px solid var(--border2);border-radius:8px;padding:16px;display:flex;flex-direction:column;gap:10px;}
 </style>
 </head>
 <body>
@@ -253,7 +269,7 @@
       <svg class="nav-icon" viewBox="0 0 16 16" fill="none"><path d="M1 12L5 7l3 3 4-5 2 2" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linejoin="round"/></svg>Analytics
     </div>
     <div class="nav-item" data-view="tracking">
-      <svg class="nav-icon" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="6" stroke="currentColor" stroke-width="1.2" fill="none"/><circle cx="8" cy="8" r="2" fill="currentColor"/><line x1="8" y1="2" x2="8" y2="4" stroke="currentColor" stroke-width="1.2"/><line x1="8" y1="12" x2="8" y2="14" stroke="currentColor" stroke-width="1.2"/><line x1="2" y1="8" x2="4" y2="8" stroke="currentColor" stroke-width="1.2"/><line x1="12" y1="8" x2="14" y2="8" stroke="currentColor" stroke-width="1.2"/></svg>Order Tracking
+      <svg class="nav-icon" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="6" stroke="currentColor" stroke-width="1.2" fill="none"/><circle cx="8" cy="8" r="2" fill="currentColor"/><line x1="8" y1="2" x2="8" y2="4" stroke="currentColor" stroke-width="1.2"/><line x1="8" y1="12" x2="8" y2="14" stroke="currentColor" stroke-width="1.2"/><line x1="2" y1="8" x2="4" y2="8" stroke="currentColor" stroke-width="1.2"/><line x1="12" y1="8" x2="14" y2="8" stroke="currentColor" stroke-width="1.2"/></svg>Project Tracking
     </div>
     <div class="nav-item" data-view="settings">
       <svg class="nav-icon" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="2.2" stroke="currentColor" stroke-width="1.2"/><path d="M8 1.5v2M8 12.5v2M1.5 8h2M12.5 8h2M3.1 3.1l1.4 1.4M11.5 11.5l1.4 1.4M12.9 3.1l-1.4 1.4M4.5 11.5l-1.4 1.4" stroke="currentColor" stroke-width="1.1"/></svg>Settings
@@ -745,11 +761,14 @@
 <!-- ===== INVOICES VIEW ===== -->
 <div class="view" id="view-invoices">
   <div class="toolbar">
-    <input class="search-input" type="text" placeholder="Search invoices..." id="inv-search" oninput="filterTable('inv-tbody','inv-search')">
-    <button class="filter-btn" onclick="openFilterPopover(this)"><svg width="12" height="12" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M1.5 2.5h13l-5 6.5v5l-3-1.5V9L1.5 2.5z"/></svg><span>All Status</span><svg width="10" height="10" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6l5 5 5-5"/></svg></button><select class="filter-sel" onchange="filterByAttr('inv-tbody',this,'data-status')">
+    <input class="search-input" type="text" placeholder="Search by invoice #, customer, project..." id="inv-search" oninput="invFilter()">
+    <input type="date" class="filter-sel" id="inv-from" onchange="invFilter()" title="From date" style="width:130px">
+    <input type="date" class="filter-sel" id="inv-to" onchange="invFilter()" title="To date" style="width:130px">
+    <select class="filter-sel" id="inv-status-sel" onchange="invFilter()">
       <option value="">All Status</option><option>Draft</option><option>Sent</option><option>Paid</option><option>Overdue</option><option>Partial</option>
     </select>
-    <button class="tb-btn primary" onclick="openModal('modal-invoice')">+ New Invoice</button>
+    <button class="tb-btn" onclick="invFilterClear()" style="color:var(--txt2)">✕ Clear</button>
+    <button class="tb-btn primary" onclick="openModal('modal-invoice')" style="margin-left:auto">+ New Invoice</button>
   </div>
   <div class="card" style="padding:0"><div class="table-wrap"><table>
     <thead><tr><th>Invoice #</th><th>Customer</th><th>Project</th><th>Issued</th><th>Due</th><th>Amount</th><th>Paid</th><th>Balance</th><th>Status</th><th>Actions</th></tr></thead>
@@ -760,11 +779,14 @@
 <!-- ===== PURCHASE ORDERS VIEW ===== -->
 <div class="view" id="view-purchase-orders">
   <div class="toolbar">
-    <input class="search-input" type="text" placeholder="Search POs..." id="po-search" oninput="filterTable('po-tbody','po-search')">
-    <button class="filter-btn" onclick="openFilterPopover(this)"><svg width="12" height="12" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M1.5 2.5h13l-5 6.5v5l-3-1.5V9L1.5 2.5z"/></svg><span>All Status</span><svg width="10" height="10" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6l5 5 5-5"/></svg></button><select class="filter-sel" onchange="filterByAttr('po-tbody',this,'data-status')">
+    <input class="search-input" type="text" placeholder="Search by PO #, supplier, project..." id="po-search" oninput="poFilter()">
+    <input type="date" class="filter-sel" id="po-from" onchange="poFilter()" title="From date" style="width:130px">
+    <input type="date" class="filter-sel" id="po-to" onchange="poFilter()" title="To date" style="width:130px">
+    <select class="filter-sel" id="po-status-sel" onchange="poFilter()">
       <option value="">All Status</option><option>Draft</option><option>Approved</option><option>Issued</option><option>Received</option><option>Partial</option>
     </select>
-    <button class="tb-btn primary" onclick="openModal('modal-po')">+ New PO</button>
+    <button class="tb-btn" onclick="poFilterClear()" style="color:var(--txt2)">✕ Clear</button>
+    <button class="tb-btn primary" onclick="openModal('modal-po')" style="margin-left:auto">+ New PO</button>
   </div>
   <div class="card" style="padding:0"><div class="table-wrap"><table>
     <thead><tr><th>PO Number</th><th>Supplier</th><th>Project</th><th>Ordered</th><th>Expected</th><th>Total Value</th><th>Received</th><th>Status</th><th>Actions</th></tr></thead>
@@ -777,7 +799,7 @@
   <div class="toolbar">
     <button class="filter-btn" onclick="openFilterPopover(this)"><svg width="12" height="12" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M1.5 2.5h13l-5 6.5v5l-3-1.5V9L1.5 2.5z"/></svg><span>All Customers</span><svg width="10" height="10" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6l5 5 5-5"/></svg></button><select class="filter-sel" style="width:240px" id="stmt-cust"><option>All Customers</option></select>
     <button class="filter-btn" onclick="openFilterPopover(this)"><svg width="12" height="12" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M1.5 2.5h13l-5 6.5v5l-3-1.5V9L1.5 2.5z"/></svg><span>April 2026</span><svg width="10" height="10" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6l5 5 5-5"/></svg></button><select class="filter-sel"><option>April 2026</option><option>March 2026</option><option>February 2026</option><option>Q1 2026</option></select>
-    <button class="tb-btn primary" onclick="exportStatements()">Export PDF</button>
+    <button class="tb-btn primary" onclick="exportStatementPDF(null)">🖨 Export Statement PDF</button>
     <button class="tb-btn" onclick="sendStatements()">Send Statement</button>
   </div>
   <div class="grid-2">
@@ -840,12 +862,103 @@
 
 <!-- ===== TRACKING VIEW ===== -->
 <div class="view" id="view-tracking">
-  <div class="toolbar">
-    <input class="search-input" type="text" placeholder="Search by ref / description..." id="track-search" oninput="filterTracking()">
-    <button class="filter-btn" onclick="openFilterPopover(this)"><svg width="12" height="12" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M1.5 2.5h13l-5 6.5v5l-3-1.5V9L1.5 2.5z"/></svg><span>All Types</span><svg width="10" height="10" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6l5 5 5-5"/></svg></button><select class="filter-sel" id="track-type" onchange="filterTracking()"><option value="">All Types</option><option value="PO">Purchase Orders</option><option value="INV">Invoices</option></select>
-    <button class="filter-btn" onclick="openFilterPopover(this)"><svg width="12" height="12" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M1.5 2.5h13l-5 6.5v5l-3-1.5V9L1.5 2.5z"/></svg><span>All Status</span><svg width="10" height="10" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6l5 5 5-5"/></svg></button><select class="filter-sel" id="track-status" onchange="filterTracking()"><option value="">All Status</option><option>In Transit</option><option>At Customs</option><option>Delivered</option><option>Processing</option><option>Awaiting Payment</option></select>
+  <!-- Sub-tab bar -->
+  <div style="display:flex;align-items:center;gap:0;background:var(--bg3);border-bottom:1px solid var(--border2);padding:0 16px;flex-shrink:0;overflow-x:auto;">
+    <button class="ptk-tab active" id="ptk-tab-btn-board" onclick="ptkSwitchTab('board',this)">📋 Task Board</button>
+    <button class="ptk-tab" id="ptk-tab-btn-gantt" onclick="ptkSwitchTab('gantt',this)">📅 Gantt</button>
+    <button class="ptk-tab" id="ptk-tab-btn-milestones" onclick="ptkSwitchTab('milestones',this)">🏁 Milestones</button>
+    <button class="ptk-tab" id="ptk-tab-btn-risks" onclick="ptkSwitchTab('risks',this)">⚠️ Risks & Issues</button>
+    <button class="ptk-tab" id="ptk-tab-btn-resources" onclick="ptkSwitchTab('resources',this)">👥 Resources</button>
   </div>
-  <div id="tracking-list"></div>
+  <!-- Project selector + RAG bar -->
+  <div class="toolbar" style="flex-wrap:wrap;gap:10px;background:var(--bg3);border-bottom:1px solid var(--border2);">
+    <div style="display:flex;align-items:center;gap:8px;">
+      <span style="font-family:var(--font-mono);font-size:10px;color:var(--txt2);letter-spacing:.5px">PROJECT</span>
+      <select class="filter-sel" id="ptk-proj-sel" onchange="ptkOnProjectChange()" style="min-width:260px;font-weight:600;"></select>
+    </div>
+    <div id="ptk-rag" style="display:flex;align-items:center;gap:6px;padding:4px 12px;border-radius:4px;font-family:var(--font-mono);font-size:10px;letter-spacing:1px;border:1px solid rgba(245,166,35,.3);background:rgba(245,166,35,.08);color:var(--amber);">
+      <span id="ptk-rag-dot" style="width:7px;height:7px;border-radius:50%;background:var(--amber);display:inline-block;"></span>
+      <span id="ptk-rag-lbl">RAG: AMBER</span>
+    </div>
+    <div style="font-family:var(--font-mono);font-size:10px;color:var(--txt2);display:flex;gap:16px;">
+      <span>BUDGET <span id="ptk-budget-used" style="color:var(--amber)">—</span> / <span id="ptk-budget-total" style="color:var(--txt1)">—</span></span>
+      <span>PROGRESS <span id="ptk-prog" style="color:var(--green)">—</span></span>
+    </div>
+    <div style="margin-left:auto;display:flex;gap:8px;">
+      <button class="tb-btn" onclick="ptkOpenTask()">+ Task</button>
+      <button class="tb-btn" onclick="ptkOpenMilestone()">+ Milestone</button>
+      <button class="tb-btn" onclick="ptkOpenRisk()">+ Risk</button>
+    </div>
+  </div>
+  <!-- Panel areas -->
+  <div id="ptk-panel-board" class="ptk-panel" style="padding:16px 18px;overflow-y:auto;flex:1;">
+    <div id="ptk-board" style="display:grid;grid-template-columns:repeat(4,1fr);gap:14px;align-items:start;"></div>
+  </div>
+  <div id="ptk-panel-gantt" class="ptk-panel" style="display:none;padding:16px 18px;overflow-y:auto;flex:1;">
+    <div id="ptk-gantt"></div>
+  </div>
+  <div id="ptk-panel-milestones" class="ptk-panel" style="display:none;padding:16px 18px;overflow-y:auto;flex:1;">
+    <div id="ptk-milestones"></div>
+  </div>
+  <div id="ptk-panel-risks" class="ptk-panel" style="display:none;padding:16px 18px;overflow-y:auto;flex:1;">
+    <div id="ptk-risks"></div>
+  </div>
+  <div id="ptk-panel-resources" class="ptk-panel" style="display:none;padding:16px 18px;overflow-y:auto;flex:1;">
+    <div id="ptk-resources" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:12px;"></div>
+  </div>
+</div>
+
+<!-- PTK: Add/Edit Task modal -->
+<div class="modal-overlay" id="modal-ptk-task" onclick="if(event.target===this)closeModal('modal-ptk-task')">
+  <div class="modal" style="max-width:540px">
+    <div class="modal-title" id="ptk-task-title">Add Task</div>
+    <div class="modal-sub">Assign to a phase, team member and due date</div>
+    <input type="hidden" id="ptk-task-id">
+    <div class="form-grid">
+      <div class="form-group full"><label>Task Name *</label><input type="text" id="ptk-t-name" placeholder="e.g. Install ventilation ducting"></div>
+      <div class="form-group"><label>Phase</label><select id="ptk-t-phase"><option value="backlog">Backlog</option><option value="inprogress">In Progress</option><option value="review">Under Review</option><option value="done">Done</option></select></div>
+      <div class="form-group"><label>Priority</label><select id="ptk-t-pri"><option value="critical">Critical</option><option value="high">High</option><option value="medium">Medium</option><option value="low">Low</option></select></div>
+      <div class="form-group"><label>Assignee</label><input type="text" id="ptk-t-assignee" placeholder="Team member"></div>
+      <div class="form-group"><label>Due Date</label><input type="date" id="ptk-t-due"></div>
+      <div class="form-group"><label>Est. Hours</label><input type="number" id="ptk-t-hours" placeholder="0" min="0"></div>
+      <div class="form-group"><label>% Complete</label><input type="number" id="ptk-t-pct" placeholder="0" min="0" max="100"></div>
+      <div class="form-group full"><label>Description</label><textarea id="ptk-t-desc" placeholder="Acceptance criteria, notes..."></textarea></div>
+    </div>
+    <div class="modal-actions"><button class="btn" onclick="closeModal('modal-ptk-task')">Cancel</button><button class="btn-primary btn" onclick="ptkSaveTask()">Save Task</button></div>
+  </div>
+</div>
+
+<!-- PTK: Add/Edit Milestone modal -->
+<div class="modal-overlay" id="modal-ptk-ms" onclick="if(event.target===this)closeModal('modal-ptk-ms')">
+  <div class="modal" style="max-width:460px">
+    <div class="modal-title">Milestone</div>
+    <input type="hidden" id="ptk-ms-id">
+    <div class="form-grid">
+      <div class="form-group full"><label>Name *</label><input type="text" id="ptk-ms-name" placeholder="e.g. Structural steel complete"></div>
+      <div class="form-group"><label>Target Date</label><input type="date" id="ptk-ms-date"></div>
+      <div class="form-group"><label>Status</label><select id="ptk-ms-status"><option value="upcoming">Upcoming</option><option value="at-risk">At Risk</option><option value="achieved">Achieved</option><option value="missed">Missed</option></select></div>
+      <div class="form-group full"><label>Description</label><textarea id="ptk-ms-desc" placeholder="What does achieving this milestone mean?"></textarea></div>
+    </div>
+    <div class="modal-actions"><button class="btn" onclick="closeModal('modal-ptk-ms')">Cancel</button><button class="btn-primary btn" onclick="ptkSaveMilestone()">Save</button></div>
+  </div>
+</div>
+
+<!-- PTK: Add/Edit Risk modal -->
+<div class="modal-overlay" id="modal-ptk-risk" onclick="if(event.target===this)closeModal('modal-ptk-risk')">
+  <div class="modal" style="max-width:500px">
+    <div class="modal-title">Risk / Issue</div>
+    <input type="hidden" id="ptk-r-id">
+    <div class="form-grid">
+      <div class="form-group full"><label>Title *</label><input type="text" id="ptk-r-title" placeholder="e.g. Delayed rebar delivery"></div>
+      <div class="form-group"><label>Type</label><select id="ptk-r-type"><option>Risk</option><option>Issue</option><option>Dependency</option><option>Change Request</option></select></div>
+      <div class="form-group"><label>Status</label><select id="ptk-r-status"><option value="open">Open</option><option value="mitigating">Mitigating</option><option value="resolved">Resolved</option><option value="accepted">Accepted</option></select></div>
+      <div class="form-group"><label>Likelihood</label><select id="ptk-r-like"><option>High</option><option>Medium</option><option>Low</option></select></div>
+      <div class="form-group"><label>Impact</label><select id="ptk-r-impact"><option>Critical</option><option>High</option><option>Medium</option><option>Low</option></select></div>
+      <div class="form-group"><label>Owner</label><input type="text" id="ptk-r-owner" placeholder="Responsible person"></div>
+      <div class="form-group full"><label>Description & Mitigation</label><textarea id="ptk-r-desc" placeholder="Describe the risk and planned mitigation..."></textarea></div>
+    </div>
+    <div class="modal-actions"><button class="btn" onclick="closeModal('modal-ptk-risk')">Cancel</button><button class="btn-primary btn" onclick="ptkSaveRisk()">Save</button></div>
+  </div>
 </div>
 
 <!-- ===== ADMIN VIEW ===== -->
@@ -1097,7 +1210,7 @@
   <div class="modal" style="max-width:700px">
     <div class="modal-title" id="detail-title">Record Details</div><div class="modal-sub" id="detail-sub"></div>
     <div id="detail-body"></div>
-    <div class="modal-actions"><button class="btn-primary btn" onclick="closeModal('modal-detail')">Close</button></div>
+    <div class="modal-actions" style="justify-content:space-between"><div id="detail-extra-actions" style="display:flex;gap:8px"></div><button class="btn-primary btn" onclick="closeModal('modal-detail')">Close</button></div>
   </div>
 </div>
 
@@ -1717,7 +1830,7 @@ function renderCustomers(){
     return;
   }
   tbody.innerHTML=customers.map(c=>`<tr data-seg="${c.industry}">
-    <td><div style="font-weight:500">${c.companyName}</div><div style="font-size:11px;color:var(--txt2);font-family:var(--font-mono)">${c.customerCode}</div></td>
+    <td><button class="link-btn" onclick="viewCustomer('${c.customerCode}')" style="font-weight:500;text-align:left;display:block">${c.companyName}</button><div style="font-size:11px;color:var(--txt2);font-family:var(--font-mono)">${c.customerCode}</div></td>
     <td><span class="status-badge ${c.industry==='Mining'?'badge-approved':c.industry==='Engineering'?'badge-received':'badge-partial'}">${c.industry}</span></td>
     <td class="amount">${fmt(c.creditLimit)}</td>
     <td class="amount ${c.currentBalance>0?'negative':''}">${fmt(c.currentBalance)}</td>
@@ -1733,7 +1846,7 @@ function renderSuppliers(){
     return;
   }
   tbody.innerHTML=suppliers.map(s=>`<tr data-cat="${s.category}">
-    <td><div style="font-weight:500">${s.companyName}</div><div style="font-size:11px;color:var(--txt2);font-family:var(--font-mono)">${s.supplierCode}</div></td>
+    <td><button class="link-btn" onclick="viewSupplier('${s.supplierCode}')" style="font-weight:500;text-align:left">${s.companyName}</button><div style="font-size:11px;color:var(--txt2);font-family:var(--font-mono)">${s.supplierCode}</div></td>
     <td><span class="status-badge badge-draft" style="font-size:10px">${s.category}</span></td>
     <td style="font-family:var(--font-mono);font-size:12px">${s.leadTime} days</td>
     <td class="amount">${fmt(s.spend)}</td>
@@ -1749,7 +1862,7 @@ function renderProducts(){
     return;
   }
   tb.innerHTML=products.map(p=>`<tr data-category="${p.category}">
-    <td><div style="font-weight:500">${p.name}</div><div style="font-family:var(--font-mono);font-size:11px;color:var(--txt2)">${p.sku}</div></td>
+    <td><button class="link-btn" onclick="viewProduct('${p.id}')" style="font-weight:500;text-align:left;display:block">${p.name}</button><div style="font-family:var(--font-mono);font-size:11px;color:var(--txt2)">${p.sku}</div></td>
     <td><span class="status-badge badge-draft" style="font-size:10px">${p.category}</span></td>
     <td style="font-size:11px;color:var(--txt1)">${p.supplierName||p.supplier}</td>
     <td style="font-family:var(--font-mono);font-size:12px;color:${p.stock<=p.reorder?'var(--amber)':'var(--txt1)'}">${p.stock}</td>
@@ -1779,15 +1892,17 @@ function renderServices(){
 
 function renderInvoices(){
   const tb=document.getElementById('inv-tbody');
+  if(!tb)return;
   if(!invoices.length){
     tb.innerHTML='<tr><td colspan="10" class="empty-state">No invoices yet. Use New Invoice to create your first invoice.</td></tr>';
     return;
   }
   tb.innerHTML=invoices.map(i=>{
     const bal=i.amount-i.paid;
-    return`<tr data-status="${i.status}">
-    <td style="font-family:var(--font-mono);font-size:12px;color:var(--blue)">${i.id}</td>
-    <td><button class="link-btn" onclick="openCustomerFromInvoice('${i.id}')">${i.customerName||i.customer}</button></td>
+    const cust=customers.find(c=>c.customerCode===i.customerCode||c.companyName===(i.customerName||i.customer));
+    return`<tr data-status="${i.status}" data-issued="${i.issued||''}">
+    <td><button class="link-btn" onclick="viewInvoice('${i.id}')" style="font-family:var(--font-mono);font-size:12px;color:var(--blue)">${i.id}</button></td>
+    <td>${cust?`<button class="link-btn" onclick="viewCustomer('${cust.customerCode}')">${i.customerName||i.customer}</button>`:(i.customerName||i.customer)}</td>
     <td style="font-size:11px;color:var(--txt2)">${i.projectName||'Unlinked'}</td>
     <td style="font-family:var(--font-mono);font-size:11px">${i.issued}</td>
     <td style="font-family:var(--font-mono);font-size:11px;color:${i.status==='Overdue'?'var(--red)':'inherit'}">${i.due}</td>
@@ -1861,9 +1976,11 @@ function renderPOs(){
     tb.innerHTML='<tr><td colspan="9" class="empty-state">No purchase orders yet. Use New PO to create your first order.</td></tr>';
     return;
   }
-  tb.innerHTML=purchaseOrders.map(p=>`<tr data-status="${p.status}">
-    <td style="font-family:var(--font-mono);font-size:12px;color:var(--amber)">${p.id}</td>
-    <td>${p.supplierName||p.supplier}</td>
+  tb.innerHTML=purchaseOrders.map(p=>{
+    const sup=suppliers.find(s=>s.supplierCode===p.supplierCode||s.companyName===(p.supplierName||p.supplier));
+    return`<tr data-status="${p.status}" data-ordered="${p.ordered||''}">
+    <td><button class="link-btn" onclick="viewPO('${p.id}')" style="font-family:var(--font-mono);font-size:12px;color:var(--amber)">${p.id}</button></td>
+    <td>${sup?`<button class="link-btn" onclick="viewSupplier('${sup.supplierCode}')">${p.supplierName||p.supplier}</button>`:(p.supplierName||p.supplier)}</td>
     <td style="font-size:11px;color:var(--txt2)">${p.projectName||'Unlinked'}</td>
     <td style="font-family:var(--font-mono);font-size:11px">${p.ordered}</td>
     <td style="font-family:var(--font-mono);font-size:11px">${p.expected}</td>
@@ -1871,7 +1988,7 @@ function renderPOs(){
     <td class="amount positive">${fmt(p.received)}</td>
     <td><span class="status-badge ${bc(p.status)}">${p.status}</span></td>
     <td><button class="row-menu-btn" onclick="rowMenu(this,'po','${p.id}')">···</button></td>
-  </tr>`).join('');
+  </tr>`;}).join('');
 }
 
 function renderStatements(){
@@ -1963,111 +2080,534 @@ function renderNotifications(){
     <div class="activity-item" style="padding:10px 0"><div class="act-icon" style="background:var(--amber-dim);font-size:14px">${n.icon}</div><div class="act-text">${n.msg}</div></div>`).join('');
 }
 
-function renderTracking(){
-  const container=document.getElementById('tracking-list');
-  container.innerHTML=trackingItems.map(t=>{
-    const stageHtml=t.stages.map((st,i)=>{
-      const isLast=i===t.stages.length-1;
-      return`<div class="tl-item"><div style="position:relative;flex-shrink:0;width:14px"><div class="tl-dot ${st.s}"></div>${!isLast?'<div class="tl-vline"></div>':''}</div><div><div class="tl-label" style="color:${st.s==='done'?'var(--txt0)':st.s==='act'?'var(--blue)':'var(--txt2)'}">${st.l}</div><div class="tl-sub">${st.d}</div></div></div>`;
-    }).join('');
-    return`<div class="trk-card" data-ref="${t.ref}" data-type="${t.type}" data-status="${t.status}">
-      <div style="display:grid;grid-template-columns:1fr 1fr 1fr auto;gap:16px;align-items:start;margin-bottom:16px">
-        <div><div style="font-size:11px;color:var(--txt2);font-family:var(--font-mono);margin-bottom:4px">REFERENCE</div>
-          <div style="font-weight:600;font-family:var(--font-mono);color:${t.type==='PO'?'var(--amber)':'var(--blue)'}">${t.ref}</div>
-          <div style="font-size:11px;color:var(--txt1);margin-top:2px">${t.desc}</div></div>
-        <div><div style="font-size:11px;color:var(--txt2);font-family:var(--font-mono);margin-bottom:4px">${t.type==='PO'?'SUPPLIER':'CLIENT'}</div><div style="font-size:12.5px">${t.party}</div></div>
-        <div><div style="font-size:11px;color:var(--txt2);font-family:var(--font-mono);margin-bottom:4px">ETA &mdash; ROUTE</div>
-          <div style="font-size:12.5px;font-family:var(--font-mono)">${t.eta}</div>
-          <div style="font-size:11px;color:var(--txt2);margin-top:2px">${t.from} &rarr; ${t.to}</div></div>
-        <div style="display:flex;flex-direction:column;gap:6px;align-items:flex-end">
-          <span class="status-badge ${bc(t.status)}">${t.status}</span>
-          <button class="row-menu-btn" onclick="rowMenu(this,'tracking','${t.id}')">···</button>
+// ================================================================
+// ptkNavToInvoices — "View All" from customer detail
+// ================================================================
+function ptkNavToInvoices(customerCode, companyName){
+  openView('invoices');
+  setTimeout(()=>{
+    const el=document.getElementById('inv-search');
+    if(el){el.value=companyName;filterTable('inv-tbody','inv-search');el.style.borderColor='var(--blue)';setTimeout(()=>el.style.borderColor='',2500);}
+    showToast('Showing invoices for '+companyName);
+  },80);
+}
+function ptkNavToPOs(supplierCode, companyName){
+  openView('purchase-orders');
+  setTimeout(()=>{
+    const el=document.getElementById('po-search');
+    if(el){el.value=companyName;filterTable('po-tbody','po-search');el.style.borderColor='var(--amber)';setTimeout(()=>el.style.borderColor='',2500);}
+    showToast('Showing POs for '+companyName);
+  },80);
+}
+function ptkNavToProducts(supplierCode, companyName){
+  openView('products');
+  setTimeout(()=>{
+    const el=document.getElementById('prod-search');
+    if(el){el.value=companyName;filterCat('products');el.style.borderColor='var(--teal)';setTimeout(()=>el.style.borderColor='',2500);}
+    showToast('Showing products for '+companyName);
+  },80);
+}
+
+// ================================================================
+// PROJECT TRACKING ENGINE
+// ================================================================
+let _ptkProj=null, _ptkTab='board', _ptkData={};
+
+function _ptkDateOffset(base,days){
+  if(!base)return new Date().toISOString().slice(0,10);
+  const d=new Date(base+'T00:00:00');d.setDate(d.getDate()+days);return d.toISOString().slice(0,10);
+}
+
+function ptkGetData(pid){
+  if(_ptkData[pid])return _ptkData[pid];
+  const proj=findProjectById(pid);if(!proj){_ptkData[pid]={tasks:[],milestones:[],risks:[],resources:[]};return _ptkData[pid];}
+  const pm=proj.manager||'Site Manager';
+  const team=[pm,'Sipho Ndlovu','Lerato Mokoena','Grant Hendricks','Fatima Jacobs','Pierre Joubert'];
+  _ptkData[pid]={
+    tasks:[
+      {id:'T-001',name:'Site preparation & demarcation',phase:'done',priority:'high',assignee:team[1],due:_ptkDateOffset(proj.start,7),pct:100,hours:32,desc:'Clear and peg the site footprint per approved drawings.'},
+      {id:'T-002',name:'Foundation excavation & subgrade',phase:'done',priority:'high',assignee:team[2],due:_ptkDateOffset(proj.start,21),pct:100,hours:80,desc:'Bulk earthworks to design RL including subgrade compaction.'},
+      {id:'T-003',name:'Concrete pour — ground floor slab',phase:'done',priority:'critical',assignee:team[3],due:_ptkDateOffset(proj.start,35),pct:100,hours:120,desc:'Cast ground floor slab. Ready-mix 40MPa.'},
+      {id:'T-004',name:'Structural steel erection',phase:'inprogress',priority:'critical',assignee:team[1],due:_ptkDateOffset(proj.start,60),pct:62,hours:200,desc:'Erect primary steel columns and beams per structural drawings.'},
+      {id:'T-005',name:'Electrical main board & reticulation',phase:'inprogress',priority:'high',assignee:team[4],due:_ptkDateOffset(proj.start,70),pct:35,hours:90,desc:'Install main DB, cable trays and MCC panel.'},
+      {id:'T-006',name:'Ventilation ducting installation',phase:'inprogress',priority:'medium',assignee:team[2],due:_ptkDateOffset(proj.start,80),pct:20,hours:160,desc:'Install primary ventilation ducts per HVAC design.'},
+      {id:'T-007',name:'Surface finishes — level 1',phase:'backlog',priority:'medium',assignee:team[3],due:_ptkDateOffset(proj.start,100),pct:0,hours:60,desc:'Screeding, tiling, painting to specification.'},
+      {id:'T-008',name:'Commissioning & handover pack',phase:'backlog',priority:'high',assignee:pm,due:proj.end,pct:0,hours:40,desc:'Compile O&M manuals, as-builts and completion certificate.'},
+    ],
+    milestones:[
+      {id:'MS-001',name:'Project Kick-off',date:proj.start,status:'achieved',desc:'All contracts signed, access granted, mobilisation complete.'},
+      {id:'MS-002',name:'Design Freeze (IFC)',date:_ptkDateOffset(proj.start,14),status:'achieved',desc:'All drawings approved and issued for construction.'},
+      {id:'MS-003',name:'Structural Steel Complete',date:_ptkDateOffset(proj.start,65),status:'at-risk',desc:'All structural steelwork erected, bolted and inspected.'},
+      {id:'MS-004',name:'Practical Completion',date:_ptkDateOffset(proj.end,-30),status:'upcoming',desc:'All major works done, final defects list issued.'},
+      {id:'MS-005',name:'Final Handover',date:proj.end,status:'upcoming',desc:'Signed completion certificate and retention release.'},
+    ],
+    risks:[
+      {id:'R-001',title:'Rebar delivery delay (Macsteel)',type:'Risk',status:'open',likelihood:'High',impact:'Critical',owner:pm,desc:'Potential 2–3 week delay on Y16/Y20 rebar. Expedite PO and identify alternative supplier.'},
+      {id:'R-002',title:'Adverse weather during concrete pours',type:'Risk',status:'mitigating',likelihood:'Medium',impact:'Medium',owner:team[3],desc:'Winter rains may delay external pours. Programme for morning slots, procure rain cover sheeting.'},
+      {id:'R-003',title:'Scope creep — additional ventilation shaft',type:'Change Request',status:'open',likelihood:'High',impact:'High',owner:pm,desc:'Client requested addition of secondary ventilation shaft. Formal variation order required. Budget impact ≈R180K.'},
+      {id:'R-004',title:'ABB switchgear lead time extended',type:'Risk',status:'mitigating',likelihood:'Medium',impact:'High',owner:team[4],desc:'ABB switchgear ETA pushed by 3 weeks. Reviewing alternative panel supplier.'},
+      {id:'R-005',title:'Payment delay on progress claim #2',type:'Issue',status:'resolved',likelihood:'Low',impact:'Medium',owner:pm,desc:'Resolved after escalation — payment received 2026-04-18.'},
+    ],
+    resources:[
+      {name:pm,role:'Project Manager',type:'Core Team',util:90,color:'#4f8ef7'},
+      {name:team[1],role:'Site Foreman',type:'Core Team',util:100,color:'#22c55e'},
+      {name:team[2],role:'Civil Engineer',type:'Core Team',util:75,color:'#a855f7'},
+      {name:team[3],role:'Structural Engineer',type:'Sub-contractor',util:60,color:'#f5a623'},
+      {name:team[4],role:'Electrical Supervisor',type:'Sub-contractor',util:80,color:'#ef4444'},
+      {name:team[5],role:'Mechanical Engineer',type:'Consultant',util:40,color:'#14b8a6'},
+    ],
+  };
+  return _ptkData[pid];
+}
+
+function ptkSyncDropdown(){
+  const sel=document.getElementById('ptk-proj-sel');if(!sel)return;
+  sel.innerHTML=projects.map(p=>`<option value="${p.id}">${p.name} (${p.id})</option>`).join('');
+  if(!_ptkProj&&projects.length)_ptkProj=projects[0].id;
+  if(_ptkProj)sel.value=_ptkProj;
+}
+
+function ptkOnProjectChange(){
+  const sel=document.getElementById('ptk-proj-sel');
+  if(sel)_ptkProj=sel.value;
+  ptkRenderAll();
+}
+
+function ptkRenderAll(){
+  const proj=findProjectById(_ptkProj);if(!proj)return;
+  const d=ptkGetData(_ptkProj);
+  const budgetUsed=proj.actualCost||0;const budgetTotal=proj.budget||1;
+  const done=d.tasks.filter(t=>t.phase==='done').length;
+  const progPct=d.tasks.length?Math.round((done/d.tasks.length)*100):0;
+  const budgetPct=Math.round((budgetUsed/budgetTotal)*100);
+  const openRisks=d.risks.filter(r=>r.status==='open');
+  const hasCritical=openRisks.some(r=>r.impact==='Critical');
+  const rag=hasCritical?'RED':(openRisks.length>2||budgetPct>90||progPct<40)?'AMBER':'GREEN';
+  const ragColors={RED:'var(--red)',AMBER:'var(--amber)',GREEN:'var(--green)'};
+  const ragBgs={RED:'rgba(239,68,68,.1)',AMBER:'rgba(245,166,35,.08)',GREEN:'rgba(34,197,94,.08)'};
+  const ragBorders={RED:'rgba(239,68,68,.3)',AMBER:'rgba(245,166,35,.3)',GREEN:'rgba(34,197,94,.3)'};
+  const ragEl=document.getElementById('ptk-rag');
+  if(ragEl){ragEl.style.color=ragColors[rag];ragEl.style.background=ragBgs[rag];ragEl.style.borderColor=ragBorders[rag];}
+  const dot=document.getElementById('ptk-rag-dot');if(dot)dot.style.background=ragColors[rag];
+  const lbl=document.getElementById('ptk-rag-lbl');if(lbl)lbl.textContent='RAG: '+rag;
+  const bu=document.getElementById('ptk-budget-used');if(bu)bu.textContent=fmt(budgetUsed);
+  const bt=document.getElementById('ptk-budget-total');if(bt)bt.textContent=fmt(budgetTotal);
+  const pg=document.getElementById('ptk-prog');if(pg)pg.textContent=progPct+'%';
+  ptkRenderTab(_ptkTab);
+}
+
+function ptkSwitchTab(tab,btn){
+  _ptkTab=tab;
+  document.querySelectorAll('.ptk-tab').forEach(b=>b.classList.remove('active'));
+  if(btn)btn.classList.add('active');
+  document.querySelectorAll('.ptk-panel').forEach(p=>p.style.display='none');
+  const panel=document.getElementById('ptk-panel-'+tab);
+  if(panel)panel.style.display='block';
+  ptkRenderTab(tab);
+}
+
+function ptkRenderTab(tab){
+  if(tab==='board')ptkRenderBoard();
+  else if(tab==='gantt')ptkRenderGantt();
+  else if(tab==='milestones')ptkRenderMilestones();
+  else if(tab==='risks')ptkRenderRisks();
+  else if(tab==='resources')ptkRenderResources();
+}
+
+function ptkRenderBoard(){
+  const d=ptkGetData(_ptkProj);
+  const board=document.getElementById('ptk-board');if(!board)return;
+  const cols=[
+    {key:'backlog',label:'Backlog',color:'var(--txt2)'},
+    {key:'inprogress',label:'In Progress',color:'var(--blue)'},
+    {key:'review',label:'Under Review',color:'var(--amber)'},
+    {key:'done',label:'Done',color:'var(--green)'},
+  ];
+  board.innerHTML=cols.map(col=>{
+    const tasks=d.tasks.filter(t=>t.phase===col.key);
+    const today=todayISO();
+    const cards=tasks.map(t=>{
+      const dueClass=t.due<today&&t.phase!=='done'?'color:var(--red)':t.due<=_ptkDateOffset(today,3)?'color:var(--amber)':'color:var(--txt2)';
+      return `<div class="ptk-card" onclick="ptkViewTask('${t.id}')">
+        <div class="ptk-card-title">${t.name}</div>
+        <div style="display:flex;align-items:center;gap:6px;flex-wrap:wrap;margin-top:4px">
+          <span class="ptk-pri ptk-pri-${t.priority}">${t.priority}</span>
+          <span style="font-size:10px;color:var(--txt2)">👤 ${t.assignee||'Unassigned'}</span>
         </div>
+        <div style="display:flex;align-items:center;gap:8px;margin-top:5px">
+          <span style="font-size:10px;font-family:var(--font-mono);${dueClass}">📅 ${t.due}</span>
+          ${t.hours?`<span style="font-size:10px;color:var(--txt2);font-family:var(--font-mono)">${t.hours}h</span>`:''}
+        </div>
+        <div class="ptk-pbar"><div class="ptk-pbar-fill" style="width:${t.pct}%;background:${col.color}"></div></div>
+        <div style="font-family:var(--font-mono);font-size:9px;color:${col.color};margin-top:2px;text-align:right">${t.pct}%</div>
+      </div>`;
+    }).join('');
+    return `<div class="ptk-col">
+      <div class="ptk-col-hdr">
+        <span class="ptk-col-title" style="color:${col.color}">${col.label}</span>
+        <span class="ptk-col-count">${tasks.length}</span>
       </div>
-      <div style="display:flex;flex-wrap:wrap;gap:0">${stageHtml}</div>
+      <div class="ptk-col-body">${cards||'<div style="font-size:11px;color:var(--txt2);text-align:center;padding:20px 0">No tasks</div>'}</div>
     </div>`;
   }).join('');
 }
 
-// ============================================================
-// FILTER / SEARCH
-// ============================================================
-function filterTable(tbodyId,inputId){
-  const q=(document.getElementById(inputId)?.value||'').toLowerCase();
-  document.querySelectorAll('#'+tbodyId+' tr').forEach(r=>{r.style.display=r.textContent.toLowerCase().includes(q)?'':'none';});
-}
-function filterByAttr(tbodyId,sel,attr){
-  const v=sel.value;
-  document.querySelectorAll('#'+tbodyId+' tr').forEach(r=>{r.style.display=(!v||r.getAttribute(attr)===v)?'':'none';});
-}
-function filterCat(type){
-  const sId=type==='products'?'prod-search':'svc-search';
-  const cId=type==='products'?'prod-cat-filter':'svc-cat-filter';
-  const tId=type==='products'?'prod-tbody':'svc-tbody';
-  const q=(document.getElementById(sId)?.value||'').toLowerCase();
-  const cat=document.getElementById(cId)?.value||'';
-  document.querySelectorAll('#'+tId+' tr').forEach(r=>{
-    r.style.display=((!q||r.textContent.toLowerCase().includes(q))&&(!cat||r.getAttribute('data-category')===cat))?'':'none';
-  });
-}
-function filterTracking(){
-  const q=(document.getElementById('track-search')?.value||'').toLowerCase();
-  const type=document.getElementById('track-type')?.value||'';
-  const status=document.getElementById('track-status')?.value||'';
-  document.querySelectorAll('.trk-card').forEach(c=>{
-    const matchQ=!q||c.dataset.ref.toLowerCase().includes(q)||c.textContent.toLowerCase().includes(q);
-    const matchT=!type||c.dataset.ref.startsWith(type);
-    const matchS=!status||c.dataset.status===status;
-    c.style.display=(matchQ&&matchT&&matchS)?'block':'none';
-  });
-}
-function viewTracking(id){
-  const t=trackingItems.find(x=>x.id===id);if(!t)return;
-  const body=`<div class="detail-panel">
-    <div class="detail-row"><span class="detail-label">Reference</span><span style="font-family:var(--font-mono)">${t.ref}</span></div>
-    <div class="detail-row"><span class="detail-label">Type</span><span>${t.type}</span></div>
-    <div class="detail-row"><span class="detail-label">Party</span><span>${t.party}</span></div>
-    <div class="detail-row"><span class="detail-label">Status</span><span class="status-badge ${bc(t.status)}">${t.status}</span></div>
-    <div class="detail-row"><span class="detail-label">ETA</span><span>${t.eta}</span></div>
-    <div class="detail-row"><span class="detail-label">Route</span><span>${t.from} → ${t.to}</span></div>
-    <div class="detail-row"><span class="detail-label">Description</span><span>${t.desc}</span></div>
+function ptkRenderGantt(){
+  const proj=findProjectById(_ptkProj);if(!proj)return;
+  const d=ptkGetData(_ptkProj);
+  const container=document.getElementById('ptk-gantt');if(!container)return;
+  const startD=new Date(proj.start+'T00:00:00');
+  const endD=new Date(proj.end+'T00:00:00');
+  const totalDays=Math.max(1,(endD-startD)/86400000);
+  const phaseColors={done:'#22c55e',inprogress:'#4f8ef7',review:'#f5a623',backlog:'#64748b'};
+  const todayD=new Date();
+  const todayPct=Math.max(0,Math.min(100,((todayD-startD)/86400000/totalDays*100)));
+  const taskRows=d.tasks.map(t=>{
+    const tEnd=new Date(t.due+'T00:00:00');
+    const tStart=new Date(tEnd);tStart.setDate(tStart.getDate()-(t.hours?Math.ceil(t.hours/8):7));
+    const s=Math.max(0,(tStart-startD)/86400000);
+    const e=Math.min(totalDays,(tEnd-startD)/86400000);
+    const left=(s/totalDays*100).toFixed(1);
+    const width=Math.max(0.5,((e-s)/totalDays*100)).toFixed(1);
+    const col=phaseColors[t.phase]||'#64748b';
+    return `<div style="display:grid;grid-template-columns:180px 1fr;align-items:center;border-bottom:1px solid var(--border2);min-height:34px;padding:2px 0;">
+      <div style="font-size:11px;color:var(--txt1);font-weight:500;padding-right:10px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap" title="${t.name}">${t.name}</div>
+      <div style="position:relative;height:20px;background:var(--bg3);border-radius:3px;">
+        <div style="position:absolute;top:2px;bottom:2px;left:${left}%;width:${width}%;background:${col};border-radius:3px;opacity:${t.phase==='backlog'?.5:1};display:flex;align-items:center;padding-left:4px;font-family:var(--font-mono);font-size:9px;color:rgba(0,0,0,.7);font-weight:700;overflow:hidden;white-space:nowrap;">${t.pct}%</div>
+      </div>
+    </div>`;
+  }).join('');
+  const msRows=d.milestones.map(ms=>{
+    const msD=new Date(ms.date+'T00:00:00');
+    const off=Math.max(0,Math.min(totalDays,(msD-startD)/86400000));
+    const left=(off/totalDays*100).toFixed(1);
+    const msCol=ms.status==='achieved'?'var(--green)':ms.status==='at-risk'?'var(--amber)':ms.status==='missed'?'var(--red)':'var(--txt2)';
+    return `<div style="display:grid;grid-template-columns:180px 1fr;align-items:center;border-bottom:1px solid var(--border2);min-height:30px;padding:2px 0;">
+      <div style="font-size:10px;color:${msCol};font-weight:600;padding-right:10px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">🏁 ${ms.name}</div>
+      <div style="position:relative;height:20px;">
+        <div style="position:absolute;left:${left}%;top:2px;transform:translateX(-50%);width:12px;height:12px;background:${msCol};clip-path:polygon(50% 0%,100% 50%,50% 100%,0% 50%);"></div>
+        <div style="position:absolute;left:${left}%;top:0;bottom:0;border-left:1px dashed ${msCol};opacity:.4;"></div>
+      </div>
+    </div>`;
+  }).join('');
+  container.innerHTML=`<div class="card" style="padding:14px 18px;overflow-x:auto;">
+    <div style="min-width:660px;">
+      <div style="display:grid;grid-template-columns:180px 1fr;margin-bottom:6px;">
+        <div style="font-family:var(--font-mono);font-size:9px;color:var(--txt2);letter-spacing:1px;">TASK</div>
+        <div style="position:relative;height:16px;">
+          <div style="position:absolute;left:0;font-family:var(--font-mono);font-size:9px;color:var(--txt2)">${proj.start}</div>
+          <div style="position:absolute;right:0;font-family:var(--font-mono);font-size:9px;color:var(--txt2)">${proj.end}</div>
+          <div style="position:absolute;left:${todayPct.toFixed(1)}%;top:0;bottom:0;border-left:2px solid var(--red);opacity:.7;"></div>
+          <div style="position:absolute;left:${todayPct.toFixed(1)}%;top:-14px;font-family:var(--font-mono);font-size:8px;color:var(--red);transform:translateX(-50%)">TODAY</div>
+        </div>
+      </div>
+      ${taskRows}
+      <div style="border-top:1px solid var(--border2);margin:8px 0;"></div>
+      ${msRows}
+    </div>
   </div>`;
-  openDetailModal(`Tracking ${t.ref}`,'Tracking detail',body);
 }
-function openTrackingUpdate(id){
-  const t=trackingItems.find(x=>x.id===id);if(!t)return;
-  document.getElementById('trk-update-id').value=t.id;
-  document.getElementById('trk-update-sub').textContent=`${t.ref} · ${t.party}`;
-  document.getElementById('trk-update-status').value=t.status;
-  document.getElementById('trk-update-eta').value=t.eta||todayISO();
-  document.getElementById('trk-update-note').value='';
-  openModal('modal-tracking-update');
+
+function ptkRenderMilestones(){
+  const d=ptkGetData(_ptkProj);
+  const el=document.getElementById('ptk-milestones');if(!el)return;
+  const icons={achieved:'✅','at-risk':'⚠️',upcoming:'🔵',missed:'❌'};
+  const colors={achieved:'var(--green)','at-risk':'var(--amber)',upcoming:'var(--blue)',missed:'var(--red)'};
+  const bgs={achieved:'rgba(34,197,94,.1)','at-risk':'rgba(245,166,35,.1)',upcoming:'rgba(79,142,247,.1)',missed:'rgba(239,68,68,.1)'};
+  el.innerHTML=d.milestones.map(ms=>`
+    <div class="ptk-ms-row" onclick="ptkViewMS('${ms.id}')">
+      <div style="width:36px;height:36px;border-radius:50%;background:${bgs[ms.status]||'var(--bg3)'};display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0">${icons[ms.status]||'🔵'}</div>
+      <div>
+        <div style="font-size:13px;font-weight:600;margin-bottom:3px">${ms.name}</div>
+        <div style="font-size:11px;color:var(--txt2)">${ms.desc}</div>
+      </div>
+      <div style="text-align:right;min-width:120px">
+        <div style="font-family:var(--font-mono);font-size:10px;color:var(--txt2)">${ms.date}</div>
+        <div style="margin-top:4px"><span class="status-badge" style="background:${bgs[ms.status]||''};color:${colors[ms.status]||''}">${ms.status.replace('-',' ')}</span></div>
+        <div style="display:flex;gap:4px;margin-top:6px;justify-content:flex-end">
+          <button class="tb-btn" style="font-size:10px;padding:3px 8px" onclick="event.stopPropagation();ptkEditMS('${ms.id}')">Edit</button>
+          <button class="tb-btn" style="font-size:10px;padding:3px 8px;color:var(--red)" onclick="event.stopPropagation();ptkDeleteMS('${ms.id}')">Del</button>
+        </div>
+      </div>
+    </div>`).join('')||'<div class="empty-state">No milestones. Add one above.</div>';
 }
-function extendTrackingEta(){
-  const eta=document.getElementById('trk-update-eta').value;
-  if(!eta)return;
-  const d=new Date(eta+'T00:00:00');
-  d.setDate(d.getDate()+2);
-  document.getElementById('trk-update-eta').value=d.toISOString().slice(0,10);
+
+function ptkRenderRisks(){
+  const d=ptkGetData(_ptkProj);
+  const el=document.getElementById('ptk-risks');if(!el)return;
+  const rCol=r=>r.impact==='Critical'||r.likelihood==='High'?'var(--red)':r.impact==='High'?'var(--amber)':'var(--txt2)';
+  el.innerHTML=d.risks.map(r=>`
+    <div class="ptk-risk-row" style="border-left-color:${rCol(r)}" onclick="ptkViewRisk('${r.id}')">
+      <div>
+        <div style="font-size:13px;font-weight:600;margin-bottom:3px">${r.title}</div>
+        <div style="font-size:11px;color:var(--txt2);display:flex;gap:10px;flex-wrap:wrap;margin-bottom:5px">
+          <span>${r.type}</span><span>Likelihood: <strong>${r.likelihood}</strong></span><span>Impact: <strong style="color:${rCol(r)}">${r.impact}</strong></span><span>Owner: ${r.owner}</span>
+        </div>
+        <div style="font-size:11px;color:var(--txt2);line-height:1.5">${r.desc}</div>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:6px;align-items:flex-end;min-width:110px">
+        <span class="status-badge ${r.status==='resolved'?'badge-paid':r.status==='mitigating'?'badge-pending':r.status==='accepted'?'badge-draft':'badge-overdue'}">${r.status}</span>
+        <button class="tb-btn" style="font-size:10px;padding:3px 8px" onclick="event.stopPropagation();ptkEditRisk('${r.id}')">Edit</button>
+        <button class="tb-btn" style="font-size:10px;padding:3px 8px;color:var(--red)" onclick="event.stopPropagation();ptkDeleteRisk('${r.id}')">Del</button>
+      </div>
+    </div>`).join('')||'<div class="empty-state">No risks logged.</div>';
 }
-function applyTrackingUpdate(){
-  const id=document.getElementById('trk-update-id').value;
-  const t=trackingItems.find(x=>x.id===id);if(!t)return;
-  t.status=document.getElementById('trk-update-status').value;
-  t.eta=document.getElementById('trk-update-eta').value||t.eta;
-  const note=document.getElementById('trk-update-note').value.trim();
-  if(note)t.stages.unshift({l:note,d:todayISO(),s:'done'});
-  const hasAct=t.stages.some(s=>s.s==='act');
-  if(!hasAct&&t.stages.length)t.stages[0].s='act';
-  renderTracking();persistState();
-  closeModal('modal-tracking-update');
-  showToast(`Tracking updated for ${t.ref}`);
+
+function ptkRenderResources(){
+  const d=ptkGetData(_ptkProj);
+  const el=document.getElementById('ptk-resources');if(!el)return;
+  el.innerHTML=d.resources.map(r=>{
+    const uCol=r.util>=95?'var(--red)':r.util>=75?'var(--amber)':'var(--green)';
+    const initials=r.name.split(' ').map(w=>w[0]).join('').toUpperCase().slice(0,2);
+    return `<div class="ptk-res-card">
+      <div style="display:flex;align-items:center;gap:10px">
+        <div style="width:36px;height:36px;border-radius:8px;background:${r.color}22;color:${r.color};display:flex;align-items:center;justify-content:center;font-weight:700;font-size:13px;flex-shrink:0">${initials}</div>
+        <div><div style="font-size:13px;font-weight:600">${r.name}</div><div style="font-size:11px;color:var(--txt2)">${r.role} · ${r.type}</div></div>
+      </div>
+      <div>
+        <div style="display:flex;justify-content:space-between;font-family:var(--font-mono);font-size:10px;color:var(--txt2);margin-bottom:4px">
+          <span>Utilisation</span><span style="color:${uCol}">${r.util}%</span>
+        </div>
+        <div class="progress-bar"><div class="progress-fill" style="width:${r.util}%;background:${uCol}"></div></div>
+      </div>
+      <div style="font-size:10px;color:var(--txt2);font-family:var(--font-mono)">${r.util>=100?'⚠ Over-allocated':r.util>=75?'Busy':'Available'}</div>
+    </div>`;
+  }).join('')||'<div class="empty-state">No resources assigned.</div>';
 }
-function openTrackingUpdateForFirst(){
-  if(!trackingItems.length){showToast('No tracking items');return;}
-  openView('tracking');
-  openTrackingUpdate(trackingItems[0].id);
+
+// ── PTK modal helpers ──
+function ptkOpenTask(){
+  if(!_ptkProj){showToast('Select a project first');return;}
+  document.getElementById('ptk-task-title').textContent='Add Task';
+  ['ptk-task-id','ptk-t-name','ptk-t-assignee','ptk-t-desc'].forEach(id=>{const el=document.getElementById(id);if(el)el.value='';});
+  document.getElementById('ptk-t-phase').value='backlog';
+  document.getElementById('ptk-t-pri').value='medium';
+  document.getElementById('ptk-t-due').value=todayISO();
+  document.getElementById('ptk-t-hours').value='';
+  document.getElementById('ptk-t-pct').value='0';
+  openModal('modal-ptk-task');
 }
+function ptkSaveTask(){
+  const name=document.getElementById('ptk-t-name').value.trim();
+  if(!name){showToast('Task name required');return;}
+  const d=ptkGetData(_ptkProj);
+  const payload={name,phase:document.getElementById('ptk-t-phase').value,priority:document.getElementById('ptk-t-pri').value,
+    assignee:document.getElementById('ptk-t-assignee').value.trim(),due:document.getElementById('ptk-t-due').value||todayISO(),
+    hours:toNum(document.getElementById('ptk-t-hours').value,0),pct:Math.min(100,Math.max(0,toNum(document.getElementById('ptk-t-pct').value,0))),
+    desc:document.getElementById('ptk-t-desc').value.trim()};
+  const eid=document.getElementById('ptk-task-id').value;
+  if(eid){const idx=d.tasks.findIndex(t=>t.id===eid);if(idx>=0)d.tasks[idx]={...d.tasks[idx],...payload};}
+  else d.tasks.push({id:'T-'+String(d.tasks.length+1).padStart(3,'0'),...payload});
+  closeModal('modal-ptk-task');ptkRenderAll();showToast('Task saved');
+}
+function ptkViewTask(taskId){
+  const d=ptkGetData(_ptkProj);const t=d.tasks.find(x=>x.id===taskId);if(!t)return;
+  const phaseLabels={backlog:'Backlog',inprogress:'In Progress',review:'Under Review',done:'Done'};
+  const body=`<div class="detail-panel">
+    <div class="detail-row"><span class="detail-label">Phase</span><span>${phaseLabels[t.phase]||t.phase}</span></div>
+    <div class="detail-row"><span class="detail-label">Priority</span><span class="ptk-pri ptk-pri-${t.priority}">${t.priority}</span></div>
+    <div class="detail-row"><span class="detail-label">Assignee</span><span>${t.assignee||'Unassigned'}</span></div>
+    <div class="detail-row"><span class="detail-label">Due Date</span><span style="font-family:var(--font-mono)">${t.due}</span></div>
+    <div class="detail-row"><span class="detail-label">Estimated Hours</span><span>${t.hours||0}h</span></div>
+    <div class="detail-row"><span class="detail-label">% Complete</span><span>${t.pct}%</span></div>
+    ${t.desc?`<div class="detail-row" style="align-items:flex-start"><span class="detail-label">Description</span><span style="font-size:11px;line-height:1.6">${t.desc}</span></div>`:''}
+  </div>
+  <div class="modal-actions" style="margin-top:10px;padding:0">
+    <button class="btn" onclick="closeModal('modal-detail');ptkEditTaskById('${t.id}')">Edit</button>
+    <button class="btn" style="color:var(--red)" onclick="closeModal('modal-detail');ptkDeleteTask('${t.id}')">Delete</button>
+  </div>`;
+  openDetailModal(t.name,`Task · ${phaseLabels[t.phase]||t.phase}`,body);
+}
+function ptkEditTaskById(taskId){
+  const d=ptkGetData(_ptkProj);const t=d.tasks.find(x=>x.id===taskId);if(!t)return;
+  ptkOpenTask();
+  setTimeout(()=>{
+    document.getElementById('ptk-task-title').textContent='Edit Task';
+    document.getElementById('ptk-task-id').value=taskId;
+    document.getElementById('ptk-t-name').value=t.name;
+    document.getElementById('ptk-t-phase').value=t.phase;
+    document.getElementById('ptk-t-pri').value=t.priority;
+    document.getElementById('ptk-t-assignee').value=t.assignee||'';
+    document.getElementById('ptk-t-due').value=t.due||todayISO();
+    document.getElementById('ptk-t-hours').value=t.hours||0;
+    document.getElementById('ptk-t-pct').value=t.pct||0;
+    document.getElementById('ptk-t-desc').value=t.desc||'';
+  },30);
+}
+function ptkDeleteTask(taskId){
+  if(!confirm('Delete this task?'))return;
+  const d=ptkGetData(_ptkProj);d.tasks=d.tasks.filter(t=>t.id!==taskId);
+  ptkRenderAll();showToast('Task deleted');
+}
+function ptkOpenMilestone(){
+  if(!_ptkProj){showToast('Select a project first');return;}
+  ['ptk-ms-id','ptk-ms-name','ptk-ms-desc'].forEach(id=>{const el=document.getElementById(id);if(el)el.value='';});
+  document.getElementById('ptk-ms-date').value=todayISO();
+  document.getElementById('ptk-ms-status').value='upcoming';
+  openModal('modal-ptk-ms');
+}
+function ptkSaveMilestone(){
+  const name=document.getElementById('ptk-ms-name').value.trim();if(!name){showToast('Name required');return;}
+  const d=ptkGetData(_ptkProj);
+  const payload={name,date:document.getElementById('ptk-ms-date').value||todayISO(),status:document.getElementById('ptk-ms-status').value,desc:document.getElementById('ptk-ms-desc').value.trim()};
+  const eid=document.getElementById('ptk-ms-id').value;
+  if(eid){const idx=d.milestones.findIndex(m=>m.id===eid);if(idx>=0)d.milestones[idx]={...d.milestones[idx],...payload};}
+  else d.milestones.push({id:'MS-'+String(d.milestones.length+1).padStart(3,'0'),...payload});
+  closeModal('modal-ptk-ms');ptkRenderAll();showToast('Milestone saved');
+}
+function ptkViewMS(msId){
+  const d=ptkGetData(_ptkProj);const ms=d.milestones.find(m=>m.id===msId);if(!ms)return;
+  const body=`<div class="detail-panel">
+    <div class="detail-row"><span class="detail-label">Target Date</span><span style="font-family:var(--font-mono)">${ms.date}</span></div>
+    <div class="detail-row"><span class="detail-label">Status</span><span>${ms.status.replace('-',' ')}</span></div>
+    <div class="detail-row" style="align-items:flex-start"><span class="detail-label">Description</span><span style="font-size:11px;line-height:1.6">${ms.desc||'—'}</span></div>
+  </div>
+  <div class="modal-actions" style="margin-top:10px;padding:0">
+    <button class="btn" onclick="closeModal('modal-detail');ptkEditMS('${ms.id}')">Edit</button>
+    <button class="btn" style="color:var(--red)" onclick="closeModal('modal-detail');ptkDeleteMS('${ms.id}')">Delete</button>
+  </div>`;
+  openDetailModal(ms.name,'Project Milestone',body);
+}
+function ptkEditMS(msId){
+  const d=ptkGetData(_ptkProj);const ms=d.milestones.find(m=>m.id===msId);if(!ms)return;
+  document.getElementById('ptk-ms-id').value=msId;
+  document.getElementById('ptk-ms-name').value=ms.name;
+  document.getElementById('ptk-ms-date').value=ms.date;
+  document.getElementById('ptk-ms-status').value=ms.status;
+  document.getElementById('ptk-ms-desc').value=ms.desc||'';
+  openModal('modal-ptk-ms');
+}
+function ptkDeleteMS(msId){
+  if(!confirm('Delete milestone?'))return;
+  const d=ptkGetData(_ptkProj);d.milestones=d.milestones.filter(m=>m.id!==msId);
+  ptkRenderAll();showToast('Milestone deleted');
+}
+function ptkOpenRisk(){
+  if(!_ptkProj){showToast('Select a project first');return;}
+  ['ptk-r-id','ptk-r-title','ptk-r-owner','ptk-r-desc'].forEach(id=>{const el=document.getElementById(id);if(el)el.value='';});
+  document.getElementById('ptk-r-type').value='Risk';
+  document.getElementById('ptk-r-status').value='open';
+  document.getElementById('ptk-r-like').value='Medium';
+  document.getElementById('ptk-r-impact').value='Medium';
+  openModal('modal-ptk-risk');
+}
+function ptkSaveRisk(){
+  const title=document.getElementById('ptk-r-title').value.trim();if(!title){showToast('Title required');return;}
+  const d=ptkGetData(_ptkProj);
+  const payload={title,type:document.getElementById('ptk-r-type').value,status:document.getElementById('ptk-r-status').value,
+    likelihood:document.getElementById('ptk-r-like').value,impact:document.getElementById('ptk-r-impact').value,
+    owner:document.getElementById('ptk-r-owner').value.trim(),desc:document.getElementById('ptk-r-desc').value.trim()};
+  const eid=document.getElementById('ptk-r-id').value;
+  if(eid){const idx=d.risks.findIndex(r=>r.id===eid);if(idx>=0)d.risks[idx]={...d.risks[idx],...payload};}
+  else d.risks.push({id:'R-'+String(d.risks.length+1).padStart(3,'0'),...payload});
+  closeModal('modal-ptk-risk');ptkRenderAll();showToast('Risk saved');
+}
+function ptkViewRisk(rId){
+  const d=ptkGetData(_ptkProj);const r=d.risks.find(x=>x.id===rId);if(!r)return;
+  const body=`<div class="detail-panel">
+    <div class="detail-row"><span class="detail-label">Type</span><span>${r.type}</span></div>
+    <div class="detail-row"><span class="detail-label">Status</span><span>${r.status}</span></div>
+    <div class="detail-row"><span class="detail-label">Likelihood</span><span>${r.likelihood}</span></div>
+    <div class="detail-row"><span class="detail-label">Impact</span><span>${r.impact}</span></div>
+    <div class="detail-row"><span class="detail-label">Owner</span><span>${r.owner||'—'}</span></div>
+    ${r.desc?`<div class="detail-row" style="align-items:flex-start"><span class="detail-label">Mitigation</span><span style="font-size:11px;line-height:1.6">${r.desc}</span></div>`:''}
+  </div>
+  <div class="modal-actions" style="margin-top:10px;padding:0">
+    <button class="btn" onclick="closeModal('modal-detail');ptkEditRisk('${r.id}')">Edit</button>
+    <button class="btn" style="color:var(--red)" onclick="closeModal('modal-detail');ptkDeleteRisk('${r.id}')">Delete</button>
+  </div>`;
+  openDetailModal(r.title,r.type+' · '+r.impact+' Impact',body);
+}
+function ptkEditRisk(rId){
+  const d=ptkGetData(_ptkProj);const r=d.risks.find(x=>x.id===rId);if(!r)return;
+  document.getElementById('ptk-r-id').value=rId;
+  document.getElementById('ptk-r-title').value=r.title;
+  document.getElementById('ptk-r-type').value=r.type;
+  document.getElementById('ptk-r-status').value=r.status;
+  document.getElementById('ptk-r-like').value=r.likelihood;
+  document.getElementById('ptk-r-impact').value=r.impact;
+  document.getElementById('ptk-r-owner').value=r.owner||'';
+  document.getElementById('ptk-r-desc').value=r.desc||'';
+  openModal('modal-ptk-risk');
+}
+function ptkDeleteRisk(rId){
+  if(!confirm('Delete risk?'))return;
+  const d=ptkGetData(_ptkProj);d.risks=d.risks.filter(r=>r.id!==rId);
+  ptkRenderAll();showToast('Risk deleted');
+}
+
+// ── Invoice advanced filter ──
+function invFilter(){
+  const q=(document.getElementById('inv-search')?.value||'').toLowerCase();
+  const from=document.getElementById('inv-from')?.value||'';
+  const to=document.getElementById('inv-to')?.value||'';
+  const st=document.getElementById('inv-status-sel')?.value||'';
+  let n=0;
+  document.querySelectorAll('#inv-tbody tr').forEach(row=>{
+    const ok=(!q||row.textContent.toLowerCase().includes(q))&&
+             (!from||(row.dataset.issued||'')>=from)&&
+             (!to||(row.dataset.issued||'')<=to)&&
+             (!st||row.dataset.status===st);
+    row.style.display=ok?'':'none';if(ok)n++;
+  });
+}
+function invFilterClear(){
+  ['inv-search','inv-from','inv-to','inv-status-sel'].forEach(id=>{const e=document.getElementById(id);if(e)e.value='';});
+  invFilter();
+}
+// ── PO advanced filter ──
+function poFilter(){
+  const q=(document.getElementById('po-search')?.value||'').toLowerCase();
+  const from=document.getElementById('po-from')?.value||'';
+  const to=document.getElementById('po-to')?.value||'';
+  const st=document.getElementById('po-status-sel')?.value||'';
+  document.querySelectorAll('#po-tbody tr').forEach(row=>{
+    const ok=(!q||row.textContent.toLowerCase().includes(q))&&
+             (!from||(row.dataset.ordered||'')>=from)&&
+             (!to||(row.dataset.ordered||'')<=to)&&
+             (!st||row.dataset.status===st);
+    row.style.display=ok?'':'none';
+  });
+}
+function poFilterClear(){
+  ['po-search','po-from','po-to','po-status-sel'].forEach(id=>{const e=document.getElementById(id);if(e)e.value='';});
+  poFilter();
+}
+// ── Enhanced viewInvoice ──
+function viewInvoice(id){
+  const inv=invoices.find(i=>i.id===id);if(!inv)return;
+  const bal=toNum(inv.amount,0)-toNum(inv.paid,0);
+  const pct=inv.amount?Math.round((toNum(inv.paid,0)/toNum(inv.amount,0))*100):0;
+  const cust=customers.find(c=>c.customerCode===inv.customerCode||c.companyName===(inv.customerName||inv.customer));
+  const lines=(inv.lines&&inv.lines.length)?inv.lines:[{description:inv.items||'Line item',qty:1,price:inv.amount,total:inv.amount}];
+  const body=`<div class="grid-2" style="gap:10px;margin-bottom:12px">
+    <div class="detail-panel" style="margin:0">
+      <div class="detail-row"><span class="detail-label">Invoice #</span><span style="font-family:var(--font-mono);color:var(--blue);font-weight:700">${inv.id}</span></div>
+      <div class="detail-row"><span class="detail-label">Customer</span><span>${inv.customerName||inv.customer}${cust?` <button class="tb-btn" style="font-size:10px;padding:2px 8px;margin-left:4px" onclick="closeModal('modal-detail');viewCustomer('${cust.customerCode}')">View →</button>`:''}</span></div>
+      <div class="detail-row"><span class="detail-label">Project</span><span>${inv.projectName||'Unlinked'}</span></div>
+      <div class="detail-row"><span class="detail-label">Issued</span><span style="font-family:var(--font-mono)">${inv.issued}</span></div>
+      <div class="detail-row"><span class="detail-label">Due Date</span><span style="font-family:var(--font-mono);color:${inv.status==='Overdue'?'var(--red)':'inherit'}">${inv.due}</span></div>
+      <div class="detail-row"><span class="detail-label">Status</span><span class="status-badge ${bc(inv.status)}">${inv.status}</span></div>
+    </div>
+    <div class="detail-panel" style="margin:0">
+      <div class="detail-row"><span class="detail-label">Amount</span><span class="amount" style="font-size:16px;font-weight:700">${fmt(inv.amount)}</span></div>
+      <div class="detail-row"><span class="detail-label">Paid</span><span class="amount positive">${fmt(inv.paid)}</span></div>
+      <div class="detail-row"><span class="detail-label">Balance Due</span><span class="amount ${bal>0?'negative':''}" style="font-size:14px;font-weight:600">${fmt(bal)}</span></div>
+      <div style="margin:8px 0"><div style="display:flex;justify-content:space-between;font-size:10px;color:var(--txt2);font-family:var(--font-mono);margin-bottom:4px"><span>Settlement</span><span>${pct}%</span></div><div class="progress-bar"><div class="progress-fill" style="width:${pct}%;background:var(--green)"></div></div></div>
+    </div>
+  </div>
+  ${renderLineTable(lines)}`;
+  const invActions=`<button class="btn" style="background:#1e3a5f;color:#fff;border-color:#1e3a5f" onclick="exportInvoicePDF('${inv.id}')">🖨 Export PDF</button>`;
+  openDetailModal(inv.id,'Invoice · '+inv.status,body,invActions);
+}
+
+// ── Legacy stubs so existing settings buttons don't throw ──
+function renderTracking(){}
+function filterTracking(){}
+function openCustomerFromInvoice(invId){const i=invoices.find(x=>x.id===invId);if(!i)return;const c=customers.find(x=>x.customerCode===i.customerCode||x.companyName===(i.customerName||i.customer));if(c)viewCustomer(c.customerCode);}
+function viewTracking(){}
+function openTrackingUpdate(){}
+function openTrackingUpdateForFirst(){openView('tracking');}
 function switchCatTab(tab,el){
   document.querySelectorAll('.tabs .tab').forEach(t=>t.classList.remove('active'));
   el.classList.add('active');
@@ -2715,6 +3255,7 @@ function openDocActions(type,id){
   if(balance>0){
     actions.push({label:isInv?'Record Payment':'Capture Receipt',fn:()=>isInv?openInvoicePayment(id):openPOReceipt(id)});
   }
+  actions.push({label:'Export PDF',fn:()=>isInv?exportInvoicePDF(id):exportPOPDF(id)});
   actions.push({label:'Delete',danger:true,fn:()=>isInv?deleteInvoice(id):deletePO(id)});
   document.getElementById('doc-actions-sub').textContent=`${isInv?'Invoice':'PO'} ${id}`;
   document.getElementById('doc-actions-list').innerHTML=actions.map((a,idx)=>`<button class="tb-btn" style="justify-content:flex-start;${a.danger?'color:var(--red);border-color:var(--red);':''}" onclick="runDocAction(${idx})">${a.label}</button>`).join('');
@@ -2791,68 +3332,164 @@ function viewProject(id){
 }
 function viewCustomer(id){
   const c=customers.find(x=>x.customerCode===id||x.id===id);if(!c)return;
-  const ci=invoices.filter(i=>i.customerCode===c.customerCode||i.customerName===c.companyName||i.customer===c.companyName);
-  const body=`<div class="detail-panel">
-    <div class="detail-row"><span class="detail-label">Customer Code</span><span>${c.customerCode}</span></div>
-    <div class="detail-row"><span class="detail-label">Industry Sector</span><span>${c.industry}</span></div>
-    <div class="detail-row"><span class="detail-label">Primary Contact</span><span>${c.contactName} &mdash; ${c.email}</span></div>
-    <div class="detail-row"><span class="detail-label">Phone</span><span>${c.phone||'N/A'}</span></div>
-    <div class="detail-row"><span class="detail-label">Credit Limit</span><span class="amount">${fmt(c.creditLimit)}</span></div>
-    <div class="detail-row"><span class="detail-label">Outstanding Balance</span><span class="amount ${c.currentBalance>0?'negative':''}">${fmt(c.currentBalance)}</span></div>
-    <div class="detail-row"><span class="detail-label">Payment Terms</span><span>${c.paymentTerms}</span></div>
-    <div class="detail-row"><span class="detail-label">VAT Number</span><span>${c.vatNumber||'N/A'}</span></div>
-    <div class="detail-row"><span class="detail-label">Billing Address</span><span>${c.billingAddress||'N/A'}</span></div>
-    <div class="detail-row"><span class="detail-label">Delivery Address</span><span>${c.deliveryAddress||'N/A'}</span></div>
-    <div class="detail-row"><span class="detail-label">Status</span><span class="status-badge ${bc(c.status)}">${c.status}</span></div>
+  const ci=invoices.filter(i=>i.customerCode===c.customerCode||i.customerName===c.companyName||i.customer===c.companyName)
+    .sort((a,b)=>new Date(b.issued||0)-new Date(a.issued||0));
+  const last3=ci.slice(0,3);
+  const totalInv=ci.reduce((s,i)=>s+toNum(i.amount,0),0);
+  const totalPaid=ci.reduce((s,i)=>s+toNum(i.paid,0),0);
+  const overdue=ci.filter(i=>i.status==='Overdue').length;
+  const utilPct=c.creditLimit>0?Math.min(100,Math.round((c.currentBalance/c.creditLimit)*100)):0;
+  const utilCol=utilPct>85?'var(--red)':utilPct>60?'var(--amber)':'var(--green)';
+  const body=`<div class="grid-2" style="gap:10px;margin-bottom:12px">
+    <div class="detail-panel" style="margin:0">
+      <div class="detail-row"><span class="detail-label">Customer Code</span><span style="font-family:var(--font-mono)">${c.customerCode}</span></div>
+      <div class="detail-row"><span class="detail-label">Industry</span><span>${c.industry}</span></div>
+      <div class="detail-row"><span class="detail-label">Contact</span><span>${c.contactName}</span></div>
+      <div class="detail-row"><span class="detail-label">Email</span><span>${c.email}</span></div>
+      <div class="detail-row"><span class="detail-label">Phone</span><span>${c.phone||'N/A'}</span></div>
+      <div class="detail-row"><span class="detail-label">Payment Terms</span><span>${c.paymentTerms}</span></div>
+      <div class="detail-row"><span class="detail-label">Status</span><span class="status-badge ${bc(c.status)}">${c.status}</span></div>
+    </div>
+    <div class="detail-panel" style="margin:0">
+      <div class="detail-row"><span class="detail-label">Credit Limit</span><span class="amount">${fmt(c.creditLimit)}</span></div>
+      <div class="detail-row"><span class="detail-label">Outstanding</span><span class="amount ${c.currentBalance>0?'negative':''}">${fmt(c.currentBalance)}</span></div>
+      <div class="detail-row"><span class="detail-label">Credit Used</span><span style="color:${utilCol};font-family:var(--font-mono);font-weight:600">${utilPct}%</span></div>
+      <div style="margin:4px 0 8px"><div class="progress-bar"><div class="progress-fill" style="width:${utilPct}%;background:${utilCol}"></div></div></div>
+      <div class="detail-row"><span class="detail-label">Total Invoiced</span><span class="amount">${fmt(totalInv)}</span></div>
+      <div class="detail-row"><span class="detail-label">Total Collected</span><span class="amount positive">${fmt(totalPaid)}</span></div>
+      <div class="detail-row"><span class="detail-label">Overdue</span><span style="color:${overdue>0?'var(--red)':'inherit'};font-weight:${overdue>0?600:400}">${overdue} invoice${overdue!==1?'s':''}</span></div>
+    </div>
   </div>
-  <div class="card" style="padding:0"><div class="card-header" style="padding:14px 16px 0"><div class="card-title">Invoices (${ci.length})</div></div><div class="table-wrap"><table><thead><tr><th>Invoice</th><th>Due</th><th>Amount</th><th>Status</th></tr></thead><tbody>
-    ${ci.length?ci.map(i=>`<tr><td style="font-family:var(--font-mono);color:var(--blue)">${i.id}</td><td>${i.due}</td><td class="amount">${fmt(i.amount)}</td><td><span class="status-badge ${bc(i.status)}">${i.status}</span></td></tr>`).join(''):'<tr><td colspan="4" class="empty-state">No invoices</td></tr>'}
-  </tbody></table></div></div>${renderCustomerNotesHtml(c,ci)}`;
+  <div class="card" style="padding:0;margin-bottom:12px">
+    <div class="card-header" style="padding:12px 16px;display:flex;align-items:center;justify-content:space-between">
+      <div><div class="card-title">Recent Invoices</div><div class="card-sub">Last ${last3.length} of ${ci.length} total</div></div>
+      ${ci.length>3?`<button class="tb-btn" style="font-size:11px" onclick="closeModal('modal-detail');ptkNavToInvoices('${c.customerCode}','${c.companyName}')">View All ${ci.length} →</button>`:''}
+    </div>
+    <div class="table-wrap"><table>
+      <thead><tr><th>Invoice #</th><th>Issued</th><th>Due</th><th>Amount</th><th>Paid</th><th>Status</th><th></th></tr></thead>
+      <tbody>${last3.length?last3.map(i=>`<tr>
+        <td style="font-family:var(--font-mono);font-size:11px;color:var(--blue)">${i.id}</td>
+        <td style="font-family:var(--font-mono);font-size:11px">${i.issued}</td>
+        <td style="font-family:var(--font-mono);font-size:11px;color:${i.status==='Overdue'?'var(--red)':'inherit'}">${i.due}</td>
+        <td class="amount">${fmt(i.amount)}</td>
+        <td class="amount positive">${fmt(i.paid)}</td>
+        <td><span class="status-badge ${bc(i.status)}">${i.status}</span></td>
+        <td><button class="tb-btn" style="font-size:10px;padding:3px 8px" onclick="closeModal('modal-detail');viewInvoice('${i.id}')">View</button></td>
+      </tr>`).join(''):'<tr><td colspan="7" class="empty-state">No invoices for this customer</td></tr>'}
+      </tbody>
+    </table></div>
+  </div>
+  ${renderCustomerNotesHtml(c,ci)}`;
   openDetailModal(c.companyName,'Customer account profile',body);
 }
-
 function viewSupplier(id){
   const s=suppliers.find(x=>x.supplierCode===id||x.id===id);if(!s)return;
   const sp=products.filter(p=>p.supplierCode===s.supplierCode||p.supplierName===s.companyName);
-  const po=purchaseOrders.filter(p=>p.supplierCode===s.supplierCode||p.supplierName===s.companyName||p.supplier===s.companyName);
-  const body=`<div class="detail-panel">
-    <div class="detail-row"><span class="detail-label">Supplier Code</span><span>${s.supplierCode}</span></div>
-    <div class="detail-row"><span class="detail-label">Category</span><span>${s.category}</span></div>
-    <div class="detail-row"><span class="detail-label">Contact</span><span>${s.contactName} &mdash; ${s.email} &mdash; ${s.phone}</span></div>
-    <div class="detail-row"><span class="detail-label">Lead Time</span><span>${s.leadTime} days</span></div>
-    <div class="detail-row"><span class="detail-label">Payment Terms</span><span>${s.paymentTerms}</span></div>
-    <div class="detail-row"><span class="detail-label">YTD Spend</span><span class="amount">${fmt(s.spend)}</span></div>
-    <div class="detail-row"><span class="detail-label">VAT Number</span><span>${s.vatNumber||'N/A'}</span></div>
-    <div class="detail-row"><span class="detail-label">Physical Address</span><span>${s.physicalAddress||'N/A'}</span></div>
-    <div class="detail-row"><span class="detail-label">Dispatch Address</span><span>${s.dispatchAddress||'N/A'}</span></div>
-    <div class="detail-row"><span class="detail-label">Status</span><span class="status-badge ${bc(s.status)}">${s.status}</span></div>
+  const po=purchaseOrders.filter(p=>p.supplierCode===s.supplierCode||p.supplierName===s.companyName||p.supplier===s.companyName)
+    .sort((a,b)=>new Date(b.ordered||0)-new Date(a.ordered||0));
+  const last3po=po.slice(0,3);
+  const totalSpend=po.reduce((t,p)=>t+toNum(p.value,0),0);
+  const body=`<div class="grid-2" style="gap:10px;margin-bottom:12px">
+    <div class="detail-panel" style="margin:0">
+      <div class="detail-row"><span class="detail-label">Supplier Code</span><span style="font-family:var(--font-mono)">${s.supplierCode}</span></div>
+      <div class="detail-row"><span class="detail-label">Category</span><span>${s.category}</span></div>
+      <div class="detail-row"><span class="detail-label">Contact</span><span>${s.contactName}</span></div>
+      <div class="detail-row"><span class="detail-label">Email</span><span>${s.email}</span></div>
+      <div class="detail-row"><span class="detail-label">Phone</span><span>${s.phone||'N/A'}</span></div>
+      <div class="detail-row"><span class="detail-label">Lead Time</span><span>${s.leadTime} days</span></div>
+      <div class="detail-row"><span class="detail-label">Payment Terms</span><span>${s.paymentTerms}</span></div>
+      <div class="detail-row"><span class="detail-label">Status</span><span class="status-badge ${bc(s.status)}">${s.status}</span></div>
+    </div>
+    <div class="detail-panel" style="margin:0">
+      <div class="detail-row"><span class="detail-label">Total PO Spend</span><span class="amount">${fmt(totalSpend)}</span></div>
+      <div class="detail-row"><span class="detail-label">YTD Spend</span><span class="amount">${fmt(s.spend||0)}</span></div>
+      <div class="detail-row"><span class="detail-label">Total POs</span><span>${po.length}</span></div>
+      <div class="detail-row"><span class="detail-label">Products Linked</span><span>${sp.length}</span></div>
+      <div class="detail-row"><span class="detail-label">Physical Address</span><span style="font-size:11px">${s.physicalAddress||'N/A'}</span></div>
+      <div class="detail-row"><span class="detail-label">VAT Number</span><span>${s.vatNumber||'N/A'}</span></div>
+    </div>
   </div>
-  <div style="font-size:13px;font-weight:600;margin-bottom:8px">Linked Products (${sp.length})</div>
-  <div class="card" style="padding:0;margin-bottom:14px"><div class="table-wrap"><table><thead><tr><th>SKU</th><th>Product</th><th>Unit Price</th><th>Stock</th></tr></thead><tbody>
-    ${sp.length?sp.map(p=>`<tr><td style="font-family:var(--font-mono);font-size:11px">${p.sku}</td><td>${p.name}</td><td class="amount">${fmt(p.unitPrice)}</td><td>${p.stock} ${p.unit}</td></tr>`).join(''):'<tr><td colspan="4" class="empty-state">No products linked</td></tr>'}
-  </tbody></table></div></div>
-  <div style="font-size:13px;font-weight:600;margin-bottom:8px">Purchase Orders (${po.length})</div>
-  <div class="card" style="padding:0"><div class="table-wrap"><table><thead><tr><th>PO Number</th><th>Value</th><th>Status</th></tr></thead><tbody>
-    ${po.length?po.map(p=>`<tr><td style="font-family:var(--font-mono);color:var(--amber)">${p.id}</td><td class="amount">${fmt(p.value)}</td><td><span class="status-badge ${bc(p.status)}">${p.status}</span></td></tr>`).join(''):'<tr><td colspan="3" class="empty-state">No POs</td></tr>'}
-  </tbody></table></div></div>`;
-  openDetailModal(s.companyName,'Supplier profile &middot; '+s.category,body);
+  <div class="card" style="padding:0;margin-bottom:12px">
+    <div class="card-header" style="padding:12px 16px;display:flex;align-items:center;justify-content:space-between">
+      <div><div class="card-title">Recent Purchase Orders</div><div class="card-sub">Last ${last3po.length} of ${po.length} total</div></div>
+      ${po.length>3?`<button class="tb-btn" style="font-size:11px" onclick="closeModal('modal-detail');ptkNavToPOs('${s.supplierCode}','${s.companyName}')">View All ${po.length} →</button>`:''}
+    </div>
+    <div class="table-wrap"><table>
+      <thead><tr><th>PO Number</th><th>Ordered</th><th>Expected</th><th>Value</th><th>Status</th><th></th></tr></thead>
+      <tbody>${last3po.length?last3po.map(p=>`<tr>
+        <td style="font-family:var(--font-mono);font-size:11px;color:var(--amber)">${p.id}</td>
+        <td style="font-family:var(--font-mono);font-size:11px">${p.ordered}</td>
+        <td style="font-family:var(--font-mono);font-size:11px">${p.expected}</td>
+        <td class="amount">${fmt(p.value)}</td>
+        <td><span class="status-badge ${bc(p.status)}">${p.status}</span></td>
+        <td><button class="tb-btn" style="font-size:10px;padding:3px 8px" onclick="closeModal('modal-detail');viewPO('${p.id}')">View</button></td>
+      </tr>`).join(''):'<tr><td colspan="6" class="empty-state">No purchase orders</td></tr>'}
+      </tbody>
+    </table></div>
+  </div>
+  <div class="card" style="padding:0">
+    <div class="card-header" style="padding:12px 16px;display:flex;align-items:center;justify-content:space-between">
+      <div class="card-title">Linked Products (${sp.length})</div>
+      ${sp.length>5?`<button class="tb-btn" style="font-size:11px" onclick="closeModal('modal-detail');ptkNavToProducts('${s.supplierCode}','${s.companyName}')">View All →</button>`:''}
+    </div>
+    <div class="table-wrap"><table><thead><tr><th>SKU</th><th>Product</th><th>Unit Price</th><th>Stock</th><th>Status</th></tr></thead><tbody>
+      ${sp.length?sp.slice(0,6).map(p=>`<tr>
+        <td style="font-family:var(--font-mono);font-size:11px">${p.sku}</td>
+        <td>${p.name}</td>
+        <td class="amount">${fmt(p.unitPrice)}</td>
+        <td style="color:${p.stock<=p.reorder?'var(--amber)':'inherit'};font-family:var(--font-mono);font-size:11px">${p.stock} ${p.unit}</td>
+        <td><span class="status-badge ${bc(p.status)}">${p.status}</span></td>
+      </tr>`).join(''):'<tr><td colspan="5" class="empty-state">No products linked</td></tr>'}
+    </tbody></table></div>
+  </div>`;
+  openDetailModal(s.companyName,'Supplier profile · '+s.category,body);
 }
-
 function viewProduct(id){
   const p=products.find(x=>x.id===id);if(!p)return;
-  const body=`<div class="detail-panel">
-    <div class="detail-row"><span class="detail-label">SKU</span><span style="font-family:var(--font-mono)">${p.sku}</span></div>
-    <div class="detail-row"><span class="detail-label">Category</span><span>${p.category}</span></div>
-    <div class="detail-row"><span class="detail-label">Supplier</span><span>${p.supplierName||p.supplier}</span></div>
-    <div class="detail-row"><span class="detail-label">Unit Price</span><span class="amount" style="font-size:16px">${fmt(p.unitPrice)} per ${p.unit}</span></div>
-    <div class="detail-row"><span class="detail-label">Stock on Hand</span><span style="color:${p.stock<=p.reorder?'var(--amber)':'var(--green)'};font-family:var(--font-mono)">${p.stock} ${p.unit}</span></div>
-    <div class="detail-row"><span class="detail-label">Reorder Level</span><span style="font-family:var(--font-mono)">${p.reorder} ${p.unit}</span></div>
-    <div class="detail-row"><span class="detail-label">Status</span><span class="status-badge ${bc(p.status)}">${p.status}</span></div>
+  const sup=suppliers.find(s=>s.supplierCode===p.supplierCode||s.companyName===(p.supplierName||p.supplier));
+  const relPOs=purchaseOrders.filter(po=>po.supplierCode===(sup&&sup.supplierCode)||po.supplier===(p.supplierName||p.supplier)).slice(0,4);
+  const stockCol=p.stock<=0?'var(--red)':p.stock<=p.reorder?'var(--amber)':'var(--green)';
+  const stockLabel=p.stock<=0?'Out of Stock':p.stock<=p.reorder?'Low Stock':'In Stock';
+  const body=`<div class="grid-2" style="gap:10px;margin-bottom:12px">
+    <div class="detail-panel" style="margin:0">
+      <div class="detail-row"><span class="detail-label">SKU</span><span style="font-family:var(--font-mono)">${p.sku}</span></div>
+      <div class="detail-row"><span class="detail-label">Category</span><span>${p.category}</span></div>
+      <div class="detail-row"><span class="detail-label">Unit</span><span>${p.unit}</span></div>
+      <div class="detail-row"><span class="detail-label">Status</span><span class="status-badge ${bc(p.status)}">${p.status}</span></div>
+    </div>
+    <div class="detail-panel" style="margin:0">
+      <div class="detail-row"><span class="detail-label">Unit Price</span><span class="amount" style="font-size:15px;font-weight:700">${fmt(p.unitPrice)}</span></div>
+      <div class="detail-row"><span class="detail-label">Stock on Hand</span><span style="color:${stockCol};font-family:var(--font-mono);font-weight:600">${p.stock} ${p.unit} — ${stockLabel}</span></div>
+      <div class="detail-row"><span class="detail-label">Reorder Level</span><span style="font-family:var(--font-mono)">${p.reorder} ${p.unit}</span></div>
+    </div>
   </div>
-  ${p.stock<=p.reorder?`<div style="background:var(--amber-dim);border:1px solid var(--amber);border-radius:var(--r8);padding:10px 14px;font-size:12px;color:var(--amber)">&#9888; Stock at or below reorder level. Consider raising a PO with ${p.supplier}.</div>`:''}`;
-  openDetailModal(p.name,'Product detail &middot; '+p.sku,body);
+  ${p.stock<=p.reorder?`<div style="background:var(--amber-dim);border:1px solid var(--amber);border-radius:var(--r8);padding:10px 14px;font-size:12px;color:var(--amber);margin-bottom:12px">⚠ Stock at or below reorder level. <button class="tb-btn" style="font-size:10px;padding:3px 8px;margin-left:8px" onclick="closeModal('modal-detail');openModal('modal-po')">Raise PO</button></div>`:''}
+  ${sup?`<div class="detail-panel" style="margin-bottom:12px">
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px">
+      <div style="font-size:12px;font-weight:600;color:var(--txt1)">Supplier</div>
+      <button class="tb-btn" style="font-size:10px;padding:3px 8px" onclick="closeModal('modal-detail');viewSupplier('${sup.supplierCode}')">View Supplier →</button>
+    </div>
+    <div class="detail-row"><span class="detail-label">Company</span><span>${sup.companyName}</span></div>
+    <div class="detail-row"><span class="detail-label">Contact</span><span>${sup.contactName} · ${sup.email}</span></div>
+    <div class="detail-row"><span class="detail-label">Lead Time</span><span>${sup.leadTime} days</span></div>
+    <div class="detail-row"><span class="detail-label">Status</span><span class="status-badge ${bc(sup.status)}">${sup.status}</span></div>
+  </div>`:''}
+  ${relPOs.length?`<div class="card" style="padding:0">
+    <div class="card-header" style="padding:12px 16px;display:flex;align-items:center;justify-content:space-between">
+      <div class="card-title">Recent POs from this Supplier</div>
+      ${sup?`<button class="tb-btn" style="font-size:10px;padding:3px 8px" onclick="closeModal('modal-detail');ptkNavToPOs('${sup.supplierCode}','${(sup.companyName||'')}')">View All →</button>`:''}
+    </div>
+    <div class="table-wrap"><table><thead><tr><th>PO Number</th><th>Ordered</th><th>Value</th><th>Status</th></tr></thead><tbody>
+      ${relPOs.map(po=>`<tr>
+        <td style="font-family:var(--font-mono);font-size:11px;color:var(--amber)">${po.id}</td>
+        <td style="font-family:var(--font-mono);font-size:11px">${po.ordered}</td>
+        <td class="amount">${fmt(po.value)}</td>
+        <td><span class="status-badge ${bc(po.status)}">${po.status}</span></td>
+      </tr>`).join('')}
+    </tbody></table></div>
+  </div>`:''}`;
+  openDetailModal(p.name,'Product · '+p.sku,body);
 }
-
 function viewService(code){
   const s=services.find(x=>x.code===code);if(!s)return;
   const body=`<div class="detail-panel">
@@ -2866,24 +3503,7 @@ function viewService(code){
   openDetailModal(s.name,'Service detail &middot; '+s.code,body);
 }
 
-function viewInvoice(id){
-  const i=invoices.find(x=>x.id===id);if(!i)return;
-  const bal=i.amount-i.paid;const pct=i.amount?Math.round((i.paid/i.amount)*100):0;
-  const lines=(i.lines&&i.lines.length)?i.lines:[{description:i.items||'Line item',qty:1,price:i.amount,total:i.amount}];
-  const body=`<div class="detail-panel">
-    <div class="detail-row"><span class="detail-label">Invoice Number</span><span style="font-family:var(--font-mono);color:var(--blue)">${i.id}</span></div>
-    <div class="detail-row"><span class="detail-label">Customer</span><span>${i.customerName||i.customer}</span></div>
-    <div class="detail-row"><span class="detail-label">Project</span><span>${i.projectName||'Unlinked'}</span></div>
-    <div class="detail-row"><span class="detail-label">Issue Date</span><span>${i.issued}</span></div>
-    <div class="detail-row"><span class="detail-label">Due Date</span><span style="color:${i.status==='Overdue'?'var(--red)':'inherit'}">${i.due}</span></div>
-    <div class="detail-row"><span class="detail-label">Amount</span><span class="amount">${fmt(i.amount)}</span></div>
-    <div class="detail-row"><span class="detail-label">Paid</span><span class="amount positive">${fmt(i.paid)}</span></div>
-    <div class="detail-row"><span class="detail-label">Balance</span><span class="amount ${bal>0?'negative':''}">${fmt(bal)}</span></div>
-    <div class="detail-row"><span class="detail-label">Status</span><span class="status-badge ${bc(i.status)}">${i.status}</span></div>
-    <div style="margin-top:12px"><div style="display:flex;justify-content:space-between;font-size:11px;color:var(--txt2);font-family:var(--font-mono)"><span>Settlement Progress</span><span>${pct}%</span></div><div class="progress-bar"><div class="progress-fill" style="width:${pct}%;background:var(--green)"></div></div></div>
-  </div>${renderLineTable(lines)}`;
-  openDetailModal(i.id,'Invoice detail & settlement status',body);
-}
+// viewInvoice — see enhanced version above
 
 function viewPO(id){
   const p=purchaseOrders.find(x=>x.id===id);if(!p)return;
@@ -2901,7 +3521,8 @@ function viewPO(id){
     <div class="detail-row"><span class="detail-label">Status</span><span class="status-badge ${bc(p.status)}">${p.status}</span></div>
     <div style="margin-top:12px"><div style="display:flex;justify-content:space-between;font-size:11px;color:var(--txt2);font-family:var(--font-mono)"><span>Receiving Progress</span><span>${pct}%</span></div><div class="progress-bar"><div class="progress-fill" style="width:${pct}%;background:var(--teal)"></div></div></div>
   </div>${renderLineTable(lines)}`;
-  openDetailModal(p.id,'Purchase order detail',body);
+  const poActions=`<button class="btn" style="background:#92400e;color:#fff;border-color:#92400e" onclick="exportPOPDF('${p.id}')">🖨 Export PDF</button>`;
+  openDetailModal(p.id,'Purchase order detail',body,poActions);
 }
 
 function viewStatement(ref){
@@ -2915,8 +3536,393 @@ function viewStatement(ref){
     <div class="detail-row"><span class="detail-label">Running Balance</span><span class="amount">${fmt(s.bal)}</span></div>
     <div class="detail-row"><span class="detail-label">Status</span><span class="status-badge ${bc(s.status)}">${s.status}</span></div>
   </div>`;
-  openDetailModal(s.ref,'Statement transaction detail',body);
+  const stmtActions=`<button class="btn" style="background:#1e3a5f;color:#fff;border-color:#1e3a5f" onclick="exportStatementPDF('${s.ref}')">🖨 Export PDF</button>`;
+  openDetailModal(s.ref,'Statement transaction detail',body,stmtActions);
 }
+
+// ================================================================
+// PDF EXPORT ENGINE — Invoice, PO, Statement
+// ================================================================
+const PDF_CO = {
+  name: 'NexusERP (Pty) Ltd',
+  reg: 'Reg: 2018/234567/07',
+  vat: 'VAT: 4120198763',
+  addr: '14 Sovereign Drive, Sandton, 2196',
+  city: 'Johannesburg, Gauteng, South Africa',
+  tel: '+27 11 555 0200',
+  email: 'accounts@nexuserp.co.za',
+  bank: 'First National Bank',
+  acc: '62834719205',
+  branch: '250655',
+  swift: 'FIRNZAJJ',
+};
+
+function pdfFmt(n){ return new Intl.NumberFormat('en-ZA',{style:'currency',currency:'ZAR',minimumFractionDigits:2}).format(n||0); }
+
+function pdfStatusColor(s){
+  return {Paid:'#16a34a',Sent:'#2563eb',Overdue:'#dc2626',Draft:'#6b7280',
+    Approved:'#16a34a',Issued:'#2563eb',Received:'#16a34a',Partial:'#d97706'}[s]||'#374151';
+}
+
+function pdfOpen(htmlContent, filename){
+  const win = window.open('','_blank','width=900,height=700');
+  if(!win){ alert('Please allow pop-ups for this site to export PDFs.'); return; }
+  win.document.write(htmlContent);
+  win.document.close();
+  win.focus();
+  setTimeout(()=>{ win.print(); }, 600);
+}
+
+// ── INVOICE PDF ──
+function exportInvoicePDF(invId){
+  const inv = invoices.find(i=>i.id===invId);
+  if(!inv){ showToast('Invoice not found'); return; }
+  const cust = customers.find(c=>c.customerCode===inv.customerCode||c.companyName===(inv.customerName||inv.customer));
+  const bal = toNum(inv.amount,0) - toNum(inv.paid,0);
+  const vatRate = appConfig.vatRate||15;
+  const lines = (inv.lines&&inv.lines.length)
+    ? inv.lines
+    : [{description: inv.items||'Professional Services', qty:1, price:inv.amount, total:inv.amount}];
+  const subtotal = lines.reduce((s,l)=>s+toNum(l.total||l.price,0),0);
+  const vatAmt = subtotal*(vatRate/100);
+  const linesHtml = lines.map((l,i)=>`
+    <tr style="background:${i%2===0?'#f9fafb':'#ffffff'}">
+      <td style="padding:9px 12px;border-bottom:1px solid #e5e7eb;font-size:12px;color:#111827">${l.description||'Item'}</td>
+      <td style="padding:9px 12px;border-bottom:1px solid #e5e7eb;font-size:12px;text-align:center;color:#374151">${l.qty||1}</td>
+      <td style="padding:9px 12px;border-bottom:1px solid #e5e7eb;font-size:12px;text-align:right;font-family:monospace;color:#374151">${pdfFmt(l.price)}</td>
+      <td style="padding:9px 12px;border-bottom:1px solid #e5e7eb;font-size:12px;text-align:right;font-family:monospace;color:#111827;font-weight:600">${pdfFmt(l.total||l.price)}</td>
+    </tr>`).join('');
+
+  const statusCol = pdfStatusColor(inv.status);
+  const html = `<!DOCTYPE html><html><head><meta charset="UTF-8">
+  <title>Invoice ${inv.id}</title>
+  <style>
+    *{margin:0;padding:0;box-sizing:border-box}
+    body{font-family:'Segoe UI',Arial,sans-serif;background:#fff;color:#111827;font-size:13px}
+    @media print{
+      body{print-color-adjust:exact;-webkit-print-color-adjust:exact}
+      .no-print{display:none!important}
+      @page{margin:15mm 18mm;size:A4}
+    }
+    .page{max-width:800px;margin:0 auto;padding:32px 36px}
+    .header{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:32px;padding-bottom:24px;border-bottom:2px solid #1e3a5f}
+    .co-name{font-size:22px;font-weight:800;color:#1e3a5f;letter-spacing:-0.5px}
+    .co-detail{font-size:11px;color:#6b7280;margin-top:4px;line-height:1.7}
+    .doc-label{font-size:11px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:#6b7280;text-align:right}
+    .doc-number{font-size:28px;font-weight:900;color:#1e3a5f;text-align:right;font-family:monospace}
+    .doc-status{display:inline-block;padding:4px 12px;border-radius:20px;font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;background:${statusCol}18;color:${statusCol};border:1px solid ${statusCol}40;text-align:right;margin-top:4px}
+    .meta-grid{display:grid;grid-template-columns:1fr 1fr;gap:24px;margin-bottom:28px}
+    .meta-box{background:#f9fafb;border-radius:8px;padding:16px 18px;border:1px solid #e5e7eb}
+    .meta-label{font-size:10px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:#9ca3af;margin-bottom:10px}
+    .meta-name{font-size:14px;font-weight:700;color:#111827;margin-bottom:4px}
+    .meta-line{font-size:11px;color:#6b7280;line-height:1.7}
+    .dates-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;margin-bottom:28px}
+    .date-box{text-align:center;padding:12px;background:#f9fafb;border-radius:6px;border:1px solid #e5e7eb}
+    .date-lbl{font-size:9px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:#9ca3af;margin-bottom:4px}
+    .date-val{font-size:13px;font-weight:700;color:#1e3a5f;font-family:monospace}
+    table{width:100%;border-collapse:collapse;margin-bottom:0}
+    thead tr{background:#1e3a5f}
+    thead th{padding:10px 12px;font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:#fff;text-align:left}
+    thead th:nth-child(2){text-align:center}
+    thead th:nth-child(3),thead th:nth-child(4){text-align:right}
+    .totals{margin-top:0;border-top:2px solid #1e3a5f;padding:0 0 0 50%}
+    .total-row{display:flex;justify-content:space-between;padding:7px 12px;font-size:12px;color:#374151;border-bottom:1px solid #f3f4f6}
+    .total-row.grand{background:#1e3a5f;color:#fff;font-size:14px;font-weight:800;border-radius:0 0 6px 6px;padding:10px 12px}
+    .total-row.grand span:last-child{font-family:monospace}
+    .payment-box{margin-top:24px;background:#eff6ff;border:1px solid #bfdbfe;border-radius:8px;padding:16px 20px}
+    .payment-title{font-size:11px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:#1d4ed8;margin-bottom:10px}
+    .payment-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+    .payment-item{font-size:11px;color:#374151;display:flex;gap:8px}
+    .payment-item span:first-child{color:#9ca3af;min-width:60px}
+    .balance-box{margin-top:16px;background:${bal>0?'#fef2f2':'#f0fdf4'};border:1px solid ${bal>0?'#fecaca':'#bbf7d0'};border-radius:8px;padding:14px 20px;display:flex;justify-content:space-between;align-items:center}
+    .balance-label{font-size:12px;font-weight:700;color:${bal>0?'#dc2626':'#16a34a'}}
+    .balance-amount{font-size:20px;font-weight:900;color:${bal>0?'#dc2626':'#16a34a'};font-family:monospace}
+    .footer{margin-top:32px;padding-top:16px;border-top:1px solid #e5e7eb;display:flex;justify-content:space-between;font-size:10px;color:#9ca3af}
+    .print-btn{position:fixed;bottom:24px;right:24px;background:#1e3a5f;color:#fff;border:none;padding:12px 24px;border-radius:8px;font-size:13px;font-weight:600;cursor:pointer;box-shadow:0 4px 12px rgba(0,0,0,0.2)}
+    .print-btn:hover{background:#2d4e7e}
+  </style>
+  </head><body>
+  <div class="page">
+    <div class="header">
+      <div>
+        <div class="co-name">${PDF_CO.name}</div>
+        <div class="co-detail">${PDF_CO.addr}<br>${PDF_CO.city}<br>${PDF_CO.reg} &nbsp;|&nbsp; ${PDF_CO.vat}<br>${PDF_CO.tel} &nbsp;|&nbsp; ${PDF_CO.email}</div>
+      </div>
+      <div style="text-align:right">
+        <div class="doc-label">Tax Invoice</div>
+        <div class="doc-number">${inv.id}</div>
+        <div><span class="doc-status">${inv.status}</span></div>
+      </div>
+    </div>
+    <div class="meta-grid">
+      <div class="meta-box">
+        <div class="meta-label">Bill To</div>
+        <div class="meta-name">${inv.customerName||inv.customer}</div>
+        ${cust?`<div class="meta-line">${cust.contactName||''}</div><div class="meta-line">${cust.email||''}</div><div class="meta-line">${cust.billingAddress||cust.deliveryAddress||''}</div><div class="meta-line">VAT: ${cust.vatNumber||'N/A'}</div>`:''}
+      </div>
+      <div class="meta-box">
+        <div class="meta-label">Invoice Details</div>
+        <div class="meta-line"><strong>Project:</strong> ${inv.projectName||'N/A'}</div>
+        <div class="meta-line"><strong>PO Ref:</strong> ${inv.poRef||inv.poNumber||'N/A'}</div>
+        <div class="meta-line"><strong>Payment Terms:</strong> ${inv.terms||appConfig.defaultPaymentTerms}</div>
+        <div class="meta-line"><strong>VAT Rate:</strong> ${vatRate}%</div>
+      </div>
+    </div>
+    <div class="dates-grid">
+      <div class="date-box"><div class="date-lbl">Issue Date</div><div class="date-val">${inv.issued}</div></div>
+      <div class="date-box"><div class="date-lbl">Due Date</div><div class="date-val" style="color:${inv.status==='Overdue'?'#dc2626':'#1e3a5f'}">${inv.due}</div></div>
+      <div class="date-box"><div class="date-lbl">Reference</div><div class="date-val">${inv.id}</div></div>
+    </div>
+    <table>
+      <thead><tr><th>Description</th><th>Qty</th><th>Unit Price</th><th>Total</th></tr></thead>
+      <tbody>${linesHtml}</tbody>
+    </table>
+    <div class="totals">
+      <div class="total-row"><span>Subtotal (excl. VAT)</span><span style="font-family:monospace">${pdfFmt(subtotal)}</span></div>
+      <div class="total-row"><span>VAT (${vatRate}%)</span><span style="font-family:monospace">${pdfFmt(vatAmt)}</span></div>
+      <div class="total-row"><span>Invoice Total</span><span style="font-family:monospace">${pdfFmt(inv.amount)}</span></div>
+      <div class="total-row" style="color:#16a34a"><span>Amount Paid</span><span style="font-family:monospace">${pdfFmt(inv.paid)}</span></div>
+      <div class="total-row grand"><span>Balance Due</span><span>${pdfFmt(bal)}</span></div>
+    </div>
+    <div class="payment-box">
+      <div class="payment-title">💳 Banking Details</div>
+      <div class="payment-grid">
+        <div class="payment-item"><span>Bank:</span><strong>${PDF_CO.bank}</strong></div>
+        <div class="payment-item"><span>Account:</span><strong>${PDF_CO.acc}</strong></div>
+        <div class="payment-item"><span>Branch:</span><strong>${PDF_CO.branch}</strong></div>
+        <div class="payment-item"><span>SWIFT:</span><strong>${PDF_CO.swift}</strong></div>
+      </div>
+      <div style="margin-top:10px;font-size:11px;color:#374151">Please use <strong>${inv.id}</strong> as your payment reference.</div>
+    </div>
+    ${bal>0?`<div class="balance-box"><div class="balance-label">⚠ Amount Outstanding</div><div class="balance-amount">${pdfFmt(bal)}</div></div>`:`<div class="balance-box"><div class="balance-label">✓ Fully Settled</div><div class="balance-amount">${pdfFmt(0)}</div></div>`}
+    <div class="footer">
+      <span>${PDF_CO.name} &nbsp;|&nbsp; ${PDF_CO.reg} &nbsp;|&nbsp; ${PDF_CO.vat}</span>
+      <span>Printed: ${new Date().toLocaleDateString('en-ZA')} &nbsp;|&nbsp; Page 1 of 1</span>
+    </div>
+  </div>
+  <button class="print-btn no-print" onclick="window.print()">🖨 Print / Save PDF</button>
+  </body></html>`;
+  pdfOpen(html, inv.id+'.pdf');
+}
+
+// ── PO PDF ──
+function exportPOPDF(poId){
+  const p = purchaseOrders.find(x=>x.id===poId);
+  if(!p){ showToast('PO not found'); return; }
+  const sup = suppliers.find(s=>s.supplierCode===p.supplierCode||s.companyName===(p.supplierName||p.supplier));
+  const rem = Math.max(0, toNum(p.value,0) - toNum(p.received,0));
+  const vatRate = appConfig.poVatRate||15;
+  const lines = (p.lines&&p.lines.length)
+    ? p.lines
+    : [{description: p.products||'Materials & Supplies', qty:1, price:p.value, total:p.value}];
+  const subtotal = lines.reduce((s,l)=>s+toNum(l.total||l.price,0),0);
+  const vatAmt = subtotal*(vatRate/100);
+  const linesHtml = lines.map((l,i)=>`
+    <tr style="background:${i%2===0?'#fffbeb':'#ffffff'}">
+      <td style="padding:9px 12px;border-bottom:1px solid #e5e7eb;font-size:12px;color:#111827">${l.description||'Item'}</td>
+      <td style="padding:9px 12px;border-bottom:1px solid #e5e7eb;font-size:12px;text-align:center;color:#374151">${l.qty||1}</td>
+      <td style="padding:9px 12px;border-bottom:1px solid #e5e7eb;font-size:12px;text-align:right;font-family:monospace;color:#374151">${pdfFmt(l.price)}</td>
+      <td style="padding:9px 12px;border-bottom:1px solid #e5e7eb;font-size:12px;text-align:right;font-family:monospace;color:#111827;font-weight:600">${pdfFmt(l.total||l.price)}</td>
+    </tr>`).join('');
+  const statusCol = pdfStatusColor(p.status);
+  const html = `<!DOCTYPE html><html><head><meta charset="UTF-8">
+  <title>Purchase Order ${p.id}</title>
+  <style>
+    *{margin:0;padding:0;box-sizing:border-box}
+    body{font-family:'Segoe UI',Arial,sans-serif;background:#fff;color:#111827;font-size:13px}
+    @media print{
+      body{print-color-adjust:exact;-webkit-print-color-adjust:exact}
+      .no-print{display:none!important}
+      @page{margin:15mm 18mm;size:A4}
+    }
+    .page{max-width:800px;margin:0 auto;padding:32px 36px}
+    .header{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:32px;padding-bottom:24px;border-bottom:2px solid #92400e}
+    .co-name{font-size:22px;font-weight:800;color:#92400e;letter-spacing:-0.5px}
+    .co-detail{font-size:11px;color:#6b7280;margin-top:4px;line-height:1.7}
+    .doc-label{font-size:11px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:#6b7280;text-align:right}
+    .doc-number{font-size:28px;font-weight:900;color:#92400e;text-align:right;font-family:monospace}
+    .doc-status{display:inline-block;padding:4px 12px;border-radius:20px;font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;background:${statusCol}18;color:${statusCol};border:1px solid ${statusCol}40;margin-top:4px}
+    .meta-grid{display:grid;grid-template-columns:1fr 1fr;gap:24px;margin-bottom:28px}
+    .meta-box{background:#fffbeb;border-radius:8px;padding:16px 18px;border:1px solid #fde68a}
+    .meta-label{font-size:10px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:#b45309;margin-bottom:10px}
+    .meta-name{font-size:14px;font-weight:700;color:#111827;margin-bottom:4px}
+    .meta-line{font-size:11px;color:#6b7280;line-height:1.7}
+    .dates-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;margin-bottom:28px}
+    .date-box{text-align:center;padding:12px;background:#fffbeb;border-radius:6px;border:1px solid #fde68a}
+    .date-lbl{font-size:9px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:#b45309;margin-bottom:4px}
+    .date-val{font-size:13px;font-weight:700;color:#92400e;font-family:monospace}
+    table{width:100%;border-collapse:collapse}
+    thead tr{background:#92400e}
+    thead th{padding:10px 12px;font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:#fff;text-align:left}
+    thead th:nth-child(2){text-align:center}
+    thead th:nth-child(3),thead th:nth-child(4){text-align:right}
+    .totals{border-top:2px solid #92400e;padding:0 0 0 50%}
+    .total-row{display:flex;justify-content:space-between;padding:7px 12px;font-size:12px;color:#374151;border-bottom:1px solid #f3f4f6}
+    .total-row.grand{background:#92400e;color:#fff;font-size:14px;font-weight:800;border-radius:0 0 6px 6px;padding:10px 12px}
+    .delivery-box{margin-top:24px;background:#fffbeb;border:1px solid #fde68a;border-radius:8px;padding:16px 20px;display:grid;grid-template-columns:1fr 1fr;gap:12px}
+    .delivery-title{font-size:11px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:#b45309;margin-bottom:8px;grid-column:1/-1}
+    .delivery-item{font-size:11px;color:#374151}
+    .delivery-item span:first-child{color:#9ca3af;display:block;font-size:10px;font-weight:600;margin-bottom:2px}
+    .terms-box{margin-top:16px;background:#f9fafb;border:1px solid #e5e7eb;border-radius:8px;padding:14px 18px;font-size:11px;color:#6b7280;line-height:1.7}
+    .sig-grid{display:grid;grid-template-columns:1fr 1fr;gap:32px;margin-top:32px}
+    .sig-box{border-top:1px solid #d1d5db;padding-top:8px;font-size:10px;color:#9ca3af}
+    .footer{margin-top:28px;padding-top:16px;border-top:1px solid #e5e7eb;display:flex;justify-content:space-between;font-size:10px;color:#9ca3af}
+    .print-btn{position:fixed;bottom:24px;right:24px;background:#92400e;color:#fff;border:none;padding:12px 24px;border-radius:8px;font-size:13px;font-weight:600;cursor:pointer;box-shadow:0 4px 12px rgba(0,0,0,0.2)}
+    .print-btn:hover{background:#a05010}
+  </style>
+  </head><body>
+  <div class="page">
+    <div class="header">
+      <div>
+        <div class="co-name">${PDF_CO.name}</div>
+        <div class="co-detail">${PDF_CO.addr}<br>${PDF_CO.city}<br>${PDF_CO.reg} &nbsp;|&nbsp; ${PDF_CO.vat}<br>${PDF_CO.tel} &nbsp;|&nbsp; ${PDF_CO.email}</div>
+      </div>
+      <div style="text-align:right">
+        <div class="doc-label">Purchase Order</div>
+        <div class="doc-number">${p.id}</div>
+        <div><span class="doc-status">${p.status}</span></div>
+      </div>
+    </div>
+    <div class="meta-grid">
+      <div class="meta-box">
+        <div class="meta-label">Supplier</div>
+        <div class="meta-name">${p.supplierName||p.supplier}</div>
+        ${sup?`<div class="meta-line">${sup.contactName||''}</div><div class="meta-line">${sup.email||''}</div><div class="meta-line">${sup.physicalAddress||''}</div><div class="meta-line">VAT: ${sup.vatNumber||'N/A'}</div>`:''}
+      </div>
+      <div class="meta-box">
+        <div class="meta-label">Order Details</div>
+        <div class="meta-line"><strong>Project:</strong> ${p.projectName||'N/A'}</div>
+        <div class="meta-line"><strong>Payment Terms:</strong> ${p.terms||sup?.paymentTerms||appConfig.defaultPaymentTerms}</div>
+        <div class="meta-line"><strong>Lead Time:</strong> ${sup?.leadTime||'TBD'} days</div>
+        <div class="meta-line"><strong>VAT Rate:</strong> ${vatRate}%</div>
+      </div>
+    </div>
+    <div class="dates-grid">
+      <div class="date-box"><div class="date-lbl">Order Date</div><div class="date-val">${p.ordered}</div></div>
+      <div class="date-box"><div class="date-lbl">Expected Delivery</div><div class="date-val">${p.expected}</div></div>
+      <div class="date-box"><div class="date-lbl">Received to Date</div><div class="date-val" style="color:#16a34a">${pdfFmt(p.received)}</div></div>
+    </div>
+    <table>
+      <thead><tr><th>Item / Description</th><th>Qty</th><th>Unit Price</th><th>Total</th></tr></thead>
+      <tbody>${linesHtml}</tbody>
+    </table>
+    <div class="totals">
+      <div class="total-row"><span>Subtotal (excl. VAT)</span><span style="font-family:monospace">${pdfFmt(subtotal)}</span></div>
+      <div class="total-row"><span>VAT (${vatRate}%)</span><span style="font-family:monospace">${pdfFmt(vatAmt)}</span></div>
+      <div class="total-row grand"><span>PO Total (incl. VAT)</span><span style="font-family:monospace">${pdfFmt(p.value)}</span></div>
+    </div>
+    <div class="delivery-box">
+      <div class="delivery-title">📦 Delivery Instructions</div>
+      <div class="delivery-item"><span>Deliver To</span>${PDF_CO.name} — Site Stores</div>
+      <div class="delivery-item"><span>Delivery Address</span>${PDF_CO.addr}, ${PDF_CO.city}</div>
+      <div class="delivery-item"><span>Contact on Delivery</span>Site Manager</div>
+      <div class="delivery-item"><span>PO Reference</span>${p.id} — quote on all docs</div>
+    </div>
+    <div class="terms-box">
+      <strong>Terms & Conditions:</strong> All goods and services must be supplied in accordance with this purchase order. Delivery must be made to the address specified above by the expected delivery date. Invoices must reference this PO number. ${PDF_CO.name} reserves the right to reject non-conforming goods.
+    </div>
+    <div class="sig-grid">
+      <div class="sig-box">Authorised By: ___________________________<br>Name &amp; Date</div>
+      <div class="sig-box">Supplier Acceptance: ___________________________<br>Name &amp; Date</div>
+    </div>
+    <div class="footer">
+      <span>${PDF_CO.name} &nbsp;|&nbsp; ${PDF_CO.reg} &nbsp;|&nbsp; ${PDF_CO.vat}</span>
+      <span>Printed: ${new Date().toLocaleDateString('en-ZA')} &nbsp;|&nbsp; Page 1 of 1</span>
+    </div>
+  </div>
+  <button class="print-btn no-print" onclick="window.print()">🖨 Print / Save PDF</button>
+  </body></html>`;
+  pdfOpen(html, p.id+'.pdf');
+}
+
+// ── STATEMENT PDF ──
+function exportStatementPDF(ref){
+  // If ref passed, export single transaction — if null, export full statement ledger
+  const rows = ref ? statements.filter(s=>s.ref===ref) : [...statements].sort((a,b)=>a.date.localeCompare(b.date));
+  if(!rows.length){ showToast('No statement data found'); return; }
+  const title = ref ? `Statement Transaction — ${ref}` : 'Account Statement';
+  const totalDebit = rows.reduce((s,r)=>s+toNum(r.debit,0),0);
+  const totalCredit = rows.reduce((s,r)=>s+toNum(r.credit,0),0);
+  const closingBal = rows.length ? toNum(rows[rows.length-1].bal,0) : 0;
+  const rowsHtml = rows.map((s,i)=>{
+    const col = pdfStatusColor(s.status);
+    return `<tr style="background:${i%2===0?'#f9fafb':'#fff'}">
+      <td style="padding:8px 10px;border-bottom:1px solid #e5e7eb;font-size:11px;font-family:monospace;color:#374151">${s.date}</td>
+      <td style="padding:8px 10px;border-bottom:1px solid #e5e7eb;font-size:11px;font-family:monospace;color:#2563eb;white-space:nowrap">${s.ref}</td>
+      <td style="padding:8px 10px;border-bottom:1px solid #e5e7eb;font-size:12px;color:#111827">${s.desc}</td>
+      <td style="padding:8px 10px;border-bottom:1px solid #e5e7eb;font-size:11px;text-align:right;font-family:monospace;color:${s.debit>0?'#dc2626':'#9ca3af'}">${s.debit>0?pdfFmt(s.debit):'—'}</td>
+      <td style="padding:8px 10px;border-bottom:1px solid #e5e7eb;font-size:11px;text-align:right;font-family:monospace;color:${s.credit>0?'#16a34a':'#9ca3af'}">${s.credit>0?pdfFmt(s.credit):'—'}</td>
+      <td style="padding:8px 10px;border-bottom:1px solid #e5e7eb;font-size:11px;text-align:right;font-family:monospace;font-weight:600;color:#111827">${pdfFmt(s.bal)}</td>
+      <td style="padding:8px 10px;border-bottom:1px solid #e5e7eb;text-align:center"><span style="display:inline-block;padding:2px 8px;border-radius:10px;font-size:9px;font-weight:700;background:${col}18;color:${col};border:1px solid ${col}40">${s.status}</span></td>
+    </tr>`;
+  }).join('');
+  const html = `<!DOCTYPE html><html><head><meta charset="UTF-8">
+  <title>${title}</title>
+  <style>
+    *{margin:0;padding:0;box-sizing:border-box}
+    body{font-family:'Segoe UI',Arial,sans-serif;background:#fff;color:#111827;font-size:13px}
+    @media print{
+      body{print-color-adjust:exact;-webkit-print-color-adjust:exact}
+      .no-print{display:none!important}
+      @page{margin:12mm 16mm;size:A4 landscape}
+    }
+    .page{max-width:1000px;margin:0 auto;padding:28px 32px}
+    .header{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:28px;padding-bottom:20px;border-bottom:2px solid #1e3a5f}
+    .co-name{font-size:20px;font-weight:800;color:#1e3a5f}
+    .co-detail{font-size:11px;color:#6b7280;margin-top:4px;line-height:1.7}
+    .doc-title{font-size:24px;font-weight:900;color:#1e3a5f;text-align:right}
+    .doc-sub{font-size:11px;color:#6b7280;text-align:right;margin-top:4px}
+    .summary-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:24px}
+    .sum-box{background:#f9fafb;border-radius:8px;padding:14px 16px;border:1px solid #e5e7eb;text-align:center}
+    .sum-lbl{font-size:9px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:#9ca3af;margin-bottom:6px}
+    .sum-val{font-size:17px;font-weight:800;font-family:monospace}
+    table{width:100%;border-collapse:collapse}
+    thead tr{background:#1e3a5f}
+    thead th{padding:9px 10px;font-size:9px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:#fff;text-align:left}
+    thead th:nth-child(4),thead th:nth-child(5),thead th:nth-child(6){text-align:right}
+    thead th:last-child{text-align:center}
+    .footer{margin-top:24px;padding-top:14px;border-top:1px solid #e5e7eb;display:flex;justify-content:space-between;font-size:10px;color:#9ca3af}
+    .print-btn{position:fixed;bottom:24px;right:24px;background:#1e3a5f;color:#fff;border:none;padding:12px 24px;border-radius:8px;font-size:13px;font-weight:600;cursor:pointer;box-shadow:0 4px 12px rgba(0,0,0,0.2)}
+  </style>
+  </head><body>
+  <div class="page">
+    <div class="header">
+      <div>
+        <div class="co-name">${PDF_CO.name}</div>
+        <div class="co-detail">${PDF_CO.addr} &nbsp;|&nbsp; ${PDF_CO.city}<br>${PDF_CO.reg} &nbsp;|&nbsp; ${PDF_CO.vat} &nbsp;|&nbsp; ${PDF_CO.email}</div>
+      </div>
+      <div>
+        <div class="doc-title">Account Statement</div>
+        <div class="doc-sub">Period: ${rows[0]?.date||''} — ${rows[rows.length-1]?.date||''}<br>Generated: ${new Date().toLocaleDateString('en-ZA')}</div>
+      </div>
+    </div>
+    <div class="summary-grid">
+      <div class="sum-box"><div class="sum-lbl">Transactions</div><div class="sum-val" style="color:#1e3a5f">${rows.length}</div></div>
+      <div class="sum-box"><div class="sum-lbl">Total Debits</div><div class="sum-val" style="color:#dc2626">${pdfFmt(totalDebit)}</div></div>
+      <div class="sum-box"><div class="sum-lbl">Total Credits</div><div class="sum-val" style="color:#16a34a">${pdfFmt(totalCredit)}</div></div>
+      <div class="sum-box"><div class="sum-lbl">Closing Balance</div><div class="sum-val" style="color:${closingBal>=0?'#1e3a5f':'#dc2626'}">${pdfFmt(closingBal)}</div></div>
+    </div>
+    <table>
+      <thead><tr><th>Date</th><th>Reference</th><th>Description</th><th>Debit</th><th>Credit</th><th>Balance</th><th>Status</th></tr></thead>
+      <tbody>${rowsHtml}</tbody>
+    </table>
+    <div style="display:flex;justify-content:flex-end;margin-top:0">
+      <div style="min-width:340px">
+        <div style="display:flex;justify-content:space-between;padding:8px 12px;background:#1e3a5f;color:#fff;font-size:13px;font-weight:800;border-radius:0 0 6px 6px">
+          <span>Closing Balance</span><span style="font-family:monospace">${pdfFmt(closingBal)}</span>
+        </div>
+      </div>
+    </div>
+    <div class="footer">
+      <span>${PDF_CO.name} &nbsp;|&nbsp; ${PDF_CO.reg} &nbsp;|&nbsp; ${PDF_CO.vat}</span>
+      <span>This is a computer-generated statement. &nbsp;|&nbsp; ${new Date().toLocaleDateString('en-ZA')}</span>
+    </div>
+  </div>
+  <button class="print-btn no-print" onclick="window.print()">🖨 Print / Save PDF</button>
+  </body></html>`;
+  pdfOpen(html, (ref||'statement')+'.pdf');
+}
+// ── End PDF Engine ──
 
 // ============================================================
 // CHARTS
@@ -3016,12 +4022,13 @@ const viewMeta={
   'purchase-orders':{title:'Purchase Orders',sub:'Linked to suppliers and product catalogue',btn:'+ New PO',action:()=>openModal('modal-po')},
   statements:{title:'Account Statements',sub:'Aged receivables & transaction history',btn:'Export Report',action:()=>exportStatements()},
   analytics:{title:'Analytics & Reports',sub:'Mining / Engineering / Construction business intelligence',btn:'&#8635; Refresh',action:()=>refreshChartsFromAjax()},
-  tracking:{title:'Order Tracking',sub:'Real-time status on POs and invoices',btn:'',action:()=>{}},
+  tracking:{title:'Project Tracking',sub:'Task board, Gantt, milestones and risk register',btn:'+ Add Task',action:()=>openPTKAddTask()},
   settings:{title:'Settings',sub:'System preferences and admin quick controls',btn:'Open Admin',action:()=>openView('admin')},
   admin:{title:'Administration',sub:'Users, permissions and system controls',btn:'+ Add User',action:()=>openModal('modal-admin-user')},
   'construction-hub':{title:'Construction Hub',sub:'Live site command centre',btn:'',action:()=>{}},
 };
 function openView(v){
+  if(v==='tracking'){setTimeout(()=>{ptkSyncDropdown();ptkRenderAll();},60);}
   const item=document.querySelector(`.nav-item[data-view="${v}"]`);
   if(item)item.click();
 }
@@ -3150,10 +4157,12 @@ function resetEditContext(id){
 function closeModal(id){document.getElementById(id).classList.remove('open');resetEditContext(id);}
 function closeModalOutside(e,id){if(e.target.id===id)closeModal(id);}
 function openCreateModal(){const v=document.querySelector('.nav-item.active')?.dataset.view||'dashboard';(viewMeta[v]?.action||(() =>openModal('modal-invoice')))();}
-function openDetailModal(title,sub,body){
+function openDetailModal(title,sub,body,extraActions){
   document.getElementById('detail-title').innerHTML=title;
   document.getElementById('detail-sub').innerHTML=sub;
   document.getElementById('detail-body').innerHTML=body;
+  const ea=document.getElementById('detail-extra-actions');
+  if(ea)ea.innerHTML=extraActions||'';
   openModal('modal-detail');
 }
 function saveDraft(){closeModal('modal-invoice');showToast('Invoice saved as draft');}
@@ -3444,6 +4453,7 @@ renderActivity();
 renderTopCustomers();
 renderNotifications();
 renderTracking();
+ptkSyncDropdown();
 syncAllDropdowns();
 initCharts();
 refreshChartsFromAjax(true);
@@ -3528,6 +4538,7 @@ function rowMenu(btn, type, id, extra) {
         { label: 'Update Status', fn: () => openStatusModal('invoice', id) },
       ];
       if (bal > 0) acts.push({ label: 'Record Payment', fn: () => openInvoicePayment(id) });
+      acts.push({ label: '🖨 Export PDF', fn: () => exportInvoicePDF(id) });
       acts.push({ divider: true });
       acts.push({ label: 'Delete', fn: () => deleteInvoice(id), danger: true });
       return acts;
@@ -3541,6 +4552,7 @@ function rowMenu(btn, type, id, extra) {
         { label: 'Update Status', fn: () => openStatusModal('po', id) },
       ];
       if (bal > 0) acts.push({ label: 'Capture Receipt', fn: () => openPOReceipt(id) });
+      acts.push({ label: '🖨 Export PDF', fn: () => exportPOPDF(id) });
       acts.push({ divider: true });
       acts.push({ label: 'Delete', fn: () => deletePO(id), danger: true });
       return acts;
@@ -3555,6 +4567,7 @@ function rowMenu(btn, type, id, extra) {
     },
     statement: () => [
       { label: 'View',   fn: () => viewStatement(id) },
+      { label: '🖨 Export PDF', fn: () => exportStatementPDF(id) },
       { label: 'Edit',   fn: () => editStatement(id) },
       { divider: true },
       { label: 'Delete', fn: () => deleteStatement(id), danger: true }
