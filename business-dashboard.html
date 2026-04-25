@@ -5,7 +5,1601 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>NexusERP &ndash; Business Dashboard</title>
 <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700&family=DM+Sans:wght@300;400;500;600;700&family=DM+Mono:wght@300;400;500&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="assets/css/business-dashboard.css?v=1.6.4">
+<style id="main-app-styles">
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+:root {
+  --bg0: #0a1628;
+  --bg1: #0f1f38;
+  --bg2: #13253f;
+  --bg3: #182b49;
+  --bg4: #223655;
+  --border: rgba(255, 255, 255, .08);
+  --border2: rgba(255, 255, 255, .14);
+  --txt0: #e2e8f0;
+  --txt1: #b4c2d5;
+  --txt2: #7d8ea5;
+  --blue: #4f8ef7;
+  --blue2: #3a7de8;
+  --blue-dim: #1a2d5a;
+  --green: #22c55e;
+  --green-dim: #0d2e1a;
+  --amber: #f5a623;
+  --amber-dim: #2d1f06;
+  --red: #ef4444;
+  --red-dim: #2d0e0e;
+  --purple: #a855f7;
+  --purple-dim: #1e0d33;
+  --teal: #14b8a6;
+  --teal-dim: #0a1e1c;
+  --orange: #f97316;
+  --orange-dim: #2d1206;
+  --font-head: 'DM Sans', sans-serif;
+  --font-mono: 'DM Mono', monospace;
+  --font-display: 'Cinzel', serif;
+  --r4: 4px;
+  --r6: 6px;
+  --r8: 8px;
+  --r12: 12px;
+  --sidebar-w: 228px;
+
+  /* Surface layers (theme-switchable) */
+  --surface-a: rgba(255, 255, 255, .02);
+  --surface-b: rgba(255, 255, 255, .03);
+  --surface-c: rgba(255, 255, 255, .04);
+  --surface-d: rgba(255, 255, 255, .05);
+  --surface-e: rgba(255, 255, 255, .06);
+  --surface-f: rgba(255, 255, 255, .07);
+  --surface-g: rgba(255, 255, 255, .08);
+
+  /* Named component backgrounds (theme-switchable) */
+  --body-gradient: rgba(79, 142, 247, .22);
+  --topbar-bg: rgba(15, 31, 56, .86);
+  --overlay-bg: rgba(0, 0, 0, .68);
+  --card-shadow: none;
+}
+
+body {
+  font-family: var(--font-head);
+  background:
+    radial-gradient(ellipse 70% 50% at 50% -10%, var(--body-gradient) 0%, transparent 60%),
+    var(--bg0);
+  color: var(--txt0);
+  display: flex;
+  height: 100vh;
+  overflow: hidden;
+}
+
+
+/* ── Sidebar ── */
+
+#sidebar {
+  width: var(--sidebar-w);
+  background: var(--bg1);
+  border-right: 1px solid var(--border);
+  display: flex;
+  flex-direction: column;
+  flex-shrink: 0;
+  z-index: 100;
+}
+
+.logo {
+  padding: 20px 20px 16px;
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.logo-icon {
+  width: 32px;
+  height: 32px;
+  background: linear-gradient(135deg, var(--blue), var(--purple));
+  border-radius: var(--r8);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 13px;
+  font-weight: 700;
+  color: #fff;
+  flex-shrink: 0;
+}
+
+.logo-text {
+  font-size: 15px;
+  font-weight: 700;
+  letter-spacing: -.3px;
+}
+
+.logo-sub {
+  font-size: 10px;
+  color: var(--txt2);
+  font-family: var(--font-mono);
+  letter-spacing: .5px;
+  margin-top: 1px;
+}
+
+nav {
+  padding: 12px 0;
+  flex: 1;
+  overflow-y: auto;
+}
+
+.nav-section {
+  padding: 6px 16px 4px;
+  font-size: 10px;
+  color: var(--txt2);
+  font-family: var(--font-mono);
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+
+.nav-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 9px 16px;
+  cursor: pointer;
+  color: var(--txt1);
+  font-size: 13px;
+  font-weight: 400;
+  transition: all .15s;
+  border-left: 2px solid transparent;
+  margin: 1px 0;
+}
+
+.nav-item:hover {
+  background: var(--bg2);
+  color: var(--txt0);
+}
+
+.nav-item.active {
+  background: var(--blue-dim);
+  color: var(--blue);
+  border-left-color: var(--blue);
+  font-weight: 500;
+}
+
+.nav-icon {
+  width: 16px;
+  height: 16px;
+  opacity: .7;
+  flex-shrink: 0;
+}
+
+.nav-item.active .nav-icon {
+  opacity: 1;
+}
+
+.nav-badge {
+  margin-left: auto;
+  background: var(--red);
+  color: #fff;
+  font-size: 10px;
+  font-family: var(--font-mono);
+  padding: 1px 6px;
+  border-radius: 10px;
+  font-weight: 500;
+}
+
+.sidebar-footer {
+  padding: 14px 16px;
+  border-top: 1px solid var(--border);
+}
+
+.user-info {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.avatar {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--blue), var(--purple));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 11px;
+  font-weight: 600;
+  color: #fff;
+  flex-shrink: 0;
+}
+
+.user-name {
+  font-size: 12px;
+  font-weight: 500;
+}
+
+.user-role {
+  font-size: 10px;
+  color: var(--txt2);
+  font-family: var(--font-mono);
+}
+
+
+/* ── Main / Topbar ── */
+
+#main {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.topbar {
+  background: var(--topbar-bg);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid var(--border);
+  padding: 0 24px;
+  height: 54px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  flex-shrink: 0;
+}
+
+.page-title {
+  font-size: 15px;
+  font-weight: 600;
+  letter-spacing: -.2px;
+}
+
+.page-subtitle {
+  font-size: 12px;
+  color: var(--txt2);
+  font-family: var(--font-mono);
+}
+
+.topbar-right {
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.tb-btn {
+  background: var(--surface-c);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 6px 14px;
+  color: var(--txt1);
+  font-size: 12px;
+  cursor: pointer;
+  font-family: var(--font-head);
+  font-weight: 500;
+  transition: .15s;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.tb-btn:hover {
+  background: var(--surface-g);
+  color: var(--txt0);
+}
+
+.tb-btn.primary {
+  background: var(--blue);
+  border-color: var(--blue);
+  color: #fff;
+  font-weight: 500;
+}
+
+.tb-btn.primary:hover {
+  background: var(--blue2);
+}
+
+.notif-dot {
+  width: 6px;
+  height: 6px;
+  background: var(--red);
+  border-radius: 50%;
+}
+
+.content {
+  flex: 1;
+  overflow-y: auto;
+  padding: 24px;
+}
+
+.view {
+  display: none;
+}
+
+.view.active {
+  display: block;
+}
+
+
+/* ── KPI Cards ── */
+
+.kpi-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 14px;
+  margin-bottom: 22px;
+}
+
+.kpi {
+  background: var(--surface-c);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 16px 18px;
+  position: relative;
+  overflow: hidden;
+  box-shadow: var(--card-shadow);
+}
+
+.kpi::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: var(--kpi-color, var(--blue));
+}
+
+.kpi-label {
+  font-size: 11px;
+  color: var(--txt2);
+  font-family: var(--font-mono);
+  letter-spacing: .5px;
+  text-transform: uppercase;
+  margin-bottom: 8px;
+}
+
+.kpi-value {
+  font-size: 24px;
+  font-weight: 700;
+  font-family: var(--font-mono);
+  letter-spacing: -1px;
+  color: var(--txt0);
+}
+
+.kpi-meta {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 6px;
+}
+
+.kpi-change {
+  font-size: 11px;
+  font-family: var(--font-mono);
+  padding: 2px 7px;
+  border-radius: var(--r4);
+  font-weight: 500;
+}
+
+.kpi-change.up {
+  background: var(--green-dim);
+  color: var(--green);
+}
+
+.kpi-change.dn {
+  background: var(--red-dim);
+  color: var(--red);
+}
+
+.kpi-period {
+  font-size: 11px;
+  color: var(--txt2);
+}
+
+
+/* ── Chart Grids ── */
+
+.chart-grid {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 14px;
+  margin-bottom: 22px;
+}
+
+.chart-grid-3 {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 14px;
+  margin-bottom: 22px;
+}
+
+@media (max-width: 1024px) {
+  .chart-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .chart-grid-3 {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+@media (max-width: 767px) {
+  .chart-grid,
+  .chart-grid-3 {
+    grid-template-columns: 1fr;
+  }
+}
+
+
+/* ── Cards ── */
+
+.card {
+  background: var(--surface-b);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 18px;
+  box-shadow: var(--card-shadow);
+}
+
+.card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 14px;
+}
+
+.card-title {
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: -.2px;
+}
+
+.card-sub {
+  font-size: 11px;
+  color: var(--txt2);
+  font-family: var(--font-mono);
+  margin-top: 2px;
+}
+
+.card-action {
+  font-size: 11px;
+  color: var(--blue);
+  cursor: pointer;
+  font-family: var(--font-mono);
+}
+
+
+/* ── Tables ── */
+
+.table-wrap {
+  overflow-x: auto;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+th {
+  font-size: 11px;
+  font-family: var(--font-mono);
+  letter-spacing: .5px;
+  text-transform: uppercase;
+  color: var(--txt2);
+  padding: 9px 12px;
+  border-bottom: 1px solid var(--border);
+  text-align: left;
+  font-weight: 500;
+  white-space: nowrap;
+  background: var(--surface-a);
+}
+
+td {
+  padding: 10px 12px;
+  border-bottom: 1px solid var(--border);
+  font-size: 12.5px;
+  vertical-align: middle;
+}
+
+tr:last-child td {
+  border-bottom: none;
+}
+
+tr:hover td {
+  background: var(--surface-a);
+}
+
+
+/* ── Status Badges ── */
+
+.status-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 11px;
+  font-family: var(--font-mono);
+  padding: 3px 9px;
+  border-radius: 20px;
+  font-weight: 500;
+  white-space: nowrap;
+}
+
+.status-badge::before {
+  content: '';
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: currentColor;
+  flex-shrink: 0;
+}
+
+.badge-paid     { background: var(--green-dim);  color: var(--green);  }
+.badge-pending  { background: var(--amber-dim);  color: var(--amber);  }
+.badge-overdue  { background: var(--red-dim);    color: var(--red);    }
+.badge-draft    { background: var(--bg4);        color: var(--txt2);   }
+.badge-approved { background: var(--blue-dim);   color: var(--blue);   }
+.badge-received { background: var(--teal-dim);   color: var(--teal);   }
+.badge-partial  { background: var(--purple-dim); color: var(--purple); }
+.badge-active   { background: var(--green-dim);  color: var(--green);  }
+.badge-inactive { background: var(--bg4);        color: var(--txt2);   }
+.badge-onhold   { background: var(--amber-dim);  color: var(--amber);  }
+.badge-transit  { background: var(--blue-dim);   color: var(--blue);   }
+.badge-processing { background: var(--amber-dim); color: var(--amber); }
+
+
+/* ── Amounts ── */
+
+.amount {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  font-weight: 500;
+}
+
+.amount.positive { color: var(--green); }
+.amount.negative { color: var(--red);   }
+
+
+/* ── Toolbar / Search ── */
+
+.toolbar {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 14px;
+  flex-wrap: wrap;
+}
+
+
+.search-input {
+  background: var(--surface-d);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 8px 12px;
+  color: var(--txt0);
+  font-size: 12px;
+  font-family: var(--font-head);
+  outline: none;
+  width: auto !important; 
+  transition: .15s;
+  order: 99;
+  margin-left: auto;
+}
+
+.search-input:focus {
+  border-color: var(--blue2);
+  box-shadow: 0 0 0 3px rgba(79, 142, 247, .18);
+  background: var(--surface-e);
+}
+
+.search-input::placeholder {
+  color: var(--txt2);
+}
+
+/* hidden — kept in DOM for value/onchange compatibility */
+select.filter-sel {
+  display: none;
+}
+
+/* ── Filter Button ── */
+
+.filter-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: var(--surface-c);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 7px 10px;
+  color: var(--txt1);
+  font-size: 12px;
+  font-family: var(--font-head);
+  font-weight: 500;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: background .15s, color .15s, border-color .15s;
+}
+
+.filter-btn:hover {
+  background: var(--surface-g);
+  color: var(--txt0);
+  border-color: var(--border2);
+}
+
+.filter-btn.active {
+  background: var(--blue-dim);
+  border-color: var(--blue);
+  color: var(--blue);
+}
+
+.filter-btn svg {
+  flex-shrink: 0;
+  opacity: .7;
+}
+
+.filter-btn.active svg {
+  opacity: 1;
+}
+
+@media (max-width: 767px) {
+  .search-input {
+    flex: 1;
+    min-width: 0;
+    width: 100%;
+  }
+
+  .filter-btn span,
+  .filter-btn svg:last-child {
+    display: none;
+  }
+
+  .filter-btn {
+    padding: 7px 9px;
+  }
+}
+
+.row-popover-item.checked {
+  color: var(--blue);
+  font-weight: 500;
+}
+
+.row-popover-item.checked::after {
+  content: '✓';
+  margin-left: auto;
+  padding-left: 12px;
+  font-size: 11px;
+}
+
+
+/* ── Spark Rows ── */
+
+.spark-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 8px 0;
+  border-bottom: 1px solid var(--border);
+}
+
+.spark-row:last-child {
+  border-bottom: none;
+}
+
+.spark-name {
+  font-size: 12px;
+  flex: 1;
+}
+
+.spark-bar-bg {
+  flex: 2;
+  height: 5px;
+  background: var(--bg4);
+  border-radius: 3px;
+  overflow: hidden;
+}
+
+.spark-bar {
+  height: 100%;
+  border-radius: 3px;
+  background: var(--blue);
+  transition: width .4s;
+}
+
+.spark-val {
+  font-size: 12px;
+  font-family: var(--font-mono);
+  color: var(--txt1);
+  min-width: 70px;
+  text-align: right;
+}
+
+
+/* ── Activity Feed ── */
+
+.activity-item {
+  display: flex;
+  gap: 12px;
+  padding: 8px 0;
+  border-bottom: 1px solid var(--border);
+}
+
+.activity-item:last-child {
+  border-bottom: none;
+}
+
+.act-icon {
+  width: 28px;
+  height: 28px;
+  border-radius: var(--r6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 13px;
+  flex-shrink: 0;
+  margin-top: 1px;
+}
+
+.act-text {
+  font-size: 12px;
+  line-height: 1.5;
+  color: var(--txt1);
+}
+
+.act-text strong {
+  color: var(--txt0);
+  font-weight: 500;
+}
+
+.act-time {
+  font-size: 10px;
+  color: var(--txt2);
+  font-family: var(--font-mono);
+  margin-top: 2px;
+}
+
+
+/* ── Modals ── */
+
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: var(--overlay-bg);
+  backdrop-filter: blur(6px);
+  z-index: 1000;
+  display: none;
+  align-items: center;
+  justify-content: center;
+}
+
+.modal-overlay.open {
+  display: flex;
+}
+
+.modal {
+  background: var(--bg1);
+  border: 1px solid var(--border2);
+  border-radius: 16px;
+  padding: 26px 24px;
+  width: 600px;
+  max-width: 95vw;
+  max-height: 90vh;
+  overflow-y: auto;
+  box-shadow: 0 30px 60px rgba(0, 0, 0, .5);
+}
+
+.modal-wide {
+  width: 720px;
+}
+
+.modal-title {
+  font-size: 29px;
+  font-family: var(--font-display);
+  font-weight: 600;
+  letter-spacing: .3px;
+  margin-bottom: 6px;
+  color: var(--txt0);
+}
+
+.modal-sub {
+  font-size: 12px;
+  color: var(--txt2);
+  margin-bottom: 20px;
+}
+
+.modal-actions {
+  display: flex;
+  gap: 8px;
+  justify-content: flex-end;
+  margin-top: 20px;
+}
+
+/* Modal typography cleanup (applies to all modals) */
+.modal .modal-title {
+  font-family: var(--font-head);
+  font-size: 22px;
+  font-weight: 700;
+  letter-spacing: -0.2px;
+}
+
+.modal .modal-sub {
+  font-family: var(--font-head);
+  font-size: 13px;
+  color: var(--txt1);
+}
+
+.modal label {
+  font-family: var(--font-head);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.2px;
+  text-transform: uppercase;
+  color: var(--txt2);
+}
+
+.modal input,
+.modal select,
+.modal textarea {
+  font-family: var(--font-head);
+  font-size: 13px;
+}
+
+
+/* ── Forms ── */
+
+.form-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.form-group.full {
+  grid-column: 1 / -1;
+}
+
+label {
+  font-size: 11px;
+  color: var(--txt2);
+  font-family: var(--font-mono);
+  letter-spacing: .3px;
+}
+
+input[type=text],
+input[type=email],
+input[type=number],
+input[type=date],
+input[type=password],
+textarea,
+select {
+  background: var(--surface-d);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 10px 12px;
+  color: var(--txt0);
+  font-family: var(--font-head);
+  font-size: 12px;
+  outline: none;
+  width: 100%;
+  transition: .15s;
+}
+
+input:focus,
+textarea:focus,
+select:focus {
+  border-color: var(--blue2);
+  box-shadow: 0 0 0 3px rgba(79, 142, 247, .15);
+  background: var(--surface-f);
+}
+
+textarea {
+  resize: vertical;
+  min-height: 70px;
+}
+
+
+/* ── Buttons ── */
+
+.btn {
+  padding: 8px 18px;
+  border-radius: 10px;
+  font-size: 12.5px;
+  font-family: var(--font-head);
+  cursor: pointer;
+  border: 1px solid var(--border);
+  background: var(--surface-c);
+  color: var(--txt1);
+  font-weight: 500;
+  transition: .15s;
+}
+
+.btn:hover {
+  background: var(--surface-g);
+  color: var(--txt0);
+}
+
+.btn-primary {
+  background: var(--blue);
+  border-color: var(--blue);
+  color: #fff;
+  font-weight: 500;
+}
+
+.btn-primary:hover {
+  background: var(--blue2);
+}
+
+
+/* ── Detail Panel ── */
+
+.detail-panel {
+  background: var(--surface-a);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 20px;
+  margin-bottom: 14px;
+}
+
+.detail-row {
+  display: flex;
+  justify-content: space-between;
+  padding: 7px 0;
+  border-bottom: 1px solid var(--border);
+  font-size: 12.5px;
+}
+
+.detail-row:last-child {
+  border-bottom: none;
+}
+
+.detail-label {
+  color: var(--txt2);
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: .3px;
+}
+
+.progress-bar {
+  height: 6px;
+  background: var(--bg4);
+  border-radius: 3px;
+  overflow: hidden;
+  margin-top: 4px;
+}
+
+.progress-fill {
+  height: 100%;
+  border-radius: 3px;
+  transition: width .5s;
+}
+
+
+/* ── Legend ── */
+
+.legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px;
+  font-size: 11px;
+  color: var(--txt2);
+  margin-bottom: 12px;
+}
+
+.legend-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 2px;
+  display: inline-block;
+  margin-right: 4px;
+  flex-shrink: 0;
+}
+
+
+/* ── Analytics ── */
+
+.analytics-kpi {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12px;
+  margin-bottom: 18px;
+}
+
+.stat-chip {
+  background: var(--bg3);
+  border: 1px solid var(--border);
+  border-radius: var(--r8);
+  padding: 12px 14px;
+}
+
+.stat-chip-lbl {
+  font-size: 10px;
+  color: var(--txt2);
+  font-family: var(--font-mono);
+  letter-spacing: .5px;
+  text-transform: uppercase;
+  margin-bottom: 5px;
+}
+
+.stat-chip-val {
+  font-size: 20px;
+  font-weight: 700;
+  font-family: var(--font-mono);
+  letter-spacing: -1px;
+}
+
+
+/* ── Scrollbar ── */
+
+::-webkit-scrollbar {
+  width: 5px;
+  height: 5px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--border2);
+  border-radius: 3px;
+}
+
+
+/* ── Tabs ── */
+
+.tabs {
+  display: flex;
+  gap: 2px;
+  background: var(--bg1);
+  border-radius: var(--r8);
+  padding: 3px;
+  margin-bottom: 16px;
+  width: fit-content;
+}
+
+.tab {
+  padding: 6px 16px;
+  border-radius: 6px;
+  font-size: 12px;
+  cursor: pointer;
+  color: var(--txt2);
+  transition: .15s;
+}
+
+.tab.active {
+  background: var(--bg3);
+  color: var(--txt0);
+  font-weight: 500;
+}
+
+.empty-state {
+  text-align: center;
+  padding: 40px;
+  color: var(--txt2);
+  font-size: 13px;
+}
+
+.grid-2 {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+  margin-bottom: 14px;
+}
+
+
+/* ── Line Items ── */
+
+.lit {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 8px;
+}
+
+.lit th {
+  font-size: 10px;
+  font-family: var(--font-mono);
+  color: var(--txt2);
+  padding: 6px 8px;
+  text-align: left;
+  background: var(--bg1);
+  border-bottom: 1px solid var(--border);
+}
+
+.lit td {
+  padding: 5px 6px;
+  border-bottom: 1px solid var(--border);
+  font-size: 12px;
+}
+
+.lit td input,
+.lit td select {
+  padding: 4px 6px;
+  font-size: 11px;
+}
+
+.add-line {
+  background: none;
+  border: 1px dashed var(--border2);
+  border-radius: var(--r6);
+  padding: 6px 14px;
+  color: var(--txt2);
+  font-size: 11px;
+  cursor: pointer;
+  font-family: var(--font-head);
+  transition: .15s;
+  margin-top: 6px;
+  display: block;
+}
+
+.add-line:hover {
+  border-color: var(--blue);
+  color: var(--blue);
+}
+
+.del-line {
+  background: none;
+  border: none;
+  color: var(--red);
+  cursor: pointer;
+  font-size: 14px;
+  padding: 0 4px;
+}
+
+.totals-bar {
+  background: var(--bg3);
+  border: 1px solid var(--border);
+  border-radius: var(--r8);
+  padding: 10px 16px;
+  margin-top: 8px;
+  display: flex;
+  gap: 24px;
+  justify-content: flex-end;
+}
+
+.total-item {
+  text-align: right;
+}
+
+.total-lbl {
+  font-size: 11px;
+  color: var(--txt2);
+  font-family: var(--font-mono);
+}
+
+
+/* ── Action Controls ── */
+
+.action-group {
+  display: flex;
+  gap: 4px;
+  align-items: center;
+  white-space: nowrap;
+}
+
+.link-btn {
+  background: none;
+  border: none;
+  color: var(--blue);
+  cursor: pointer;
+  font-family: var(--font-head);
+  font-size: 12.5px;
+  padding: 0;
+  text-align: left;
+}
+
+.link-btn:hover {
+  text-decoration: underline;
+}
+
+.action-primary {
+  padding: 5px 10px;
+  font-size: 11px;
+}
+
+
+/* ── Notes ── */
+
+.note-item {
+  background: var(--bg3);
+  border: 1px solid var(--border);
+  border-radius: var(--r8);
+  padding: 10px;
+  margin-top: 8px;
+}
+
+.note-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 11px;
+  color: var(--txt2);
+  font-family: var(--font-mono);
+}
+
+.note-body {
+  font-size: 12px;
+  color: var(--txt1);
+  margin-top: 6px;
+}
+
+
+/* ── Line Cards ── */
+
+.line-stack {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.line-card {
+  background: var(--bg3);
+  border: 1px solid var(--border);
+  border-radius: var(--r8);
+  padding: 10px;
+}
+
+.line-row {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  margin-bottom: 8px;
+}
+
+.line-row:last-child {
+  margin-bottom: 0;
+}
+
+.line-row label {
+  font-size: 10px;
+  color: var(--txt2);
+  font-family: var(--font-mono);
+}
+
+.line-total {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: var(--txt1);
+}
+
+
+/* ── Admin / Misc ── */
+
+.admin-grid {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 14px;
+}
+
+.muted-note {
+  font-size: 11px;
+  color: var(--txt2);
+  font-family: var(--font-mono);
+}
+
+.metric-pill {
+  font-size: 11px;
+  color: var(--txt1);
+  font-family: var(--font-mono);
+  padding: 4px 8px;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+}
+
+
+/* ── Tracking Timeline ── */
+
+.tl-wrap {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0;
+}
+
+.tl-item {
+  display: flex;
+  gap: 12px;
+  padding: 6px 0;
+  position: relative;
+  flex: 0 0 auto;
+  min-width: 140px;
+}
+
+.tl-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--border2);
+  flex-shrink: 0;
+  margin-top: 3px;
+  position: relative;
+  z-index: 1;
+}
+
+.tl-dot.done { background: var(--green); }
+.tl-dot.act  { background: var(--blue); box-shadow: 0 0 0 3px var(--blue-dim); }
+.tl-dot.pend { background: var(--border2); }
+
+.tl-vline {
+  position: absolute;
+  left: 4px;
+  top: 18px;
+  bottom: -4px;
+  width: 2px;
+  background: var(--border);
+  z-index: 0;
+}
+
+.tl-label {
+  font-size: 11.5px;
+  font-weight: 500;
+  margin-bottom: 2px;
+}
+
+.tl-sub {
+  font-size: 10px;
+  color: var(--txt2);
+  font-family: var(--font-mono);
+}
+
+.trk-card {
+  background: var(--bg2);
+  border: 1px solid var(--border);
+  border-radius: var(--r12);
+  padding: 18px;
+  margin-bottom: 14px;
+}
+
+
+/* ── Hamburger Button ── */
+
+#sidebar-toggle {
+  position: fixed;
+  top: 50%;
+  left: 0;
+  transform: translateY(-50%);
+  z-index: 101;
+  width: 20px;
+  height: 48px;
+  padding: 0;
+  background: var(--bg2);
+  border: 1px solid var(--border);
+  border-left: none;
+  border-radius: 0 var(--r8) var(--r8) 0;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--txt2);
+  transition: left .25s ease, background .15s, color .15s;
+}
+
+#sidebar-toggle:hover {
+  background: var(--surface-g);
+  color: var(--txt0);
+}
+
+body.sidebar-open #sidebar-toggle {
+  left: var(--sidebar-w);
+}
+
+#sidebar-toggle svg {
+  transition: transform .25s ease;
+  flex-shrink: 0;
+}
+
+body.sidebar-open #sidebar-toggle svg {
+  transform: rotate(180deg);
+}
+
+
+/* ── Sidebar Overlay (mobile only) ── */
+
+.sidebar-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, .55);
+  backdrop-filter: blur(3px);
+  z-index: 99;
+}
+
+.sidebar-overlay.open {
+  display: block;
+}
+
+
+/* ── Sidebar Toggle (all screen sizes) ── */
+
+#sidebar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  z-index: 100;
+  transform: translateX(-100%);
+  transition: transform .25s ease;
+}
+
+#sidebar.open {
+  transform: translateX(0);
+}
+
+/* Desktop: sidebar pushes content instead of overlaying it */
+@media (min-width: 768px) {
+  #main {
+    transition: margin-left .25s ease;
+  }
+
+  body.sidebar-open #main {
+    margin-left: var(--sidebar-w);
+  }
+
+  .sidebar-overlay {
+    display: none !important;
+  }
+}
+
+
+/* ── Theme Toggle Button ── */
+
+.theme-toggle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 34px;
+  height: 34px;
+  padding: 0;
+  background: var(--surface-c);
+  border: 1px solid var(--border);
+  border-radius: var(--r8);
+  cursor: pointer;
+  color: var(--txt1);
+  flex-shrink: 0;
+  transition: background .15s, color .15s;
+}
+
+.theme-toggle:hover {
+  background: var(--surface-g);
+  color: var(--txt0);
+}
+
+/* Show/hide sun vs moon icon based on theme */
+.theme-toggle .icon-sun  { display: none; }
+.theme-toggle .icon-moon { display: block; }
+
+[data-theme="light"] .theme-toggle .icon-sun  { display: block; }
+[data-theme="light"] .theme-toggle .icon-moon { display: none; }
+
+
+/* ══════════════════════════════════════
+   Light Theme  —  White & Pearly
+   ══════════════════════════════════════ */
+
+[data-theme="light"] {
+
+  /* Backgrounds */
+  --bg0: #ffffff;
+  --bg1: #f4f7fd;
+  --bg2: #eaeff8;
+  --bg3: #dfe6f3;
+  --bg4: #cfd8ec;
+
+  /* Borders */
+  --border:  rgba(0, 0, 0, .09);
+  --border2: rgba(0, 0, 0, .15);
+
+  /* Text */
+  --txt0: #0f172a;
+  --txt1: #334155;
+  --txt2: #64748b;
+
+  /* Badge tints — light, pastel versions */
+  --blue-dim:   #dbeafe;
+  --green-dim:  #dcfce7;
+  --amber-dim:  #fef3c7;
+  --red-dim:    #fee2e2;
+  --purple-dim: #f3e8ff;
+  --teal-dim:   #ccfbf1;
+  --orange-dim: #ffedd5;
+
+  /* Surface layers */
+  --surface-a: rgba(0, 0, 0, .02);
+  --surface-b: rgba(0, 0, 0, .025);
+  --surface-c: rgba(0, 0, 0, .03);
+  --surface-d: rgba(0, 0, 0, .04);
+  --surface-e: rgba(0, 0, 0, .05);
+  --surface-f: rgba(0, 0, 0, .055);
+  --surface-g: rgba(0, 0, 0, .07);
+
+  /* Component backgrounds */
+  --body-gradient: rgba(79, 142, 247, .05);
+  --topbar-bg:     rgba(244, 247, 253, .92);
+  --overlay-bg:    rgba(0, 0, 0, .40);
+
+  /* Card elevation */
+  --card-shadow: 0 1px 3px rgba(0, 0, 0, .06), 0 1px 2px rgba(0, 0, 0, .04);
+}
+
+[data-theme="light"] .topbar {
+  box-shadow: 0 1px 4px rgba(0, 0, 0, .07);
+}
+
+[data-theme="light"] #sidebar {
+  box-shadow: 2px 0 10px rgba(0, 0, 0, .07);
+}
+
+
+/* ── Row Menu Button ── */
+
+.row-menu-btn {
+  background: none;
+  border: 1px solid var(--border);
+  border-radius: var(--r6);
+  color: var(--txt2);
+  cursor: pointer;
+  font-size: 15px;
+  letter-spacing: 2px;
+  line-height: 1;
+  padding: 3px 8px;
+  transition: background .15s, color .15s, border-color .15s;
+}
+
+.row-menu-btn:hover {
+  background: var(--surface-g);
+  border-color: var(--border2);
+  color: var(--txt0);
+}
+
+
+/* ── Row Action Popover ── */
+
+.row-popover {
+  position: fixed;
+  z-index: 9999;
+  min-width: 164px;
+  background: var(--bg1);
+  border: 1px solid var(--border2);
+  border-radius: var(--r8);
+  padding: 4px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, .22), 0 2px 6px rgba(0, 0, 0, .12);
+}
+
+.row-popover-divider {
+  height: 1px;
+  background: var(--border);
+  margin: 4px 0;
+}
+
+.row-popover-item {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  padding: 7px 12px;
+  text-align: left;
+  background: none;
+  border: none;
+  border-radius: 6px;
+  font-family: var(--font-head);
+  font-size: 12.5px;
+  color: var(--txt1);
+  cursor: pointer;
+  transition: background .1s, color .1s;
+}
+
+.row-popover-item:hover {
+  background: var(--surface-g);
+  color: var(--txt0);
+}
+
+.row-popover-item.danger {
+  color: var(--red);
+}
+
+.row-popover-item.danger:hover {
+  background: var(--red-dim);
+  color: var(--red);
+}
+
+</style>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
 
 <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@300;400;600;700;900&family=IBM+Plex+Mono:wght@300;400;500&display=swap" rel="stylesheet">
@@ -229,6 +1823,45 @@
 .ptk-risk-row{background:var(--bg3);border-left:4px solid var(--border2);border-radius:0 8px 8px 0;padding:12px 16px;display:grid;grid-template-columns:1fr auto;gap:12px;margin-bottom:10px;cursor:pointer;transition:background .15s;}
 .ptk-risk-row:hover{background:var(--bg2);}
 .ptk-res-card{background:var(--bg3);border:1px solid var(--border2);border-radius:8px;padding:16px;display:flex;flex-direction:column;gap:10px;}
+
+/* ══ NOTIFICATION SYSTEM ══ */
+.nx-notif{pointer-events:all;display:flex;align-items:flex-start;gap:10px;padding:12px 14px 12px 14px;border-radius:10px;border:1px solid;min-width:280px;max-width:380px;box-shadow:0 8px 24px rgba(0,0,0,.35);background:var(--bg2);animation:nx-in .22s cubic-bezier(.175,.885,.32,1.275) both;position:relative;overflow:hidden;}
+.nx-notif::after{content:'';position:absolute;bottom:0;left:0;height:3px;border-radius:0 0 0 10px;animation:nx-bar linear forwards;}
+.nx-notif.success{border-color:rgba(34,197,94,.35);color:#22c55e;}
+.nx-notif.success::after{background:#22c55e;animation-duration:3.5s;}
+.nx-notif.error{border-color:rgba(239,68,68,.35);color:#ef4444;}
+.nx-notif.error::after{background:#ef4444;animation-duration:5s;}
+.nx-notif.warning{border-color:rgba(245,166,35,.35);color:var(--amber);}
+.nx-notif.warning::after{background:var(--amber);animation-duration:4s;}
+.nx-notif.info{border-color:rgba(79,142,247,.35);color:var(--blue);}
+.nx-notif.info::after{background:var(--blue);animation-duration:4s;}
+.nx-notif.loading{border-color:rgba(79,142,247,.25);color:var(--blue);}
+.nx-notif-icon{font-size:16px;flex-shrink:0;margin-top:1px;}
+.nx-notif-body{flex:1;min-width:0;}
+.nx-notif-title{font-size:12.5px;font-weight:600;color:var(--txt1);line-height:1.3;margin-bottom:2px;}
+.nx-notif-sub{font-size:11px;color:var(--txt2);font-family:var(--font-mono);line-height:1.4;}
+.nx-notif-close{background:none;border:none;cursor:pointer;color:var(--txt2);padding:2px 4px;border-radius:4px;font-size:14px;line-height:1;flex-shrink:0;transition:color .15s,background .15s;}
+.nx-notif-close:hover{color:var(--txt1);background:var(--bg3);}
+.nx-notif-spinner{width:14px;height:14px;border:2px solid rgba(79,142,247,.25);border-top-color:var(--blue);border-radius:50%;animation:nx-spin .7s linear infinite;flex-shrink:0;margin-top:2px;}
+.nx-notif.exiting{animation:nx-out .2s ease forwards;}
+@keyframes nx-in{from{opacity:0;transform:translateX(32px)}to{opacity:1;transform:translateX(0)}}
+@keyframes nx-out{from{opacity:1;transform:translateX(0)}to{opacity:0;transform:translateX(40px)}}
+@keyframes nx-bar{from{width:100%}to{width:0%}}
+@keyframes nx-spin{to{transform:rotate(360deg)}}
+@keyframes nx-cmenu-out{from{opacity:1;transform:scale(1)}to{opacity:0;transform:scale(.92)}}
+/* ══ CONTEXT MENU (row popover) ══ */
+.row-popover{position:fixed;z-index:8000;background:var(--bg2);border:1px solid var(--border2);border-radius:10px;padding:5px;min-width:176px;box-shadow:0 12px 40px rgba(0,0,0,.45),0 2px 8px rgba(0,0,0,.2);animation:nx-cmenu .15s cubic-bezier(.175,.885,.32,1.275) both;overflow:hidden;}
+@keyframes nx-cmenu{from{opacity:0;transform:scale(.92) translateY(-6px)}to{opacity:1;transform:scale(1) translateY(0)}}
+.row-popover-item{display:flex;align-items:center;gap:8px;width:100%;background:none;border:none;padding:8px 12px;text-align:left;font-size:12.5px;color:var(--txt1);cursor:pointer;border-radius:6px;transition:background .1s;font-family:inherit;}
+.row-popover-item:hover{background:var(--bg3);}
+.row-popover-item.danger{color:var(--red);}
+.row-popover-item.danger:hover{background:rgba(239,68,68,.08);}
+.row-popover-divider{height:1px;background:var(--border2);margin:4px 8px;}
+/* ══ LOGIN MODAL POLISH ══ */
+#modal-login .modal{border:1px solid var(--border2);box-shadow:0 24px 80px rgba(0,0,0,.6);}
+/* ══ MODAL PROGRESS BAR ══ */
+.modal-saving-bar{position:absolute;bottom:0;left:0;height:3px;background:var(--blue);border-radius:0 0 var(--r8) var(--r8);animation:modal-save-bar .8s ease forwards;}
+@keyframes modal-save-bar{from{width:0}to{width:100%}}
 </style>
 </head>
 <body>
@@ -1273,16 +2906,41 @@
 </div>
 
 <div class="modal-overlay" id="modal-login">
-  <div class="modal" style="max-width:460px">
-    <div class="modal-title">Login</div>
-    <div class="modal-sub">Sign in to NexusERP session</div>
-    <div class="form-grid">
-      <div class="form-group full"><label>Email</label><input type="email" id="login-email" placeholder="admin@nexuserp.co.za"></div>
-      <div class="form-group full"><label>Password</label><input type="text" id="login-password" placeholder="••••••••"></div>
-      <div class="form-group full"><label>Role</label><select id="login-role"><option>Admin</option><option>Manager</option><option>Finance</option></select></div>
+  <div class="modal" style="max-width:420px;padding:0;overflow:hidden;border:1px solid var(--border2)">
+    <!-- Login header -->
+    <div style="background:linear-gradient(135deg,#1e3a5f 0%,#0f2340 100%);padding:28px 32px 24px">
+      <div style="display:flex;align-items:center;gap:12px;margin-bottom:4px">
+        <div style="width:36px;height:36px;background:rgba(255,255,255,.15);border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:18px">⬡</div>
+        <div>
+          <div style="font-size:18px;font-weight:800;color:#fff;letter-spacing:-.3px">NexusERP</div>
+          <div style="font-size:11px;color:rgba(255,255,255,.5);font-family:var(--font-mono);letter-spacing:.5px">ENTERPRISE RESOURCE PLATFORM</div>
+        </div>
+      </div>
+      <div style="margin-top:16px;font-size:13px;color:rgba(255,255,255,.7)">Sign in to your workspace</div>
     </div>
-    <div class="modal-actions">
-      <button class="btn-primary btn" onclick="loginUser()">Login</button>
+    <!-- Login body -->
+    <div style="padding:24px 32px 28px">
+      <div class="form-grid">
+        <div class="form-group full">
+          <label>Email Address</label>
+          <input type="email" id="login-email" placeholder="admin@nexuserp.co.za" onkeydown="if(event.key==='Enter')document.getElementById('login-password').focus()">
+        </div>
+        <div class="form-group full">
+          <label>Password</label>
+          <input type="password" id="login-password" placeholder="Enter password" onkeydown="if(event.key==='Enter')loginUser()">
+        </div>
+        <div class="form-group full">
+          <label>Role</label>
+          <select id="login-role">
+            <option value="Admin">Administrator</option>
+            <option value="Manager">Manager</option>
+            <option value="Finance">Finance</option>
+            <option value="Viewer">Viewer (Read Only)</option>
+          </select>
+        </div>
+      </div>
+      <button class="btn-primary btn" onclick="loginUser()" style="width:100%;margin-top:8px;padding:11px;font-size:14px;font-weight:600;letter-spacing:.3px">Sign In</button>
+      <div style="text-align:center;margin-top:12px;font-size:11px;color:var(--txt2)">Demo: any email · any password</div>
     </div>
   </div>
 </div>
@@ -1378,10 +3036,17 @@
   </div>
 </div>
 
-<!-- TOAST -->
-<div class="modal-overlay" id="modal-toast">
-  <div style="background:var(--bg3);border:1px solid var(--green);border-radius:var(--r8);padding:12px 20px;color:var(--green);font-size:13px;font-family:var(--font-mono);display:flex;align-items:center;gap:10px;max-width:380px">
-    <span style="font-size:18px">&#10004;</span><span id="toast-msg">Saved</span>
+<!-- NOTIFICATION STACK -->
+<div id="nexus-notif-stack" style="position:fixed;top:16px;right:16px;z-index:9999;display:flex;flex-direction:column;gap:8px;pointer-events:none;"></div>
+<!-- PROGRESS OVERLAY -->
+<div id="nexus-progress-overlay" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,.45);z-index:9000;align-items:center;justify-content:center;">
+  <div style="background:var(--bg2);border:1px solid var(--border2);border-radius:12px;padding:28px 36px;min-width:320px;text-align:center;box-shadow:0 20px 60px rgba(0,0,0,.5)">
+    <div id="nexus-progress-title" style="font-size:14px;font-weight:600;color:var(--txt1);margin-bottom:6px">Processing…</div>
+    <div id="nexus-progress-sub" style="font-size:11px;color:var(--txt2);margin-bottom:16px;font-family:var(--font-mono)">Please wait</div>
+    <div style="height:4px;background:var(--border2);border-radius:2px;overflow:hidden;margin-bottom:16px">
+      <div id="nexus-progress-bar" style="height:100%;width:0%;background:var(--blue);border-radius:2px;transition:width .3s ease"></div>
+    </div>
+    <div id="nexus-progress-pct" style="font-family:var(--font-mono);font-size:11px;color:var(--txt2)">0%</div>
   </div>
 </div>
 
@@ -2019,7 +3684,7 @@ function renderAdminUsers(){
 
 function togglePermission(key,role,enabled){
   if(!requirePermission('admin_config','Update RBAC permissions')){renderRBAC();return;}
-  if(role==='Admin'&&!enabled){showToast('Admin permissions cannot be fully disabled');renderRBAC();return;}
+  if(role==='Admin'&&!enabled){nxNotify({title:'Admin permissions cannot be fully disabled',type:'error'});renderRBAC();return;}
   if(!rbacPermissions[key])return;
   rbacPermissions[key].roles[role]=enabled;
   addAudit('UPDATE','RBAC',`Permission ${key} for ${role}: ${enabled?'Enabled':'Disabled'}`);
@@ -2040,11 +3705,11 @@ function saveAppConfigFromForm(){
   addAudit('UPDATE','Config','Updated VAT/payment/markup settings');
   renderAuditLog();
   persistState();
-  showToast('Configuration saved');
+  nxNotify({title:'Configuration saved',type:'success'});
 }
-function clearAuditLog(){
+async function clearAuditLog(){
   if(!requirePermission('admin_config','Clear audit log'))return;
-  if(!confirm('Clear audit log entries?'))return;
+  try{await nxConfirm({title:'Clear Audit Log',sub:'All log entries will be permanently erased.',okLabel:'Clear Log',icon:'🗑',okStyle:'background:var(--amber);color:#fff;border-color:var(--amber)'})}catch{return;}
   auditLog=[];
   addAudit('CLEAR','Audit','Audit log cleared');
   renderAuditLog();
@@ -2377,7 +4042,7 @@ function ptkRenderResources(){
 
 // ── PTK modal helpers ──
 function ptkOpenTask(){
-  if(!_ptkProj){showToast('Select a project first');return;}
+  if(!_ptkProj){nxNotify({title:'Select a project first',type:'warning'});return;}
   document.getElementById('ptk-task-title').textContent='Add Task';
   ['ptk-task-id','ptk-t-name','ptk-t-assignee','ptk-t-desc'].forEach(id=>{const el=document.getElementById(id);if(el)el.value='';});
   document.getElementById('ptk-t-phase').value='backlog';
@@ -2389,7 +4054,7 @@ function ptkOpenTask(){
 }
 function ptkSaveTask(){
   const name=document.getElementById('ptk-t-name').value.trim();
-  if(!name){showToast('Task name required');return;}
+  if(!name){nxNotify({title:'Task name required',type:'error'});return;}
   const d=ptkGetData(_ptkProj);
   const payload={name,phase:document.getElementById('ptk-t-phase').value,priority:document.getElementById('ptk-t-pri').value,
     assignee:document.getElementById('ptk-t-assignee').value.trim(),due:document.getElementById('ptk-t-due').value||todayISO(),
@@ -2398,7 +4063,7 @@ function ptkSaveTask(){
   const eid=document.getElementById('ptk-task-id').value;
   if(eid){const idx=d.tasks.findIndex(t=>t.id===eid);if(idx>=0)d.tasks[idx]={...d.tasks[idx],...payload};}
   else d.tasks.push({id:'T-'+String(d.tasks.length+1).padStart(3,'0'),...payload});
-  closeModal('modal-ptk-task');ptkRenderAll();showToast('Task saved');
+  closeModal('modal-ptk-task');ptkRenderAll();nxNotify({title:'Task Saved',sub:'Task updated on board',type:'success'});
 }
 function ptkViewTask(taskId){
   const d=ptkGetData(_ptkProj);const t=d.tasks.find(x=>x.id===taskId);if(!t)return;
@@ -2434,26 +4099,26 @@ function ptkEditTaskById(taskId){
     document.getElementById('ptk-t-desc').value=t.desc||'';
   },30);
 }
-function ptkDeleteTask(taskId){
-  if(!confirm('Delete this task?'))return;
+async function ptkDeleteTask(taskId){
+  try{await nxConfirm({title:'Delete Task',sub:'This task will be removed from the board.',okLabel:'Delete Task'})}catch{return;}
   const d=ptkGetData(_ptkProj);d.tasks=d.tasks.filter(t=>t.id!==taskId);
-  ptkRenderAll();showToast('Task deleted');
+  ptkRenderAll();nxNotify({title:'Task Deleted',type:'warning'});
 }
 function ptkOpenMilestone(){
-  if(!_ptkProj){showToast('Select a project first');return;}
+  if(!_ptkProj){nxNotify({title:'Select a project first',type:'warning'});return;}
   ['ptk-ms-id','ptk-ms-name','ptk-ms-desc'].forEach(id=>{const el=document.getElementById(id);if(el)el.value='';});
   document.getElementById('ptk-ms-date').value=todayISO();
   document.getElementById('ptk-ms-status').value='upcoming';
   openModal('modal-ptk-ms');
 }
 function ptkSaveMilestone(){
-  const name=document.getElementById('ptk-ms-name').value.trim();if(!name){showToast('Name required');return;}
+  const name=document.getElementById('ptk-ms-name').value.trim();if(!name){nxNotify({title:'Name required',type:'error'});return;}
   const d=ptkGetData(_ptkProj);
   const payload={name,date:document.getElementById('ptk-ms-date').value||todayISO(),status:document.getElementById('ptk-ms-status').value,desc:document.getElementById('ptk-ms-desc').value.trim()};
   const eid=document.getElementById('ptk-ms-id').value;
   if(eid){const idx=d.milestones.findIndex(m=>m.id===eid);if(idx>=0)d.milestones[idx]={...d.milestones[idx],...payload};}
   else d.milestones.push({id:'MS-'+String(d.milestones.length+1).padStart(3,'0'),...payload});
-  closeModal('modal-ptk-ms');ptkRenderAll();showToast('Milestone saved');
+  closeModal('modal-ptk-ms');ptkRenderAll();nxNotify({title:'Milestone Saved',type:'success'});
 }
 function ptkViewMS(msId){
   const d=ptkGetData(_ptkProj);const ms=d.milestones.find(m=>m.id===msId);if(!ms)return;
@@ -2477,13 +4142,13 @@ function ptkEditMS(msId){
   document.getElementById('ptk-ms-desc').value=ms.desc||'';
   openModal('modal-ptk-ms');
 }
-function ptkDeleteMS(msId){
-  if(!confirm('Delete milestone?'))return;
+async function ptkDeleteMS(msId){
+  try{await nxConfirm({title:'Delete Milestone',okLabel:'Delete Milestone',icon:'🏁',iconBg:'rgba(245,166,35,.12)'})}catch{return;}
   const d=ptkGetData(_ptkProj);d.milestones=d.milestones.filter(m=>m.id!==msId);
-  ptkRenderAll();showToast('Milestone deleted');
+  ptkRenderAll();nxNotify({title:'Milestone Deleted',type:'warning'});
 }
 function ptkOpenRisk(){
-  if(!_ptkProj){showToast('Select a project first');return;}
+  if(!_ptkProj){nxNotify({title:'Select a project first',type:'warning'});return;}
   ['ptk-r-id','ptk-r-title','ptk-r-owner','ptk-r-desc'].forEach(id=>{const el=document.getElementById(id);if(el)el.value='';});
   document.getElementById('ptk-r-type').value='Risk';
   document.getElementById('ptk-r-status').value='open';
@@ -2492,7 +4157,7 @@ function ptkOpenRisk(){
   openModal('modal-ptk-risk');
 }
 function ptkSaveRisk(){
-  const title=document.getElementById('ptk-r-title').value.trim();if(!title){showToast('Title required');return;}
+  const title=document.getElementById('ptk-r-title').value.trim();if(!title){nxNotify({title:'Title required',type:'error'});return;}
   const d=ptkGetData(_ptkProj);
   const payload={title,type:document.getElementById('ptk-r-type').value,status:document.getElementById('ptk-r-status').value,
     likelihood:document.getElementById('ptk-r-like').value,impact:document.getElementById('ptk-r-impact').value,
@@ -2500,7 +4165,7 @@ function ptkSaveRisk(){
   const eid=document.getElementById('ptk-r-id').value;
   if(eid){const idx=d.risks.findIndex(r=>r.id===eid);if(idx>=0)d.risks[idx]={...d.risks[idx],...payload};}
   else d.risks.push({id:'R-'+String(d.risks.length+1).padStart(3,'0'),...payload});
-  closeModal('modal-ptk-risk');ptkRenderAll();showToast('Risk saved');
+  closeModal('modal-ptk-risk');ptkRenderAll();nxNotify({title:'Risk Saved',sub:'Risk register updated',type:'success'});
 }
 function ptkViewRisk(rId){
   const d=ptkGetData(_ptkProj);const r=d.risks.find(x=>x.id===rId);if(!r)return;
@@ -2530,10 +4195,10 @@ function ptkEditRisk(rId){
   document.getElementById('ptk-r-desc').value=r.desc||'';
   openModal('modal-ptk-risk');
 }
-function ptkDeleteRisk(rId){
-  if(!confirm('Delete risk?'))return;
+async function ptkDeleteRisk(rId){
+  try{await nxConfirm({title:'Delete Risk',okLabel:'Delete Risk',icon:'⚠️',iconBg:'rgba(245,166,35,.12)'})}catch{return;}
   const d=ptkGetData(_ptkProj);d.risks=d.risks.filter(r=>r.id!==rId);
-  ptkRenderAll();showToast('Risk deleted');
+  ptkRenderAll();nxNotify({title:'Risk Deleted',type:'warning'});
 }
 
 // ── Invoice advanced filter ──
@@ -2795,7 +4460,7 @@ function createProjectFromForm(){
   if(!requirePermission('create_project','Create project'))return;
   const name=document.getElementById('proj-name').value.trim();
   const customerCode=document.getElementById('proj-customer').value;
-  if(!name||!customerCode){showToast('Project name and customer are required');return;}
+  if(!name||!customerCode){nxNotify({title:'Project name and customer are required',type:'error'});return;}
   const customer=findCustomerByCode(customerCode);
   const payload={
     name,
@@ -2823,7 +4488,7 @@ function createProjectFromForm(){
   projectEditId=null;
   renderProjects();syncAllDropdowns();persistState();
   closeModal('modal-project');
-  showToast('Project saved');
+  nxNotify({title:'Project Saved',type:'success'});
 }
 
 // ============================================================
@@ -2833,9 +4498,9 @@ function createCustomerFromForm(){
   const companyName=document.getElementById('cust-name').value.trim();
   const email=document.getElementById('cust-email').value.trim();
   const creditLimit=Math.max(0,toNum(document.getElementById('cust-credit').value,0));
-  if(!companyName){showToast('Customer company name is required');return;}
-  if(!isValidEmail(email)){showToast('Enter a valid customer email address');return;}
-  if(creditLimit<0){showToast('Credit limit cannot be negative');return;}
+  if(!companyName){nxNotify({title:'Customer company name is required',type:'error'});return;}
+  if(!isValidEmail(email)){nxNotify({title:'Enter a valid customer email address',type:'info'});return;}
+  if(creditLimit<0){nxNotify({title:'Credit limit cannot be negative',type:'error'});return;}
   const payload={
     companyName,
     industry:document.getElementById('cust-segment').value,
@@ -2862,14 +4527,14 @@ function createCustomerFromForm(){
   editState={type:null,id:null};
   document.querySelector('#modal-customer .modal-title').textContent='Add Customer';
   document.querySelector('#modal-customer .btn-primary').textContent='Add Customer';
-  renderCustomers();syncAllDropdowns();closeModal('modal-customer');showToast('Customer added successfully');
+  renderCustomers();syncAllDropdowns();closeModal('modal-customer');nxNotify({title:'Customer added successfully',type:'success'});
   persistState();
 }
 function createSupplierFromForm(){
   const companyName=document.getElementById('sup-name').value.trim();
   const email=document.getElementById('sup-email').value.trim();
-  if(!companyName){showToast('Supplier company name is required');return;}
-  if(!isValidEmail(email)){showToast('Enter a valid supplier email address');return;}
+  if(!companyName){nxNotify({title:'Supplier company name is required',type:'error'});return;}
+  if(!isValidEmail(email)){nxNotify({title:'Enter a valid supplier email address',type:'info'});return;}
   const payload={
     companyName,
     category:document.getElementById('sup-category').value,
@@ -2895,17 +4560,17 @@ function createSupplierFromForm(){
   editState={type:null,id:null};
   document.querySelector('#modal-supplier .modal-title').textContent='Add Supplier';
   document.querySelector('#modal-supplier .btn-primary').textContent='Add Supplier';
-  renderSuppliers();syncAllDropdowns();closeModal('modal-supplier');showToast('Supplier added successfully');
+  renderSuppliers();syncAllDropdowns();closeModal('modal-supplier');nxNotify({title:'Supplier added successfully',type:'success'});
   persistState();
 }
 function createProductFromForm(){
   const name=document.getElementById('prod-name').value.trim();
   const price=Number(document.getElementById('prod-price').value||0);
   const supplierCode=document.getElementById('prod-supplier').value;
-  if(!name||price<=0){showToast('Product name and price are required');return;}
-  if(!supplierCode){showToast('Product must be linked to a supplier');return;}
+  if(!name||price<=0){nxNotify({title:'Product name and price are required',type:'error'});return;}
+  if(!supplierCode){nxNotify({title:'Product must be linked to a supplier',type:'error'});return;}
   const sup=findSupplierByCode(supplierCode);
-  if(!sup){showToast('Select a valid supplier');return;}
+  if(!sup){nxNotify({title:'Select a valid supplier',type:'info'});return;}
   const payload={name,category:document.getElementById('prod-category').value,supplierCode,supplierName:sup.companyName,supplier:sup.companyName,price,unitPrice:price,unit:document.getElementById('prod-unit').value,stock:Number(document.getElementById('prod-stock').value||0),reorder:Number(document.getElementById('prod-reorder').value||10),reorderLevel:Number(document.getElementById('prod-reorder').value||10)};
   if(editState.type==='product'){
     const idx=products.findIndex(x=>x.id===editState.id);
@@ -2919,13 +4584,13 @@ function createProductFromForm(){
   editState={type:null,id:null};
   document.querySelector('#modal-product .modal-title').textContent='Add Product';
   document.querySelector('#modal-product .btn-primary').textContent='Add Product';
-  renderProducts();closeModal('modal-product');showToast('Product added to catalogue');
+  renderProducts();closeModal('modal-product');nxNotify({title:'Product added to catalogue',type:'success'});
   persistState();
 }
 function createServiceFromForm(){
   const name=document.getElementById('svc-name').value.trim();
   const rate=Number(document.getElementById('svc-rate').value||0);
-  if(!name||rate<=0){showToast('Service name and rate are required');return;}
+  if(!name||rate<=0){nxNotify({title:'Service name and rate are required',type:'error'});return;}
   const supplierCode=document.getElementById('svc-supplier').value||'';
   const supplier=findSupplierByCode(supplierCode);
   const rateType=document.getElementById('svc-rate-type').value;
@@ -2942,7 +4607,7 @@ function createServiceFromForm(){
   editState={type:null,id:null};
   document.querySelector('#modal-service .modal-title').textContent='Add Service';
   document.querySelector('#modal-service .btn-primary').textContent='Add Service';
-  renderServices();closeModal('modal-service');showToast('Service added to catalogue');
+  renderServices();closeModal('modal-service');nxNotify({title:'Service added to catalogue',type:'success'});
   persistState();
 }
 function createInvoiceFromForm(){
@@ -2954,9 +4619,9 @@ function createInvoiceFromForm(){
   const project=findProjectById(projectId);
   const issued=document.getElementById('inv-issued').value;
   const due=document.getElementById('inv-due').value;
-  if(!customerCode||!customer||!issued||!due){showToast('Select a customer and complete required fields');return;}
-  if(appConfig.requireProjectLink&&(!projectId||!project)){showToast('Invoice must be linked to a project');return;}
-  if(project&&project.customerCode&&project.customerCode!==customerCode){showToast('Selected project does not belong to selected customer');return;}
+  if(!customerCode||!customer||!issued||!due){nxNotify({title:'Select a customer and complete required fields',type:'error'});return;}
+  if(appConfig.requireProjectLink&&(!projectId||!project)){nxNotify({title:'Invoice must be linked to a project',type:'error'});return;}
+  if(project&&project.customerCode&&project.customerCode!==customerCode){nxNotify({title:'Selected project does not belong to selected customer',type:'info'});return;}
   let sub=0;const lines=[];
   document.querySelectorAll('#inv-lines-body .line-card').forEach(r=>{
     const q=Number(r.querySelector('input[id$="q"]')?.value)||0;
@@ -2969,7 +4634,7 @@ function createInvoiceFromForm(){
       lines.push({description:d||'Line item',qty:q,basePrice:base,markupPercent:markup,price:p,total:q*p});
     }
   });
-  if(lines.length<1||sub<=0){showToast('Invoice requires at least one line item');return;}
+  if(lines.length<1||sub<=0){nxNotify({title:'Invoice requires at least one line item',type:'info'});return;}
   const vat=Number(document.getElementById('inv-tax').value||15)/100;
   const disc=Number(document.getElementById('inv-discount').value||0)/100;
   const amount=Math.round((sub+sub*vat)*(1-disc));
@@ -2995,7 +4660,7 @@ function createInvoiceFromForm(){
   renderProjects();
   document.getElementById('inv-lines-body').innerHTML='';invLineCount=0;updateInvTotals();
   addAudit(isEdit?'UPDATE':'CREATE','Invoices',`${isEdit?'Updated':'Created'} invoice${project?.name?` for ${project.name}`:''}`);
-  closeModal('modal-invoice');showToast('Invoice created successfully');
+  closeModal('modal-invoice');nxNotify({title:'Invoice created successfully',type:'success'});
   persistState();
 }
 function createPOFromForm(){
@@ -3007,8 +4672,8 @@ function createPOFromForm(){
   const project=findProjectById(projectId);
   const ordered=document.getElementById('po-ordered').value;
   const expected=document.getElementById('po-expected').value;
-  if(!supplierCode||!supplier||!ordered||!expected){showToast('Select a supplier and complete required fields');return;}
-  if(appConfig.requireProjectLink&&(!projectId||!project)){showToast('PO must be linked to a project');return;}
+  if(!supplierCode||!supplier||!ordered||!expected){nxNotify({title:'Select a supplier and complete required fields',type:'error'});return;}
+  if(appConfig.requireProjectLink&&(!projectId||!project)){nxNotify({title:'PO must be linked to a project',type:'error'});return;}
   let sub=0;const lines=[];
   document.querySelectorAll('#po-lines-body tr').forEach(r=>{
     const q=Number(r.querySelector('input[id$="q"]')?.value)||0;
@@ -3019,7 +4684,7 @@ function createPOFromForm(){
       lines.push({description:d||'PO item',qty:q,price:p,total:q*p});
     }
   });
-  if(lines.length<1||sub<=0){showToast('PO requires at least one product line');return;}
+  if(lines.length<1||sub<=0){nxNotify({title:'PO requires at least one product line',type:'info'});return;}
   const total=Math.round(sub*(1+(appConfig.poVatRate/100)));
   if(isEdit){
     const idx=purchaseOrders.findIndex(x=>x.id===editState.id);
@@ -3041,7 +4706,7 @@ function createPOFromForm(){
   renderProjects();
   document.getElementById('po-lines-body').innerHTML='';poLineCount=0;updatePOTotals();
   addAudit(isEdit?'UPDATE':'CREATE','PO',`${isEdit?'Updated':'Created'} PO${project?.name?` for ${project.name}`:''}`);
-  closeModal('modal-po');showToast('Purchase order created');
+  closeModal('modal-po');nxNotify({title:'Purchase order created',type:'success'});
   persistState();
 }
 
@@ -3185,62 +4850,70 @@ function editStatement(ref){
   s.desc=desc.trim()||s.desc;
   const nextStatus=prompt('Status (Pending/Cleared/Partial/Draft):',s.status);
   if(nextStatus)s.status=nextStatus;
-  renderStatements();persistState();showToast('Statement updated');
+  nxProgressSim('Saving Statement…','Updating ledger',()=>{
+    renderStatements();persistState();
+  },500);nxNotify({title:'Statement updated',type:'success'});
 }
-function deleteCustomer(id){
+async function deleteCustomer(id){
   const linked=invoices.some(i=>i.customerCode===id);
-  if(linked){showToast('Customer has linked invoices and cannot be deleted');return;}
-  if(!confirm('Delete this customer?'))return;
+  if(linked){nxNotify({title:'Customer has linked invoices and cannot be deleted',type:'error'});return;}
+  try{await nxConfirm({title:'Delete Customer',sub:'This customer record will be permanently removed.',okLabel:'Delete Customer'})}catch{return;}
   customers=customers.filter(x=>x.id!==id);
-  renderCustomers();syncAllDropdowns();persistState();showToast('Customer deleted');
+  renderCustomers();syncAllDropdowns();persistState();nxNotify({title:'Customer Deleted',type:'warning'});
 }
-function deleteSupplier(id){
+async function deleteSupplier(id){
   const linkedProducts=products.some(p=>p.supplierCode===id);
   const linkedPOs=purchaseOrders.some(p=>p.supplierCode===id);
-  if(linkedProducts||linkedPOs){showToast('Supplier is linked to products/POs and cannot be deleted');return;}
-  if(!confirm('Delete this supplier?'))return;
+  if(linkedProducts||linkedPOs){nxNotify({title:'Supplier is linked to products/POs and cannot be deleted',type:'error'});return;}
+  try{await nxConfirm({title:'Delete Supplier',sub:'This supplier record will be permanently removed.',okLabel:'Delete Supplier'})}catch{return;}
   suppliers=suppliers.filter(x=>x.id!==id);
-  renderSuppliers();syncAllDropdowns();persistState();showToast('Supplier deleted');
+  renderSuppliers();syncAllDropdowns();persistState();nxNotify({title:'Supplier Deleted',type:'warning'});
 }
-function deleteProject(id){
+async function deleteProject(id){
   if(!requirePermission('create_project','Delete project'))return;
   const linkedInv=invoices.some(i=>i.projectId===id);
   const linkedPO=purchaseOrders.some(p=>p.projectId===id);
-  if(linkedInv||linkedPO){showToast('Project has linked invoices/POs and cannot be deleted');return;}
-  if(!confirm('Delete this project?'))return;
+  if(linkedInv||linkedPO){nxNotify({title:'Project has linked invoices/POs and cannot be deleted',type:'error'});return;}
+  try{await nxConfirm({title:'Delete Project',sub:'This project and all its data will be removed.',okLabel:'Delete Project'})}catch{return;}
   projects=projects.filter(p=>p.id!==id);
   addAudit('DELETE','Projects',`Deleted ${id}`);
-  renderProjects();syncAllDropdowns();persistState();showToast('Project deleted');
+  renderProjects();syncAllDropdowns();persistState();nxNotify({title:'Project Deleted',type:'warning'});
 }
-function deleteProduct(id){
-  if(!confirm('Delete this product?'))return;
+async function deleteProduct(id){
+  try{await nxConfirm({title:'Delete Product',sub:'This product will be permanently removed.',okLabel:'Delete Product'})}catch{return;}
   products=products.filter(x=>x.id!==id);
-  renderProducts();persistState();showToast('Product deleted');
+  nxProgressSim('Saving Product…','Updating inventory',()=>{
+    renderProducts();persistState();
+  },500);nxNotify({title:'Product Deleted',type:'warning'});
 }
-function deleteService(code){
-  if(!confirm('Delete this service?'))return;
+async function deleteService(code){
+  try{await nxConfirm({title:'Delete Service',sub:'This service will be permanently removed.',okLabel:'Delete Service'})}catch{return;}
   services=services.filter(x=>x.code!==code);
-  renderServices();persistState();showToast('Service deleted');
+  renderServices();persistState();nxNotify({title:'Service deleted',type:'warning'});
 }
-function deleteInvoice(id){
-  if(!confirm('Delete this invoice?'))return;
+async function deleteInvoice(id){
+  try{await nxConfirm({title:'Delete Invoice',sub:'This invoice will be permanently removed.',okLabel:'Delete Invoice'})}catch{return;}
   invoices=invoices.filter(x=>x.id!==id);
   recalcCustomerBalances();
   recalcProjectFinancials();
   addAudit('DELETE','Invoices',`Deleted ${id}`);
-  renderInvoices();renderProjects();persistState();showToast('Invoice deleted');
+  renderInvoices();renderProjects();persistState();nxNotify({title:'Invoice Deleted',type:'warning'});
 }
-function deletePO(id){
-  if(!confirm('Delete this purchase order?'))return;
+async function deletePO(id){
+  try{await nxConfirm({title:'Delete Purchase Order',sub:'This PO will be permanently removed.',okLabel:'Delete PO'})}catch{return;}
   purchaseOrders=purchaseOrders.filter(x=>x.id!==id);
   recalcProjectFinancials();
   addAudit('DELETE','PO',`Deleted ${id}`);
-  renderPOs();renderProjects();persistState();showToast('PO deleted');
+  nxProgressSim('Saving Purchase Order…','Writing to data store',()=>{
+    renderPOs();renderProjects();persistState();
+  },600);nxNotify({title:'PO Deleted',type:'warning'});
 }
-function deleteStatement(ref){
-  if(!confirm('Delete this statement entry?'))return;
+async function deleteStatement(ref){
+  try{await nxConfirm({title:'Delete Statement Entry',sub:'This ledger entry will be permanently removed.',okLabel:'Delete Entry'})}catch{return;}
   statements=statements.filter(x=>x.ref!==ref);
-  renderStatements();persistState();showToast('Statement deleted');
+  nxProgressSim('Saving Statement…','Updating ledger',()=>{
+    renderStatements();persistState();
+  },500);nxNotify({title:'Statement Deleted',type:'warning'});
 }
 function openDocActions(type,id){
   const isInv=type==='invoice';
@@ -3294,7 +4967,7 @@ function renderCustomerNotesHtml(c,ci){
 function addCustomerNote(customerId){
   const c=customers.find(x=>x.customerCode===customerId||x.id===customerId);if(!c)return;
   const text=document.getElementById('cust-note-text')?.value.trim();
-  if(!text){showToast('Note text is required');return;}
+  if(!text){nxNotify({title:'Note text is required',type:'error'});return;}
   c.notes=c.notes||[];
   c.notes.push({
     type:(document.getElementById('cust-note-type')?.value||'General').toLowerCase(),
@@ -3304,7 +4977,7 @@ function addCustomerNote(customerId){
   });
   persistState();
   viewCustomer(customerId);
-  showToast('Customer note added');
+  nxNotify({title:'Customer note added',type:'success'});
 }
 
 // ============================================================
@@ -3565,18 +5238,26 @@ function pdfStatusColor(s){
 }
 
 function pdfOpen(htmlContent, filename){
-  const win = window.open('','_blank','width=900,height=700');
-  if(!win){ alert('Please allow pop-ups for this site to export PDFs.'); return; }
-  win.document.write(htmlContent);
-  win.document.close();
-  win.focus();
-  setTimeout(()=>{ win.print(); }, 600);
+  const nid = nxNotify({title:'Generating PDF…',sub:'Opening print preview',type:'info',loading:true});
+  setTimeout(()=>{
+    const win = window.open('','_blank','width=900,height=700');
+    nxDismiss(nid);
+    if(!win){
+      nxNotify({title:'Pop-up blocked',sub:'Please allow pop-ups for PDF export',type:'error'});
+      return;
+    }
+    nxNotify({title:'PDF Ready',sub:'Use Print → Save as PDF in the preview',type:'success'});
+    win.document.write(htmlContent);
+    win.document.close();
+    win.focus();
+    setTimeout(()=>{ win.print(); }, 600);
+  }, 400);
 }
 
 // ── INVOICE PDF ──
 function exportInvoicePDF(invId){
   const inv = invoices.find(i=>i.id===invId);
-  if(!inv){ showToast('Invoice not found'); return; }
+  if(!inv){ nxNotify({title:'Invoice not found',type:'error'}); return; }
   const cust = customers.find(c=>c.customerCode===inv.customerCode||c.companyName===(inv.customerName||inv.customer));
   const bal = toNum(inv.amount,0) - toNum(inv.paid,0);
   const vatRate = appConfig.vatRate||15;
@@ -3708,7 +5389,7 @@ function exportInvoicePDF(invId){
 // ── PO PDF ──
 function exportPOPDF(poId){
   const p = purchaseOrders.find(x=>x.id===poId);
-  if(!p){ showToast('PO not found'); return; }
+  if(!p){ nxNotify({title:'PO not found',type:'error'}); return; }
   const sup = suppliers.find(s=>s.supplierCode===p.supplierCode||s.companyName===(p.supplierName||p.supplier));
   const rem = Math.max(0, toNum(p.value,0) - toNum(p.received,0));
   const vatRate = appConfig.poVatRate||15;
@@ -3839,7 +5520,7 @@ function exportPOPDF(poId){
 function exportStatementPDF(ref){
   // If ref passed, export single transaction — if null, export full statement ledger
   const rows = ref ? statements.filter(s=>s.ref===ref) : [...statements].sort((a,b)=>a.date.localeCompare(b.date));
-  if(!rows.length){ showToast('No statement data found'); return; }
+  if(!rows.length){ nxNotify({title:'No data found',type:'warning'}); return; }
   const title = ref ? `Statement Transaction — ${ref}` : 'Account Statement';
   const totalDebit = rows.reduce((s,r)=>s+toNum(r.debit,0),0);
   const totalCredit = rows.reduce((s,r)=>s+toNum(r.credit,0),0);
@@ -3922,6 +5603,26 @@ function exportStatementPDF(ref){
   </body></html>`;
   pdfOpen(html, (ref||'statement')+'.pdf');
 }
+
+// ── Confirmation dialog (replaces native confirm()) ──
+let _nxConfirmResolve = null;
+let _nxConfirmReject = null;
+function nxConfirm({ title='Confirm', sub='This action cannot be undone.', body='', okLabel='Delete', okStyle='background:var(--red);color:#fff;border-color:var(--red)', icon='🗑', iconBg='rgba(239,68,68,.12)' } = {}) {
+  return new Promise((resolve, reject) => {
+    _nxConfirmResolve = resolve;
+    _nxConfirmReject = reject;
+    document.getElementById('nx-confirm-title').textContent = title;
+    document.getElementById('nx-confirm-sub').textContent = sub;
+    document.getElementById('nx-confirm-body').textContent = body;
+    document.getElementById('nx-confirm-icon').textContent = icon;
+    document.getElementById('nx-confirm-icon').style.background = iconBg;
+    const okBtn = document.getElementById('nx-confirm-ok');
+    okBtn.textContent = okLabel;
+    okBtn.style.cssText = okStyle;
+    openModal('modal-confirm');
+  });
+}
+
 // ── End PDF Engine ──
 
 // ============================================================
@@ -4005,7 +5706,7 @@ async function refreshChartsFromAjax(silent=false){
     const payload=await fetchAnalyticsPayload();
     applyChartPayload(payload);chartsBootstrapped=true;
     if(status)status.textContent='Updated just now';
-    if(!silent)showToast('Analytics refreshed');
+    if(!silent)nxNotify({title:'Analytics refreshed',type:'info'});
   }catch{if(status)status.textContent='Feed unavailable';}
 }
 
@@ -4165,7 +5866,7 @@ function openDetailModal(title,sub,body,extraActions){
   if(ea)ea.innerHTML=extraActions||'';
   openModal('modal-detail');
 }
-function saveDraft(){closeModal('modal-invoice');showToast('Invoice saved as draft');}
+function saveDraft(){closeModal('modal-invoice');nxNotify({title:'Invoice saved as draft',type:'success'});}
 function addPaymentStatement(inv,amount,note){
   const ref='PMT-'+String(Math.floor(4000+Math.random()*5000));
   statements.unshift({date:todayISO(),ref,desc:`Payment received – ${inv.customer}${note?` (${note})`:''}`,debit:0,credit:amount,bal:Math.max(0,inv.amount-inv.paid),status:'Cleared'});
@@ -4196,14 +5897,16 @@ function applyInvoicePayment(){
   const remaining=Math.max(0,inv.amount-inv.paid);
   let amount=Number(document.getElementById('inv-pay-amount').value||0);
   if(document.getElementById('inv-pay-mode').value==='full')amount=remaining;
-  if(amount<=0){showToast('Enter payment amount');return;}
-  if(amount>remaining){showToast('Amount exceeds remaining balance');return;}
+  if(amount<=0){nxNotify({title:'Enter payment amount',type:'info'});return;}
+  if(amount>remaining){nxNotify({title:'Amount exceeds remaining balance',type:'info'});return;}
   inv.paid=Math.round((inv.paid+amount)*100)/100;
   inv.status=computeInvoiceStatus(inv);
   addPaymentStatement(inv,amount,document.getElementById('inv-pay-note').value.trim());
   recalcCustomerBalances();
   recalcProjectFinancials();
-  renderInvoices();renderProjects();renderStatements();persistState();
+  nxProgressSim('Saving Invoice…','Writing to data store',()=>{
+    renderInvoices();renderProjects();renderStatements();persistState();
+  },600);
   closeModal('modal-invoice-payment');
   showToast(`Payment ${fmt(amount)} applied to ${inv.id}`);
 }
@@ -4233,12 +5936,14 @@ function applyPOReceipt(){
   const outstanding=Math.max(0,po.value-po.received);
   let amount=Number(document.getElementById('po-receive-amount').value||0);
   if(document.getElementById('po-receive-mode').value==='full')amount=outstanding;
-  if(amount<=0){showToast('Enter received amount');return;}
-  if(amount>outstanding){showToast('Amount exceeds outstanding value');return;}
+  if(amount<=0){nxNotify({title:'Enter received amount',type:'info'});return;}
+  if(amount>outstanding){nxNotify({title:'Amount exceeds outstanding value',type:'info'});return;}
   po.received=Math.round((po.received+amount)*100)/100;
   po.status=computePOStatus(po);
   recalcProjectFinancials();
-  renderPOs();renderProjects();persistState();
+  nxProgressSim('Saving Purchase Order…','Writing to data store',()=>{
+    renderPOs();renderProjects();persistState();
+  },600);
   closeModal('modal-po-receipt');
   showToast(`Receipt ${fmt(amount)} captured for ${po.id}`);
 }
@@ -4275,16 +5980,124 @@ function applyStatusUpdate(){
   addAudit('STATUS','Documents',`Updated ${type.toUpperCase()} ${id} to ${next}`);
   renderInvoices();renderPOs();renderProjects();persistState();
   closeModal('modal-status-update');
-  showToast('Status updated');
+  nxNotify({title:'Status Updated',type:'success'});
 }
-function exportStatements(){showToast('Statement export queued');}
-function sendStatements(){showToast('Statements sent to selected customers');}
+function exportStatements(){nxNotify({title:'Statement export queued',type:'info'});}
+function sendStatements(){nxNotify({title:'Statements sent to selected customers',type:'info'});}
 function showNotifications(){renderNotifications();openModal('modal-notify');}
-function showToast(msg){
-  document.getElementById('toast-msg').textContent=msg;
-  const t=document.getElementById('modal-toast');t.classList.add('open');
-  setTimeout(()=>t.classList.remove('open'),2600);
+
+/* ══════════════════════════════════════════════
+   NOTIFICATION ENGINE
+   ══════════════════════════════════════════════ */
+const _nxTimers = new Map();
+let _nxId = 0;
+
+function showToast(msg, type, sub, duration) {
+  // Legacy compat — map old single-arg calls
+  return nxNotify({ title: msg, type: type||'success', sub: sub||'', duration: duration });
 }
+
+function nxNotify({ title='', sub='', type='success', duration=0, loading=false, id=null }) {
+  const stack = document.getElementById('nexus-notif-stack');
+  if (!stack) return null;
+
+  // Determine auto-dismiss duration
+  const autoMs = duration || (loading ? 0 : type==='error' ? 5000 : type==='warning' ? 4000 : 3500);
+
+  // Icons
+  const icons = { success:'✅', error:'❌', warning:'⚠️', info:'ℹ️', loading:'' };
+
+  const nid = id || ('nx-' + (++_nxId));
+
+  // Remove existing with same id
+  const existing = document.getElementById(nid);
+  if (existing) { existing.remove(); clearTimeout(_nxTimers.get(nid)); }
+
+  const el = document.createElement('div');
+  el.id = nid;
+  el.className = `nx-notif ${loading ? 'loading' : type}`;
+
+  el.innerHTML = `
+    ${loading
+      ? '<div class="nx-notif-spinner"></div>'
+      : `<div class="nx-notif-icon">${icons[type]||'✅'}</div>`
+    }
+    <div class="nx-notif-body">
+      <div class="nx-notif-title">${title}</div>
+      ${sub ? `<div class="nx-notif-sub">${sub}</div>` : ''}
+    </div>
+    <button class="nx-notif-close" onclick="nxDismiss('${nid}')" title="Dismiss">✕</button>`;
+
+  stack.appendChild(el);
+
+  // Auto-dismiss
+  if (autoMs > 0) {
+    const t = setTimeout(() => nxDismiss(nid), autoMs);
+    _nxTimers.set(nid, t);
+  }
+
+  return nid;
+}
+
+function nxDismiss(nid) {
+  const el = document.getElementById(nid);
+  if (!el) return;
+  clearTimeout(_nxTimers.get(nid));
+  _nxTimers.delete(nid);
+  el.classList.add('exiting');
+  setTimeout(() => el.remove(), 210);
+}
+
+function nxUpdate(nid, opts) {
+  nxDismiss(nid);
+  setTimeout(() => nxNotify({ ...opts, id: nid }), 50);
+}
+
+// Progress overlay helpers
+function nxProgressShow(title, sub) {
+  const el = document.getElementById('nexus-progress-overlay');
+  if (!el) return;
+  document.getElementById('nexus-progress-title').textContent = title || 'Processing…';
+  document.getElementById('nexus-progress-sub').textContent = sub || 'Please wait';
+  document.getElementById('nexus-progress-bar').style.width = '0%';
+  document.getElementById('nexus-progress-pct').textContent = '0%';
+  el.style.display = 'flex';
+}
+
+function nxProgressSet(pct, sub) {
+  const bar = document.getElementById('nexus-progress-bar');
+  const pctEl = document.getElementById('nexus-progress-pct');
+  const subEl = document.getElementById('nexus-progress-sub');
+  if (bar) bar.style.width = Math.min(100, pct) + '%';
+  if (pctEl) pctEl.textContent = Math.round(pct) + '%';
+  if (sub && subEl) subEl.textContent = sub;
+}
+
+function nxProgressHide() {
+  const el = document.getElementById('nexus-progress-overlay');
+  if (el) el.style.display = 'none';
+}
+
+// Simulated progress for save/load operations
+function nxProgressSim(title, sub, onDone, durationMs) {
+  nxProgressShow(title, sub);
+  const ms = durationMs || 900;
+  const start = Date.now();
+  const tick = () => {
+    const pct = Math.min(95, ((Date.now() - start) / ms) * 100);
+    nxProgressSet(pct);
+    if (pct < 95) requestAnimationFrame(tick);
+  };
+  requestAnimationFrame(tick);
+  setTimeout(() => {
+    nxProgressSet(100, 'Complete');
+    setTimeout(() => {
+      nxProgressHide();
+      if (onDone) onDone();
+    }, 300);
+  }, ms);
+}
+
 function syncSessionUI(){
   const section=document.getElementById('admin-nav-section');
   const item=document.getElementById('admin-nav-item');
@@ -4309,22 +6122,32 @@ function updateUserUI(){
 }
 function loginUser(){
   const email=document.getElementById('login-email').value.trim();
+  const pw=document.getElementById('login-password').value;
   const role=document.getElementById('login-role').value;
-  if(!email){showToast('Email required');return;}
-  const existing=appUsers.find(x=>x.email.toLowerCase()===email.toLowerCase());
-  const name=existing?.name||email.split('@')[0].replace('.', ' ');
-  currentUser={id:existing?.id||('USR-'+String(Date.now()).slice(-4)),name:name.split(' ').map(x=>x?x[0].toUpperCase()+x.slice(1):x).join(' '),email,role,title:role==='Admin'?'System Administrator':role,lastLogin:new Date().toLocaleString('en-ZA')};
-  setCookie(SESSION_COOKIE,JSON.stringify(currentUser),1);
-  sessionStorage.setItem(SESSION_COOKIE,JSON.stringify(currentUser));
-  if(!existing)appUsers.unshift({...currentUser,status:'Active'});
-  else existing.lastLogin=currentUser.lastLogin;
-  updateUserUI();
-  renderAdminUsers();
-  addAudit('LOGIN','Auth',`User signed in: ${email}`);
-  renderAuditLog();
-  closeModal('modal-login');
-  persistState();
-  showToast('Logged in successfully');
+  if(!email){ nxNotify({title:'Email required',sub:'Please enter your email address',type:'error'}); return; }
+  // Show loading state
+  const btn=document.querySelector('#modal-login .btn-primary');
+  const origText=btn?btn.textContent:'';
+  if(btn){btn.disabled=true;btn.textContent='Signing in…';}
+  const nid=nxNotify({title:'Signing in…',sub:email,type:'info',loading:true});
+  setTimeout(()=>{
+    const existing=appUsers.find(x=>x.email.toLowerCase()===email.toLowerCase());
+    const name=existing?.name||email.split('@')[0].replace('.', ' ');
+    currentUser={id:existing?.id||('USR-'+String(Date.now()).slice(-4)),name:name.split(' ').map(x=>x?x[0].toUpperCase()+x.slice(1):x).join(' '),email,role,title:role==='Admin'?'System Administrator':role,lastLogin:new Date().toLocaleString('en-ZA')};
+    setCookie(SESSION_COOKIE,JSON.stringify(currentUser),1);
+    sessionStorage.setItem(SESSION_COOKIE,JSON.stringify(currentUser));
+    if(!existing)appUsers.unshift({...currentUser,status:'Active'});
+    else existing.lastLogin=currentUser.lastLogin;
+    updateUserUI();
+    renderAdminUsers();
+    addAudit('LOGIN','Auth',`User signed in: ${email}`);
+    renderAuditLog();
+    closeModal('modal-login');
+    persistState();
+    if(btn){btn.disabled=false;btn.textContent=origText;}
+    nxDismiss(nid);
+    nxNotify({title:'Welcome back, '+currentUser.name.split(' ')[0]+'!',sub:role+' · '+email,type:'success'});
+  },800);
 }
 function restoreSession(){
   const s=sessionStorage.getItem(SESSION_COOKIE)||getCookie(SESSION_COOKIE);
@@ -4372,7 +6195,7 @@ function saveProfile(){
   renderAuditLog();
   closeModal('modal-profile');
   persistState();
-  showToast('Profile updated');
+  nxNotify({title:'Profile updated',type:'success'});
 }
 function editAdminUser(id){
   if(!requirePermission('admin_users','Edit admin user'))return;
@@ -4388,7 +6211,7 @@ function saveAdminUserFromForm(){
   if(!requirePermission('admin_users','Save admin user'))return;
   const name=document.getElementById('admin-user-name').value.trim();
   const email=document.getElementById('admin-user-email').value.trim();
-  if(!name||!email){showToast('Name and email required');return;}
+  if(!name||!email){nxNotify({title:'Name and email required',type:'error'});return;}
   const role=document.getElementById('admin-user-role').value;
   const status=document.getElementById('admin-user-status').value;
   if(adminEditId){
@@ -4405,7 +6228,7 @@ function saveAdminUserFromForm(){
   renderAuditLog();
   closeModal('modal-admin-user');
   persistState();
-  showToast('User saved');
+  nxNotify({title:'User Saved',type:'success'});
 }
 function toggleAdminUserStatus(id){
   if(!requirePermission('admin_users','Toggle user status'))return;
@@ -4414,16 +6237,16 @@ function toggleAdminUserStatus(id){
   addAudit('STATUS','Users',`${id} set to ${u.status}`);
   renderAdminUsers();renderAuditLog();persistState();
 }
-function deleteAdminUser(id){
+async function deleteAdminUser(id){
   if(!requirePermission('admin_users','Delete user'))return;
-  if(!confirm('Delete this admin user?'))return;
+  try{await nxConfirm({title:'Delete Admin User',sub:'This user account will be permanently removed.',okLabel:'Delete User'})}catch{return;}
   appUsers=appUsers.filter(x=>x.id!==id);
   addAudit('DELETE','Users',`Deleted user ${id}`);
-  renderAdminUsers();renderAuditLog();persistState();showToast('User deleted');
+  renderAdminUsers();renderAuditLog();persistState();nxNotify({title:'User Deleted',type:'warning'});
 }
 function resetSessionData(){
   sessionStorage.removeItem(APP_STATE_KEY);
-  showToast('Session data reset. Reload app to restore defaults.');
+  nxNotify({title:'Session data reset. Reload app to restore defaults.',type:'info'});
 }
 
 // ============================================================
@@ -4465,10 +6288,14 @@ persistState();
 // ── Row popover ──
 let _popover = null;
 function showPopover(trigger, items) {
+  // Close any existing popover
   if (_popover) { _popover.remove(); _popover = null; }
+
   const menu = document.createElement('div');
   menu.className = 'row-popover';
-  items.forEach(item => {
+  menu.setAttribute('role','menu');
+
+  items.forEach((item, idx) => {
     if (item.divider) {
       const hr = document.createElement('div');
       hr.className = 'row-popover-divider';
@@ -4477,32 +6304,82 @@ function showPopover(trigger, items) {
     }
     const btn = document.createElement('button');
     btn.className = 'row-popover-item' + (item.danger ? ' danger' : '') + (item.checked ? ' checked' : '');
-    btn.textContent = item.label;
-    btn.addEventListener('click', () => { menu.remove(); _popover = null; item.fn(); });
+    btn.setAttribute('role','menuitem');
+    // Icon mapping for common labels
+    const iconMap = {
+      'View':'👁', 'Edit':'✏️', 'Delete':'🗑', 'Export PDF':'🖨',
+      'Mark Paid':'✅', 'Send':'📤', 'Approve':'✔', 'Duplicate':'⧉',
+      'Receive':'📦', 'Update Status':'🔄', 'Add Payment':'💳',
+    };
+    const icon = iconMap[item.label];
+    btn.innerHTML = icon ? `<span style="font-size:13px;width:18px;text-align:center">${icon}</span>${item.label}` : item.label;
+    btn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      closePopover();
+      item.fn();
+    });
     menu.appendChild(btn);
   });
+
   document.body.appendChild(menu);
   _popover = menu;
+
+  // Position
   const r = trigger.getBoundingClientRect();
-  const mh = menu.offsetHeight;
-  const top = (window.innerHeight - r.bottom >= mh + 8)
-    ? r.bottom + 4
-    : r.top - mh - 4;
-  menu.style.top  = top + 'px';
-  menu.style.left = Math.min(r.right - 164, window.innerWidth - 172) + 'px';
-  function close(e) {
-    if (!_popover) return;
-    if (e.type === 'keydown' ? e.key === 'Escape' : !menu.contains(e.target)) {
-      menu.remove(); _popover = null;
-      document.removeEventListener('click', close);
-      document.removeEventListener('keydown', close);
+  const mh = menu.offsetHeight || 200;
+  const mw = menu.offsetWidth || 180;
+  const spaceBelow = window.innerHeight - r.bottom;
+  const top = spaceBelow >= mh + 8 ? r.bottom + 4 : r.top - mh - 4;
+  const left = Math.min(r.right - mw, window.innerWidth - mw - 8);
+  menu.style.top = Math.max(8, top) + 'px';
+  menu.style.left = Math.max(8, left) + 'px';
+
+  function onOutsideClick(e) {
+    if (_popover && !_popover.contains(e.target) && e.target !== trigger) {
+      closePopover();
     }
   }
+  function onKey(e) {
+    if (e.key === 'Escape') closePopover();
+    if (e.key === 'ArrowDown') {
+      const items = [...menu.querySelectorAll('.row-popover-item')];
+      const cur = document.activeElement;
+      const idx = items.indexOf(cur);
+      items[Math.min(items.length-1, idx+1)]?.focus();
+      e.preventDefault();
+    }
+    if (e.key === 'ArrowUp') {
+      const items = [...menu.querySelectorAll('.row-popover-item')];
+      const cur = document.activeElement;
+      const idx = items.indexOf(cur);
+      items[Math.max(0, idx-1)]?.focus();
+      e.preventDefault();
+    }
+  }
+
   setTimeout(() => {
-    document.addEventListener('click', close);
-    document.addEventListener('keydown', close);
+    document.addEventListener('click', onOutsideClick, { capture: true });
+    document.addEventListener('keydown', onKey);
+    // Focus first item for keyboard nav
+    menu.querySelector('.row-popover-item')?.focus();
   }, 0);
+
+  menu._cleanup = () => {
+    document.removeEventListener('click', onOutsideClick, { capture: true });
+    document.removeEventListener('keydown', onKey);
+  };
 }
+
+function closePopover() {
+  if (!_popover) return;
+  if (_popover._cleanup) _popover._cleanup();
+  _popover.style.animation = 'nx-cmenu-out .12s ease forwards';
+  const p = _popover;
+  _popover = null;
+  setTimeout(() => p.remove(), 120);
+}
+
+
 function rowMenu(btn, type, id, extra) {
   const defs = {
     customer: () => [
@@ -5182,5 +7059,24 @@ function renderHubEquipDetail(i) {
 }
 
 </script>
+
+<!-- CONFIRM DIALOG -->
+<div class="modal-overlay" id="modal-confirm" onclick="if(event.target===this){_nxConfirmReject&&_nxConfirmReject();closeModal('modal-confirm')}">
+  <div class="modal" style="max-width:400px;padding:0;overflow:hidden">
+    <div id="nx-confirm-header" style="padding:20px 24px 0;display:flex;align-items:flex-start;gap:14px">
+      <div id="nx-confirm-icon" style="width:40px;height:40px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0;background:rgba(239,68,68,.12)">🗑</div>
+      <div>
+        <div id="nx-confirm-title" class="modal-title" style="margin-bottom:4px">Confirm</div>
+        <div id="nx-confirm-sub" class="modal-sub"></div>
+      </div>
+    </div>
+    <div id="nx-confirm-body" style="padding:14px 24px 0;font-size:13px;color:var(--txt2);line-height:1.6"></div>
+    <div class="modal-actions" style="padding:16px 24px 20px;margin-top:4px">
+      <button class="btn" onclick="_nxConfirmReject&&_nxConfirmReject();closeModal('modal-confirm')">Cancel</button>
+      <button id="nx-confirm-ok" class="btn" style="background:var(--red);color:#fff;border-color:var(--red)" onclick="_nxConfirmResolve&&_nxConfirmResolve();closeModal('modal-confirm')">Delete</button>
+    </div>
+  </div>
+</div>
+
 </body>
 </html>
