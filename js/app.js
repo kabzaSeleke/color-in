@@ -89,16 +89,21 @@ let invoices = [
 ];
 
 let purchaseOrders = [
-  {id:'PO-2026-0801',supplier:'Atlas Copco SA (Pty) Ltd',ordered:'2026-04-02',expected:'2026-04-23',value:142000,received:142000,status:'Received',products:'Drill Bits 95mm x50, Drill Bits 115mm x20'},
-  {id:'PO-2026-0802',supplier:'Macsteel Service Centres SA',ordered:'2026-04-05',expected:'2026-04-15',value:286400,received:0,status:'Approved',products:'IPE200 Beams 80m, Mild Steel Plate 10mm 120m2'},
-  {id:'PO-2026-0803',supplier:'Sandvik Mining & Rock Solutions',ordered:'2026-04-08',expected:'2026-05-30',value:4850000,received:0,status:'Pending',products:'Sandvik LH514 LHD Unit x1'},
-  {id:'PO-2026-0804',supplier:'MSA Africa Safety',ordered:'2026-04-10',expected:'2026-04-22',value:48600,received:48600,status:'Received',products:'Hard Hats x120, Safety Harness x20, N95 Respirators x500'},
-  {id:'PO-2026-0805',supplier:'AfriSam (Pty) Ltd',ordered:'2026-04-12',expected:'2026-04-16',value:88800,received:0,status:'Approved',products:'Surebuild Cement 42.5N x600 bags'},
-  {id:'PO-2026-0806',supplier:'Protea Chemicals',ordered:'2026-04-15',expected:'2026-05-01',value:184800,received:0,status:'Pending',products:'Xanthate Collector x12 drums, NaCN Solution x4 bags'},
-  {id:'PO-2026-0807',supplier:'ABB South Africa',ordered:'2026-03-28',expected:'2026-04-18',value:192000,received:192000,status:'Received',products:'ABB MCB 250A x60, VFD Drive 75kW x4'},
-  {id:'PO-2026-0808',supplier:'Murray & Roberts Cementation',ordered:'2026-04-18',expected:'2026-05-15',value:320000,received:0,status:'Draft',products:'Y16 Rebar x1000, Y20 Rebar x400'},
-  {id:'PO-2026-0809',supplier:'Voltex (Pty) Ltd',ordered:'2026-04-19',expected:'2026-04-28',value:86400,received:0,status:'Approved',products:'4-core 16mm2 Armoured Cable x18 drums'},
-  {id:'PO-2026-0810',supplier:'Bulldog Projects (Pty) Ltd',ordered:'2026-04-20',expected:'2026-04-24',value:24800,received:0,status:'Pending',products:'Angle Grinders x8, Threaded Rods x120'},
+  // PROJ-2026-001 — Kathu Shaft Ventilation (target actualCost: 1,864,000)
+  {id:'PO-2026-0801',projectId:'PROJ-2026-001',supplier:'Atlas Copco SA (Pty) Ltd',ordered:'2026-04-02',expected:'2026-04-23',value:142000,received:142000,status:'Received',products:'Drill Bits 95mm x50, Drill Bits 115mm x20'},
+  {id:'PO-2026-0803',projectId:'PROJ-2026-001',supplier:'Sandvik Mining & Rock Solutions',ordered:'2026-04-08',expected:'2026-05-30',value:4850000,received:1673400,status:'Partial',products:'Sandvik LH514 LHD Unit x1'},
+  {id:'PO-2026-0804',projectId:'PROJ-2026-001',supplier:'MSA Africa Safety',ordered:'2026-04-10',expected:'2026-04-22',value:48600,received:48600,status:'Received',products:'Hard Hats x120, Safety Harness x20, N95 Respirators x500'},
+  // PROJ-2026-002 — Rustenburg Structural Rehab (target actualCost: 1,245,000)
+  {id:'PO-2026-0802',projectId:'PROJ-2026-002',supplier:'Macsteel Service Centres SA',ordered:'2026-04-05',expected:'2026-04-15',value:286400,received:286400,status:'Received',products:'IPE200 Beams 80m, Mild Steel Plate 10mm 120m2'},
+  {id:'PO-2026-0805',projectId:'PROJ-2026-002',supplier:'AfriSam (Pty) Ltd',ordered:'2026-04-12',expected:'2026-04-16',value:88800,received:88800,status:'Received',products:'Surebuild Cement 42.5N x600 bags'},
+  {id:'PO-2026-0807',projectId:'PROJ-2026-002',supplier:'ABB South Africa',ordered:'2026-03-28',expected:'2026-04-18',value:192000,received:192000,status:'Received',products:'ABB MCB 250A x60, VFD Drive 75kW x4'},
+  {id:'PO-2026-0808',projectId:'PROJ-2026-002',supplier:'Murray & Roberts Cementation',ordered:'2026-04-18',expected:'2026-05-15',value:320000,received:320000,status:'Received',products:'Y16 Rebar x1000, Y20 Rebar x400'},
+  {id:'PO-2026-0809',projectId:'PROJ-2026-002',supplier:'Voltex (Pty) Ltd',ordered:'2026-04-19',expected:'2026-04-28',value:86400,received:86400,status:'Received',products:'4-core 16mm2 Armoured Cable x18 drums'},
+  {id:'PO-2026-0811',projectId:'PROJ-2026-002',supplier:'Concor Construction (Pty) Ltd',ordered:'2026-03-15',expected:'2026-04-30',value:450000,received:271400,status:'Partial',products:'Earthworks package, Trench excavation, Compaction'},
+  // PROJ-2026-003 — Implats Reagent Plant Civils (target actualCost: 780,000)
+  {id:'PO-2026-0806',projectId:'PROJ-2026-003',supplier:'Protea Chemicals',ordered:'2026-04-15',expected:'2026-05-01',value:184800,received:184800,status:'Received',products:'Xanthate Collector x12 drums, NaCN Solution x4 bags'},
+  {id:'PO-2026-0810',projectId:'PROJ-2026-003',supplier:'Bulldog Projects (Pty) Ltd',ordered:'2026-04-20',expected:'2026-04-24',value:24800,received:24800,status:'Received',products:'Angle Grinders x8, Threaded Rods x120'},
+  {id:'PO-2026-0812',projectId:'PROJ-2026-003',supplier:'SENET Process Engineers',ordered:'2026-03-20',expected:'2026-06-15',value:890000,received:570400,status:'Partial',products:'Reagent dosing skids x3, Instrumentation package, Control valves x12'},
 ];
 
 let statements = [
@@ -115,8 +120,56 @@ let statements = [
 let payments = [];
 let paymentAllocations = [];
 let companyTransactions = [
-  {id:'TRN-2026-001',date:'2026-04-10',ref:'PMT-0419',type:'Inflow',category:'Customer Payment',party:'Sibanye-Stillwater Mining',customerCode:'CUST-010',supplierCode:'',projectId:'PROJ-2026-003',description:'Invoice settlement',amount:892000},
-  {id:'TRN-2026-002',date:'2026-04-12',ref:'PO-2026-0805',type:'Outflow',category:'Supplier Payment',party:'AfriSam (Pty) Ltd',customerCode:'',supplierCode:'SUP-005',projectId:'PROJ-2026-002',description:'Cement procurement payment',amount:88800},
+  // ── 2026 ──
+  {id:'TRN-2026-001',date:'2026-04-10',ref:'PAY-INV-2026-1001',type:'Inflow',category:'Customer Payment',party:'Kumba Iron Ore Ltd',customerCode:'CUST-001',supplierCode:'',projectId:'PROJ-2026-001',description:'Full payment – INV-2026-1001',amount:384200},
+  {id:'TRN-2026-002',date:'2026-04-12',ref:'PAY-INV-2026-1005',type:'Inflow',category:'Customer Payment',party:'Sibanye-Stillwater Mining',customerCode:'CUST-010',supplierCode:'',projectId:'PROJ-2026-003',description:'Full payment – INV-2026-1005',amount:892000},
+  {id:'TRN-2026-003',date:'2026-04-10',ref:'PMT-WBHO-0410',type:'Inflow',category:'Customer Payment',party:'WBHO Construction (Pty) Ltd',customerCode:'CUST-003',supplierCode:'',projectId:'PROJ-2026-002',description:'Partial payment – INV-2026-1003',amount:306000},
+  {id:'TRN-2026-004',date:'2026-04-02',ref:'RCPT-PO-2026-0801',type:'Outflow',category:'Procurement',party:'Atlas Copco SA (Pty) Ltd',customerCode:'',supplierCode:'SUP-003',projectId:'PROJ-2026-001',description:'Supplier payment – PO-2026-0801',amount:142000},
+  {id:'TRN-2026-005',date:'2026-04-10',ref:'RCPT-PO-2026-0804',type:'Outflow',category:'Procurement',party:'MSA Africa Safety',customerCode:'',supplierCode:'SUP-009',projectId:'PROJ-2026-001',description:'Supplier payment – PO-2026-0804',amount:48600},
+  {id:'TRN-2026-006',date:'2026-03-28',ref:'RCPT-PO-2026-0807',type:'Outflow',category:'Procurement',party:'ABB South Africa',customerCode:'',supplierCode:'SUP-007',projectId:'PROJ-2026-002',description:'Supplier payment – PO-2026-0807',amount:192000},
+  {id:'TRN-2026-007',date:'2026-04-01',ref:'PAY-PAYROLL-APR26',type:'Outflow',category:'Payroll',party:'Staff – April 2026',customerCode:'',supplierCode:'',projectId:'',description:'Monthly payroll – April 2026',amount:1240000},
+  {id:'TRN-2026-008',date:'2026-03-01',ref:'PAY-PAYROLL-MAR26',type:'Outflow',category:'Payroll',party:'Staff – March 2026',customerCode:'',supplierCode:'',projectId:'',description:'Monthly payroll – March 2026',amount:1210000},
+  {id:'TRN-2026-009',date:'2026-03-15',ref:'PAY-INV-2025-0901',type:'Inflow',category:'Customer Payment',party:'Murray & Roberts Projects',customerCode:'CUST-004',supplierCode:'',projectId:'',description:'March collections – Murray & Roberts',amount:224000},
+  {id:'TRN-2026-010',date:'2026-02-28',ref:'PAY-INV-2025-0834',type:'Inflow',category:'Customer Payment',party:'Exxaro Resources Ltd',customerCode:'CUST-002',supplierCode:'',projectId:'',description:'Q1 payment – Exxaro',amount:388000},
+  {id:'TRN-2026-011',date:'2026-02-01',ref:'PAY-PAYROLL-FEB26',type:'Outflow',category:'Payroll',party:'Staff – February 2026',customerCode:'',supplierCode:'',projectId:'',description:'Monthly payroll – February 2026',amount:1210000},
+  {id:'TRN-2026-012',date:'2026-01-15',ref:'PAY-PAYROLL-JAN26',type:'Outflow',category:'Payroll',party:'Staff – January 2026',customerCode:'',supplierCode:'',projectId:'',description:'Monthly payroll – January 2026',amount:1185000},
+  {id:'TRN-2026-013',date:'2026-01-20',ref:'RCPT-SUP-0119',type:'Outflow',category:'Procurement',party:'Macsteel Service Centres SA',customerCode:'',supplierCode:'SUP-001',projectId:'PROJ-2026-002',description:'Steel procurement – Q1',amount:318000},
+  {id:'TRN-2026-014',date:'2026-01-10',ref:'PAY-INV-2025-0801',type:'Inflow',category:'Customer Payment',party:'Implats Mine Operations',customerCode:'CUST-007',supplierCode:'',projectId:'',description:'Outstanding Q4 2025 settlement',amount:542000},
+  // ── 2025 ──
+  {id:'TRN-2025-001',date:'2025-12-22',ref:'PAY-PAYROLL-DEC25',type:'Outflow',category:'Payroll',party:'Staff – December 2025',customerCode:'',supplierCode:'',projectId:'',description:'Monthly payroll – December 2025',amount:1185000},
+  {id:'TRN-2025-002',date:'2025-12-15',ref:'PAY-INV-2025-1201',type:'Inflow',category:'Customer Payment',party:'Kumba Iron Ore Ltd',customerCode:'CUST-001',supplierCode:'',projectId:'',description:'Q4 invoice settlement – Kumba',amount:720000},
+  {id:'TRN-2025-003',date:'2025-12-10',ref:'PAY-INV-2025-1202',type:'Inflow',category:'Customer Payment',party:'Sibanye-Stillwater Mining',customerCode:'CUST-010',supplierCode:'',projectId:'',description:'December collections',amount:480000},
+  {id:'TRN-2025-004',date:'2025-11-28',ref:'RCPT-PO-2025-1101',type:'Outflow',category:'Procurement',party:'Sandvik Mining & Rock Solutions',customerCode:'',supplierCode:'SUP-011',projectId:'',description:'Equipment purchase Q4',amount:2420000},
+  {id:'TRN-2025-005',date:'2025-11-15',ref:'PAY-PAYROLL-NOV25',type:'Outflow',category:'Payroll',party:'Staff – November 2025',customerCode:'',supplierCode:'',projectId:'',description:'Monthly payroll – November 2025',amount:1160000},
+  {id:'TRN-2025-006',date:'2025-11-05',ref:'PAY-INV-2025-1101',type:'Inflow',category:'Customer Payment',party:'WBHO Construction (Pty) Ltd',customerCode:'CUST-003',supplierCode:'',projectId:'',description:'November settlement – WBHO',amount:856000},
+  {id:'TRN-2025-007',date:'2025-10-20',ref:'PAY-INV-2025-1001',type:'Inflow',category:'Customer Payment',party:'Exxaro Resources Ltd',customerCode:'CUST-002',supplierCode:'',projectId:'',description:'October collections',amount:312000},
+  {id:'TRN-2025-008',date:'2025-10-01',ref:'PAY-PAYROLL-OCT25',type:'Outflow',category:'Payroll',party:'Staff – October 2025',customerCode:'',supplierCode:'',projectId:'',description:'Monthly payroll – October 2025',amount:1140000},
+  {id:'TRN-2025-009',date:'2025-09-18',ref:'PAY-INV-2025-0901',type:'Inflow',category:'Customer Payment',party:'Implats Mine Operations',customerCode:'CUST-007',supplierCode:'',projectId:'',description:'Q3 project milestone – Implats',amount:1240000},
+  {id:'TRN-2025-010',date:'2025-09-05',ref:'RCPT-PO-2025-0901',type:'Outflow',category:'Procurement',party:'Protea Chemicals',customerCode:'',supplierCode:'SUP-008',projectId:'',description:'Chemical procurement Q3',amount:224000},
+  {id:'TRN-2025-011',date:'2025-09-01',ref:'PAY-PAYROLL-SEP25',type:'Outflow',category:'Payroll',party:'Staff – September 2025',customerCode:'',supplierCode:'',projectId:'',description:'Monthly payroll – September 2025',amount:1140000},
+  {id:'TRN-2025-012',date:'2025-08-15',ref:'PAY-INV-2025-0801',type:'Inflow',category:'Customer Payment',party:'Murray & Roberts Projects',customerCode:'CUST-004',supplierCode:'',projectId:'',description:'August milestone – Murray & Roberts',amount:560000},
+  {id:'TRN-2025-013',date:'2025-08-01',ref:'PAY-PAYROLL-AUG25',type:'Outflow',category:'Payroll',party:'Staff – August 2025',customerCode:'',supplierCode:'',projectId:'',description:'Monthly payroll – August 2025',amount:1120000},
+  {id:'TRN-2025-014',date:'2025-07-25',ref:'RCPT-PO-2025-0701',type:'Outflow',category:'Procurement',party:'ABB South Africa',customerCode:'',supplierCode:'SUP-007',projectId:'',description:'Electrical equipment purchase',amount:384000},
+  {id:'TRN-2025-015',date:'2025-07-10',ref:'PAY-INV-2025-0701',type:'Inflow',category:'Customer Payment',party:'Kumba Iron Ore Ltd',customerCode:'CUST-001',supplierCode:'',projectId:'',description:'Mid-year settlement – Kumba',amount:968000},
+  {id:'TRN-2025-016',date:'2025-07-01',ref:'PAY-PAYROLL-JUL25',type:'Outflow',category:'Payroll',party:'Staff – July 2025',customerCode:'',supplierCode:'',projectId:'',description:'Monthly payroll – July 2025',amount:1120000},
+  {id:'TRN-2025-017',date:'2025-06-20',ref:'PAY-INV-2025-0601',type:'Inflow',category:'Customer Payment',party:'WBHO Construction (Pty) Ltd',customerCode:'CUST-003',supplierCode:'',projectId:'',description:'H1 close – WBHO',amount:742000},
+  {id:'TRN-2025-018',date:'2025-06-01',ref:'PAY-PAYROLL-JUN25',type:'Outflow',category:'Payroll',party:'Staff – June 2025',customerCode:'',supplierCode:'',projectId:'',description:'Monthly payroll – June 2025',amount:1100000},
+  {id:'TRN-2025-019',date:'2025-05-15',ref:'PAY-INV-2025-0501',type:'Inflow',category:'Customer Payment',party:'Aveng Moolmans Mining',customerCode:'CUST-005',supplierCode:'',projectId:'',description:'May collections – Aveng',amount:428000},
+  {id:'TRN-2025-020',date:'2025-04-10',ref:'PAY-INV-2025-0401',type:'Inflow',category:'Customer Payment',party:'Sibanye-Stillwater Mining',customerCode:'CUST-010',supplierCode:'',projectId:'',description:'April settlement – Sibanye',amount:892000},
+  {id:'TRN-2025-021',date:'2025-03-15',ref:'PAY-INV-2025-0301',type:'Inflow',category:'Customer Payment',party:'Exxaro Resources Ltd',customerCode:'CUST-002',supplierCode:'',projectId:'',description:'Q1 settlement – Exxaro',amount:510000},
+  {id:'TRN-2025-022',date:'2025-02-20',ref:'RCPT-PO-2025-0201',type:'Outflow',category:'Procurement',party:'Voltex (Pty) Ltd',customerCode:'',supplierCode:'SUP-010',projectId:'',description:'Cable and electrical procurement',amount:196000},
+  {id:'TRN-2025-023',date:'2025-01-30',ref:'PAY-INV-2025-0101',type:'Inflow',category:'Customer Payment',party:'Implats Mine Operations',customerCode:'CUST-007',supplierCode:'',projectId:'',description:'January opening – Implats',amount:680000},
+  // ── 2024 ──
+  {id:'TRN-2024-001',date:'2024-12-18',ref:'PAY-INV-2024-1201',type:'Inflow',category:'Customer Payment',party:'Kumba Iron Ore Ltd',customerCode:'CUST-001',supplierCode:'',projectId:'',description:'Year-end settlement – Kumba',amount:1140000},
+  {id:'TRN-2024-002',date:'2024-12-10',ref:'RCPT-PO-2024-1201',type:'Outflow',category:'Procurement',party:'Sandvik Mining & Rock Solutions',customerCode:'',supplierCode:'SUP-011',projectId:'',description:'Q4 equipment delivery payment',amount:3200000},
+  {id:'TRN-2024-003',date:'2024-11-20',ref:'PAY-INV-2024-1101',type:'Inflow',category:'Customer Payment',party:'WBHO Construction (Pty) Ltd',customerCode:'CUST-003',supplierCode:'',projectId:'',description:'November – WBHO',amount:920000},
+  {id:'TRN-2024-004',date:'2024-10-14',ref:'PAY-INV-2024-1001',type:'Inflow',category:'Customer Payment',party:'Murray & Roberts Projects',customerCode:'CUST-004',supplierCode:'',projectId:'',description:'Q3 milestone pmt',amount:640000},
+  {id:'TRN-2024-005',date:'2024-09-05',ref:'PAY-INV-2024-0901',type:'Inflow',category:'Customer Payment',party:'Sibanye-Stillwater Mining',customerCode:'CUST-010',supplierCode:'',projectId:'',description:'September collection',amount:770000},
+  {id:'TRN-2024-006',date:'2024-08-22',ref:'RCPT-PO-2024-0801',type:'Outflow',category:'Procurement',party:'Atlas Copco SA (Pty) Ltd',customerCode:'',supplierCode:'SUP-003',projectId:'',description:'Equipment procurement Aug 2024',amount:540000},
+  {id:'TRN-2024-007',date:'2024-07-12',ref:'PAY-INV-2024-0701',type:'Inflow',category:'Customer Payment',party:'Exxaro Resources Ltd',customerCode:'CUST-002',supplierCode:'',projectId:'',description:'H1 final – Exxaro',amount:482000},
+  {id:'TRN-2024-008',date:'2024-06-28',ref:'PAY-INV-2024-0601',type:'Inflow',category:'Customer Payment',party:'Implats Mine Operations',customerCode:'CUST-007',supplierCode:'',projectId:'',description:'Mid-year – Implats',amount:896000},
+  {id:'TRN-2024-009',date:'2024-05-15',ref:'RCPT-PO-2024-0501',type:'Outflow',category:'Procurement',party:'AfriSam (Pty) Ltd',customerCode:'',supplierCode:'SUP-005',projectId:'',description:'Cement procurement H1 2024',amount:264000},
+  {id:'TRN-2024-010',date:'2024-04-08',ref:'PAY-INV-2024-0401',type:'Inflow',category:'Customer Payment',party:'Kumba Iron Ore Ltd',customerCode:'CUST-001',supplierCode:'',projectId:'',description:'Q1 final – Kumba',amount:1020000},
 ];
 let activityLog = [];
 
@@ -125,6 +178,58 @@ let projects = [
   {id:'PROJ-2026-002',name:'Rustenburg Structural Rehab',customerCode:'CUST-003',customerName:'WBHO Construction (Pty) Ltd',site:'Rustenburg Site Office',manager:'Sipho Ndlovu',start:'2026-02-15',end:'2026-07-30',budget:3150000,actualCost:1245000,status:'In Progress'},
   {id:'PROJ-2026-003',name:'Implats Reagent Plant Civils',customerCode:'CUST-007',customerName:'Implats Mine Operations',site:'Implats Processing Plant',manager:'James Donaldson',start:'2026-04-01',end:'2026-12-15',budget:5600000,actualCost:780000,status:'Planned'},
 ];
+
+// ============================================================
+// QUOTES – Non-financial commitments that convert to Projects
+// ============================================================
+let quotes = [
+  {id:'QT-2026-001',customerCode:'CUST-001',customerName:'Kumba Iron Ore Ltd',description:'Kathu Shaft Ventilation Upgrade – Phase 1',
+   lines:[
+     {description:'Underground Ventilation Assessment',qty:10,costPrice:9231,markupPct:30,unitPrice:12000,price:12000,total:120000,itemType:'service',itemId:'SVC-003'},
+     {description:'Ventilation Engineering Design',qty:1,costPrice:66406,markupPct:28,unitPrice:85000,price:85000,total:85000,itemType:'service',itemId:'SVC-001'},
+     {description:'Scaffold Erection & Dismantling',qty:1200,costPrice:150,markupPct:20,unitPrice:180,price:180,total:216000,itemType:'service',itemId:'SVC-010'},
+     {description:'Project Management – Capital Projects',qty:30,costPrice:11200,markupPct:25,unitPrice:14000,price:14000,total:420000,itemType:'service',itemId:'SVC-004'}
+   ],total:841000,status:'Accepted',created:'2026-02-15',validUntil:'2026-03-15',projectId:'PROJ-2026-001',sentDate:'2026-02-20',notes:'Accepted by client on 2026-02-28'},
+  {id:'QT-2026-002',customerCode:'CUST-003',customerName:'WBHO Construction (Pty) Ltd',description:'Rustenburg Structural Rehabilitation Works',
+   lines:[
+     {description:'Structural Steel Design & Drafting',qty:3,costPrice:6364,markupPct:32,unitPrice:8400,price:8400,total:25200,itemType:'service',itemId:'SVC-007'},
+     {description:'Structural Welding & Fabrication',qty:1200,costPrice:544,markupPct:25,unitPrice:680,price:680,total:816000,itemType:'service',itemId:'SVC-008'},
+     {description:'Concrete Pouring & Finishing',qty:4500,costPrice:311,markupPct:22,unitPrice:380,price:380,total:1710000,itemType:'service',itemId:'SVC-009'},
+     {description:'Project Management – Capital Projects',qty:43,costPrice:11200,markupPct:25,unitPrice:14000,price:14000,total:602000,itemType:'service',itemId:'SVC-004'}
+   ],total:3153200,status:'Accepted',created:'2026-01-20',validUntil:'2026-02-20',projectId:'PROJ-2026-002',sentDate:'2026-01-25',notes:'Accepted after minor scope amendment'},
+  {id:'QT-2026-003',customerCode:'CUST-007',customerName:'Implats Mine Operations',description:'Reagent Plant Civils – New Build',
+   lines:[
+     {description:'Civil Engineering & Foundation Design',qty:1,costPrice:65385,markupPct:30,unitPrice:85000,price:85000,total:85000,itemType:'service',itemId:'SVC-001'},
+     {description:'Bulk Earthworks & Excavation',qty:12000,costPrice:186,markupPct:18,unitPrice:220,price:220,total:2640000,itemType:'service',itemId:'SVC-002'},
+     {description:'Concrete Pouring & Finishing',qty:5000,costPrice:311,markupPct:22,unitPrice:380,price:380,total:1900000,itemType:'service',itemId:'SVC-009'},
+     {description:'Electrical Testing & Commissioning',qty:10,costPrice:7500,markupPct:28,unitPrice:9600,price:9600,total:96000,itemType:'service',itemId:'SVC-005'}
+   ],total:4721000,status:'Accepted',created:'2026-03-05',validUntil:'2026-04-05',projectId:'PROJ-2026-003',sentDate:'2026-03-10',notes:'Full scope accepted'},
+  {id:'QT-2026-004',customerCode:'CUST-010',customerName:'Sibanye-Stillwater Mining',description:'Surface Shaft Collar Refurbishment',
+   lines:[
+     {description:'Non-Destructive Testing (NDT/UT)',qty:40,costPrice:681,markupPct:35,unitPrice:920,price:920,total:36800,itemType:'service',itemId:'SVC-006'},
+     {description:'Structural Welding & Fabrication',qty:320,costPrice:544,markupPct:25,unitPrice:680,price:680,total:217600,itemType:'service',itemId:'SVC-008'},
+     {description:'Heavy Equipment Preventive Maintenance',qty:60,costPrice:923,markupPct:30,unitPrice:1200,price:1200,total:72000,itemType:'service',itemId:'SVC-011'}
+   ],total:326400,status:'Sent',created:'2026-04-05',validUntil:'2026-05-05',projectId:'',sentDate:'2026-04-07',notes:'Awaiting client sign-off'},
+  {id:'QT-2026-005',customerCode:'CUST-002',customerName:'Exxaro Resources Ltd',description:'Tailings Dam Rehabilitation',
+   lines:[
+     {description:'Environmental Impact Assessment',qty:1,costPrice:50000,markupPct:30,unitPrice:65000,price:65000,total:65000,itemType:'service',itemId:'SVC-012'},
+     {description:'Civil Engineering & Foundation Design',qty:1,costPrice:65385,markupPct:30,unitPrice:85000,price:85000,total:85000,itemType:'service',itemId:'SVC-001'},
+     {description:'Bulk Earthworks & Excavation',qty:18000,costPrice:186,markupPct:18,unitPrice:220,price:220,total:3960000,itemType:'service',itemId:'SVC-002'}
+   ],total:4110000,status:'Rejected',created:'2026-03-18',validUntil:'2026-04-18',projectId:'',sentDate:'2026-03-22',notes:'Client selected alternative contractor on price'},
+  {id:'QT-2026-006',customerCode:'CUST-004',customerName:'Murray & Roberts Projects',description:'Electrical MCC Upgrade – Sub-station C',
+   lines:[
+     {description:'Electrical Testing & Commissioning',qty:5,costPrice:7500,markupPct:28,unitPrice:9600,price:9600,total:48000,itemType:'service',itemId:'SVC-005'},
+     {description:'Electrical Maintenance & Fault Finding',qty:80,costPrice:623,markupPct:22,unitPrice:760,price:760,total:60800,itemType:'service',itemId:'SVC-013'},
+     {description:'Project Management – Capital Projects',qty:10,costPrice:11200,markupPct:25,unitPrice:14000,price:14000,total:140000,itemType:'service',itemId:'SVC-004'}
+   ],total:248800,status:'Amended',created:'2026-04-01',validUntil:'2026-05-01',projectId:'',sentDate:'2026-04-03',notes:'Client requested scope reduction – revised quote pending'},
+  {id:'QT-2026-007',customerCode:'CUST-005',customerName:'Aveng Moolmans Mining',description:'Decline Shaft Deepening Works',
+   lines:[
+     {description:'Underground Drilling Operations',qty:5000,costPrice:40,markupPct:20,unitPrice:48,price:48,total:240000,itemType:'service',itemId:'SVC-014'},
+     {description:'Blasting & Explosives Handling',qty:8,costPrice:31111,markupPct:35,unitPrice:42000,price:42000,total:336000,itemType:'service',itemId:'SVC-015'},
+     {description:'Project Management – Capital Projects',qty:20,costPrice:11200,markupPct:25,unitPrice:14000,price:14000,total:280000,itemType:'service',itemId:'SVC-004'}
+   ],total:856000,status:'Draft',created:'2026-04-20',validUntil:'2026-05-20',projectId:'',sentDate:'',notes:''},
+];
+let quoteCounter = 8;
 
 const trackingItems = [
   {id:'TRK-001',ref:'PO-2026-0803',type:'PO',party:'Sandvik Mining & Rock Solutions',desc:'Sandvik LH514 Load-Haul-Dump Unit',from:'Stockholm, Sweden',to:'Main Yard – Johannesburg',status:'In Transit',eta:'2026-05-30',
@@ -190,7 +295,7 @@ let isAppInitializing=false;
 // ============================================================
 function fmt(n){return new Intl.NumberFormat('en-ZA',{style:'currency',currency:'ZAR',minimumFractionDigits:2,maximumFractionDigits:2}).format(n);}
 function fmtShort(n){if(n>=1000000)return'R'+(n/1000000).toFixed(1)+'M';if(n>=1000)return'R'+(n/1000).toFixed(0)+'K';return fmt(n);}
-function bc(s){return{Paid:'badge-paid',Sent:'badge-pending',Overdue:'badge-overdue',Draft:'badge-draft',Approved:'badge-approved',Issued:'badge-pending',Received:'badge-received',Partial:'badge-partial',Active:'badge-active','On Hold':'badge-onhold',Inactive:'badge-inactive',Cleared:'badge-paid','In Transit':'badge-transit',Processing:'badge-processing','Awaiting Payment':'badge-pending','At Customs':'badge-partial',Delivered:'badge-received'}[s]||'badge-draft';}
+function bc(s){return{Paid:'badge-paid',Sent:'badge-pending',Overdue:'badge-overdue',Draft:'badge-draft',Approved:'badge-approved',Issued:'badge-pending',Received:'badge-received',Partial:'badge-partial','Partially Paid':'badge-partial',Unpaid:'badge-pending',Active:'badge-active','On Hold':'badge-onhold',Inactive:'badge-inactive',Cleared:'badge-paid','In Transit':'badge-transit',Processing:'badge-processing','Awaiting Payment':'badge-pending','At Customs':'badge-partial',Delivered:'badge-received',Accepted:'badge-paid',Rejected:'badge-overdue',Amended:'badge-partial'}[s]||'badge-draft';}
 function rowLineSummary(lines){
   if(!Array.isArray(lines)||!lines.length)return'General';
   return lines.map(l=>`${l.description||'Item'} x${Number(l.qty)||1}`).join(', ');
@@ -360,6 +465,27 @@ function normalizeProjectsAndLinks(){
     return {...po,projectId:po.projectId||'',projectName:po.projectName||linked?.name||''};
   });
 }
+function normalizeQuotes(){
+  quotes=quotes.map(q=>{
+    const customer=customers.find(c=>c.customerCode===q.customerCode||c.companyName===q.customerName);
+    const customerCode=customer?.customerCode||q.customerCode||'';
+    const customerName=customer?.companyName||q.customerName||'';
+    const total=q.total||quoteTotal(q.lines)||0;
+    return {
+      ...q,
+      customerCode,
+      customerName,
+      total,
+      status:normalizeQuoteStatus(q.status||'Draft'),
+      lines:Array.isArray(q.lines)?q.lines:[],
+      created:q.created||todayISO(),
+      validUntil:q.validUntil||'',
+      notes:q.notes||'',
+      projectId:q.projectId||'',
+      sentDate:q.sentDate||''
+    };
+  });
+}
 function ensureDocumentLines(){
   invoices=invoices.map(inv=>{
     if(Array.isArray(inv.lines)&&inv.lines.length)return inv;
@@ -438,15 +564,24 @@ function recalcProjectFinancials(){
     const rev=toNum(inv.amount,0);
     revenueByProject[inv.projectId]=(revenueByProject[inv.projectId]||0)+rev;
   });
-  projects=projects.map(p=>({...p,actualCost:Math.round((costByProject[p.id]||0)*100)/100,revenue:Math.round((revenueByProject[p.id]||0)*100)/100}));
+  // Only override seed values when real PO/invoice data actually exists for that project
+  projects=projects.map(p=>({
+    ...p,
+    actualCost: costByProject[p.id]!==undefined ? Math.round(costByProject[p.id]*100)/100 : (p.actualCost||0),
+    revenue:    revenueByProject[p.id]!==undefined ? Math.round(revenueByProject[p.id]*100)/100 : (p.revenue||0)
+  }));
 }
 function renderLineTable(lines){
-  const rows=(Array.isArray(lines)?lines:[]).map(l=>`<tr>
-    <td style="font-size:12px">${l.description||'Item'}</td>
-    <td style="font-family:var(--font-mono);font-size:11px">${Number(l.qty)||1}</td>
-    <td class="amount">${fmt(Number(l.price)||0)}</td>
-    <td class="amount">${fmt((Number(l.qty)||1)*(Number(l.price)||0))}</td>
-  </tr>`).join('');
+  const rows=(Array.isArray(lines)?lines:[]).map(l=>{
+    const up=Number(l.unitPrice)||Number(l.price)||0;
+    const qty=Number(l.qty)||1;
+    return `<tr>
+      <td style="font-size:12px">${l.description||'Item'}</td>
+      <td style="font-family:var(--font-mono);font-size:11px">${qty}</td>
+      <td class="amount">${fmt(up)}</td>
+      <td class="amount">${fmt(qty*up)}</td>
+    </tr>`;
+  }).join('');
   return `<div class="card" style="padding:0;margin-top:12px"><div class="table-wrap"><table>
     <thead><tr><th>Description</th><th>Qty</th><th>Unit Price</th><th>Line Total</th></tr></thead>
     <tbody>${rows||'<tr><td colspan="4" class="empty-state">No line items</td></tr>'}</tbody>
@@ -463,9 +598,9 @@ function getCookie(name){
 function delCookie(name){document.cookie=`${name}=;expires=Thu, 01 Jan 1970 00:00:00 UTC;path=/`;}
 function persistState(){
   const payload={
-    suppliers,products,services,customers,invoices,purchaseOrders,statements,projects,payments,paymentAllocations,companyTransactions,activityLog,_ptkData,
+    suppliers,products,services,customers,invoices,purchaseOrders,statements,projects,quotes,payments,paymentAllocations,companyTransactions,activityLog,_ptkData,
     appUsers,appConfig,rbacPermissions,auditLog,trackingItems,
-    counters:{customerCounter,invoiceCounter,poCounter,supplierCounter,productCounter,serviceCounter}
+    counters:{customerCounter,invoiceCounter,poCounter,supplierCounter,productCounter,serviceCounter,quoteCounter}
   };
   try{localStorage.setItem(APP_STATE_KEY,JSON.stringify(payload));}catch(e){sessionStorage.setItem(APP_STATE_KEY,JSON.stringify(payload));}
 }
@@ -482,6 +617,7 @@ function loadPersistedState(){
     purchaseOrders=Array.isArray(state.purchaseOrders)?state.purchaseOrders:purchaseOrders;
     statements=Array.isArray(state.statements)?state.statements:statements;
     projects=Array.isArray(state.projects)?state.projects:projects;
+    quotes=Array.isArray(state.quotes)?state.quotes:quotes;
     payments=Array.isArray(state.payments)?state.payments:payments;
     paymentAllocations=Array.isArray(state.paymentAllocations)?state.paymentAllocations:paymentAllocations;
     companyTransactions=Array.isArray(state.companyTransactions)?state.companyTransactions:companyTransactions;
@@ -499,7 +635,110 @@ function loadPersistedState(){
     supplierCounter=c.supplierCounter||supplierCounter;
     productCounter=c.productCounter||productCounter;
     serviceCounter=c.serviceCounter||serviceCounter;
+    quoteCounter=c.quoteCounter||quoteCounter;
   }catch{}
+}
+
+// ── Derive transactions from invoices & POs so Transactions view always matches reality ──
+function syncDocumentTransactions(){
+  if(!Array.isArray(companyTransactions))companyTransactions=[];
+  const existingRefs=new Set(companyTransactions.map(t=>t.ref));
+  // Paid invoices → Inflow
+  (invoices||[]).forEach(inv=>{
+    if(!inv.id||(inv.paid||0)<=0)return;
+    const ref=`PAY-${inv.id}`;
+    if(existingRefs.has(ref))return;
+    companyTransactions.push({
+      id:'TRN-'+Date.now()+'-'+inv.id,
+      date:inv.issued||todayISO(),
+      ref,
+      type:'Inflow',
+      category:'Customer Payment',
+      party:inv.customerName||inv.customer||'',
+      customerCode:inv.customerCode||'',
+      supplierCode:'',
+      projectId:inv.projectId||'',
+      description:`Payment received – ${inv.id}`,
+      amount:Math.max(0,inv.paid||0)
+    });
+    existingRefs.add(ref);
+  });
+  // POs with received payments → Outflow
+  (purchaseOrders||[]).forEach(po=>{
+    if(!po.id||(po.received||0)<=0)return;
+    const ref=`RCPT-${po.id}`;
+    if(existingRefs.has(ref))return;
+    companyTransactions.push({
+      id:'TRN-'+Date.now()+'-'+po.id,
+      date:po.ordered||todayISO(),
+      ref,
+      type:'Outflow',
+      category:'Procurement',
+      party:po.supplierName||po.supplier||'',
+      customerCode:'',
+      supplierCode:po.supplierCode||'',
+      projectId:po.projectId||'',
+      description:`Supplier payment – ${po.id}`,
+      amount:Math.max(0,po.received||0)
+    });
+    existingRefs.add(ref);
+  });
+  // Sort descending by date
+  companyTransactions.sort((a,b)=>String(b.date).localeCompare(String(a.date)));
+  if(companyTransactions.length>800)companyTransactions.length=800;
+}
+
+// ── Rebuild statement ledger from live invoice + payment data ──
+function syncStatementFromInvoices(){
+  if(!Array.isArray(statements))statements=[];
+  // Ensure every invoice has a statement debit row
+  (invoices||[]).forEach(inv=>{
+    if(!inv.id||!inv.issued)return;
+    const exists=statements.find(s=>s.ref===inv.id);
+    const customerName=inv.customerName||inv.customer||'';
+    if(!exists){
+      statements.push({
+        date:inv.issued,
+        ref:inv.id,
+        desc:`Invoice – ${customerName}`,
+        debit:inv.amount||0,
+        credit:0,
+        bal:0,
+        status:inv.status||'Pending',
+        customerCode:inv.customerCode||''
+      });
+    } else {
+      // Keep status in sync
+      exists.status=inv.status||exists.status;
+      exists.debit=inv.amount||exists.debit;
+      exists.customerCode=inv.customerCode||exists.customerCode;
+    }
+  });
+  // Ensure every invoice payment has a statement credit row
+  (invoices||[]).forEach(inv=>{
+    if(!inv.id||(inv.paid||0)<=0)return;
+    const pmtRef=`PMT-${inv.id}`;
+    const pmtExists=statements.find(s=>s.ref===pmtRef);
+    const customerName=inv.customerName||inv.customer||'';
+    if(!pmtExists){
+      // Use a slightly later date than the invoice
+      const pmtDate=inv.issued||todayISO();
+      statements.push({
+        date:pmtDate,
+        ref:pmtRef,
+        desc:`Payment received – ${customerName}`,
+        debit:0,
+        credit:inv.paid,
+        bal:0,
+        status:'Cleared',
+        customerCode:inv.customerCode||''
+      });
+    } else {
+      // Sync payment amount if invoice.paid changed
+      pmtExists.credit=inv.paid;
+    }
+  });
+  statements.sort((a,b)=>b.date.localeCompare(a.date));
 }
 
 function ensureCoreHistories(){
@@ -549,6 +788,9 @@ function ensureCoreHistories(){
 }
 
 function logActivity(type,message,entityId=''){
+  // Auto-upgrade generic type names based on entityId prefix
+  if(type==='project_created'&&(entityId||'').startsWith('CUST-'))type='customer_created';
+  if(type==='project_created'&&(entityId||'').startsWith('SUP-'))type='supplier_created';
   ensureCoreHistories();
   activityLog.unshift({
     id:`ACT-${Date.now()}`,
@@ -587,30 +829,505 @@ function currentActivityRows(limit=12){
   ];
 }
 
+// ============================================================
+// QUOTES ENGINE
+// ============================================================
+function normalizeQuoteStatus(s){
+  const allowed=['Draft','Sent','Accepted','Rejected','Amended'];
+  return allowed.includes(s)?s:'Draft';
+}
+function quoteTotal(lines){
+  return Array.isArray(lines)?lines.reduce((s,l)=>s+((Number(l.qty)||1)*(Number(l.unitPrice)||Number(l.price)||0)),0):0;
+}
+function renderQuotes(){
+  const tbody=document.getElementById('qt-tbody');
+  if(!tbody)return;
+  updateQuoteKPIs();
+  if(!quotes.length){
+    tbody.innerHTML='<tr><td colspan="9" class="empty-state">No quotes yet. Create your first quote to get started.</td></tr>';
+    return;
+  }
+  tbody.innerHTML=quotes.map(q=>{
+    const tot=fmtShort(q.total||quoteTotal(q.lines));
+    const proj=q.projectId?`<span class="status-badge badge-approved" style="cursor:pointer" onclick="openView('projects')">${q.projectId}</span>`:`<span style="color:var(--txt3);font-size:11px">—</span>`;
+    const statusCls={Accepted:'badge-paid',Rejected:'badge-overdue',Sent:'badge-pending',Amended:'badge-partial',Draft:'badge-draft'}[q.status]||'badge-draft';
+    return `<tr>
+      <td><button class="link-btn" onclick="viewQuote('${q.id}')" style="font-weight:500;font-family:var(--font-mono);font-size:12px">${q.id}</button></td>
+      <td style="font-size:12px">${q.customerName||''}</td>
+      <td style="font-size:12px;max-width:220px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${q.description||''}</td>
+      <td class="amount">${tot}</td>
+      <td style="font-family:var(--font-mono);font-size:11px">${q.created||''}</td>
+      <td style="font-family:var(--font-mono);font-size:11px">${q.validUntil||''}</td>
+      <td><span class="status-badge ${statusCls}">${q.status}</span></td>
+      <td>${proj}</td>
+      <td><button class="row-menu-btn" onclick="rowMenu(this,'quote','${q.id}')">⋯</button></td>
+    </tr>`;
+  }).join('');
+}
+function updateQuoteKPIs(){
+  const byStatus={Accepted:0,Rejected:0,Amended:0,Sent:0,Draft:0};
+  const valByStatus={Accepted:0,Rejected:0,Amended:0,Sent:0,Draft:0};
+  quotes.forEach(q=>{
+    const st=q.status||'Draft';
+    const tot=q.total||quoteTotal(q.lines);
+    byStatus[st]=(byStatus[st]||0)+1;
+    valByStatus[st]=(valByStatus[st]||0)+tot;
+  });
+  // Quotes view KPIs
+  const setQ=(id,v)=>{const el=document.getElementById(id);if(el)el.textContent=v;};
+  setQ('qkpi-accepted-count',byStatus.Accepted);
+  setQ('qkpi-accepted-val',fmtShort(valByStatus.Accepted)+' secured');
+  setQ('qkpi-rejected-count',byStatus.Rejected);
+  setQ('qkpi-rejected-val',fmtShort(valByStatus.Rejected)+' lost');
+  setQ('qkpi-amended-count',byStatus.Amended);
+  setQ('qkpi-amended-val',fmtShort(valByStatus.Amended)+' under revision');
+  setQ('qkpi-sent-count',(byStatus.Sent||0)+(byStatus.Draft||0));
+  setQ('qkpi-sent-val',fmtShort((valByStatus.Sent||0)+(valByStatus.Draft||0))+' in pipeline');
+  // Dashboard quote KPIs
+  setQ('dash-qt-accepted',byStatus.Accepted);
+  setQ('dash-qt-accepted-val',fmtShort(valByStatus.Accepted));
+  setQ('dash-qt-rejected',byStatus.Rejected);
+  setQ('dash-qt-rejected-val',fmtShort(valByStatus.Rejected)+' lost');
+  setQ('dash-qt-amended',byStatus.Amended);
+  setQ('dash-qt-amended-val',fmtShort(valByStatus.Amended)+' in revision');
+  const pipelineCount=(byStatus.Sent||0)+(byStatus.Draft||0);
+  const pipelineVal=(valByStatus.Sent||0)+(valByStatus.Draft||0);
+  setQ('dash-qt-pipeline',pipelineCount);
+  setQ('dash-qt-pipeline-val',fmtShort(pipelineVal)+' potential');
+  // Badge on nav
+  const badge=document.getElementById('quotes-badge');
+  if(badge){const open=(byStatus.Sent||0);badge.textContent=open>0?open:'';badge.style.display=open>0?'':'none';}
+}
+function qtFilter(){
+  const sel=document.getElementById('qt-status-sel');
+  const search=document.getElementById('qt-search');
+  if(sel) _tbl.qt.status=sel.value;
+  if(search) _tbl.qt.q=search.value.trim();
+  _tbl.qt.page=1;
+  renderQuotes();
+}
+function qtFilterClear(){
+  const sel=document.getElementById('qt-status-sel');if(sel)sel.value='';
+  const inp=document.getElementById('qt-search');if(inp)inp.value='';
+  renderQuotes();
+}
+// ── quote line counter (like invLineCount)
+let qtLineCount=0;
+function _qtItemOptions(){
+  const prodOpts=products.map(p=>`<option value="product|${p.id}|${p.unitPrice}" data-lbl="${p.name.replace(/"/g,"'")} [${p.sku}]" data-cost="${p.unitPrice}">📦 ${p.name} [${p.sku}]</option>`).join('');
+  const svcOpts=services.map(s=>`<option value="service|${s.serviceCode||s.code}|${s.rate}" data-lbl="${s.name.replace(/"/g,"'")}" data-cost="${s.rate}">⚙ ${s.name} [${s.serviceCode||s.code}]</option>`).join('');
+  return `<option value="">— select item or type custom —</option><optgroup label="Services">${svcOpts}</optgroup><optgroup label="Products">${prodOpts}</optgroup>`;
+}
+function addQuoteLine(){
+  qtLineCount++;
+  const id='ql'+qtLineCount;
+  const row=document.createElement('div');
+  row.id=id;
+  row.className='line-card';
+  row.innerHTML=`
+    <div class="line-row"><label>Item (Product / Service)</label>
+      <select onchange="onQtItemSel(this,'${id}')">${_qtItemOptions()}</select>
+    </div>
+    <div class="line-row"><label>Description (shown on quote)</label>
+      <input type="text" id="${id}d" placeholder="Line description visible to client">
+    </div>
+    <div class="line-row" style="display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:8px">
+      <div><label>Qty</label><input type="number" id="${id}q" value="1" min="0" oninput="calcQtLine('${id}')"></div>
+      <div style="background:rgba(245,166,35,.07);border-radius:6px;padding:4px 6px">
+        <label style="color:var(--amber);font-size:10px">🔒 Cost Price (R) — INTERNAL</label>
+        <input type="number" id="${id}b" value="0" min="0" step="0.01" oninput="calcQtLine('${id}')" style="border-color:rgba(245,166,35,.4)">
+      </div>
+      <div style="background:rgba(245,166,35,.07);border-radius:6px;padding:4px 6px">
+        <label style="color:var(--amber);font-size:10px">🔒 Markup % — INTERNAL</label>
+        <input type="number" id="${id}m" value="25" min="0" max="100" oninput="calcQtLine('${id}')" style="border-color:rgba(245,166,35,.4)">
+      </div>
+      <div><label>Sell Price (R) — Client sees this</label><input type="number" id="${id}p" value="0" min="0" step="0.01" readonly style="color:var(--blue);font-weight:600"></div>
+    </div>
+    <div class="line-row" style="display:flex;align-items:center;justify-content:space-between">
+      <div id="${id}t" class="line-total">R0.00</div>
+      <button class="del-line" onclick="document.getElementById('${id}').remove();updateQtTotals()">Remove</button>
+    </div>`;
+  document.getElementById('qt-lines-body').appendChild(row);
+}
+function onQtItemSel(sel,id){
+  const val=sel.value||'';
+  const parts=val.split('|');
+  if(parts.length<3)return;
+  const cost=Number(parts[2])||0;
+  const lbl=sel.options[sel.selectedIndex]?.getAttribute('data-lbl')||'';
+  const descEl=document.getElementById(id+'d');
+  if(lbl&&descEl&&!descEl.value)descEl.value=lbl;
+  document.getElementById(id+'b').value=cost;
+  // default markup from config
+  const markup=Number(document.getElementById(id+'m')?.value||appConfig.maxMarkupPercent||25);
+  document.getElementById(id+'m').value=markup;
+  calcQtLine(id);
+}
+function calcQtLine(id){
+  const qty=Number(document.getElementById(id+'q')?.value)||0;
+  const cost=Number(document.getElementById(id+'b')?.value)||0;
+  const maxMarkup=100;
+  let markup=Number(document.getElementById(id+'m')?.value)||0;
+  if(markup>maxMarkup){markup=maxMarkup;document.getElementById(id+'m').value=maxMarkup;}
+  const sellUnit=Math.round(cost*(1+(markup/100))*100)/100;
+  const sellEl=document.getElementById(id+'p');
+  if(sellEl){sellEl.value=sellUnit;}
+  const totalEl=document.getElementById(id+'t');
+  if(totalEl)totalEl.textContent=fmt(qty*sellUnit);
+  updateQtTotals();
+}
+function updateQtTotals(){
+  let totalCost=0,totalSell=0,totalCostForMarkup=0;
+  document.querySelectorAll('#qt-lines-body .line-card').forEach(r=>{
+    const q=Number(r.querySelector('input[id$="q"]')?.value)||0;
+    const cost=Number(r.querySelector('input[id$="b"]')?.value)||0;
+    const sell=Number(r.querySelector('input[id$="p"]')?.value)||0;
+    totalCost+=q*cost;
+    totalSell+=q*sell;
+    totalCostForMarkup+=q*cost;
+  });
+  const avgMarkup=totalCostForMarkup>0?Math.round(((totalSell-totalCostForMarkup)/totalCostForMarkup)*100):0;
+  const setCost=document.getElementById('qt-calc-cost');if(setCost)setCost.textContent=fmt(totalCost);
+  const setMkup=document.getElementById('qt-calc-markup');if(setMkup)setMkup.textContent=`${avgMarkup}%`;
+  const setSub=document.getElementById('qt-calc-sub');if(setSub)setSub.textContent=fmt(totalSell);
+  const setTot=document.getElementById('qt-total-display');if(setTot)setTot.textContent=fmt(totalSell);
+}
+// legacy alias kept in case anything calls it
+function recalcQuoteTotal(){updateQtTotals();}
+function openQuoteModal(id=null){
+  const modal=document.getElementById('modal-quote');if(!modal)return;
+  document.getElementById('qt-modal-title').textContent=id?'Edit Quote':'New Quote';
+  document.getElementById('qt-modal-sub').textContent=id?'Update quote — internal costs & markup never shown to client':'Create a quote — internal costs & markup never shown to client';
+  document.getElementById('qt-edit-id').value=id||'';
+  const custSel=document.getElementById('qt-customer');
+  if(custSel)custSel.innerHTML='<option value="">-- Select Customer --</option>'+customers.map(c=>`<option value="${c.customerCode}">${c.companyName}</option>`).join('');
+  const q=id?quotes.find(x=>x.id===id):null;
+  // Reset line body
+  const body=document.getElementById('qt-lines-body');
+  if(body)body.innerHTML='';
+  qtLineCount=0;
+  if(q){
+    document.getElementById('qt-description').value=q.description||'';
+    if(custSel)custSel.value=q.customerCode||'';
+    document.getElementById('qt-status').value=q.status||'Draft';
+    document.getElementById('qt-created').value=q.created||todayISO();
+    document.getElementById('qt-valid-until').value=q.validUntil||'';
+    document.getElementById('qt-notes').value=q.notes||'';
+    const invType=document.getElementById('qt-inv-type');if(invType)invType.value=q.invoiceType||'Progress';
+    (q.lines||[]).forEach(l=>{
+      addQuoteLine();
+      const rowId='ql'+qtLineCount;
+      const descEl=document.getElementById(rowId+'d');if(descEl)descEl.value=l.description||'';
+      const qEl=document.getElementById(rowId+'q');if(qEl)qEl.value=l.qty||1;
+      const bEl=document.getElementById(rowId+'b');if(bEl)bEl.value=l.costPrice||l.price||0;
+      const mEl=document.getElementById(rowId+'m');if(mEl)mEl.value=l.markupPct!==undefined?l.markupPct:25;
+      calcQtLine(rowId);
+    });
+  }else{
+    document.getElementById('qt-description').value='';
+    if(custSel)custSel.value='';
+    document.getElementById('qt-status').value='Draft';
+    document.getElementById('qt-created').value=todayISO();
+    const validDate=new Date();validDate.setDate(validDate.getDate()+30);
+    document.getElementById('qt-valid-until').value=validDate.toISOString().slice(0,10);
+    document.getElementById('qt-notes').value='';
+    const invType=document.getElementById('qt-inv-type');if(invType)invType.value='Progress';
+    addQuoteLine();
+  }
+  updateQtTotals();
+  openModal('modal-quote');
+}
+function onQuoteCustomerChange(){}
+function createQuoteFromForm(){
+  const editId=document.getElementById('qt-edit-id').value;
+  const description=document.getElementById('qt-description').value.trim();
+  const customerCode=document.getElementById('qt-customer').value;
+  if(!description){nxNotify({title:'Quote description is required',type:'error'});return;}
+  if(!customerCode){nxNotify({title:'Please select a customer',type:'error'});return;}
+  const customer=customers.find(c=>c.customerCode===customerCode);
+  const status=document.getElementById('qt-status').value||'Draft';
+  const created=document.getElementById('qt-created').value||todayISO();
+  const validUntil=document.getElementById('qt-valid-until').value||'';
+  const notes=document.getElementById('qt-notes').value.trim()||'';
+  const invoiceType=document.getElementById('qt-inv-type')?.value||'Progress';
+  // collect lines from the rich line-cards
+  const lines=[];
+  document.querySelectorAll('#qt-lines-body .line-card').forEach(r=>{
+    const desc=r.querySelector('input[id$="d"]')?.value.trim()||'';
+    if(!desc)return;
+    const qty=Number(r.querySelector('input[id$="q"]')?.value)||0;
+    const costPrice=Number(r.querySelector('input[id$="b"]')?.value)||0;
+    const markupPct=Number(r.querySelector('input[id$="m"]')?.value)||0;
+    const unitPrice=Number(r.querySelector('input[id$="p"]')?.value)||0;
+    // detect itemType from the select value
+    const selVal=r.querySelector('select')?.value||'';
+    const selParts=selVal.split('|');
+    const itemType=selParts[0]||'custom';
+    const itemId=selParts[1]||'';
+    lines.push({description:desc,qty,costPrice,markupPct,unitPrice,price:unitPrice,total:qty*unitPrice,itemType,itemId});
+  });
+  if(!lines.length){nxNotify({title:'Add at least one line item',type:'error'});return;}
+  const total=lines.reduce((s,l)=>s+(l.qty*(l.unitPrice||l.price||0)),0);
+  if(editId){
+    const idx=quotes.findIndex(q=>q.id===editId);
+    if(idx>=0){
+      const prev=quotes[idx];
+      quotes[idx]={...prev,customerCode,customerName:customer?.companyName||'',description,lines,total,status,created,validUntil,notes};
+      // if newly accepted, auto-create project
+      if(status==='Accepted'&&prev.status!=='Accepted'&&!prev.projectId){
+        _autoCreateProjectFromQuote(quotes[idx]);
+      }
+      addAudit('UPDATE','Quotes',`Updated ${editId}`);
+      logActivity('task_updated',`Quote ${editId} updated`,editId);
+    }
+  }else{
+    const year=new Date().getFullYear();
+    const id=`QT-${year}-${String(quoteCounter).padStart(3,'0')}`;
+    quoteCounter++;
+    const newQuote={id,customerCode,customerName:customer?.companyName||'',description,lines,total,status,created,validUntil,notes,projectId:'',sentDate:status==='Sent'?todayISO():''};
+    quotes.unshift(newQuote);
+    if(status==='Accepted')_autoCreateProjectFromQuote(newQuote);
+    addAudit('CREATE','Quotes',`Created ${id}`);
+    logActivity('project_created',`Quote ${id} raised for ${customer?.companyName||'customer'}`,id);
+  }
+  triggerUpdate();
+  closeModal('modal-quote');
+  nxNotify({title:'Quote saved',type:'success'});
+}
+function _autoCreateProjectFromQuote(q){
+  if(q.projectId)return;
+  const year=new Date().getFullYear();
+  const next=Math.max(0,...projects.map(p=>toNum(String(p.id||'').split('-').pop(),0)))+1;
+  const projId=`PROJ-${year}-${String(next).padStart(3,'0')}`;
+  const validUntilDate=q.validUntil?new Date(`${q.validUntil}T00:00:00`):new Date();
+  const endDate=new Date(validUntilDate);endDate.setMonth(endDate.getMonth()+6);
+  projects.unshift({
+    id:projId,
+    name:q.description,
+    customerCode:q.customerCode,
+    customerName:q.customerName,
+    quoteId:q.id,
+    site:'TBD',
+    manager:currentUser?.name||'Unassigned',
+    start:todayISO(),
+    end:endDate.toISOString().slice(0,10),
+    budget:q.total||0,
+    actualCost:0,
+    status:'Planned'
+  });
+  q.projectId=projId;
+  addAudit('CREATE','Projects',`Auto-created ${projId} from quote ${q.id}`);
+  logActivity('project_created',`Project ${projId} auto-created from accepted quote ${q.id}`,projId);
+  nxNotify({title:'Project created',sub:`${projId} created from accepted quote`,type:'success'});
+}
+function acceptQuote(id){
+  const q=quotes.find(x=>x.id===id);if(!q)return;
+  if(q.status==='Accepted'){nxNotify({title:'Quote already accepted',type:'info'});return;}
+  if(q.status==='Rejected'){nxNotify({title:'Cannot accept a rejected quote',type:'error'});return;}
+  q.status='Accepted';
+  q.sentDate=q.sentDate||todayISO();
+  _autoCreateProjectFromQuote(q);
+  addAudit('UPDATE','Quotes',`Quote ${id} accepted`);
+  logActivity('task_updated',`Quote ${id} accepted – project auto-created`,id);
+  triggerUpdate();
+  nxNotify({title:'Quote Accepted',sub:'Project has been created automatically',type:'success'});
+}
+function rejectQuote(id){
+  const q=quotes.find(x=>x.id===id);if(!q)return;
+  if(q.status==='Accepted'){nxNotify({title:'Cannot reject an already accepted quote',type:'error'});return;}
+  q.status='Rejected';
+  addAudit('UPDATE','Quotes',`Quote ${id} rejected`);
+  logActivity('task_updated',`Quote ${id} rejected`,id);
+  triggerUpdate();
+  nxNotify({title:'Quote Rejected',type:'info'});
+}
+function amendQuote(id){
+  const q=quotes.find(x=>x.id===id);if(!q)return;
+  q.status='Amended';
+  addAudit('UPDATE','Quotes',`Quote ${id} marked as amended`);
+  triggerUpdate();
+  openQuoteModal(id);
+}
+function sendQuote(id){
+  const q=quotes.find(x=>x.id===id);if(!q)return;
+  if(q.status==='Draft'){q.status='Sent';q.sentDate=todayISO();}
+  addAudit('UPDATE','Quotes',`Quote ${id} sent to client`);
+  logActivity('task_updated',`Quote ${id} sent to ${q.customerName}`,id);
+  triggerUpdate();
+  nxNotify({title:'Quote marked as Sent',type:'success'});
+}
+function editQuote(id){openQuoteModal(id);}
+function deleteQuote(id){
+  if(!confirm(`Delete quote ${id}? This cannot be undone.`))return;
+  quotes=quotes.filter(q=>q.id!==id);
+  addAudit('DELETE','Quotes',`Deleted quote ${id}`);
+  triggerUpdate();
+  nxNotify({title:'Quote deleted',type:'info'});
+}
+function viewQuote(id){
+  const q=quotes.find(x=>x.id===id);if(!q)return;
+  const lines=q.lines||[];
+  const tot=q.total||quoteTotal(lines);
+  const statusCls={Accepted:'badge-paid',Rejected:'badge-overdue',Sent:'badge-pending',Amended:'badge-partial',Draft:'badge-draft'}[q.status]||'badge-draft';
+  const projLink=q.projectId?`<button class="link-btn" onclick="closeModal('modal-detail');openView('projects')">${q.projectId}</button>`:'<span style="color:var(--txt3)">No project yet</span>';
+
+  // ── Client-facing line table (no cost/markup) ──
+  const clientRows=lines.map(l=>{
+    const up=Number(l.unitPrice)||Number(l.price)||0;
+    const qty=Number(l.qty)||1;
+    return `<tr><td style="font-size:12px">${l.description||'Item'}</td><td>${qty}</td><td class="amount">${fmt(up)}</td><td class="amount">${fmt(qty*up)}</td></tr>`;
+  }).join('');
+  const clientTable=`<div class="card" style="padding:0;margin-top:12px"><div class="table-wrap"><table>
+    <thead><tr><th>Description</th><th>Qty</th><th>Unit Price</th><th>Line Total</th></tr></thead>
+    <tbody>${clientRows||'<tr><td colspan="4" class="empty-state">No line items</td></tr>'}</tbody>
+  </table></div></div>`;
+
+  // ── Internal margin analysis (🔒 never visible to client) ──
+  let totalCost=0,totalRevenue=0;
+  const marginRows=lines.map(l=>{
+    const qty=Number(l.qty)||1;
+    const up=Number(l.unitPrice)||Number(l.price)||0;
+    const cp=Number(l.costPrice)||0;
+    const markup=Number(l.markupPct)||0;
+    const lineRev=qty*up;
+    const lineCost=qty*cp;
+    const lineMargin=lineRev-lineCost;
+    const marginPct=lineCost>0?((lineMargin/lineCost)*100):0;
+    totalCost+=lineCost; totalRevenue+=lineRev;
+    return `<tr>
+      <td style="font-size:11px">${l.description||'Item'}</td>
+      <td class="amount" style="color:var(--amber);font-size:11px">${fmt(cp)}</td>
+      <td style="font-family:var(--font-mono);font-size:11px;text-align:center">${markup}%</td>
+      <td class="amount" style="font-size:11px">${fmt(up)}</td>
+      <td class="amount" style="color:var(--green);font-size:11px">${fmt(lineMargin)}</td>
+      <td style="font-family:var(--font-mono);font-size:11px;text-align:center;color:${marginPct>=25?'var(--green)':marginPct>=15?'var(--amber)':'var(--red)'}">${marginPct.toFixed(1)}%</td>
+    </tr>`;
+  }).join('');
+  const totalMargin=totalRevenue-totalCost;
+  const totalMarginPct=totalCost>0?((totalMargin/totalCost)*100):0;
+  const marginTable=`
+    <div style="margin-top:16px;padding:10px 12px;background:rgba(245,166,35,0.06);border:1px solid rgba(245,166,35,0.25);border-radius:8px">
+      <div style="font-size:11px;font-weight:600;color:var(--amber);letter-spacing:.05em;margin-bottom:8px">🔒 INTERNAL MARGIN ANALYSIS — NOT VISIBLE TO CLIENT</div>
+      <div class="table-wrap"><table>
+        <thead><tr><th>Line</th><th>Cost Price</th><th>Markup%</th><th>Sell Price</th><th>Gross Margin</th><th>Margin%</th></tr></thead>
+        <tbody>${marginRows||'<tr><td colspan="6" class="empty-state">No lines</td></tr>'}</tbody>
+        <tfoot><tr style="border-top:2px solid var(--border);font-weight:600">
+          <td>TOTAL</td>
+          <td class="amount" style="color:var(--amber)">${fmt(totalCost)}</td>
+          <td></td>
+          <td class="amount">${fmt(totalRevenue)}</td>
+          <td class="amount" style="color:var(--green)">${fmt(totalMargin)}</td>
+          <td style="font-family:var(--font-mono);text-align:center;color:${totalMarginPct>=25?'var(--green)':totalMarginPct>=15?'var(--amber)':'var(--red)'}">${totalMarginPct.toFixed(1)}%</td>
+        </tr></tfoot>
+      </table></div>
+    </div>`;
+
+  // ── Action buttons ──
+  const actions=[];
+  if(q.status==='Accepted'){
+    actions.push(`<button class="btn-primary btn" onclick="closeModal('modal-detail');convertQuoteToInvoice('${id}')">🧾 Convert to Invoice</button>`);
+  }
+  if(q.status!=='Accepted'&&q.status!=='Rejected')actions.push(`<button class="btn-primary btn" onclick="closeModal('modal-detail');acceptQuote('${id}')">✓ Accept Quote</button>`);
+  if(q.status==='Draft'||q.status==='Sent')actions.push(`<button class="btn" onclick="closeModal('modal-detail');rejectQuote('${id}')">✗ Reject</button>`);
+  if(q.status!=='Accepted'&&q.status!=='Rejected')actions.push(`<button class="btn" onclick="closeModal('modal-detail');amendQuote('${id}')">⟳ Amend</button>`);
+  if(q.status==='Draft')actions.push(`<button class="btn" onclick="closeModal('modal-detail');sendQuote('${id}')">↗ Send</button>`);
+  actions.push(`<button class="btn" onclick="closeModal('modal-detail');editQuote('${id}')">✎ Edit</button>`);
+
+  openDetailModal(
+    `Quote ${q.id}`,
+    `<span class="status-badge ${statusCls}">${q.status}</span> &nbsp; ${q.customerName||''}`,
+    `<div class="detail-row"><span class="detail-label">Description</span><span>${q.description||''}</span></div>
+     <div class="detail-row"><span class="detail-label">Total Value (quoted)</span><span class="amount" style="font-size:15px;font-weight:600">${fmt(tot)}</span></div>
+     <div class="detail-row"><span class="detail-label">Created</span><span>${q.created||'—'}</span></div>
+     <div class="detail-row"><span class="detail-label">Valid Until</span><span>${q.validUntil||'—'}</span></div>
+     <div class="detail-row"><span class="detail-label">Sent Date</span><span>${q.sentDate||'—'}</span></div>
+     <div class="detail-row"><span class="detail-label">Linked Project</span><span>${projLink}</span></div>
+     ${q.notes?`<div class="detail-row"><span class="detail-label">Notes</span><span style="font-size:12px;color:var(--txt2)">${q.notes}</span></div>`:''}
+     ${clientTable}
+     ${marginTable}`,
+    actions.join(' ')
+  );
+}
+
+function convertQuoteToInvoice(quoteId){
+  const q=quotes.find(x=>x.id===quoteId);
+  if(!q){nxNotify({title:'Quote not found',type:'error'});return;}
+  if(q.status!=='Accepted'){nxNotify({title:'Only accepted quotes can be converted to invoices',type:'error'});return;}
+  // Reset and open the invoice modal
+  editState={type:null,id:null};
+  syncAllDropdowns();
+  // Set customer
+  const custSel=document.getElementById('inv-customer');
+  if(custSel){custSel.value=q.customerCode||'';onInvoiceCustomerChange();}
+  // Set project — wait for dropdown to populate
+  setTimeout(()=>{
+    const projSel=document.getElementById('inv-project');
+    if(projSel&&q.projectId){projSel.value=q.projectId;}
+    // Dates: today issued, +30 days due
+    const today=new Date();
+    const due=new Date(today);due.setDate(due.getDate()+30);
+    const toISO=d=>d.toISOString().slice(0,10);
+    document.getElementById('inv-issued').value=toISO(today);
+    document.getElementById('inv-due').value=toISO(due);
+    // Clear existing lines and populate from quote (sell prices ONLY — cost/markup never passed)
+    document.getElementById('inv-lines-body').innerHTML='';invLineCount=0;
+    (q.lines||[]).forEach(l=>{
+      addInvLine();
+      const row=document.querySelector('#inv-lines-body .line-card:last-child');
+      if(row){
+        // Description
+        row.querySelector('input[id$="d"]').value=l.description||'';
+        // Qty
+        row.querySelector('input[id$="q"]').value=Number(l.qty)||1;
+        // Base price = sell price (unitPrice) — this is what client sees, no internal cost leaked
+        const sellPrice=Number(l.unitPrice)||Number(l.price)||0;
+        const bInp=row.querySelector('input[id$="b"]');
+        const mInp=row.querySelector('input[id$="m"]');
+        const pInp=row.querySelector('input[id$="p"]');
+        if(bInp)bInp.value=sellPrice;
+        if(mInp)mInp.value=0; // markup on invoice is 0 — sell price already set
+        if(pInp)pInp.value=sellPrice;
+        // Trigger recalc for the line total display
+        const rowId=row.id;
+        calcInvLine(rowId);
+      }
+    });
+    updateInvTotals();
+    document.querySelector('#modal-invoice .modal-title').textContent=`Invoice from Quote ${quoteId}`;
+    document.querySelector('#modal-invoice .btn-primary').textContent='Create Invoice';
+    openModal('modal-invoice');
+    nxNotify({title:`Quote ${quoteId} loaded into invoice`,sub:'Review and adjust before saving',type:'info'});
+  },50);
+}
+
 function triggerUpdate(opts={}){
   const options={persist:true,refreshCharts:false,...opts};
-  recalcCustomerBalances();
-  recalcProjectFinancials();
-  renderCustomers();
-  renderSuppliers();
-  renderProjects();
-  renderProducts();
-  renderServices();
-  renderInvoices();
-  renderPOs();
-  renderStatements();
-  renderTransactions();
-  updateDashboard();
-  updateRecentActivity();
-  updateAnalytics();
-  renderTracking();
-  renderAdminUsers();
-  renderRBAC();
-  renderAuditLog();
-  renderNotifications();
-  syncAllDropdowns();
+  const _safe=(fn,name)=>{try{fn();}catch(e){console.warn('[triggerUpdate] '+name+' failed:',e);}};
+  _safe(syncDocumentTransactions,'syncDocumentTransactions');
+  _safe(syncStatementFromInvoices,'syncStatementFromInvoices');
+  _safe(recalcCustomerBalances,'recalcCustomerBalances');
+  _safe(recalcProjectFinancials,'recalcProjectFinancials');
+  _safe(renderCustomers,'renderCustomers');
+  _safe(renderSuppliers,'renderSuppliers');
+  _safe(renderProjects,'renderProjects');
+  _safe(renderProducts,'renderProducts');
+  _safe(renderServices,'renderServices');
+  _safe(renderInvoices,'renderInvoices');
+  _safe(renderPOs,'renderPOs');
+  _safe(renderQuotes,'renderQuotes');
+  _safe(renderStatements,'renderStatements');
+  _safe(renderTransactions,'renderTransactions');
+  _safe(updateDashboard,'updateDashboard');
+  _safe(updateRecentActivity,'updateRecentActivity');
+  _safe(updateAnalytics,'updateAnalytics');
+  _safe(renderTracking,'renderTracking');
+  _safe(renderAdminUsers,'renderAdminUsers');
+  _safe(renderRBAC,'renderRBAC');
+  _safe(renderAuditLog,'renderAuditLog');
+  _safe(renderNotifications,'renderNotifications');
+  _safe(syncAllDropdowns,'syncAllDropdowns');
   if(options.refreshCharts)refreshChartsFromAjax(true);
-  if(options.persist)persistState();
+  if(options.persist){try{persistState();}catch(e){console.warn('[triggerUpdate] persistState failed:',e);}}
 }
 
 // ============================================================
@@ -687,12 +1404,15 @@ function renderInvoices(){
   const tb=document.getElementById('inv-tbody');
   if(!tb)return;
   if(!invoices.length){
-    tb.innerHTML='<tr><td colspan="10" class="empty-state">No invoices yet. Use New Invoice to create your first invoice.</td></tr>';
+    tb.innerHTML='<tr><td colspan="11" class="empty-state">No invoices yet. Use New Invoice to create your first invoice.</td></tr>';
     return;
   }
   tb.innerHTML=invoices.map(i=>{
-    const bal=i.amount-i.paid;
+    const bal=Math.max(0,i.amount-i.paid);
+    const pct=i.amount>0?Math.min(100,Math.round((i.paid/i.amount)*100)):0;
     const cust=customers.find(c=>c.customerCode===i.customerCode||c.companyName===(i.customerName||i.customer));
+    const barColor=pct>=100?'var(--green)':pct>0?'var(--amber)':'var(--border2)';
+    const settleBtn=bal>0?`<button class="settle-btn" onclick="settleInvoice('${i.id}')" title="Settle ${fmt(bal)} outstanding">Settle</button>`:'';
     return`<tr data-status="${i.status}" data-issued="${i.issued||''}">
     <td><button class="link-btn" onclick="viewInvoice('${i.id}')" style="font-family:var(--font-mono);font-size:12px;color:var(--blue)">${i.id}</button></td>
     <td>${cust?`<button class="link-btn" onclick="viewCustomer('${cust.customerCode}')">${i.customerName||i.customer}</button>`:(i.customerName||i.customer)}</td>
@@ -700,11 +1420,40 @@ function renderInvoices(){
     <td style="font-family:var(--font-mono);font-size:11px">${i.issued}</td>
     <td style="font-family:var(--font-mono);font-size:11px;color:${i.status==='Overdue'?'var(--red)':'inherit'}">${i.due}</td>
     <td class="amount">${fmt(i.amount)}</td>
-    <td class="amount positive">${fmt(i.paid)}</td>
+    <td class="amount">
+      <div style="font-weight:500;color:${i.paid>0?'var(--green)':'var(--txt3)'}">${fmt(i.paid)}</div>
+      <div class="pay-bar-wrap"><div class="pay-bar-fill" style="width:${pct}%;background:${barColor}"></div></div>
+      <div style="font-size:9px;color:var(--txt3);font-family:var(--font-mono)">${pct}% paid</div>
+    </td>
     <td class="amount ${bal>0?'negative':''}">${fmt(bal)}</td>
     <td><span class="status-badge ${bc(i.status)}">${i.status}</span></td>
-    <td><button class="row-menu-btn" onclick="rowMenu(this,'invoice','${i.id}')">⋯</button></td></tr>`;
+    <td style="white-space:nowrap">${settleBtn}<button class="row-menu-btn" onclick="rowMenu(this,'invoice','${i.id}')">⋯</button></td></tr>`;
   }).join('');
+}
+
+function settleInvoice(id){
+  const inv=invoices.find(x=>x.id===id);if(!inv)return;
+  const remaining=Math.max(0,inv.amount-inv.paid);
+  if(remaining<=0){nxNotify({title:'Invoice already fully settled',type:'info'});return;}
+  inv.paid=Math.round((inv.paid+remaining)*100)/100;
+  inv.status=computeInvoiceStatus(inv);
+  addPaymentStatement(inv,remaining,'Settled via Settle button');
+  recordCompanyTransaction({
+    date:todayISO(),
+    ref:`PAY-${inv.id}`,
+    type:'Inflow',
+    category:'Customer Payment',
+    party:inv.customerName||inv.customer||'',
+    customerCode:inv.customerCode||'',
+    supplierCode:'',
+    projectId:inv.projectId||'',
+    description:`Settlement – ${inv.id}`,
+    amount:remaining
+  });
+  logActivity('payment_received',`Invoice ${inv.id} settled in full – ${fmt(remaining)}`,inv.id);
+  addAudit('PAYMENT','Invoices',`Invoice ${inv.id} settled – ${fmt(remaining)}`);
+  nxNotify({title:'Invoice Settled ✓',sub:`${inv.id} · ${fmt(remaining)} received`,type:'success'});
+  triggerUpdate();
 }
 
 function renderProjects(){
@@ -766,11 +1515,15 @@ function applyConfigToUI(){
 function renderPOs(){
   const tb=document.getElementById('po-tbody');
   if(!purchaseOrders.length){
-    tb.innerHTML='<tr><td colspan="9" class="empty-state">No purchase orders yet. Use New PO to create your first order.</td></tr>';
+    tb.innerHTML='<tr><td colspan="10" class="empty-state">No purchase orders yet. Use New PO to create your first order.</td></tr>';
     return;
   }
   tb.innerHTML=purchaseOrders.map(p=>{
+    const outstanding=Math.max(0,p.value-p.received);
+    const pct=p.value>0?Math.min(100,Math.round((p.received/p.value)*100)):0;
     const sup=suppliers.find(s=>s.supplierCode===p.supplierCode||s.companyName===(p.supplierName||p.supplier));
+    const barColor=pct>=100?'var(--green)':pct>0?'var(--amber)':'var(--border2)';
+    const settleBtn=outstanding>0?`<button class="settle-btn settle-po" onclick="settlePO('${p.id}')" title="Pay ${fmt(outstanding)} to supplier">Settle</button>`:'';
     return`<tr data-status="${p.status}" data-ordered="${p.ordered||''}">
     <td><button class="link-btn" onclick="viewPO('${p.id}')" style="font-family:var(--font-mono);font-size:12px;color:var(--amber)">${p.id}</button></td>
     <td>${sup?`<button class="link-btn" onclick="viewSupplier('${sup.supplierCode}')">${p.supplierName||p.supplier}</button>`:(p.supplierName||p.supplier)}</td>
@@ -778,24 +1531,86 @@ function renderPOs(){
     <td style="font-family:var(--font-mono);font-size:11px">${p.ordered}</td>
     <td style="font-family:var(--font-mono);font-size:11px">${p.expected}</td>
     <td class="amount">${fmt(p.value)}</td>
-    <td class="amount positive">${fmt(p.received)}</td>
+    <td class="amount">
+      <div style="font-weight:500;color:${p.received>0?'var(--amber)':'var(--txt3)'}">${fmt(p.received)}</div>
+      <div class="pay-bar-wrap"><div class="pay-bar-fill" style="width:${pct}%;background:${barColor}"></div></div>
+      <div style="font-size:9px;color:var(--txt3);font-family:var(--font-mono)">${pct}% paid</div>
+    </td>
     <td><span class="status-badge ${bc(p.status)}">${p.status}</span></td>
-    <td><button class="row-menu-btn" onclick="rowMenu(this,'po','${p.id}')">⋯</button></td>
+    <td style="white-space:nowrap">${settleBtn}<button class="row-menu-btn" onclick="rowMenu(this,'po','${p.id}')">⋯</button></td>
   </tr>`;}).join('');
 }
 
+function settlePO(id){
+  const po=purchaseOrders.find(x=>x.id===id);if(!po)return;
+  const outstanding=Math.max(0,po.value-po.received);
+  if(outstanding<=0){nxNotify({title:'PO already fully settled',type:'info'});return;}
+  po.received=Math.round((po.received+outstanding)*100)/100;
+  po.status=computePOStatus(po);
+  recordCompanyTransaction({
+    date:todayISO(),
+    ref:`RCPT-${po.id}`,
+    type:'Outflow',
+    category:'Procurement',
+    party:po.supplierName||po.supplier||'',
+    customerCode:'',
+    supplierCode:po.supplierCode||'',
+    projectId:po.projectId||'',
+    description:`Full payment to supplier – ${po.id}`,
+    amount:outstanding
+  });
+  logActivity('transaction_recorded',`PO ${po.id} settled – ${fmt(outstanding)} paid to supplier`,po.id);
+  addAudit('PAYMENT','POs',`PO ${po.id} settled – ${fmt(outstanding)}`);
+  nxNotify({title:'PO Settled ✓',sub:`${po.id} · ${fmt(outstanding)} paid`,type:'success'});
+  triggerUpdate();
+}
+
+function getStatementPeriodFilter(){
+  const sel=document.getElementById('stmt-period');
+  return sel?sel.value||'':'';
+}
 function getStatementRowsByCustomer(customerCode){
   const selectedCustomer=customerCode?findCustomerByCode(customerCode):null;
   const selectedName=selectedCustomer?.companyName||'';
+  const period=getStatementPeriodFilter(); // e.g. '2026-04' or '2026' or ''
   return statements
     .filter(s=>{
-      if(!customerCode)return true;
-      const invoice=invoices.find(i=>i.id===s.ref);
-      const directMatch=invoice?.customerCode===customerCode;
-      const nameMatch=String(s.desc||'').toLowerCase().includes(selectedName.toLowerCase());
-      return directMatch||nameMatch;
+      // Customer filter
+      const custMatch=(()=>{
+        if(!customerCode)return true;
+        // Check stored customerCode on statement row
+        if(s.customerCode&&s.customerCode===customerCode)return true;
+        const invoice=invoices.find(i=>i.id===s.ref||i.id===s.ref?.replace('PMT-',''));
+        if(invoice?.customerCode===customerCode)return true;
+        return String(s.desc||'').toLowerCase().includes(selectedName.toLowerCase());
+      })();
+      if(!custMatch)return false;
+      // Period filter
+      if(period){
+        if(!s.date)return false;
+        if(period.length===7)return s.date.startsWith(period);   // YYYY-MM
+        if(period.length===4)return s.date.startsWith(period);   // YYYY
+      }
+      return true;
     })
     .sort((a,b)=>a.date.localeCompare(b.date));
+}
+
+function populateStatementPeriods(){
+  const sel=document.getElementById('stmt-period');
+  if(!sel)return;
+  const current=sel.value;
+  // Derive unique YYYY-MM periods from statements + invoices
+  const periods=new Set();
+  statements.forEach(s=>{if(s.date&&s.date.length>=7)periods.add(s.date.slice(0,7));});
+  invoices.forEach(i=>{if(i.issued&&i.issued.length>=7)periods.add(i.issued.slice(0,7));});
+  const sorted=[...periods].sort().reverse();
+  sel.innerHTML='<option value="">All Periods</option>'+sorted.map(p=>{
+    const[y,m]=p.split('-');
+    const label=['','Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'][parseInt(m,10)]+' '+y;
+    return`<option value="${p}">${label}</option>`;
+  }).join('');
+  if(current)sel.value=current;
 }
 
 function renderStatementSummary(rows){
@@ -836,12 +1651,13 @@ function renderStatementSummary(rows){
 function renderStatements(){
   const tbody=document.getElementById('stmt-tbody');
   if(!tbody)return;
+  populateStatementPeriods();
   const customerSel=document.getElementById('stmt-cust');
   const selectedName=customerSel?.value||'All Customers';
   const selectedCustomer=customers.find(c=>c.companyName===selectedName);
   const rows=getStatementRowsByCustomer(selectedCustomer?.customerCode||'');
   if(!rows.length){
-    tbody.innerHTML='<tr><td colspan="8" class="empty-state">No statement entries for selected customer.</td></tr>';
+    tbody.innerHTML='<tr><td colspan="9" class="empty-state">No statement entries for selected customer and period.</td></tr>';
     renderStatementSummary([]);
     return;
   }
@@ -850,16 +1666,24 @@ function renderStatements(){
     running+=toNum(r.debit,0)-toNum(r.credit,0);
     return {...r,bal:Math.max(0,running)};
   });
-  tbody.innerHTML=withBalance.map(s=>`<tr>
+  tbody.innerHTML=withBalance.map(s=>{
+    // If this row links to an invoice, show live outstanding
+    const inv=invoices.find(i=>i.id===s.ref);
+    const outstanding=inv?Math.max(0,inv.amount-inv.paid):null;
+    const outstandingCell=outstanding!==null
+      ?`<td class="amount ${outstanding>0?'negative':'positive'}" style="font-size:11px">${outstanding>0?fmt(outstanding):'✓ Paid'}</td>`
+      :`<td style="color:var(--txt3);font-size:11px">&mdash;</td>`;
+    return `<tr>
     <td style="font-family:var(--font-mono);font-size:11px">${s.date}</td>
     <td style="font-family:var(--font-mono);font-size:11px;color:var(--blue)">${s.ref}</td>
     <td style="font-size:12px">${s.desc}</td>
     <td class="amount ${s.debit>0?'negative':''}">${s.debit>0?fmt(s.debit):'&mdash;'}</td>
     <td class="amount ${s.credit>0?'positive':''}">${s.credit>0?fmt(s.credit):'&mdash;'}</td>
     <td class="amount">${fmt(s.bal)}</td>
+    ${outstandingCell}
     <td><span class="status-badge ${bc(s.status)}">${s.status}</span></td>
     <td><button class="row-menu-btn" onclick="rowMenu(this,'statement','${s.ref}')">⋯</button></td>
-  </tr>`).join('');
+  </tr>`;}).join('');
   renderStatementSummary(withBalance);
 }
 
@@ -872,6 +1696,7 @@ function getTransactionFilters(){
   };
 }
 
+let _txnBarChart=null, _txnDonutChart=null;
 function renderTransactions(){
   const tbody=document.getElementById('txn-tbody');
   if(!tbody)return;
@@ -881,36 +1706,84 @@ function renderTransactions(){
     .filter(t=>matchDateFilters(t.date,filters))
     .sort((a,b)=>b.date.localeCompare(a.date));
   if(!rows.length){
-    tbody.innerHTML='<tr><td colspan="8" class="empty-state">No company transactions in selected period.</td></tr>';
+    tbody.innerHTML='<tr><td colspan="9" class="empty-state">No company transactions in selected period.</td></tr>';
   }else{
     tbody.innerHTML=rows.map(t=>{
       const inflow=t.type==='Inflow'?toNum(t.amount,0):0;
       const outflow=t.type==='Outflow'?toNum(t.amount,0):0;
+      const catBadge=t.category==='Customer Payment'?'badge-paid':t.category==='Procurement'?'badge-partial':t.category==='Payroll'?'badge-pending':'badge-draft';
       return `<tr>
         <td style="font-family:var(--font-mono);font-size:11px">${t.date}</td>
         <td style="font-family:var(--font-mono);font-size:11px;color:var(--blue)">${t.ref||t.id}</td>
         <td><span class="status-badge ${t.type==='Inflow'?'badge-paid':'badge-overdue'}">${t.type}</span></td>
+        <td><span class="status-badge ${catBadge}" style="font-size:9px">${t.category||'—'}</span></td>
         <td>${t.party||'N/A'}</td>
-        <td style="font-size:12px">${t.description||t.category||''}</td>
+        <td style="font-size:12px;max-width:200px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${t.description||''}</td>
         <td class="amount positive">${inflow>0?fmt(inflow):'&mdash;'}</td>
         <td class="amount negative">${outflow>0?fmt(outflow):'&mdash;'}</td>
-        <td class="amount ${inflow-outflow>=0?'positive':'negative'}">${fmt(inflow-outflow)}</td>
         <td><button class="row-menu-btn" onclick="rowMenu(this,'transaction','${t.id}')">⋯</button></td>
       </tr>`;
     }).join('');
   }
-  const inflow=rows.filter(r=>r.type==='Inflow').reduce((s,r)=>s+toNum(r.amount,0),0);
-  const outflow=rows.filter(r=>r.type==='Outflow').reduce((s,r)=>s+toNum(r.amount,0),0);
-  const net=inflow-outflow;
-  const inflowEl=document.getElementById('txn-kpi-inflow');
-  const outflowEl=document.getElementById('txn-kpi-outflow');
-  const netEl=document.getElementById('txn-kpi-net');
-  if(inflowEl)inflowEl.textContent=fmt(inflow);
-  if(outflowEl)outflowEl.textContent=fmt(outflow);
-  if(netEl){
-    netEl.textContent=fmt(net);
-    netEl.style.color=net>=0?'var(--green)':'var(--red)';
-  }
+  // ── KPI summary ──
+  const totalIn=rows.filter(r=>r.type==='Inflow').reduce((s,r)=>s+toNum(r.amount,0),0);
+  const totalOut=rows.filter(r=>r.type==='Outflow').reduce((s,r)=>s+toNum(r.amount,0),0);
+  const net=totalIn-totalOut;
+  const outstandingAR=invoices.reduce((s,i)=>s+Math.max(0,toNum(i.amount,0)-toNum(i.paid,0)),0);
+  const outstandingAP=purchaseOrders.reduce((s,p)=>s+Math.max(0,toNum(p.value,0)-toNum(p.received,0)),0);
+  const setKpi=(id,val,color)=>{const el=document.getElementById(id);if(el){el.textContent=typeof val==='string'?val:fmt(val);if(color)el.style.color=color;}};
+  setKpi('txn-kpi-inflow',totalIn,'var(--green)');
+  setKpi('txn-kpi-outflow',totalOut,'var(--red)');
+  setKpi('txn-kpi-net',net,net>=0?'var(--green)':'var(--red)');
+  setKpi('txn-kpi-ar',outstandingAR,'var(--amber)');
+  setKpi('txn-kpi-ap',outstandingAP,'var(--orange)');
+  // ── Charts ──
+  _renderTxnCharts(rows);
+}
+
+function _renderTxnCharts(rows){
+  const barCanvas=document.getElementById('txnBarChart');
+  const donutCanvas=document.getElementById('txnDonutChart');
+  if(!barCanvas||!donutCanvas||typeof Chart==='undefined')return;
+
+  // Monthly inflow vs outflow (last 12 months or filtered set)
+  const monthMap={};
+  rows.forEach(t=>{
+    const mo=String(t.date||'').slice(0,7); // YYYY-MM
+    if(!mo)return;
+    if(!monthMap[mo])monthMap[mo]={in:0,out:0};
+    if(t.type==='Inflow')monthMap[mo].in+=toNum(t.amount,0);
+    else monthMap[mo].out+=toNum(t.amount,0);
+  });
+  const months=Object.keys(monthMap).sort();
+  const moLabels=months.map(m=>{const[y,mo]=m.split('-');return['','Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'][parseInt(mo,10)]+' '+y.slice(2);});
+  if(_txnBarChart)_txnBarChart.destroy();
+  _txnBarChart=new Chart(barCanvas,{
+    type:'bar',
+    data:{
+      labels:moLabels,
+      datasets:[
+        {label:'Inflow',data:months.map(m=>monthMap[m].in),backgroundColor:'rgba(34,197,94,.7)',borderRadius:3},
+        {label:'Outflow',data:months.map(m=>monthMap[m].out),backgroundColor:'rgba(239,68,68,.6)',borderRadius:3}
+      ]
+    },
+    options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{position:'top',labels:{font:{size:11},color:'#9ca3af'}}},scales:{x:{ticks:{color:'#9ca3af',font:{size:10}},grid:{color:'rgba(255,255,255,.05)'}},y:{ticks:{color:'#9ca3af',font:{size:10},callback:v=>fmtShort(v)},grid:{color:'rgba(255,255,255,.06)'}}}}
+  });
+
+  // Category donut
+  const catTotals={};
+  rows.forEach(t=>{
+    const cat=t.category||'Other';
+    catTotals[cat]=(catTotals[cat]||0)+toNum(t.amount,0);
+  });
+  const catLabels=Object.keys(catTotals);
+  const catColors=['#4f8ef7','#22c55e','#f5a623','#a855f7','#ef4444','#14b8a6','#f97316'];
+  if(_txnDonutChart)_txnDonutChart.destroy();
+  _txnDonutChart=new Chart(donutCanvas,{
+    type:'doughnut',
+    data:{labels:catLabels,datasets:[{data:catLabels.map(c=>catTotals[c]),backgroundColor:catColors.slice(0,catLabels.length),borderWidth:2,borderColor:'rgba(0,0,0,.3)'}]},
+    options:{responsive:true,maintainAspectRatio:false,cutout:'62%',plugins:{legend:{position:'bottom',labels:{font:{size:10},color:'#9ca3af',padding:8}}}}
+  });
 }
 
 function clearTransactionFilters(){
@@ -1114,14 +1987,7 @@ function viewProjectById(id){
   }, 80);
 }
 
-// Enrich logActivity calls to also use better type names for customers/suppliers
-const _origLogActivity = logActivity;
-function logActivity(type, message, entityId){
-  // Auto-upgrade generic type names based on entityId prefix
-  if(type === 'project_created' && (entityId||'').startsWith('CUST-')) type = 'customer_created';
-  if(type === 'project_created' && (entityId||'').startsWith('SUP-'))  type = 'supplier_created';
-  _origLogActivity(type, message, entityId);
-}
+// logActivity type enrichment is now inlined in the original function above
 
 function updateRecentActivity(){ renderActivity(); }
 
@@ -1175,16 +2041,90 @@ function updateDashboard(){
   };
   // Update page subtitle live when on dashboard
   const subEl=document.getElementById('page-sub');
-  if(subEl&&document.querySelector('.nav-item[data-view="dashboard"].active'))
-    subEl.innerHTML=_dashSubtitle();
-    kpis.forEach(card=>{
-    const label=card.querySelector('.kpi-label')?.textContent?.trim();
-    const valueEl=card.querySelector('.kpi-value');
-    if(label&&valueEl&&valuesByLabel[label]!==undefined)valueEl.textContent=valuesByLabel[label];
-    const metaEl=card.querySelector('.kpi-meta');
-    const m=metaByLabel[label];
-    if(metaEl&&m){metaEl.innerHTML=`<span class="kpi-change ${m.cls}">${m.text}</span>`;}
+  if(subEl&&document.querySelector('.nav-item[data-view="dashboard"].active')){
+    try{subEl.innerHTML=_dashSubtitle();}catch(e){}
+  }
+  kpis.forEach(card=>{
+    try{
+      const label=card.querySelector('.kpi-label')?.textContent?.trim();
+      const valueEl=card.querySelector('.kpi-value');
+      if(label&&valueEl&&valuesByLabel[label]!==undefined)valueEl.textContent=valuesByLabel[label];
+      const metaEl=card.querySelector('.kpi-meta');
+      const m=metaByLabel[label];
+      if(metaEl&&m){metaEl.innerHTML=`<span class="kpi-change ${m.cls}">${m.text}</span>`;}
+    }catch(e){}
   });
+  // Quote Analytics KPIs
+  updateQuoteKPIs();
+  // Cash Flow Board
+  _updateCashFlowBoard();
+  // Cash Flow Ledger preview
+  _renderDashLedger();
+  // Quote pipeline preview
+  _renderDashQuotePipeline();
+}
+
+function _updateCashFlowBoard(){
+  // Money In: sum of all customer payments (cash actually received)
+  const moneyIn=companyTransactions.filter(t=>t.type==='Inflow'&&t.category==='Customer Payment').reduce((s,t)=>s+toNum(t.amount,0),0);
+  // Money Out: sum of all supplier payments (cash actually paid)
+  const moneyOut=companyTransactions.filter(t=>t.type==='Outflow'&&t.category==='Supplier Payment').reduce((s,t)=>s+toNum(t.amount,0),0);
+  // Outstanding AR: unpaid customer invoices
+  const outstandingAR=invoices.reduce((s,i)=>s+Math.max(0,toNum(i.amount,0)-toNum(i.paid,0)),0);
+  // Outstanding AP: unreceived PO value (supplier commitments not yet settled)
+  const outstandingAP=purchaseOrders.filter(p=>p.status!=='Received').reduce((s,p)=>s+Math.max(0,toNum(p.value,0)-toNum(p.received,0)),0);
+  const set=(id,val)=>{const el=document.getElementById(id);if(el)el.textContent=val;};
+  set('dash-cf-in',fmtShort(moneyIn));
+  set('dash-cf-in-meta',`${payments.filter(p=>p.customerCode).length} customer payment${payments.filter(p=>p.customerCode).length!==1?'s':''}`);
+  set('dash-cf-out',fmtShort(moneyOut));
+  const outflowCount=companyTransactions.filter(t=>t.type==='Outflow'&&t.category==='Supplier Payment').length;
+  set('dash-cf-out-meta',`${outflowCount} supplier payment${outflowCount!==1?'s':''}`);
+  set('dash-cf-ar',fmtShort(outstandingAR));
+  const unpaidInvCount=invoices.filter(i=>toNum(i.amount,0)>toNum(i.paid,0)).length;
+  set('dash-cf-ar-meta',`${unpaidInvCount} unpaid invoice${unpaidInvCount!==1?'s':''}`);
+  set('dash-cf-ap',fmtShort(outstandingAP));
+  const openPOCt=purchaseOrders.filter(p=>p.status!=='Received').length;
+  set('dash-cf-ap-meta',`${openPOCt} open PO${openPOCt!==1?'s':''}`);
+}
+
+function _renderDashLedger(){
+  const el=document.getElementById('dash-ledger-table');if(!el)return;
+  const recent=companyTransactions.slice(0,8);
+  if(!recent.length){el.innerHTML='<div style="color:var(--txt3);font-size:12px;padding:12px">No cash transactions yet.</div>';return;}
+  el.innerHTML=`<div class="table-wrap"><table>
+    <thead><tr><th>Date</th><th>Party</th><th>Description</th><th>Type</th><th>Amount</th></tr></thead>
+    <tbody>${recent.map(t=>{
+      const cls=t.type==='Inflow'?'positive':'negative';
+      const badge=t.type==='Inflow'?'badge-paid':'badge-overdue';
+      return `<tr>
+        <td style="font-family:var(--font-mono);font-size:11px">${t.date||''}</td>
+        <td style="font-size:12px">${t.party||''}</td>
+        <td style="font-size:11px;color:var(--txt2)">${t.description||''}</td>
+        <td><span class="status-badge ${badge}" style="font-size:10px">${t.type==='Inflow'?'Cash In':'Cash Out'}</span></td>
+        <td class="amount ${cls}">${fmt(toNum(t.amount,0))}</td>
+      </tr>`;
+    }).join('')}</tbody>
+  </table></div>`;
+}
+
+function _renderDashQuotePipeline(){
+  const el=document.getElementById('dash-quote-pipeline');if(!el)return;
+  const open=quotes.filter(q=>q.status==='Sent'||q.status==='Amended').slice(0,6);
+  if(!open.length){el.innerHTML='<div style="color:var(--txt3);font-size:12px;padding:12px">No open quotes in pipeline.</div>';return;}
+  el.innerHTML=open.map(q=>{
+    const tot=q.total||quoteTotal(q.lines);
+    const statusCls={Sent:'badge-pending',Amended:'badge-partial'}[q.status]||'badge-draft';
+    return `<div style="display:flex;align-items:center;justify-content:space-between;padding:8px 0;border-bottom:1px solid var(--border1)">
+      <div>
+        <div style="font-size:12px;font-weight:500">${q.customerName}</div>
+        <div style="font-size:11px;color:var(--txt2)">${q.id} · ${q.description?.slice(0,40)||''}${q.description?.length>40?'…':''}</div>
+      </div>
+      <div style="text-align:right">
+        <div style="font-size:13px;font-weight:600;color:var(--txt1)">${fmtShort(tot)}</div>
+        <span class="status-badge ${statusCls}" style="font-size:10px">${q.status}</span>
+      </div>
+    </div>`;
+  }).join('');
 }
 
 // ================================================================
@@ -1335,7 +2275,7 @@ function ptkRenderBoard(){
     const today=todayISO();
     const cards=tasks.map(t=>{
       const dueClass=t.due<today&&t.phase!=='done'?'color:var(--red)':t.due<=_ptkDateOffset(today,3)?'color:var(--amber)':'color:var(--txt2)';
-      return `<div class="ptk-card" draggable="true" data-task-id="${t.id}" onclick="ptkViewTask('${t.id}')" ondragstart="ptkDragStart(event,'${t.id}')" ondragend="ptkDragEnd(event)">
+      return `<div class="ptk-card" draggable="true" data-task-id="${t.id}" onclick="ptkViewTask('${t.id}')" ondragstart="ptkDragStart(event,'${t.id}')" ondragend="ptkDragEnd(event)" ondragover="event.preventDefault();event.stopPropagation();" ondrop="event.stopPropagation();ptkDropTask(event,'${col.key}')">
         <div class="ptk-card-title">${t.name}</div>
         <div style="display:flex;align-items:center;gap:6px;flex-wrap:wrap;margin-top:4px">
           <span class="ptk-pri ptk-pri-${t.priority}">${t.priority}</span>
@@ -1366,15 +2306,31 @@ function ptkDragStart(e,taskId){
     e.dataTransfer.effectAllowed='move';
     e.dataTransfer.setData('text/plain',taskId);
   }
+  // add dragging class after a tick so the ghost image captures normal state
+  requestAnimationFrame(()=>{
+    const el=document.querySelector(`.ptk-card[data-task-id="${taskId}"]`);
+    if(el)el.classList.add('dragging');
+  });
 }
 function ptkDragOver(e){
   if(e)e.preventDefault();
+  // highlight the column body being hovered
+  const col=e?.currentTarget;
+  if(col&&col.classList.contains('ptk-col-body')){
+    document.querySelectorAll('.ptk-col-body').forEach(c=>c.classList.remove('drag-over'));
+    col.classList.add('drag-over');
+  }
 }
 function ptkDragEnd(){
   _ptkDragTaskId='';
+  document.querySelectorAll('.ptk-card.dragging').forEach(el=>el.classList.remove('dragging'));
+  document.querySelectorAll('.ptk-col-body.drag-over').forEach(el=>el.classList.remove('drag-over'));
 }
 function ptkDropTask(e,targetPhase){
   if(e)e.preventDefault();
+  // clean up visual state immediately
+  document.querySelectorAll('.ptk-card.dragging').forEach(el=>el.classList.remove('dragging'));
+  document.querySelectorAll('.ptk-col-body.drag-over').forEach(el=>el.classList.remove('drag-over'));
   const taskId=(e?.dataTransfer?.getData('text/plain'))||_ptkDragTaskId;
   if(!taskId||!targetPhase)return;
   const d=ptkGetData(_ptkProj);
@@ -2184,6 +3140,12 @@ function syncAllDropdowns(){
   if(svcSup)svcSup.innerHTML='<option value="">None</option>'+supRows.map(s=>`<option value="${s.code}">${s.name} (${s.code})</option>`).join('');
   const projCust=document.getElementById('proj-customer');
   if(projCust)projCust.innerHTML='<option value="">-- Select Customer --</option>'+custRows.map(c=>`<option value="${c.code}">${c.name} (${c.code})</option>`).join('');
+  // Quotes dropdown in project modal (accepted quotes not yet linked to a project)
+  const projQuote=document.getElementById('proj-quote');
+  if(projQuote){
+    const available=quotes.filter(q=>q.status==='Accepted'&&!q.projectId);
+    projQuote.innerHTML='<option value="">-- No quote linked --</option>'+available.map(q=>`<option value="${q.id}">${q.id}: ${q.description||q.customerName} (${fmtShort(q.total||0)})</option>`).join('');
+  }
   updateAnalyticsFiltersDropdowns();
   onInvoiceCustomerChange();
   onPOSupplierChange();
@@ -2233,15 +3195,21 @@ function createProjectFromForm(){
   const customerCode=document.getElementById('proj-customer').value;
   if(!name||!customerCode){nxNotify({title:'Project name and customer are required',type:'error'});return;}
   const customer=findCustomerByCode(customerCode);
+  const linkedQuoteId=document.getElementById('proj-quote')?.value||'';
+  const linkedQuote=linkedQuoteId?quotes.find(q=>q.id===linkedQuoteId):null;
+  // Use budget from linked quote if not manually entered
+  const manualBudget=Math.max(0,toNum(document.getElementById('proj-budget').value,0));
+  const budget=manualBudget>0?manualBudget:(linkedQuote?.total||0);
   const payload={
     name,
     customerCode,
     customerName:customer?.companyName||'',
+    quoteId:linkedQuoteId||'',
     site:document.getElementById('proj-site').value.trim()||'Main Site',
     manager:document.getElementById('proj-manager').value.trim()||'Unassigned',
     start:document.getElementById('proj-start').value||todayISO(),
     end:document.getElementById('proj-end').value||todayISO(),
-    budget:Math.max(0,toNum(document.getElementById('proj-budget').value,0)),
+    budget,
     actualCost:projectEditId?(findProjectById(projectEditId)?.actualCost||0):0,
     status:document.getElementById('proj-status').value
   };
@@ -2255,7 +3223,9 @@ function createProjectFromForm(){
     const next=Math.max(0,...projects.map(p=>toNum(String(p.id||'').split('-').pop(),0)))+1;
     const id=`PROJ-${year}-${String(next).padStart(3,'0')}`;
     projects.unshift({id,...payload});
-    addAudit('CREATE','Projects',`Created ${id}`);
+    // Link quote → project
+    if(linkedQuote&&!linkedQuote.projectId){linkedQuote.projectId=id;}
+    addAudit('CREATE','Projects',`Created ${id}${linkedQuoteId?` from quote ${linkedQuoteId}`:''}`);
     logActivity('project_created',`Project ${id} created for ${customer?.companyName||'customer'}`,id);
   }
   projectEditId=null;
@@ -2588,7 +3558,7 @@ function editInvoice(id){
     if(row){
       row.querySelector('input[id$="d"]').value=l.description||'Line item';
       row.querySelector('input[id$="q"]').value=Number(l.qty)||1;
-      row.querySelector('input[id$="b"]').value=Number(l.basePric.price)||0;
+      row.querySelector('input[id$="b"]').value=Number(l.basePrice)||Number(l.price)||0;
       row.querySelector('input[id$="m"]').value=Number(l.markupPercent)||0;
       row.querySelector('input[id$="p"]').value=Number(l.price)||0;
     }
@@ -3041,6 +4011,109 @@ function pdfOpen(htmlContent, filename){
 }
 
 //  INVOICE PDF 
+function exportQuotePDF(qtId){
+  const q = quotes.find(x=>x.id===qtId);
+  if(!q){ nxNotify({title:'Quote not found',type:'error'}); return; }
+  const cust = customers.find(c=>c.customerCode===q.customerCode||c.companyName===q.customer);
+  const vatRate = appConfig.vatRate||15;
+  const lines = (q.lines&&q.lines.length)
+    ? q.lines
+    : [{description:q.description||'Professional Services',qty:1,unitPrice:q.totalValue||0,total:q.totalValue||0}];
+  const subtotal = lines.reduce((s,l)=>s+toNum(l.total||l.unitPrice,0),0);
+  const vatAmt = subtotal*(vatRate/100);
+  const total = subtotal+vatAmt;
+  const statusCol = pdfStatusColor(q.status);
+  const linesHtml = lines.map((l,i)=>`
+    <tr style="background:${i%2===0?'#f9fafb':'#ffffff'}">
+      <td style="padding:9px 12px;border-bottom:1px solid #e5e7eb;font-size:12px;color:#111827">${l.description||'Item'}</td>
+      <td style="padding:9px 12px;border-bottom:1px solid #e5e7eb;font-size:12px;text-align:center;color:#374151">${l.qty||1}</td>
+      <td style="padding:9px 12px;border-bottom:1px solid #e5e7eb;font-size:12px;text-align:right;font-family:monospace;color:#374151">${pdfFmt(l.unitPrice||0)}</td>
+      <td style="padding:9px 12px;border-bottom:1px solid #e5e7eb;font-size:12px;text-align:right;font-family:monospace;color:#111827;font-weight:600">${pdfFmt(l.total||l.unitPrice||0)}</td>
+    </tr>`).join('');
+  const html = `<!DOCTYPE html><html><head><meta charset="UTF-8">
+  <title>Quote ${q.id}</title>
+  <style>
+    *{margin:0;padding:0;box-sizing:border-box}
+    body{font-family:'Segoe UI',Arial,sans-serif;background:#fff;color:#111827;font-size:13px}
+    @media print{body{print-color-adjust:exact;-webkit-print-color-adjust:exact}.no-print{display:none!important}@page{margin:15mm 18mm;size:A4}}
+    .page{max-width:800px;margin:0 auto;padding:32px 36px}
+    .header{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:32px;padding-bottom:24px;border-bottom:2px solid #065f46}
+    .co-name{font-size:22px;font-weight:800;color:#065f46;letter-spacing:-0.5px}
+    .co-detail{font-size:11px;color:#6b7280;margin-top:4px;line-height:1.7}
+    .doc-label{font-size:11px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:#6b7280;text-align:right}
+    .doc-number{font-size:28px;font-weight:900;color:#065f46;text-align:right;font-family:monospace}
+    .doc-status{display:inline-block;padding:4px 12px;border-radius:20px;font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;background:${statusCol}18;color:${statusCol};border:1px solid ${statusCol}40;margin-top:4px}
+    .meta-grid{display:grid;grid-template-columns:1fr 1fr;gap:24px;margin-bottom:28px}
+    .meta-box{background:#f9fafb;border-radius:8px;padding:16px 18px;border:1px solid #e5e7eb}
+    .meta-label{font-size:10px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:#9ca3af;margin-bottom:10px}
+    .meta-name{font-size:14px;font-weight:700;color:#111827;margin-bottom:4px}
+    .meta-line{font-size:11px;color:#6b7280;line-height:1.7}
+    .dates-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;margin-bottom:28px}
+    .date-box{text-align:center;padding:12px;background:#f9fafb;border-radius:6px;border:1px solid #e5e7eb}
+    .date-lbl{font-size:9px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:#9ca3af;margin-bottom:4px}
+    .date-val{font-size:13px;font-weight:700;color:#065f46;font-family:monospace}
+    table{width:100%;border-collapse:collapse;margin-bottom:0}
+    thead tr{background:#065f46}
+    thead th{padding:10px 12px;font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:#fff;text-align:left}
+    thead th:nth-child(n+2){text-align:right} thead th:nth-child(2){text-align:center}
+    .totals-box{margin-left:auto;width:280px;margin-top:0}
+    .tot-row{display:flex;justify-content:space-between;padding:7px 0;font-size:12px;border-bottom:1px solid #f3f4f6;color:#374151}
+    .tot-row.grand{font-size:15px;font-weight:800;color:#065f46;border-top:2px solid #065f46;border-bottom:none;padding-top:10px;margin-top:4px}
+    .note-box{margin-top:24px;padding:14px 16px;background:#f0fdf4;border-radius:8px;border:1px solid #bbf7d0;font-size:11px;color:#166534}
+    .validity{margin-top:8px;font-size:11px;color:#6b7280;text-align:center}
+    .print-btn{display:block;margin:20px auto;padding:10px 28px;background:#065f46;color:#fff;border:none;border-radius:8px;font-size:13px;font-weight:600;cursor:pointer}
+  </style></head><body>
+  <div class="page">
+    <div class="header">
+      <div>
+        <div class="co-name">${appConfig.companyName||'NexusERP'}</div>
+        <div class="co-detail">${appConfig.companyAddress||''}<br>${appConfig.companyEmail||''} &bull; ${appConfig.companyPhone||''}<br>VAT Reg: ${appConfig.vatNumber||'—'} &bull; Reg No: ${appConfig.regNumber||'—'}</div>
+      </div>
+      <div style="text-align:right">
+        <div class="doc-label">QUOTATION</div>
+        <div class="doc-number">${q.id}</div>
+        <div class="doc-status">${q.status}</div>
+      </div>
+    </div>
+    <div class="meta-grid">
+      <div class="meta-box">
+        <div class="meta-label">Quoted To</div>
+        <div class="meta-name">${q.customer||cust?.companyName||'—'}</div>
+        <div class="meta-line">${cust?.address||''}</div>
+        <div class="meta-line">${cust?.email||''}</div>
+      </div>
+      <div class="meta-box">
+        <div class="meta-label">Scope</div>
+        <div class="meta-name" style="font-size:12px">${q.description||'—'}</div>
+        ${q.projectId?'<div class="meta-line">Project: '+q.projectId+'</div>':''}
+      </div>
+    </div>
+    <div class="dates-grid">
+      <div class="date-box"><div class="date-lbl">Issued</div><div class="date-val">${q.issued||'—'}</div></div>
+      <div class="date-box"><div class="date-lbl">Valid Until</div><div class="date-val">${q.expires||q.validUntil||'—'}</div></div>
+      <div class="date-box"><div class="date-lbl">Reference</div><div class="date-val">${q.id}</div></div>
+    </div>
+    <table><thead><tr><th>Description</th><th style="text-align:center">Qty</th><th style="text-align:right">Unit Price</th><th style="text-align:right">Total</th></tr></thead>
+    <tbody>${linesHtml}</tbody></table>
+    <div style="display:flex;justify-content:flex-end;margin-top:16px">
+      <div class="totals-box">
+        <div class="tot-row"><span>Subtotal</span><span>${pdfFmt(subtotal)}</span></div>
+        <div class="tot-row"><span>VAT (${vatRate}%)</span><span>${pdfFmt(vatAmt)}</span></div>
+        <div class="tot-row grand"><span>TOTAL</span><span>${pdfFmt(total)}</span></div>
+      </div>
+    </div>
+    ${q.notes?'<div class="note-box"><strong>Notes:</strong> '+q.notes+'</div>':''}
+    <div class="validity">This quotation is valid until ${q.expires||q.validUntil||'—'}. Prices exclude delivery unless stated.</div>
+    <button class="print-btn no-print" onclick="window.print()">&#128438; Print / Save as PDF</button>
+  </div></body></html>`;
+  const w = window.open('','_blank');
+  if(!w){ nxNotify({title:'Pop-up blocked',sub:'Please allow pop-ups for PDF export',type:'error'}); return; }
+  w.document.write(html);
+  w.document.close();
+  setTimeout(()=>w.print(),400);
+  nxNotify({title:'Quote PDF ready',sub:q.id,type:'success'});
+}
+
 function exportInvoicePDF(invId){
   const inv = invoices.find(i=>i.id===invId);
   if(!inv){ nxNotify({title:'Invoice not found',type:'error'}); return; }
@@ -3415,7 +4488,9 @@ function nxConfirm({ title='Confirm', sub='This action cannot be undone.', body=
 // CHARTS
 // ============================================================
 function initCharts(){
-  charts.revChart=new Chart(document.getElementById('revChart'),{type:'bar',data:{labels:[],datasets:[
+  if(typeof Chart==='undefined'){console.warn('[initCharts] Chart.js not loaded');return;}
+  const _c=(id,cfg)=>{const el=document.getElementById(id);if(!el){console.warn('[initCharts] canvas not found:',id);return null;}try{return new Chart(el,cfg);}catch(e){console.error('[initCharts] failed for',id,e);return null;}};
+  charts.revChart=_c('revChart',{type:'bar',data:{labels:[],datasets:[
     {label:'Revenue',data:[],backgroundColor:'rgba(79,142,247,0.7)',borderColor:'#4f8ef7',borderWidth:1,yAxisID:'y'},
     {label:'Collected',data:[],backgroundColor:'rgba(34,197,94,0.6)',borderColor:'#22c55e',borderWidth:1,yAxisID:'y'},
     {label:'Outstanding',data:[],type:'line',borderColor:'#f5a623',borderWidth:2,fill:false,pointBackgroundColor:'#f5a623',pointRadius:3,tension:.3,yAxisID:'y'},
@@ -3423,9 +4498,9 @@ function initCharts(){
     scales:{y:{ticks:{color:'#5a6a8a',font:{family:'DM Mono',size:10},callback:v=>'R'+(v/1000).toFixed(0)+'K'},grid:{color:'rgba(42,52,80,.5)'},border:{color:'transparent'}},
       x:{ticks:{color:'#5a6a8a',font:{family:'DM Mono',size:10}},grid:{display:false},border:{color:'#2a3450'}}}}});
 
-  charts.donutChart=new Chart(document.getElementById('donutChart'),{type:'doughnut',data:{labels:['Paid','Sent','Overdue','Draft'],datasets:[{data:[0,0,0,0],backgroundColor:['#22c55e','#f5a623','#ef4444','#3a4a6a'],borderWidth:0,hoverOffset:4}]},options:{responsive:true,maintainAspectRatio:false,cutout:'70%',plugins:{legend:{display:false}}}});
+  charts.donutChart=_c('donutChart',{type:'doughnut',data:{labels:['Paid','Sent','Overdue','Draft'],datasets:[{data:[0,0,0,0],backgroundColor:['#22c55e','#f5a623','#ef4444','#3a4a6a'],borderWidth:0,hoverOffset:4}]},options:{responsive:true,maintainAspectRatio:false,cutout:'70%',plugins:{legend:{display:false}}}});
 
-  charts.stackedBar=new Chart(document.getElementById('stackedBar'),{type:'bar',data:{labels:[],datasets:[
+  charts.stackedBar=_c('stackedBar',{type:'bar',data:{labels:[],datasets:[
     {label:'Mining',data:[],backgroundColor:'rgba(79,142,247,.8)',stack:'a'},
     {label:'Engineering',data:[],backgroundColor:'rgba(168,85,247,.7)',stack:'a'},
     {label:'Construction',data:[],backgroundColor:'rgba(20,184,166,.6)',stack:'a'},
@@ -3433,16 +4508,16 @@ function initCharts(){
     scales:{y:{stacked:true,ticks:{color:'#5a6a8a',font:{family:'DM Mono',size:10},callback:v=>'R'+v+'K'},grid:{color:'rgba(42,52,80,.5)'},border:{color:'transparent'}},
       x:{stacked:true,ticks:{color:'#5a6a8a',font:{family:'DM Mono',size:10}},grid:{display:false},border:{color:'#2a3450'}}}}});
 
-  charts.catPie=new Chart(document.getElementById('catPie'),{type:'pie',data:{labels:['Services','Products','Contracts','Retainer'],datasets:[{data:[0,0,0,0],backgroundColor:['#4f8ef7','#22c55e','#f5a623','#a855f7'],borderWidth:0}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}}}});
+  charts.catPie=_c('catPie',{type:'pie',data:{labels:['Services','Products','Contracts','Retainer'],datasets:[{data:[0,0,0,0],backgroundColor:['#4f8ef7','#22c55e','#f5a623','#a855f7'],borderWidth:0}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}}}});
 
-  charts.cashFlow=new Chart(document.getElementById('cashFlow'),{type:'bar',data:{labels:[],datasets:[
+  charts.cashFlow=_c('cashFlow',{type:'bar',data:{labels:[],datasets:[
     {label:'Inflow',data:[],backgroundColor:'rgba(34,197,94,.65)',borderWidth:0},
     {label:'Outflow',data:[],backgroundColor:'rgba(239,68,68,.55)',borderWidth:0},
   ]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{labels:{color:'#9aaac8',font:{family:'DM Mono',size:9},boxWidth:8}}},
     scales:{y:{ticks:{color:'#5a6a8a',font:{family:'DM Mono',size:9},callback:v=>'R'+Math.abs(v)+'K'},grid:{color:'rgba(42,52,80,.4)'},border:{color:'transparent'}},
       x:{ticks:{color:'#5a6a8a',font:{family:'DM Mono',size:9}},grid:{display:false},border:{color:'#2a3450'}}}}});
 
-  charts.supSpend=new Chart(document.getElementById('supSpend'),{type:'doughnut',data:{labels:['Mining Equip','Steel & Metals','Chemicals','Electrical','Civil Matls','Safety & PPE','Tools'],datasets:[{data:[0,0,0,0,0,0,0],backgroundColor:['#4f8ef7','#22c55e','#a855f7','#f5a623','#14b8a6','#ef4444','#f97316'],borderWidth:0}]},options:{responsive:true,maintainAspectRatio:false,cutout:'55%',plugins:{legend:{position:'right',labels:{color:'#9aaac8',font:{family:'DM Mono',size:8},boxWidth:7,padding:5}}}}});
+  charts.supSpend=_c('supSpend',{type:'doughnut',data:{labels:['Mining Equip','Steel & Metals','Chemicals','Electrical','Civil Matls','Safety & PPE','Tools'],datasets:[{data:[0,0,0,0,0,0,0],backgroundColor:['#4f8ef7','#22c55e','#a855f7','#f5a623','#14b8a6','#ef4444','#f97316'],borderWidth:0}]},options:{responsive:true,maintainAspectRatio:false,cutout:'55%',plugins:{legend:{position:'right',labels:{color:'#9aaac8',font:{family:'DM Mono',size:8},boxWidth:7,padding:5}}}}});
 }
 
 function rnd(v,p){const m=v*(Math.random()*(p*2)-p);return Math.max(0,Math.round(v+m));}
@@ -3474,27 +4549,46 @@ function fetchAnalyticsPayload(){
 }
 
 function applyChartPayload(p){
-  charts.revChart.data.labels=p.months;charts.revChart.data.datasets[0].data=p.rev;charts.revChart.data.datasets[1].data=p.col;charts.revChart.data.datasets[2].data=p.out;
-  charts.donutChart.data.datasets[0].data=p.donut;
-  charts.stackedBar.data.labels=p.q;charts.stackedBar.data.datasets[0].data=p.mining;charts.stackedBar.data.datasets[1].data=p.eng;charts.stackedBar.data.datasets[2].data=p.con;
-  charts.catPie.data.datasets[0].data=p.cat;
-  charts.cashFlow.data.labels=p.mo6;charts.cashFlow.data.datasets[0].data=p.inflow;charts.cashFlow.data.datasets[1].data=p.outflow;
-  charts.supSpend.data.datasets[0].data=p.supSpend;
-  Object.values(charts).forEach(ch=>ch.update());
-  renderTopCustomers(p.topCustomers,'top-cust-bars');
-  renderTopCustomers(p.topCustomers,'top-cust-bars2');
+  const _set=(ch,fn)=>{if(ch&&ch.data)try{fn(ch);}catch(e){}};
+  _set(charts.revChart, ch=>{
+    ch.data.labels=p.months;
+    ch.data.datasets[0].data=p.rev;
+    ch.data.datasets[1].data=p.col;
+    ch.data.datasets[2].data=p.out;
+  });
+  _set(charts.donutChart,  ch=>{ ch.data.datasets[0].data=p.donut; });
+  _set(charts.stackedBar,  ch=>{
+    ch.data.labels=p.q;
+    ch.data.datasets[0].data=p.mining;
+    ch.data.datasets[1].data=p.eng;
+    ch.data.datasets[2].data=p.con;
+  });
+  _set(charts.catPie,  ch=>{ ch.data.datasets[0].data=p.cat; });
+  _set(charts.cashFlow, ch=>{
+    ch.data.labels=p.mo6;
+    ch.data.datasets[0].data=p.inflow;
+    ch.data.datasets[1].data=p.outflow;
+  });
+  _set(charts.supSpend, ch=>{ ch.data.datasets[0].data=p.supSpend; });
+  Object.values(charts).forEach(ch=>{ if(ch&&typeof ch.update==='function')ch.update(); });
+  try{renderTopCustomers(p.topCustomers,'top-cust-bars');}catch(e){}
+  try{renderTopCustomers(p.topCustomers,'top-cust-bars2');}catch(e){}
 }
 
 async function refreshChartsFromAjax(silent=false){
   const status=document.getElementById('analytics-status');
-  if(status)status.textContent='Syncing?';
+  if(status)status.textContent='Syncing…';
   try{
     const payload=await fetchAnalyticsPayload();
-    applyChartPayload(payload);chartsBootstrapped=true;
-    updateAnalytics();
+    try{ applyChartPayload(payload); }catch(e){ console.error('[charts] applyChartPayload failed:',e); }
+    chartsBootstrapped=true;
+    try{ updateAnalytics(); }catch(e){ console.error('[charts] updateAnalytics failed:',e); }
     if(status)status.textContent='Updated just now';
     if(!silent)nxNotify({title:'Analytics refreshed',type:'info'});
-  }catch{if(status)status.textContent='Feed unavailable';}
+  }catch(e){
+    console.error('[charts] refreshChartsFromAjax failed:',e);
+    if(status)status.textContent='Feed unavailable';
+  }
 }
 
 function readAnalyticsFilters(){
@@ -3610,6 +4704,10 @@ function updateAnalytics(){
     const v=netChip.querySelector('.stat-chip-val');
     if(v){v.textContent=topSector?topSector[0]:'N/A';v.style.color='var(--blue)';}
   }
+  // Refresh active analytics sub-tab if not overview
+  if(typeof _anTab!=='undefined' && _anTab && _anTab!=='overview'){
+    try{ renderAnalyticsTab(_anTab); }catch(e){}
+  }
 }
 
 function clearAnalyticsFilters(){
@@ -3648,6 +4746,7 @@ function _catSubtitle(){
 const viewMeta={
   dashboard:{title:'Overview',sub:_dashSubtitle(),btn:'+ New Invoice',action:()=>openModal('modal-invoice')},
   customers:{title:'Customers',sub:_custSubtitle(),btn:'+ Add Customer',action:()=>openModal('modal-customer')},
+  quotes:{title:'Quotes',sub:'Quote pipeline — Draft → Sent → Accepted → Project created',btn:'+ New Quote',action:()=>openQuoteModal()},
   projects:{title:'Projects',sub:'Project budgeting, procurement and invoicing linkages',btn:'+ Add Project',action:()=>openModal('modal-project')},
   suppliers:{title:'Suppliers',sub:_supSubtitle(),btn:'+ Add Supplier',action:()=>openModal('modal-supplier')},
   products:{title:'Products & Services Catalogue',sub:_catSubtitle(),btn:'+ Add Item',action:()=>{const t=document.querySelector('.tabs .tab.active')?.textContent||'';openModal(t==='Services'?'modal-service':'modal-product');}},
@@ -3662,7 +4761,6 @@ const viewMeta={
   'construction-hub':{title:'Construction Hub',sub:'Live site command centre',btn:'',action:()=>{}},
 };
 function openView(v){
-  if(v==='tracking'){setTimeout(()=>{ptkSyncDropdown();ptkRenderAll();},60);}
   const item=document.querySelector(`.nav-item[data-view="${v}"]`);
   if(item)item.click();
 }
@@ -3683,6 +4781,14 @@ document.querySelectorAll('.nav-item').forEach(item=>{
     }
     if(v==='transactions')renderTransactions();
     if(v==='statements')renderStatements();
+    if(v==='tracking'){
+      ptkSyncDropdown();
+      ptkRenderAll();
+      // Ensure the active panel is visible (may have been hidden by a previous tab switch)
+      const activeTab=_ptkTab||'board';
+      const activeTabBtn=document.getElementById('ptk-tab-btn-'+activeTab);
+      ptkSwitchTab(activeTab,activeTabBtn);
+    }
   });
 });
 
@@ -4373,8 +5479,11 @@ function initializeAppRuntime(){
   ensureCoreHistories();
   normalizeCoreDataModels();
   normalizeProjectsAndLinks();
+  normalizeQuotes();
   ensureDocumentLines();
   ensureCustomerNotes();
+  syncDocumentTransactions();
+  syncStatementFromInvoices();
   normalizeBusinessStatuses();
   applyConfigToUI();
   ptkSyncDropdown();
@@ -4548,6 +5657,20 @@ function rowMenu(btn, type, id, extra) {
       acts.push({ label: 'Delete', fn: () => deletePO(id), danger: true });
       return acts;
     },
+    quote: () => {
+      const q = quotes.find(x => x.id === id);
+      const acts = [{ label: 'View Details', fn: () => viewQuote(id) }];
+      if (q && q.status === 'Accepted') acts.push({ label: '🧾 Convert to Invoice', fn: () => convertQuoteToInvoice(id) });
+      if (q && q.status !== 'Accepted' && q.status !== 'Rejected') acts.push({ label: '✓ Accept', fn: () => acceptQuote(id) });
+      if (q && (q.status === 'Draft' || q.status === 'Sent')) acts.push({ label: '↗ Send to Client', fn: () => sendQuote(id) });
+      if (q && q.status !== 'Accepted' && q.status !== 'Rejected') acts.push({ label: '⟳ Amend', fn: () => amendQuote(id) });
+      if (q && q.status !== 'Accepted') acts.push({ label: '✗ Reject', fn: () => rejectQuote(id) });
+      acts.push({ label: 'Edit', fn: () => editQuote(id) });
+      acts.push({ label: 'Export PDF', fn: () => exportQuotePDF(id) });
+      acts.push({ divider: true });
+      acts.push({ label: 'Delete', fn: () => deleteQuote(id), danger: true });
+      return acts;
+    },
     project: () => {
       const acts = [{ label: 'View', fn: () => viewProject(id) }];
       if (extra === 'In Progress') acts.push({ label: '\u{1F3D7} Construction Hub', fn: () => openConstructionHub(id) });
@@ -4674,26 +5797,583 @@ function initHubClock() {
 }
 
 function switchHubView(name, tabEl) {
-  document.querySelectorAll('.hub-frame .hview').forEach(v => v.classList.remove('active'));
-  const target = document.getElementById('hview-' + name);
+  document.querySelectorAll('.hx-frame .hx-view').forEach(v => v.classList.remove('active'));
+  const target = document.getElementById('hxv-' + name);
   if (target) target.classList.add('active');
-  document.querySelectorAll('.hub-frame .hub-tab').forEach(t => t.classList.remove('active'));
-  if (tabEl) tabEl.classList.add('active');
+  document.querySelectorAll('.hx-frame .hx-tab').forEach(t => t.classList.remove('active'));
+  if (tabEl) { tabEl.classList.add('active'); }
   else {
-    const tabs = document.querySelectorAll('.hub-frame .hub-tab');
-    const order = ['overview','staff','plant','engineering','map'];
+    const tabs = document.querySelectorAll('.hx-frame .hx-tab');
+    const order = ['overview','staff','plant','engineering','map','financials'];
     const idx = order.indexOf(name);
     if (tabs[idx]) tabs[idx].classList.add('active');
   }
-  document.querySelectorAll('.hub-frame .hub-side-btn').forEach(b => b.classList.remove('active'));
-  const sideOrder = ['overview','staff','plant','engineering','map'];
-  const sideBtns = document.querySelectorAll('.hub-frame .hub-side-btn');
-  const si = sideOrder.indexOf(name);
-  if (sideBtns[si]) sideBtns[si].classList.add('active');
+  if (name === 'financials' && hubActiveProject) renderHubFinancials(hubActiveProject);
+  if (name === 'map' && hubActiveProject) renderHubFullMap(hubActiveProject);
 }
 
+function openConstructionHub(id) {
+  const proj = findProjectById(id);
+  if (!proj) { nxNotify({title:'Project not found',type:'warning'}); return; }
+
+  hubActiveProject = proj;
+  hubSelectedEquip = 0;
+  hubEquipData = getHubEquipPool(proj);
+  hubStaffData = getHubStaffPool(proj);
+
+  // Show hub view — full-bleed takeover
+  document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
+  document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+  const hubView = document.getElementById('view-construction-hub');
+  if (hubView) hubView.classList.add('active');
+  document.body.classList.add('hub-mode');
+
+  // Update topbar
+  const pt = document.getElementById('page-title');
+  if (pt) pt.textContent = proj.name;
+  const ps = document.getElementById('page-sub');
+  if (ps) ps.textContent = 'Construction Hub · ' + (proj.site || 'Active Site');
+  const actionBtn = document.getElementById('action-btn');
+  if (actionBtn) actionBtn.style.display = 'none';
+
+  // Project header
+  const projIdEl = document.getElementById('hubProjectId');
+  if (projIdEl) projIdEl.textContent = proj.id;
+  const projNameEl = document.getElementById('hubProjectName');
+  if (projNameEl) projNameEl.textContent = proj.name;
+
+  // User avatar
+  const avatar = document.getElementById('hubUserAvatar');
+  if (avatar) {
+    const luName = currentUser ? currentUser.name : 'James Donaldson';
+    avatar.textContent = luName.split(' ').map(w => w[0]).join('').toUpperCase().slice(0, 2);
+    avatar.title = luName;
+  }
+
+  // Budget / progress metrics
+  const budgetUsed = proj.actualCost || 0;
+  const budgetTotal = proj.budget || 1;
+  const budgetPct = Math.min(99, Math.round((budgetUsed / budgetTotal) * 100));
+  const progPct = proj.progress || Math.min(95, Math.max(10, budgetPct + hubRand(-8, 8)));
+
+  // Alert counts
+  const alertCount = hubEquipData.filter(e => e.status !== 'active').length;
+  const rfiCount = hubRand(4, 10);
+  const rfiUrgent = hubRand(1, 3);
+  const activeEquip = hubEquipData.filter(e => e.status === 'active').length;
+
+  // RAG
+  const openRisks = alertCount + rfiUrgent;
+  const rag = (openRisks > 3 || budgetPct > 90) ? 'RED' : (openRisks > 1 || progPct < 50) ? 'AMBER' : 'GREEN';
+
+  // Alert badges
+  const alertBadge = document.getElementById('hubAlertBadge');
+  if (alertBadge) {
+    alertBadge.textContent = alertCount > 0 ? '⚠ ' + alertCount + ' ALERT' + (alertCount > 1 ? 'S' : '') : '✓ NO ALERTS';
+    alertBadge.style.background = alertCount > 0 ? 'rgba(239,68,68,.2)' : 'rgba(34,197,94,.15)';
+    alertBadge.style.borderColor = alertCount > 0 ? 'rgba(239,68,68,.5)' : 'rgba(34,197,94,.4)';
+    alertBadge.style.color = alertCount > 0 ? '#ef4444' : '#22c55e';
+  }
+  const plantBadge = document.getElementById('hubPlantAlertBadge');
+  if (plantBadge) { plantBadge.textContent = alertCount; plantBadge.style.display = alertCount > 0 ? '' : 'none'; }
+
+  // KPI values
+  const setKpi = (id, val) => { const e = document.getElementById(id); if (e) e.textContent = val; };
+  setKpi('kpi-budget-pct', budgetPct);
+  const kBudgetMeta = document.getElementById('kpi-budget-meta');
+  if (kBudgetMeta) {
+    kBudgetMeta.textContent = (budgetPct > 80 ? '⚠ ' : '') + 'R' + (budgetUsed/1e6).toFixed(2) + 'M of R' + (budgetTotal/1e6).toFixed(1) + 'M';
+    kBudgetMeta.className = 'hub-kpi-chg ' + (budgetPct > 80 ? 'warn' : 'up');
+  }
+  setKpi('kpi-staff', hubStaffData.length);
+  setKpi('kpi-staff-meta', '+' + hubRand(1,5) + ' vs. yesterday');
+  setKpi('kpi-plant', activeEquip);
+  setKpi('kpi-plant-total', '/' + hubEquipData.length);
+  if (kBudgetMeta) { /* already set */ }
+  const kPlantMeta = document.getElementById('kpi-plant-meta');
+  if (kPlantMeta) kPlantMeta.textContent = alertCount > 0 ? '⚠ ' + alertCount + ' maintenance due' : '✓ All operational';
+  setKpi('kpi-rfis', rfiCount);
+  const kRfiMeta = document.getElementById('kpi-rfi-meta');
+  if (kRfiMeta) kRfiMeta.textContent = ' ' + hubRand(1,3) + ' closed today';
+  setKpi('kpi-rfi-urgent', rfiUrgent + ' urgent');
+  setKpi('kpi-prog', progPct);
+  const kProgMeta = document.getElementById('kpi-prog-meta');
+  if (kProgMeta) kProgMeta.textContent = progPct >= 70 ? ' On track' : progPct >= 50 ? ' Minor delays' : ' Behind schedule';
+  setKpi('kpi-safety', hubRand(85, 180));
+
+  // RAG tag (handled below with hubRagTag2)
+
+  // Activity feed
+  const actFeed = document.getElementById('hubActivityFeed');
+  if (actFeed) {
+    actFeed.innerHTML = getHubActivity(proj).map(a =>
+      `<div class="hx-feed-item">
+        <div class="hx-feed-dot" style="background:${a.color}"></div>
+        <div class="hx-feed-body"><div class="hx-feed-title">${a.title}</div><div class="hx-feed-meta">${a.meta}</div></div>
+        <div class="hx-feed-time">${a.time}</div>
+      </div>`
+    ).join('');
+  }
+
+  // Staff grid
+  renderHubStaff(hubStaffData);
+
+  // Equipment
+  renderHubEquipment();
+
+  // Gantt
+  const ganttEl = document.getElementById('hubGanttChart');
+  if (ganttEl) {
+    ganttEl.innerHTML = getHubGanttTasks(proj).map(t =>
+      `<div class="hx-gantt-row">
+        <div class="hx-gantt-lbl" title="${t.label}">${t.label}</div>
+        <div class="hx-gantt-track">
+          <div class="hx-gantt-planned" style="left:${t.start}%;width:${t.width}%"></div>
+          <div class="hx-gantt-actual" style="left:${t.start}%;width:calc(${t.width}% * ${parseFloat(t.pct)} / 100);background:${t.color}"></div>
+        </div>
+        <div class="hx-gantt-pct">${t.pct}</div>
+      </div>`
+    ).join('');
+  }
+  const ganttStatus = document.getElementById('hubGanttStatus');
+  if (ganttStatus) ganttStatus.textContent = 'Overall Status: ' + rag;
+  const ganttDelay = document.getElementById('hubGanttDelay');
+  if (ganttDelay) {
+    if (rag === 'GREEN') { ganttDelay.textContent = 'ON TRACK'; ganttDelay.className = 'hub-tag hub-tag-green'; }
+    else if (rag === 'AMBER') { ganttDelay.textContent = hubRand(2,7) + ' DAYS BEHIND'; ganttDelay.className = 'hub-tag hub-tag-amber'; }
+    else { ganttDelay.textContent = hubRand(8,15) + ' DAYS BEHIND'; ganttDelay.className = 'hub-tag hub-tag-red'; }
+  }
+
+  // RFI list
+  const rfiList = document.getElementById('hubRfiList');
+  if (rfiList) {
+    const subjects = ['Structural beam specification','Concrete mix design approval','Waterproofing membrane spec','Steel reinforcement grade','MEP coordination clash','Fire suppression layout','Foundation depth variance','Cable routing conflict'];
+    const rfis = Array.from({length: rfiCount}, (_, i) => ({
+      id: 'RFI-' + String(rfiCount - i).padStart(3,'0'),
+      subject: subjects[i % subjects.length],
+      status: i < rfiUrgent ? 'urgent' : i < rfiUrgent + 2 ? 'open' : 'closed',
+      date: i === 0 ? 'Today' : i === 1 ? 'Yesterday' : (i+1) + 'd ago'
+    }));
+    rfiList.innerHTML = rfis.map(r => {
+      const col = r.status==='urgent'?'#ef4444':r.status==='open'?'#f5a623':'#22c55e';
+      return `<div class="hx-rfi-item">
+        <div class="hx-rfi-dot" style="background:${col}"></div>
+        <div class="hx-rfi-id">${r.id}</div>
+        <div class="hx-rfi-subj">${r.subject}</div>
+        <span style="font-size:9px;font-family:'DM Mono',monospace;color:${col};margin-right:6px">${r.status.toUpperCase()}</span>
+        <div class="hx-rfi-date">${r.date}</div>
+      </div>`;
+    }).join('');
+    const rfiUrgentTag = document.getElementById('hubRfiUrgentTag');
+    if (rfiUrgentTag) rfiUrgentTag.textContent = rfiUrgent + ' URGENT';
+  }
+
+  // Weather
+  const weatherEl = document.getElementById('hubWeatherGrid');
+  if (weatherEl) {
+    const days=['Mon','Tue','Wed','Thu','Fri','Sat','Sun'];
+    const icons=['☀','☀','⛅','🌧','⛅','☀','☀'];
+    const temps=[24,26,22,18,21,25,27];
+    const todayIdx = ((new Date().getDay()+6)%7);
+    weatherEl.innerHTML = days.map((d,i) =>
+      `<div class="hx-wx-day${i===todayIdx?' today':''}">
+        <div class="hx-wx-lbl">${d}</div>
+        <div class="hx-wx-icon">${icons[i]}</div>
+        <div class="hx-wx-temp">${temps[i]}°</div>
+      </div>`
+    ).join('');
+  }
+
+  // Site diary
+  const diary = document.getElementById('hubDiaryText');
+  if (diary) {
+    const pm = proj.manager || 'Site Manager';
+    diary.innerHTML = `<strong>${new Date().toLocaleDateString('en-ZA',{weekday:'long',year:'numeric',month:'long',day:'numeric'})}</strong><br><br>
+Site diary compiled by ${pm}.<br><br>
+Today’s progress: Concrete pour completed on Grid B4. ${hubStaffData.length} personnel on site. ${activeEquip} plant items operational.<br><br>
+Weather: Clear conditions, 24°C. Suitable for all external works.<br><br>
+Issues: ${alertCount > 0 ? 'Plant maintenance required for ' + alertCount + ' item(s). ' : 'No major plant issues. '}${rfiUrgent} RFI(s) awaiting engineer response.<br><br>
+Tomorrow’s plan: Continue structural works Grid C2–C6. Rebar delivery expected 07:00.`;
+  }
+
+  // Map labels
+  const mapSites = getHubMapSites(proj);
+  const setEl = (id, val) => { const e = document.getElementById(id); if (e) e.textContent = val; };
+  setEl('hubSiteLabel1', mapSites.label1); setEl('fmapLabel1', mapSites.label1);
+  setEl('hubSiteLabel2', mapSites.label2); setEl('fmapLabel2', mapSites.label2);
+  setEl('hubSiteLabel3', mapSites.label3); setEl('fmapLabel3', mapSites.label3);
+  // Toolbar IDs
+  setEl('hubMapProjectLabel', proj.id);
+  setEl('hubMapSiteName', mapSites.siteName + ' – Live');
+  setEl('hubMapCoords', mapSites.coords);
+  setEl('hubMapStats', 'Staff: ' + hubStaffData.length + ' · Plant: ' + activeEquip + '/' + hubEquipData.length + ' · Progress: ' + progPct + '%');
+  // Full-map card IDs (new map view)
+  setEl('hubMapProjectLabel2', proj.id);
+  setEl('hubMapSiteName2', mapSites.siteName + ' – Live');
+  setEl('hubMapCoords2', mapSites.coords);
+  setEl('hubMapStats2', 'Staff: ' + hubStaffData.length + ' · Plant: ' + activeEquip + '/' + hubEquipData.length + ' · Progress: ' + progPct + '%');
+  // Timestamp
+  const tsEl = document.getElementById('hubMapTimestamp');
+  if (tsEl) { const n = new Date(); tsEl.textContent = 'LIVE · ' + n.getHours().toString().padStart(2,'0') + ':' + n.getMinutes().toString().padStart(2,'0') + ':' + n.getSeconds().toString().padStart(2,'0'); }
+
+  // Full map alerts strip
+  const alertsStrip = document.getElementById('hubFullMapAlerts');
+  if (alertsStrip) {
+    const items = hubEquipData.filter(e => e.status !== 'active').map(e =>
+      `<span style="color:${e.status==='warn'?'#f5a623':'#ef4444'};margin-right:16px">⚠ ${e.name} – ${e.status==='warn'?'Maintenance Due':'SUSPENDED'}</span>`
+    );
+    alertsStrip.innerHTML = items.length > 0 ? items.join('') : '<span style="color:#22c55e">✓ All systems nominal</span>';
+  }
+
+  // Start clock and show overview tab
+  initHubClock();
+  // ── Budget donut gauge ──
+  const circumference = 175.9;
+  const arc = document.getElementById('budgetGaugeArc');
+  if (arc) arc.style.strokeDashoffset = circumference - (circumference * budgetPct / 100);
+  const gPct = document.getElementById('budgetGaugePct');
+  if (gPct) gPct.textContent = budgetPct + '%';
+  const gSpent = document.getElementById('gaugeSpent');
+  if (gSpent) gSpent.textContent = 'R' + (budgetUsed/1e6).toFixed(2) + 'M';
+  const gTotal = document.getElementById('gaugeTotal');
+  if (gTotal) gTotal.textContent = 'of R' + (budgetTotal/1e6).toFixed(1) + 'M approved';
+  // ── Programme mini bars ──
+  const pbEl = document.getElementById('hubProgBars');
+  if (pbEl) {
+    const tasks = getHubGanttTasks(proj);
+    pbEl.innerHTML = tasks.map(t => {
+      const pct = parseFloat(t.pct) || 0;
+      const col = pct >= 80 ? '#22c55e' : pct >= 40 ? '#f5a623' : '#3b82f6';
+      return `<div class="hx-prog-row">
+        <div class="hx-prog-lbl" title="${t.label}">${t.label}</div>
+        <div class="hx-prog-track"><div class="hx-prog-fill" style="width:${pct}%;background:${col}"></div></div>
+        <div class="hx-prog-pct">${pct}%</div>
+      </div>`;
+    }).join('');
+  }
+  // ── RAG tags ──
+  ['hubRagTag','hubRagTag2'].forEach(id => {
+    const el = document.getElementById(id);
+    if (el) { el.textContent = 'RAG: ' + rag; el.className = 'hx-tag ' + (rag==='GREEN'?'hx-tag-g':rag==='AMBER'?'hx-tag-a':'hx-tag-r'); }
+  });
+  // ── Mini map ──
+  renderHubMiniMap(proj, mapSites);
+  // ── Show overview ──
+  switchHubView('overview', null);
+}
+
+
+function renderHubMiniMap(proj, mapSites) {
+  const wrap = document.getElementById('hubMiniMapWrap');
+  if (!wrap) return;
+  const isMining = /mine|shaft|mining|ventilation|reagent/i.test(proj.name + (proj.site||''));
+  const s = mapSites || {};
+  const l1 = s.label1||'Zone A', l2 = s.label2||'Zone B', l3 = s.label3||'Zone C';
+  wrap.innerHTML = `<svg viewBox="0 0 600 380" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:100%;display:block;">
+    <defs>
+      <pattern id="mmg" width="40" height="40" patternUnits="userSpaceOnUse"><path d="M 40 0 L 0 0 0 40" fill="none" stroke="#0a1525" stroke-width=".8"/></pattern>
+      <radialGradient id="mmgA" cx="50%" cy="50%" r="50%"><stop offset="0%" stop-color="#22c55e" stop-opacity=".2"/><stop offset="100%" stop-color="#22c55e" stop-opacity="0"/></radialGradient>
+      <radialGradient id="mmgB" cx="50%" cy="50%" r="50%"><stop offset="0%" stop-color="#f5a623" stop-opacity=".2"/><stop offset="100%" stop-color="#f5a623" stop-opacity="0"/></radialGradient>
+      <radialGradient id="mmgC" cx="50%" cy="50%" r="50%"><stop offset="0%" stop-color="#3b82f6" stop-opacity=".18"/><stop offset="100%" stop-color="#3b82f6" stop-opacity="0"/></radialGradient>
+    </defs>
+    <rect width="600" height="380" fill="#040810"/>
+    <rect width="600" height="380" fill="url(#mmg)"/>
+    <!-- Roads -->
+    <path d="M0 190 Q150 182 280 198 Q420 216 550 185 Q580 182 600 184" stroke="#0c1e35" stroke-width="14" fill="none"/>
+    <path d="M0 190 Q150 182 280 198 Q420 216 550 185 Q580 182 600 184" stroke="#152840" stroke-width="2" fill="none" stroke-dasharray="22 10"/>
+    <path d="M300 0 Q294 120 308 198 Q318 265 302 380" stroke="#0c1e35" stroke-width="12" fill="none"/>
+    <path d="M300 0 Q294 120 308 198 Q318 265 302 380" stroke="#152840" stroke-width="1.5" fill="none" stroke-dasharray="22 10"/>
+    <path d="M0 85 Q120 78 220 92 Q350 108 480 78 Q540 66 600 74" stroke="#091828" stroke-width="8" fill="none"/>
+    <!-- Zone A -->
+    <ellipse cx="155" cy="140" rx="90" ry="70" fill="url(#mmgA)"/>
+    <rect x="80" y="82" width="150" height="116" rx="6" fill="rgba(34,197,94,.04)" stroke="rgba(34,197,94,.22)" stroke-width="1.5" stroke-dasharray="6 4"/>
+    <rect x="96" y="96" width="52" height="38" rx="3" fill="rgba(34,197,94,.07)" stroke="rgba(34,197,94,.2)" stroke-width="1"/>
+    <rect x="160" y="92" width="60" height="44" rx="3" fill="rgba(34,197,94,.09)" stroke="rgba(34,197,94,.25)" stroke-width="1"/>
+    <rect x="98" y="146" width="38" height="28" rx="2" fill="rgba(34,197,94,.06)" stroke="rgba(34,197,94,.15)" stroke-width="1"/>
+    <circle class="hx-site-ping" cx="156" cy="140" r="16" fill="none" stroke="#22c55e" stroke-width="1.8" opacity=".7"/>
+    <circle cx="156" cy="140" r="11" fill="rgba(34,197,94,.18)" stroke="#22c55e" stroke-width="1.8"/>
+    <text x="156" y="144" font-family="DM Mono,monospace" font-size="9" fill="#22c55e" text-anchor="middle" font-weight="700" id="hubSiteLabel1">${l1}</text>
+    <!-- Zone B -->
+    <ellipse cx="450" cy="155" rx="95" ry="72" fill="url(#mmgB)"/>
+    <rect x="368" y="96" width="164" height="118" rx="6" fill="rgba(245,166,35,.04)" stroke="rgba(245,166,35,.2)" stroke-width="1.5" stroke-dasharray="6 4"/>
+    <rect x="382" y="110" width="58" height="42" rx="3" fill="rgba(245,166,35,.06)" stroke="rgba(245,166,35,.2)" stroke-width="1"/>
+    <rect x="452" y="106" width="70" height="48" rx="3" fill="rgba(245,166,35,.08)" stroke="rgba(245,166,35,.25)" stroke-width="1"/>
+    <rect x="384" y="162" width="44" height="30" rx="2" fill="rgba(245,166,35,.05)" stroke="rgba(245,166,35,.15)" stroke-width="1"/>
+    <circle class="hx-site-ping" cx="450" cy="155" r="16" fill="none" stroke="#f5a623" stroke-width="1.8" opacity=".7" style="animation-delay:.6s"/>
+    <circle cx="450" cy="155" r="11" fill="rgba(245,166,35,.18)" stroke="#f5a623" stroke-width="1.8"/>
+    <text x="450" y="159" font-family="DM Mono,monospace" font-size="9" fill="#f5a623" text-anchor="middle" font-weight="700" id="hubSiteLabel2">${l2}</text>
+    <!-- Zone C -->
+    <ellipse cx="295" cy="305" rx="85" ry="60" fill="url(#mmgC)"/>
+    <rect x="222" y="256" width="148" height="100" rx="6" fill="rgba(59,130,246,.04)" stroke="rgba(59,130,246,.18)" stroke-width="1.5" stroke-dasharray="6 4"/>
+    <rect x="236" y="268" width="46" height="34" rx="3" fill="rgba(59,130,246,.06)" stroke="rgba(59,130,246,.18)" stroke-width="1"/>
+    <rect x="294" y="264" width="64" height="40" rx="3" fill="rgba(59,130,246,.07)" stroke="rgba(59,130,246,.22)" stroke-width="1"/>
+    <circle class="hx-site-ping" cx="296" cy="305" r="16" fill="none" stroke="#3b82f6" stroke-width="1.8" opacity=".7" style="animation-delay:1.1s"/>
+    <circle cx="296" cy="305" r="11" fill="rgba(59,130,246,.18)" stroke="#3b82f6" stroke-width="1.8"/>
+    <text x="296" y="309" font-family="DM Mono,monospace" font-size="9" fill="#3b82f6" text-anchor="middle" font-weight="700" id="hubSiteLabel3">${l3}</text>
+    <!-- Plant dots -->
+    <circle cx="136" cy="122" r="5" fill="#3b82f6" opacity=".85"><animate attributeName="opacity" values=".85;.4;.85" dur="2.2s" repeatCount="indefinite"/></circle>
+    <circle cx="178" cy="156" r="5" fill="#3b82f6" opacity=".8"><animate attributeName="opacity" values=".8;.35;.8" dur="2.7s" repeatCount="indefinite"/></circle>
+    <circle cx="432" cy="138" r="5" fill="#3b82f6" opacity=".85"><animate attributeName="opacity" values=".85;.4;.85" dur="1.9s" repeatCount="indefinite"/></circle>
+    <circle cx="470" cy="170" r="5" fill="#3b82f6" opacity=".7"><animate attributeName="opacity" values=".7;.3;.7" dur="3s" repeatCount="indefinite"/></circle>
+    <circle cx="278" cy="290" r="5" fill="#3b82f6" opacity=".8"><animate attributeName="opacity" values=".8;.38;.8" dur="2.4s" repeatCount="indefinite"/></circle>
+    <!-- Staff dots -->
+    <circle cx="152" cy="143" r="3" fill="#a855f7" opacity=".9"/>
+    <circle cx="163" cy="134" r="3" fill="#a855f7" opacity=".85"/>
+    <circle cx="444" cy="158" r="3" fill="#a855f7" opacity=".9"/>
+    <circle cx="458" cy="146" r="3" fill="#a855f7" opacity=".85"/>
+    <circle cx="292" cy="308" r="3" fill="#a855f7" opacity=".9"/>
+    <!-- Alert -->
+    <g transform="translate(468,118)"><circle r="9" fill="rgba(239,68,68,.18)" stroke="#ef4444" stroke-width="1.5"/><text x="0" y="4" font-family="DM Mono,monospace" font-size="10" fill="#ef4444" text-anchor="middle" font-weight="900">!</text></g>
+    <!-- Compass -->
+    <g transform="translate(568,348)">
+      <circle r="18" fill="rgba(4,8,16,.9)" stroke="rgba(245,166,35,.2)" stroke-width="1"/>
+      <text x="0" y="-4" font-family="DM Mono,monospace" font-size="10" fill="#f5a623" text-anchor="middle" font-weight="700">N</text>
+      <path d="M0 -2 L2.5 3.5 L0 1.5 L-2.5 3.5 Z" fill="#f5a623"/>
+      <text x="0" y="14" font-family="DM Mono,monospace" font-size="7" fill="#2e4a61" text-anchor="middle">S</text>
+    </g>
+  </svg>`;
+}
+
+function renderHubFullMap(proj) {
+  const wrap = document.getElementById('hubFullMapWrap');
+  if (!wrap || !proj) return;
+  const mapSites = getHubMapSites(proj);
+  const l1=mapSites.label1, l2=mapSites.label2, l3=mapSites.label3;
+  // Set toolbar labels
+  const setEl=(id,v)=>{const e=document.getElementById(id);if(e)e.textContent=v;};
+  setEl('hubMapProjectLabel', proj.id);
+  setEl('hubMapSiteName', mapSites.siteName+' – Live');
+  setEl('hubMapStats', 'Staff: '+hubStaffData.length+' · Plant: '+hubEquipData.filter(e=>e.status==='active').length+'/'+hubEquipData.length);
+  const ts=new Date(); setEl('hubMapTimestamp','LIVE · '+ts.getHours().toString().padStart(2,'0')+':'+ts.getMinutes().toString().padStart(2,'0')+':'+ts.getSeconds().toString().padStart(2,'0'));
+  wrap.innerHTML = `<svg viewBox="0 0 1200 680" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:100%;display:block;">
+    <defs>
+      <pattern id="fmg" width="60" height="60" patternUnits="userSpaceOnUse"><path d="M 60 0 L 0 0 0 60" fill="none" stroke="#090f1c" stroke-width="1"/></pattern>
+      <radialGradient id="fmgA" cx="50%" cy="50%" r="50%"><stop offset="0%" stop-color="#22c55e" stop-opacity=".22"/><stop offset="100%" stop-color="#22c55e" stop-opacity="0"/></radialGradient>
+      <radialGradient id="fmgB" cx="50%" cy="50%" r="50%"><stop offset="0%" stop-color="#f5a623" stop-opacity=".22"/><stop offset="100%" stop-color="#f5a623" stop-opacity="0"/></radialGradient>
+      <radialGradient id="fmgC" cx="50%" cy="50%" r="50%"><stop offset="0%" stop-color="#3b82f6" stop-opacity=".18"/><stop offset="100%" stop-color="#3b82f6" stop-opacity="0"/></radialGradient>
+    </defs>
+    <rect width="1200" height="680" fill="#040810"/>
+    <rect width="1200" height="680" fill="url(#fmg)"/>
+    <!-- Major road H -->
+    <path d="M0 340 Q240 328 480 348 Q720 368 960 330 Q1080 314 1200 326" stroke="#0e1e32" stroke-width="22" fill="none"/>
+    <path d="M0 340 Q240 328 480 348 Q720 368 960 330 Q1080 314 1200 326" stroke="#182e48" stroke-width="3" fill="none" stroke-dasharray="30 14"/>
+    <!-- Major road V -->
+    <path d="M600 0 Q588 200 608 340 Q622 460 600 680" stroke="#0e1e32" stroke-width="18" fill="none"/>
+    <path d="M600 0 Q588 200 608 340 Q622 460 600 680" stroke="#182e48" stroke-width="2.5" fill="none" stroke-dasharray="30 14"/>
+    <!-- Secondary roads -->
+    <path d="M0 155 Q180 144 340 162 Q520 182 700 148 Q900 116 1100 138" stroke="#0b1828" stroke-width="12" fill="none"/>
+    <path d="M0 155 Q180 144 340 162 Q520 182 700 148 Q900 116 1100 138" stroke="#12243a" stroke-width="1.5" fill="none" stroke-dasharray="22 10"/>
+    <path d="M200 680 Q230 540 250 440 Q268 320 210 200 Q170 120 190 0" stroke="#0b1828" stroke-width="10" fill="none"/>
+    <path d="M980 680 Q1000 550 990 440 Q980 320 1020 200 Q1050 110 1030 0" stroke="#0b1828" stroke-width="10" fill="none"/>
+    <!-- Zone A -->
+    <ellipse cx="260" cy="218" rx="130" ry="100" fill="url(#fmgA)"/>
+    <rect x="148" y="132" width="224" height="172" rx="8" fill="rgba(34,197,94,.04)" stroke="rgba(34,197,94,.24)" stroke-width="1.5" stroke-dasharray="8 4"/>
+    <text x="260" y="126" font-family="DM Mono,monospace" font-size="10" fill="rgba(34,197,94,.55)" text-anchor="middle" font-weight="700" letter-spacing="2">ZONE A — MAIN WORKS</text>
+    <rect x="164" y="148" width="64" height="46" rx="3" fill="rgba(34,197,94,.07)" stroke="rgba(34,197,94,.22)" stroke-width="1"/>
+    <rect x="242" y="142" width="80" height="56" rx="3" fill="rgba(34,197,94,.09)" stroke="rgba(34,197,94,.28)" stroke-width="1"/>
+    <rect x="166" y="206" width="48" height="36" rx="2" fill="rgba(34,197,94,.06)" stroke="rgba(34,197,94,.18)" stroke-width="1"/>
+    <rect x="228" y="208" width="90" height="34" rx="2" fill="rgba(34,197,94,.05)" stroke="rgba(34,197,94,.16)" stroke-width="1"/>
+    <circle class="hx-site-ping" cx="262" cy="226" r="20" fill="none" stroke="#22c55e" stroke-width="2" opacity=".6"/>
+    <circle cx="262" cy="226" r="15" fill="rgba(34,197,94,.2)" stroke="#22c55e" stroke-width="2"/>
+    <text x="262" y="231" font-family="DM Mono,monospace" font-size="10" fill="#22c55e" text-anchor="middle" font-weight="700" id="fmapLabel1">${l1}</text>
+    <!-- Zone B -->
+    <ellipse cx="870" cy="256" rx="140" ry="108" fill="url(#fmgB)"/>
+    <rect x="746" y="162" width="248" height="188" rx="8" fill="rgba(245,166,35,.04)" stroke="rgba(245,166,35,.22)" stroke-width="1.5" stroke-dasharray="8 4"/>
+    <text x="870" y="156" font-family="DM Mono,monospace" font-size="10" fill="rgba(245,166,35,.55)" text-anchor="middle" font-weight="700" letter-spacing="2">ZONE B — CIVILS</text>
+    <rect x="762" y="178" width="70" height="50" rx="3" fill="rgba(245,166,35,.06)" stroke="rgba(245,166,35,.22)" stroke-width="1"/>
+    <rect x="848" y="172" width="88" height="58" rx="3" fill="rgba(245,166,35,.08)" stroke="rgba(245,166,35,.28)" stroke-width="1"/>
+    <rect x="764" y="238" width="54" height="38" rx="2" fill="rgba(245,166,35,.05)" stroke="rgba(245,166,35,.17)" stroke-width="1"/>
+    <rect x="832" y="242" width="96" height="34" rx="2" fill="rgba(245,166,35,.05)" stroke="rgba(245,166,35,.16)" stroke-width="1"/>
+    <circle class="hx-site-ping" cx="872" cy="264" r="20" fill="none" stroke="#f5a623" stroke-width="2" opacity=".6" style="animation-delay:.6s"/>
+    <circle cx="872" cy="264" r="15" fill="rgba(245,166,35,.2)" stroke="#f5a623" stroke-width="2"/>
+    <text x="872" y="269" font-family="DM Mono,monospace" font-size="10" fill="#f5a623" text-anchor="middle" font-weight="700" id="fmapLabel2">${l2}</text>
+    <!-- Zone C -->
+    <ellipse cx="545" cy="510" rx="118" ry="90" fill="url(#fmgC)"/>
+    <rect x="444" y="432" width="202" height="156" rx="8" fill="rgba(59,130,246,.04)" stroke="rgba(59,130,246,.2)" stroke-width="1.5" stroke-dasharray="8 4"/>
+    <text x="545" y="426" font-family="DM Mono,monospace" font-size="10" fill="rgba(59,130,246,.55)" text-anchor="middle" font-weight="700" letter-spacing="2">ZONE C — SERVICES</text>
+    <rect x="458" y="448" width="56" height="40" rx="3" fill="rgba(59,130,246,.06)" stroke="rgba(59,130,246,.2)" stroke-width="1"/>
+    <rect x="526" y="444" width="72" height="46" rx="3" fill="rgba(59,130,246,.07)" stroke="rgba(59,130,246,.24)" stroke-width="1"/>
+    <rect x="460" y="500" width="44" height="32" rx="2" fill="rgba(59,130,246,.05)" stroke="rgba(59,130,246,.16)" stroke-width="1"/>
+    <circle class="hx-site-ping" cx="548" cy="516" r="20" fill="none" stroke="#3b82f6" stroke-width="2" opacity=".6" style="animation-delay:1.1s"/>
+    <circle cx="548" cy="516" r="15" fill="rgba(59,130,246,.2)" stroke="#3b82f6" stroke-width="2"/>
+    <text x="548" y="521" font-family="DM Mono,monospace" font-size="10" fill="#3b82f6" text-anchor="middle" font-weight="700" id="fmapLabel3">${l3}</text>
+    <!-- Plant (animated) -->
+    <circle cx="238" cy="200" r="7" fill="#3b82f6" opacity=".9"><animate attributeName="opacity" values=".9;.45;.9" dur="2.2s" repeatCount="indefinite"/></circle>
+    <circle cx="290" cy="242" r="7" fill="#3b82f6" opacity=".8"><animate attributeName="opacity" values=".8;.38;.8" dur="2.7s" repeatCount="indefinite"/></circle>
+    <circle cx="848" cy="240" r="7" fill="#3b82f6" opacity=".85"><animate attributeName="opacity" values=".85;.4;.85" dur="2s" repeatCount="indefinite"/></circle>
+    <circle cx="898" cy="278" r="7" fill="#3b82f6" opacity=".75"><animate attributeName="opacity" values=".75;.32;.75" dur="3.1s" repeatCount="indefinite"/></circle>
+    <circle cx="524" cy="496" r="7" fill="#3b82f6" opacity=".82"><animate attributeName="opacity" values=".82;.38;.82" dur="2.5s" repeatCount="indefinite"/></circle>
+    <!-- Staff -->
+    <circle cx="256" cy="230" r="4" fill="#a855f7" opacity=".9"/><circle cx="270" cy="218" r="4" fill="#a855f7" opacity=".85"/>
+    <circle cx="864" cy="268" r="4" fill="#a855f7" opacity=".9"/><circle cx="880" cy="254" r="4" fill="#a855f7" opacity=".85"/>
+    <circle cx="542" cy="520" r="4" fill="#a855f7" opacity=".88"/>
+    <!-- Alert marker -->
+    <g transform="translate(900,226)"><circle r="12" fill="rgba(239,68,68,.18)" stroke="#ef4444" stroke-width="1.8"/><text x="0" y="4" font-family="DM Mono,monospace" font-size="12" fill="#ef4444" text-anchor="middle" font-weight="900">!</text></g>
+    <!-- Compass -->
+    <g transform="translate(1152,638)">
+      <circle r="28" fill="rgba(4,8,16,.92)" stroke="rgba(245,166,35,.22)" stroke-width="1.2"/>
+      <text x="0" y="-7" font-family="DM Mono,monospace" font-size="13" fill="#f5a623" text-anchor="middle" font-weight="700">N</text>
+      <path d="M0 -3 L3.5 5 L0 3 L-3.5 5 Z" fill="#f5a623"/>
+      <text x="0" y="18" font-family="DM Mono,monospace" font-size="9" fill="#2e4a61" text-anchor="middle">S</text>
+      <text x="-18" y="5" font-family="DM Mono,monospace" font-size="9" fill="#2e4a61" text-anchor="middle">W</text>
+      <text x="18" y="5" font-family="DM Mono,monospace" font-size="9" fill="#2e4a61" text-anchor="middle">E</text>
+    </g>
+    <!-- Scale bar -->
+    <g transform="translate(40,645)">
+      <line x1="0" y1="0" x2="120" y2="0" stroke="#1e3a50" stroke-width="2"/>
+      <line x1="0" y1="-5" x2="0" y2="5" stroke="#1e3a50" stroke-width="2"/>
+      <line x1="120" y1="-5" x2="120" y2="5" stroke="#1e3a50" stroke-width="2"/>
+      <line x1="60" y1="-3" x2="60" y2="3" stroke="#1e3a50" stroke-width="1.5"/>
+      <text x="60" y="-9" font-family="DM Mono,monospace" font-size="9" fill="#2e4a61" text-anchor="middle">100m</text>
+    </g>
+    <!-- Layer controls overlay (static) -->
+  </svg>
+  <div class="hx-map-overlay-card" style="top:16px;right:16px">
+    <div style="font-size:8px;font-weight:700;letter-spacing:2px;color:#2e4a61;margin-bottom:8px">LAYERS</div>
+    <div style="display:flex;flex-direction:column;gap:6px">
+      <label style="display:flex;align-items:center;gap:7px;cursor:pointer;font-size:10px;color:#4a6a84"><input type="checkbox" checked style="accent-color:#f5a623"> Site Zones</label>
+      <label style="display:flex;align-items:center;gap:7px;cursor:pointer;font-size:10px;color:#4a6a84"><input type="checkbox" checked style="accent-color:#3b82f6"> Plant</label>
+      <label style="display:flex;align-items:center;gap:7px;cursor:pointer;font-size:10px;color:#4a6a84"><input type="checkbox" checked style="accent-color:#a855f7"> Personnel</label>
+      <label style="display:flex;align-items:center;gap:7px;cursor:pointer;font-size:10px;color:#4a6a84"><input type="checkbox" style="accent-color:#ef4444"> Alerts</label>
+    </div>
+  </div>
+  <div class="hx-map-overlay-card" style="bottom:12px;left:16px">
+    <div style="font-size:9px;font-family:'DM Mono',monospace;color:#f5a623;letter-spacing:1.5px;margin-bottom:3px">PROJECT: <span id="hubMapProjectLabel">${proj.id}</span></div>
+    <div style="font-size:13px;font-weight:700;color:#dde8f4;margin-bottom:2px" id="hubMapSiteName">${mapSites.siteName} – Live</div>
+    <div style="font-size:10px;font-family:'DM Mono',monospace;color:#f5a623;margin-bottom:4px" id="hubMapCoords">${mapSites.coords}</div>
+    <div style="font-size:10px;color:#4a6a84" id="hubMapStats"></div>
+  </div>`;
+}
+
+function renderHubFinancials(proj) {
+  if (!proj) return;
+  const projId = proj.id;
+  const budget = proj.budget || 0;
+  const actual = proj.actualCost || 0;
+
+  // Gather project invoices
+  const projInvs = invoices.filter(i => i.projectId === projId || i.project === projId);
+  const projPOs  = purchaseOrders.filter(p => p.projectId === projId || p.project === projId);
+
+  const invoiced   = projInvs.reduce((s,i) => s + toNum(i.amount,0), 0);
+  const paid       = projInvs.reduce((s,i) => s + toNum(i.paid||i.amountPaid,0), 0);
+  const outstanding = invoiced - paid;
+  const poTotal    = projPOs.reduce((s,p) => s + toNum(p.amount||p.total,0), 0);
+  const margin     = invoiced > 0 ? Math.round(((invoiced - actual) / invoiced) * 100) : 0;
+  const invPct     = budget > 0 ? Math.round((invoiced / budget) * 100) : 0;
+  const costPct    = budget > 0 ? Math.round((actual  / budget) * 100) : 0;
+
+  const setEl = (id,v) => { const e=document.getElementById(id); if(e) e.textContent=v; };
+  setEl('hfin-contract', fmt(budget));
+  setEl('hfin-contract-meta', 'Approved budget');
+  setEl('hfin-invoiced', fmt(invoiced));
+  setEl('hfin-invoiced-pct', invPct + '% of contract');
+  setEl('hfin-paid', fmt(paid));
+  setEl('hfin-outstanding', fmt(outstanding) + ' outstanding');
+  setEl('hfin-cost', fmt(actual));
+  setEl('hfin-cost-pct', costPct + '% of budget');
+
+  const margEl = document.getElementById('hfin-margin');
+  if (margEl) {
+    margEl.textContent = margin + '%';
+    margEl.style.color = margin >= 30 ? '#22c55e' : margin >= 15 ? '#f5a623' : '#ef4444';
+  }
+  setEl('hfin-po', fmt(poTotal));
+  setEl('hfin-po-meta', projPOs.length + ' supplier order' + (projPOs.length !== 1 ? 's' : ''));
+
+  // Invoice table
+  const invTb = document.getElementById('hfin-inv-tbody');
+  const invCount = document.getElementById('hfin-inv-count');
+  if (invCount) invCount.textContent = projInvs.length + ' invoice' + (projInvs.length !== 1 ? 's' : '');
+  if (invTb) {
+    if (!projInvs.length) {
+      invTb.innerHTML = '<tr><td colspan="5" style="text-align:center;padding:20px;color:var(--htm);font-size:11px">No invoices linked to this project</td></tr>';
+    } else {
+      invTb.innerHTML = projInvs.map(i => {
+        const amt = toNum(i.amount,0);
+        const ipaid = toNum(i.paid||i.amountPaid,0);
+        const pct = amt > 0 ? Math.round((ipaid/amt)*100) : 0;
+        return `<tr>
+          <td style="font-family:var(--font-mono);font-size:10px;color:var(--ha)">${i.id}</td>
+          <td style="font-size:11px">${i.description||i.title||'Invoice'}</td>
+          <td style="font-family:var(--font-mono);text-align:right">${fmt(amt)}</td>
+          <td style="font-family:var(--font-mono);text-align:right;color:#22c55e">${fmt(ipaid)}</td>
+          <td><span class="status-badge ${bc(i.status)}">${i.status}</span></td>
+        </tr>`;
+      }).join('');
+    }
+  }
+
+  // PO table
+  const poTb = document.getElementById('hfin-po-tbody');
+  const poCount = document.getElementById('hfin-po-count');
+  if (poCount) poCount.textContent = projPOs.length + ' PO' + (projPOs.length !== 1 ? 's' : '');
+  if (poTb) {
+    if (!projPOs.length) {
+      poTb.innerHTML = '<tr><td colspan="5" style="text-align:center;padding:20px;color:var(--htm);font-size:11px">No purchase orders linked to this project</td></tr>';
+    } else {
+      poTb.innerHTML = projPOs.map(p => {
+        const amt = toNum(p.amount||p.total,0);
+        const ppaid = toNum(p.paid||p.amountPaid,0);
+        return `<tr>
+          <td style="font-family:var(--font-mono);font-size:10px;color:var(--ha)">${p.id}</td>
+          <td style="font-size:11px">${p.supplier||p.supplierName||'—'}</td>
+          <td style="font-family:var(--font-mono);text-align:right">${fmt(amt)}</td>
+          <td style="font-family:var(--font-mono);text-align:right;color:#22c55e">${fmt(ppaid)}</td>
+          <td><span class="status-badge ${bc(p.status)}">${p.status}</span></td>
+        </tr>`;
+      }).join('');
+    }
+  }
+
+  // Cash flow summary bar chart (SVG)
+  const cf = document.getElementById('hfin-cashflow');
+  if (cf) {
+    const bars = [
+      { label:'Budget',    value: budget,      color: '#3b82f6' },
+      { label:'Cost',      value: actual,       color: budget>0&&actual/budget>.9?'#ef4444':'#f59e0b' },
+      { label:'Invoiced',  value: invoiced,     color: '#f5a623' },
+      { label:'Collected', value: paid,         color: '#22c55e' },
+      { label:'PO Committed', value: poTotal,   color: '#a855f7' },
+    ];
+    const maxVal = Math.max(...bars.map(b=>b.value), 1);
+    cf.innerHTML = bars.map(b => {
+      const pct = Math.round((b.value/maxVal)*100);
+      return `<div style="display:flex;flex-direction:column;align-items:center;gap:6px;min-width:80px;flex:1">
+        <div style="font-size:16px;font-weight:700;font-family:var(--font-mono);color:${b.color}">${fmtShort(b.value)}</div>
+        <div style="width:100%;height:80px;background:rgba(255,255,255,.05);border-radius:4px;display:flex;align-items:flex-end;overflow:hidden">
+          <div style="width:100%;height:${pct}%;background:${b.color};opacity:.8;border-radius:4px 4px 0 0;transition:height .4s ease"></div>
+        </div>
+        <div style="font-size:9px;font-weight:700;letter-spacing:.8px;text-transform:uppercase;color:var(--htm);text-align:center">${b.label}</div>
+      </div>`;
+    }).join('');
+  }
+}
+
+
+function filterHubStaff(q) {
+  const grid = document.getElementById('hubStaffGrid');
+  if (!grid || !grid._allData) return;
+  const qL = q.toLowerCase();
+  const filtered = grid._allData.filter(s =>
+    !qL || s.name.toLowerCase().includes(qL) || s.role.toLowerCase().includes(qL)
+  );
+  _renderStaffCards(grid, filtered);
+}
+function hubFilterPill(btn, type) {
+  document.querySelectorAll('#hxv-staff .hx-pill').forEach(p => p.classList.remove('active'));
+  btn.classList.add('active');
+  const grid = document.getElementById('hubStaffGrid');
+  if (!grid || !grid._allData) return;
+  let filtered = grid._allData;
+  if (type === 'active') filtered = filtered.filter(s => s.status === 'active');
+  else if (type === 'engineer') filtered = filtered.filter(s => s.type === 'engineer');
+  else if (type === 'operator') filtered = filtered.filter(s => s.type === 'operator');
+  _renderStaffCards(grid, filtered);
+}
 function closeConstructionHub() {
   if (hubClockTimer) { clearInterval(hubClockTimer); hubClockTimer = null; }
+  document.body.classList.remove('hub-mode');
   // Switch back to projects view
   document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
   const projItem = document.querySelector('.nav-item[data-view="projects"]');
@@ -4725,461 +6405,1087 @@ function getHubStaffPool(project) {
     { name: 'Grant Swanepoel', role: 'Shaft Sinker Foreman', site: site, status: 'active', statusLabel: 'On Site', initials: 'GS', color: '#10b981', hours: (6+Math.random()*2).toFixed(1)+'h', certs: ['MHSA','CPCS'], certStates: ['valid','valid'], type: 'operator' },
     { name: 'Karabo Nkosi', role: 'Mechanical Technician', site: site, status: 'active', statusLabel: 'On Site', initials: 'KN', color: '#8b5cf6', hours: (5+Math.random()*3).toFixed(1)+'h', certs: ['EWSETA','MHSA'], certStates: ['valid','valid'], type: 'operator' },
     { name: 'Bronwyn Steyn', role: 'QS / Commercial', site: 'Remote', status: 'warn', statusLabel: 'Remote', initials: 'BS', color: '#ec4899', hours: (2+Math.random()*3).toFixed(1)+'h', certs: ['MRICS','CIOB'], certStates: ['valid','expiring'], type: 'management' },
-    { name: 'Solomon Moagi', role: 'Electrician (MV)', site: site, status: 'offline', statusLabel: 'Signed Out', initials: 'SM', color: '#64748b', hours: '8.0h', certs: ['EWSETA'], certStates: ['valid'], type: 'operator' },
+
+    { name: 'Solomon Moagi', role: 'Electrician (MV)', site: site, status: 'active', statusLabel: 'On Site', initials: 'SM', color: '#6366f1', hours: (4+Math.random()*4).toFixed(1)+'h', certs: ['EWSETA','MHSA'], certStates: ['valid','valid'], type: 'operator' },
+    { name: luName, role: currentUser?.role||'Admin', site: 'All Sites', status: 'active', statusLabel: 'Logged In', initials: luInitials, color: '#f5a623', hours: (5+Math.random()*3).toFixed(1)+'h', certs: ['ECSA','PrEng'], certStates: ['valid','valid'], type: 'management', isUser: true },
   ];
 
-  const structRoles = [
-    { name: pm, role: 'Project Manager', site: site, status: 'active', statusLabel: 'On Site', initials: pmInitials, color: '#f5a623', hours: (5+Math.random()*3).toFixed(1)+'h', certs: ['ECSA','CIOB','CSCS'], certStates: ['valid','valid','valid'], type: 'management', isUser: false },
-    { name: 'Ruan de Villiers', role: 'Structural Engineer', site: site, status: 'active', statusLabel: 'On Site', initials: 'RV', color: '#3b82f6', hours: (5+Math.random()*3).toFixed(1)+'h', certs: ['ECSA','ICE','CSCS'], certStates: ['valid','valid','valid'], type: 'engineer' },
-    { name: 'Zanele Mthembu', role: 'Civil Foreman', site: site, status: 'active', statusLabel: 'On Site', initials: 'ZM', color: '#22c55e', hours: (6+Math.random()*2).toFixed(1)+'h', certs: ['CIOB','CSCS'], certStates: ['valid','valid'], type: 'operator' },
-    { name: 'Chris Botha', role: 'Steel Fixer Lead', site: site, status: 'active', statusLabel: 'On Site', initials: 'CB', color: '#f97316', hours: (5+Math.random()*3).toFixed(1)+'h', certs: ['CSCS','NPORS'], certStates: ['valid','valid'], type: 'operator' },
-    { name: 'Lindiwe Nkosi', role: 'H&S Officer', site: 'All Sites', status: 'active', statusLabel: 'Touring', initials: 'LN', color: '#06b6d4', hours: (4+Math.random()*4).toFixed(1)+'h', certs: ['NEBOSH','IOSH','FA'], certStates: ['valid','valid','valid'], type: 'management' },
-    { name: 'Willem du Toit', role: 'Concrete Technologist', site: site, status: 'warn', statusLabel: 'On Break', initials: 'WD', color: '#f59e0b', hours: (4+Math.random()*3).toFixed(1)+'h', certs: ['ACI','CSCS'], certStates: ['valid','expiring'], type: 'engineer' },
-    { name: 'Nompumelelo Dube', role: 'QS / Commercial', site: 'Remote', status: 'warn', statusLabel: 'Remote', initials: 'ND', color: '#ec4899', hours: (2+Math.random()*3).toFixed(1)+'h', certs: ['MRICS'], certStates: ['expiring'], type: 'management' },
-    { name: 'Francois Pretorius', role: 'Crane Operator', site: site, status: 'active', statusLabel: 'On Site', initials: 'FP', color: '#8b5cf6', hours: (5+Math.random()*3).toFixed(1)+'h', certs: ['CPCS','NPORS'], certStates: ['valid','valid'], type: 'operator' },
-    { name: 'Thandeka Msweli', role: 'Groundworker', site: site, status: 'offline', statusLabel: 'Signed Out', initials: 'TM', color: '#64748b', hours: '8.0h', certs: ['CSCS','EUSR'], certStates: ['valid','valid'], type: 'operator' },
+  const structuralRoles = [
+    { name: pm, role: 'Project Manager', site: site, status: 'active', statusLabel: 'On Site', initials: pmInitials, color: '#f5a623', hours: (5+Math.random()*3).toFixed(1)+'h', certs: ['ECSA','CIOB'], certStates: ['valid','valid'], type: 'management' },
+    { name: 'Danie Pretorius', role: 'Structural Engineer', site: site, status: 'active', statusLabel: 'On Site', initials: 'DP', color: '#3b82f6', hours: (4+Math.random()*4).toFixed(1)+'h', certs: ['ECSA','PrEng'], certStates: ['valid','valid'], type: 'engineer' },
+    { name: 'Mpho Selepe', role: 'Site Supervisor', site: site, status: 'active', statusLabel: 'On Site', initials: 'MS', color: '#22c55e', hours: (6+Math.random()*2).toFixed(1)+'h', certs: ['CIOB','CSCS'], certStates: ['valid','valid'], type: 'management' },
+    { name: 'Riaan Botha', role: 'Civil Foreman', site: site, status: 'warn', statusLabel: 'On Break', initials: 'RB', color: '#f59e0b', hours: (3+Math.random()*3).toFixed(1)+'h', certs: ['CSCS'], certStates: ['expiring'], type: 'operator' },
+    { name: 'Zanele Mthembu', role: 'QA Inspector', site: site, status: 'active', statusLabel: 'On Site', initials: 'ZM', color: '#06b6d4', hours: (4+Math.random()*4).toFixed(1)+'h', certs: ['IRCA','ISO9001'], certStates: ['valid','valid'], type: 'management' },
+    { name: 'Arno Steenkamp', role: 'Rebar Fixer', site: site, status: 'active', statusLabel: 'On Site', initials: 'AS', color: '#10b981', hours: (6+Math.random()*2).toFixed(1)+'h', certs: ['CSCS'], certStates: ['valid'], type: 'operator' },
+    { name: luName, role: currentUser?.role||'Admin', site: 'All Sites', status: 'active', statusLabel: 'Logged In', initials: luInitials, color: '#f5a623', hours: (5+Math.random()*3).toFixed(1)+'h', certs: ['ECSA','PrEng'], certStates: ['valid','valid'], type: 'management', isUser: true },
   ];
 
-  const pool = isMining ? miningRoles : structRoles;
-  // Inject current user if logged in
-  if (isLoggedIn && luName !== pm) {
-    pool.unshift({
-      name: luName + ' (You)', role: currentUser.role === 'Admin' ? 'Project Director' : currentUser.role === 'Manager' ? 'Project Manager' : 'Project Accountant',
-      site: site, status: 'active', statusLabel: 'On Site',
-      initials: luInitials, color: '#f5a623',
-      hours: (hubRand(3,7)) + '.0h', certs: ['ECSA','CSCS'], certStates: ['valid','valid'],
-      type: 'management', isUser: true
-    });
-  }
-  return pool;
+  const defaultRoles = [
+    { name: pm, role: 'Project Manager', site: site, status: 'active', statusLabel: 'On Site', initials: pmInitials, color: '#f5a623', hours: (5+Math.random()*3).toFixed(1)+'h', certs: ['ECSA','PMI'], certStates: ['valid','valid'], type: 'management' },
+    { name: 'Fatima Osman', role: 'Lead Engineer', site: site, status: 'active', statusLabel: 'On Site', initials: 'FO', color: '#3b82f6', hours: (5+Math.random()*3).toFixed(1)+'h', certs: ['ECSA'], certStates: ['valid'], type: 'engineer' },
+    { name: 'Lebo Motaung', role: 'Site Foreman', site: site, status: 'warn', statusLabel: 'On Break', initials: 'LM', color: '#f59e0b', hours: (3+Math.random()*3).toFixed(1)+'h', certs: ['CSCS'], certStates: ['expiring'], type: 'operator' },
+    { name: luName, role: currentUser?.role||'Admin', site: 'All Sites', status: 'active', statusLabel: 'Logged In', initials: luInitials, color: '#f5a623', hours: (5+Math.random()*3).toFixed(1)+'h', certs: ['ECSA'], certStates: ['valid'], type: 'management', isUser: true },
+  ];
+
+  return isMining ? miningRoles : isStructural ? structuralRoles : defaultRoles;
 }
-
-function getHubEquipPool(project) {
-  const site = project.site || 'Main Site';
-  const isMining = /mine|shaft|mining|ventilation|reagent/i.test(project.name + project.site);
-  if (isMining) return [
-    { id:'VF-01', name:'Atlas Copco VF 315kW Fan', type:'Ventilation Fan', site:site, icon:'🔧', health:88, fuel:0, hours:2140, nextSvc:'15 May', status:'active', operator:'K. Nkosi', notes:'Operating at rated capacity. Airflow 95mÂ³/s. Next inspection due 15 May.' },
-    { id:'CH-03', name:'Ingersoll Rand Compressor T30', type:'Air Compressor', site:site, icon:'🏁', health:72, fuel:65, hours:3420, nextSvc:'OVERDUE', status:'warn', operator:'G. Swanepoel', notes:'Service overdue by 3 days. Pressure relief valve requires inspection.' },
-    { id:'WI-02', name:'Koepe Hoist 6-Drum Shaft', type:'Winding Gear', site:site, icon:'a"ï¸', health:95, fuel:0, hours:4800, nextSvc:'01 Jun', status:'active', operator:'T. Sithole', notes:'All safety checks passed. Kibble inspection last Monday.' },
-    { id:'DW-04', name:'Sulzer MSA 500 Dewatering Pump', type:'Dewatering Pump', site:site, icon:'🏦', health:61, fuel:0, hours:1980, nextSvc:'ALERT', status:'alert', operator:'Unassigned', notes:'ALERT: Impeller wear detected. Temporary bypass in place. Replacement scheduled.' },
-    { id:'CR-05', name:'Grove RT760E 60T Crane', type:'Rough Terrain Crane', site:site, icon:'🏗', health:90, fuel:54, hours:1120, nextSvc:'28 Apr', status:'active', operator:'F. Pretorius', notes:'Supporting installation of fan ducting at level 4.' },
-    { id:'GN-06', name:'Aggreko 750kVA Generator', type:'Generator', site:site, icon:'⚠', health:82, fuel:35, hours:2280, nextSvc:'30 Apr', status:'warn', operator:'Site Power', notes:'Low fuel – refuel scheduled for 14:00 today. Runtime est. 6hrs remaining.' },
-  ];
-  return [
-    { id:'TC-01', name:'Liebherr 200EC Tower Crane', type:'Tower Crane', site:site, icon:'🏗', health:94, fuel:0, hours:1380, nextSvc:'02 May', status:'active', operator:'F. Pretorius', notes:'All systems nominal. Supporting formwork installation Block B. Inspection 02 May.' },
-    { id:'EX-03', name:'CAT 323 Excavator', type:'Excavator', site:site, icon:'🚜', health:67, fuel:48, hours:3650, nextSvc:'OVERDUE', status:'warn', operator:'T. Msweli', notes:'Service overdue 48hrs. Hydraulic filter replacement required urgently.' },
-    { id:'CP-02', name:'Schwing S47 Concrete Pump', type:'Concrete Pump', site:site, icon:'🏁', health:97, fuel:58, hours:720, nextSvc:'15 May', status:'active', operator:'W. du Toit', notes:'Ready for afternoon pour – Section 4B Level 3. Mix approved by Technologist.' },
-    { id:'DT-04', name:'Volvo A40G Articulated Dumper', type:'Articulated Dumper', site:site, icon:'🚛', health:85, fuel:88, hours:920, nextSvc:'10 May', status:'active', operator:'Unassigned', notes:'Recently serviced. Awaiting operator assignment for bulk earthworks Zone C.' },
-    { id:'RL-05', name:'Bomag BW 213 D Roller', type:'Compaction Roller', site:site, icon:'🛞', health:78, fuel:0, hours:1560, nextSvc:'25 Apr', status:'warn', operator:'C. Botha', notes:'Electric unit. Battery at 72%. Scheduled for compaction works Zone C tomorrow.' },
-    { id:'SC-06', name:'JLG 4069LE Scissor Lift', type:'Aerial Platform', site:site, icon:'🏗', health:99, fuel:100, hours:240, nextSvc:'20 Jun', status:'active', operator:'R. de Villiers', notes:'Electric unit fully charged. In use for structural inspection Level 2.' },
-    { id:'GN-07', name:'Aggreko 500kVA Generator', type:'Generator', site:site, icon:'⚠', health:80, fuel:42, hours:1920, nextSvc:'28 Apr', status:'warn', operator:'Site B2', notes:'Fuel check needed. Refuel scheduled alongside crane maintenance 28 Apr.' },
-  ];
-}
-
-function getHubGanttTasks(project) {
-  const budgetPct = project.budget > 0 ? Math.round((project.actualCost / project.budget) * 100) : 40;
-  const isMining = /mine|shaft|mining|ventilation|reagent/i.test(project.name + project.site);
-  if (isMining) return [
-    { label:'Mobilisation & Setup', start:0, width:12, color:'#22c55e', pct:'COMPLETE' },
-    { label:'Shaft Preparation', start:10, width:28, color:'#22c55e', pct:'COMPLETE' },
-    { label:'Ventilation Ducting Install', start:35, width:30, color:'#3b82f6', pct: budgetPct + '%' },
-    { label:'Fan & Motor Installation', start:55, width:22, color:'#f5a623', pct:'32%' },
-    { label:'Electrical & Controls', start:64, width:20, color:'#a855f7', pct:'8%' },
-    { label:'Commissioning & Testing', start:82, width:12, color:'#64748b', pct:'NOT STARTED' },
-    { label:'Handover & Closeout', start:92, width:8, color:'#64748b', pct:'NOT STARTED' },
-  ];
-  return [
-    { label:'Substructure Works', start:0, width:30, color:'#22c55e', pct:'COMPLETE' },
-    { label:'Structural Steel Frame', start:25, width:32, color:'#3b82f6', pct: budgetPct + '%' },
-    { label:'Concrete Works (RC)', start:30, width:35, color:'#f5a623', pct:'55%' },
-    { label:'MEP Rough-In', start:55, width:25, color:'#a855f7', pct:'18%' },
-    { label:'External Cladding', start:60, width:25, color:'#f97316', pct:'10%' },
-    { label:'Internal Finishes', start:75, width:18, color:'#64748b', pct:'NOT STARTED' },
-    { label:'Commissioning', start:88, width:12, color:'#64748b', pct:'NOT STARTED' },
-  ];
-}
-
-function getHubRFIs(project) {
-  const isMining = /mine|shaft|mining|ventilation|reagent/i.test(project.name + project.site);
-  const siteLabel = project.site || 'Main Site';
-  if (isMining) return [
-    { id:'RFI-0112', title:'Ventilation fan spec – motor kW rating clarification', from:'WA Projects (PE)', priority:'urgent', status:'Open', days:4 },
-    { id:'RFI-0111', title:'Shaft collar tie-in with existing concrete', from:'Golder Associates', priority:'high', status:'Open', days:6 },
-    { id:'RFI-0110', title:'Revised ducting layout – Level -3 intersection', from:siteLabel+' Team', priority:'high', status:'Pending', days:9 },
-    { id:'RFI-0109', title:'Dewatering pump bypass routing approval', from:'SRK Consulting', priority:'medium', status:'Open', days:3 },
-    { id:'RFI-0108', title:'Cable tray specification – fire rating underground', from:siteLabel+' Team', priority:'medium', status:'Responded', days:1 },
-    { id:'RFI-0107', title:'Hoisting rope inspection certificate renewal', from:'DMR Inspector', priority:'low', status:'Responded', days:0 },
-  ];
-  return [
-    { id:'RFI-0098', title:'Structural connection detail – grid 8-10 column base', from:'ARUP Engineers', priority:'urgent', status:'Open', days:5 },
-    { id:'RFI-0097', title:'Concrete mix design – sulphate resistant basement', from:siteLabel+' Team', priority:'high', status:'Open', days:3 },
-    { id:'RFI-0096', title:'Revised slab thickness – Level 2 amendment', from:'WSP Global', priority:'high', status:'Pending', days:7 },
-    { id:'RFI-0095', title:'Steel beam camber tolerance clarification', from:'Aveng Trident Steel', priority:'medium', status:'Open', days:2 },
-    { id:'RFI-0094', title:'Waterproofing membrane – revised spec tanking', from:siteLabel+' Team', priority:'medium', status:'Responded', days:1 },
-    { id:'RFI-0093', title:'Fire rating of structural steel – block B', from:'Swanepoel Fire Eng', priority:'low', status:'Responded', days:0 },
-  ];
-}
-
-function getHubActivity(project) {
-  const site = project.site || 'Main Site';
-  const pm = project.manager || 'Project Manager';
-  const isMining = /mine|shaft|mining|ventilation|reagent/i.test(project.name + project.site);
-  if (isMining) return [
-    { color:'#ef4444', title:'Dewatering pump impeller wear – temporary bypass active', meta:'PLANT ALERT · '+site, time:'Now' },
-    { color:'#f5a623', title:'Air compressor CH-03 service now 3 days overdue', meta:'MAINTENANCE · '+site, time:'8m' },
-    { color:'#22c55e', title:'Ventilation ducting welded joins – Section -2 completed', meta:'PROGRESS · '+site+' · '+pm, time:'22m' },
-    { color:'#3b82f6', title:'RFI-0112 submitted to WA Projects for motor spec', meta:'ENGINEERING · '+site, time:'35m' },
-    { color:'#22c55e', title:'Toolbox talk completed – underground procedures (34 staff)', meta:'SAFETY · '+site, time:'54m' },
-    { color:'#f5a623', title:'Generator GN-06 fuel refill scheduled 14:00 today', meta:'LOGISTICS · '+site+' · ETA 14:00', time:'1h' },
-    { color:'#3b82f6', title:'DMR inspection certificate uploaded – shaft collar', meta:'COMPLIANCE · '+site, time:'1h 22m' },
-    { color:'#22c55e', title:'Night shift handover complete – 4 items outstanding', meta:'HANDOVER · '+site, time:'2h' },
-  ];
-  return [
-    { color:'#ef4444', title:'Excavator EX-03 service 48hrs overdue – operations limited', meta:'MAINTENANCE · '+site, time:'Now' },
-    { color:'#f5a623', title:'Generator fuel at 42% – refuel scheduled alongside crane work', meta:'LOGISTICS · '+site, time:'12m' },
-    { color:'#22c55e', title:'Concrete pour completed – Section 4B Level 3 (48mÂ³)', meta:'PROGRESS · '+site+' · '+pm, time:'28m' },
-    { color:'#3b82f6', title:'RFI-0098 escalated to ARUP – structural connection detail', meta:'ENGINEERING · ARUP Engineers', time:'41m' },
-    { color:'#22c55e', title:'Steel reinforcement delivery arrived – 18t rebar', meta:'LOGISTICS · '+site+' · Accepted', time:'52m' },
-    { color:'#22c55e', title:'Morning toolbox talk complete – 28 operatives signed in', meta:'SAFETY · '+site, time:'1h 5m' },
-    { color:'#3b82f6', title:'Drawing revision issued – Structural Frame Rev D', meta:'DRAWINGS · All Blocks', time:'1h 30m' },
-    { color:'#64748b', title:'Night shift handover – no incidents, concrete curing OK', meta:'HANDOVER · '+site, time:'2h 15m' },
-  ];
-}
-
-function getHubWeather(project) {
-  const isMining = /mine|shaft|kathu|rustenburg/i.test(project.name + project.site);
-  if (/kathu|northern cape/i.test(project.site)) return [
-    { icon:'🌤️', val:'22°C', lbl:'Clear & Sunny' },
-    { icon:'🏦', val:'12 km/h', lbl:'Wind Speed' },
-    { icon:'👤', val:'Excellent', lbl:'Visibility' },
-  ];
-  if (/rustenburg|north west/i.test(project.site)) return [
-    { icon:'⛅', val:'18°C', lbl:'Partly Cloudy' },
-    { icon:'🏦', val:'22 km/h', lbl:'Wind Speed' },
-    { icon:'🔧', val:'30% Rain', lbl:'Precipitation' },
-  ];
-  return [
-    { icon:'🔧', val:'16°C', lbl:'Partly Cloudy' },
-    { icon:'🏦', val:'15 km/h', lbl:'Wind Speed' },
-    { icon:'👤', val:'Good', lbl:'Visibility' },
-  ];
-}
-
-function getHubDiary(project) {
-  const isMining = /mine|shaft|mining|ventilation|reagent/i.test(project.name + project.site);
-  if (isMining) return 'Ventilation ducting works progressing on Level -2. Dewatering pump bypass holding – replacement parts confirmed inbound 25 Apr. Underground working hours adjusted due to elevated humidity readings in East section. Safety officer on-site for full shift.';
-  return 'Concrete pour in Section 4B Level 3 completed 09:45 – 48mÂ³ placed, all compaction checks passed. Steel delivery (18t) accepted and off-loaded. Formwork striking on Level 2 proceeding per structural engineer approval. Tomorrow: crane relocation to Block B for beam installation.';
-}
-
-function getHubMapSites(project) {
-  const site = project.site || 'Main Site';
-  const isMining = /mine|shaft/i.test(project.name);
-  return {
-    label1: isMining ? 'UG' : 'S-A',
-    label2: isMining ? 'SF' : 'S-B',
-    label3: isMining ? 'DP' : 'S-C',
-    siteName: site + ' – Live View',
-    coords: isMining ? '26°41\'S, 23°04\'E · Updated now' : '25°39\'S, 27°14\'E · Updated now',
-  };
-}
-
-//  Main open function –––––––––––––
-
-function openConstructionHub(projectId) {
-  const project = projects.find(p => p.id === projectId);
-  if (!project || project.status !== 'In Progress') return;
-  hubActiveProject = project;
-
-  // Switch to construction hub view via nav click simulation
-  document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
-  document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
-  const hubView = document.getElementById('view-construction-hub');
-  if (hubView) hubView.classList.add('active');
-
-  // Update page header
-  const pt = document.getElementById('page-title');
-  const ps = document.getElementById('page-sub');
-  if (pt) pt.textContent = '🏗 Construction Hub';
-  if (ps) ps.textContent = project.name + ' · ' + project.site;
-  const ab = document.getElementById('action-btn');
-  if (ab) ab.style.display = 'none';
-
-  // Update hub header
-  document.getElementById('hubProjectId').textContent = project.id;
-  document.getElementById('hubProjectName').textContent = project.name;
-
-  // Current user in avatar
-  const u = currentUser || { name: 'James Donaldson', role: 'Admin' };
-  const initials = u.name.split(' ').map(w => w[0]).join('').toUpperCase().slice(0, 2);
-  const avatar = document.getElementById('hubUserAvatar');
-  if (avatar) { avatar.textContent = initials; avatar.title = u.name + ' · ' + (u.role || ''); }
-
-  // KPIs from real project data
-  const budgetPct = project.budget > 0 ? Math.round((project.actualCost / project.budget) * 100) : 0;
-  const staffCount = hubRand(18, 42);
-  const plantTotal = hubRand(8, 16);
-  const plantDeployed = hubRand(Math.floor(plantTotal * 0.6), plantTotal - 1);
-  const rfiCount = hubRand(4, 12);
-  const progPct = Math.max(budgetPct - hubRand(2, 8), 10);
-  const safetyScore = (97 + Math.random() * 2.5).toFixed(1);
-  const behindDays = hubRand(0, 6);
-  const ragColor = behindDays === 0 ? 'GREEN' : behindDays <= 3 ? 'AMBER' : 'RED';
-  const ragClass = behindDays === 0 ? 'hub-tag-green' : behindDays <= 3 ? 'hub-tag-amber' : 'hub-tag-red';
-
-  document.getElementById('kpi-budget-pct').textContent = budgetPct;
-  document.getElementById('kpi-budget-meta').textContent = '⚠ R' + (project.actualCost/1e6).toFixed(2) + 'M of R' + (project.budget/1e6).toFixed(1) + 'M';
-  document.getElementById('kpi-staff').textContent = staffCount;
-  document.getElementById('kpi-staff-meta').textContent = '+' + hubRand(1,5) + ' vs. yesterday';
-  document.getElementById('kpi-plant').textContent = plantDeployed;
-  document.getElementById('kpi-plant-total').textContent = '/' + plantTotal;
-  document.getElementById('kpi-plant-meta').textContent = '⚠ 1 maintenance due';
-  document.getElementById('kpi-rfis').textContent = rfiCount;
-  document.getElementById('kpi-rfi-meta').textContent = ' ' + hubRand(1,3) + ' closed today';
-  document.getElementById('kpi-rfi-urgent').textContent = hubRand(1,3) + ' urgent';
-  document.getElementById('kpi-prog').textContent = progPct;
-  const progMeta = document.getElementById('kpi-prog-meta');
-  progMeta.textContent = behindDays === 0 ? ' On track' : '⚠ ' + behindDays + 'd behind';
-  progMeta.className = 'hub-kpi-chg ' + (behindDays === 0 ? 'up' : 'warn');
-  document.getElementById('kpi-safety').textContent = safetyScore;
-
-  // Gantt header
-  document.getElementById('hubGanttStatus').textContent = 'Overall Status: ' + ragColor;
-  const ganttDelay = document.getElementById('hubGanttDelay');
-  ganttDelay.textContent = behindDays === 0 ? 'ON PROGRAMME' : behindDays + ' DAYS BEHIND';
-  ganttDelay.className = 'hub-tag ' + ragClass;
-  const ragTagEl = document.getElementById('hubRagTag');
-  if (ragTagEl) { ragTagEl.textContent = 'RAG: ' + ragColor; ragTagEl.className = 'hub-tag ' + ragClass; }
-
-  // Alert badge
-  const alertCount = (behindDays > 0 ? 1 : 0) + 1; // plant always has 1
-  document.getElementById('hubAlertBadge').textContent = '⚠ ' + alertCount + ' ALERT' + (alertCount !== 1 ? 'S' : '');
-
-  // Map site labels
-  const mapData = getHubMapSites(project);
-  ['hubSiteLabel1','hubSiteLabel2','hubSiteLabel3'].forEach((id, i) => {
-    const el = document.getElementById(id); if (el) el.textContent = mapData['label' + (i+1)];
-  });
-  ['fmapLabel1','fmapLabel2','fmapLabel3'].forEach((id, i) => {
-    const el = document.getElementById(id); if (el) el.textContent = mapData['label' + (i+1)];
-  });
-  const mapTitle = document.getElementById('hubMapTitle');
-  if (mapTitle) mapTitle.textContent = 'Site Layout – ' + project.site;
-  document.getElementById('hubMapProjectLabel').textContent = project.name.toUpperCase();
-  document.getElementById('hubMapSiteName').textContent = mapData.siteName;
-  document.getElementById('hubMapCoords').textContent = mapData.coords;
-  document.getElementById('hubMapStats').innerHTML = `
-    <div style="text-align:center"><div class="hub-site-stat-v" style="color:#22c55e">${plantDeployed}</div><div class="hub-site-stat-l">Plant Items</div></div>
-    <div style="text-align:center"><div class="hub-site-stat-v">${staffCount}</div><div class="hub-site-stat-l">On-Site Staff</div></div>
-    <div style="text-align:center"><div class="hub-site-stat-v" style="color:#3b82f6">${rfiCount}</div><div class="hub-site-stat-l">Open RFIs</div></div>
-    <div style="text-align:center"><div class="hub-site-stat-v" style="color:#ef4444">1</div><div class="hub-site-stat-l">Critical Alert</div></div>
-  `;
-
-  // Full map alerts
-  document.getElementById('hubFullMapAlerts').innerHTML = `
-    <div class="hub-alert-card"><div class="hub-alert-hdr">⚠ Plant Alert</div><div class="hub-alert-body">${getHubEquipPool(project).find(e=>e.status==='alert')?.name||'Equipment'} – suspended</div></div>
-    <div class="hub-alert-card warn"><div class="hub-alert-hdr">Maintenance Due</div><div class="hub-alert-body">${getHubEquipPool(project).find(e=>e.status==='warn')?.name||'Plant item'} – service overdue</div></div>
-    <div class="hub-alert-card info"><div class="hub-alert-hdr">Delivery Today</div><div class="hub-alert-body">Materials inbound ETA 14:00 – ${project.site}</div></div>
-  `;
-
-  // Activity feed
-  const acts = getHubActivity(project);
-  document.getElementById('hubActivityFeed').innerHTML = acts.map(a => `
-    <div class="hub-act-item">
-      <div class="hub-act-dot" style="background:${a.color}"></div>
-      <div style="flex:1"><div class="hub-act-title">${a.title}</div><div class="hub-act-meta">${a.meta}</div></div>
-      <div class="hub-act-time">${a.time}</div>
-    </div>
-  `).join('');
-
-  // Staff
-  hubStaffData = getHubStaffPool(project);
-  renderHubStaff(hubStaffData);
-
-  // Equipment
-  hubEquipData = getHubEquipPool(project);
-  hubSelectedEquip = 0;
-  renderHubEquipment();
-
-  // Gantt
-  const tasks = getHubGanttTasks(project);
-  const months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
-  const today = (progPct / 100) * 100;
-  document.getElementById('hubGanttChart').innerHTML = `
-    <div>
-      <div style="display:flex;margin-left:150px;margin-bottom:6px;gap:0;border-bottom:1px solid var(--hbr);padding-bottom:5px;">
-        ${months.slice(0,10).map(m => `<div style="flex:1;font-family:'IBM Plex Mono',monospace;font-size:8px;color:var(--htm);min-width:38px;">${m}</div>`).join('')}
-      </div>
-      ${tasks.map(t => `
-        <div class="hub-gantt-task">
-          <div class="hub-gantt-label">${t.label}</div>
-          <div class="hub-gantt-track">
-            <div class="hub-gantt-fill" style="left:${t.start}%;width:${t.width}%;background:${t.color};">${t.pct}</div>
-          </div>
-        </div>
-      `).join('')}
-      <div style="position:relative;margin-left:150px;margin-top:4px;">
-        <div style="position:absolute;left:${today}%;top:-${tasks.length*26+6}px;width:1.5px;background:var(--ha);height:${tasks.length*26+6}px;opacity:.7"></div>
-        <div style="position:absolute;left:${today}%;transform:translateX(-50%);font-family:'IBM Plex Mono',monospace;font-size:8px;color:var(--ha);margin-top:2px;">TODAY</div>
-      </div>
-    </div>
-  `;
-
-  // RFIs
-  const rfis = getHubRFIs(project);
-  const urgentRfis = rfis.filter(r => r.priority === 'urgent').length;
-  const rfiUrgTagEl = document.getElementById('hubRfiUrgentTag');
-  if (rfiUrgTagEl) rfiUrgTagEl.textContent = urgentRfis + ' URGENT';
-  const pCol = { urgent:'var(--hr)', high:'var(--ho)', medium:'var(--ha)', low:'var(--htm)' };
-  const sCol = { Open:'hub-tag-blue', Pending:'hub-tag-amber', Responded:'hub-tag-green' };
-  document.getElementById('hubRfiList').innerHTML = rfis.map(r => `
-    <div class="hub-rfi-item">
-      <div class="hub-rfi-priority" style="background:${pCol[r.priority]}"></div>
-      <div class="hub-rfi-body">
-        <div class="hub-rfi-title">${r.id} – ${r.title}</div>
-        <div class="hub-rfi-from">${r.from} · ${r.days === 0 ? 'Today' : r.days + 'd open'}</div>
-      </div>
-      <span class="hub-tag ${sCol[r.status]}">${r.status}</span>
-    </div>
-  `).join('');
-
-  // Weather / diary
-  const weather = getHubWeather(project);
-  document.getElementById('hubWeatherGrid').innerHTML = weather.map(w => `
-    <div class="hub-weather-card">
-      <div style="font-size:26px">${w.icon}</div>
-      <div class="hub-weather-val">${w.val}</div>
-      <div class="hub-weather-lbl">${w.lbl}</div>
-    </div>
-  `).join('');
-  document.getElementById('hubDiaryText').textContent = getHubDiary(project);
-
-  // Start clock
-  initHubClock();
-  // Reset to overview
-  switchHubView('overview', null);
-  const tabs = document.querySelectorAll('.hub-frame .hub-tab');
-  if (tabs[0]) tabs[0].classList.add('active');
-}
-
-//  Staff rendering ––––––––––––––
 
 function renderHubStaff(data) {
   const grid = document.getElementById('hubStaffGrid');
   if (!grid) return;
-  grid.innerHTML = data.map(s => `
-    <div class="hub-staff-card ${s.status === 'warn' ? 'warn' : s.status === 'offline' ? 'offline' : s.status === 'alert' ? 'alert' : ''}">
-      <div class="hub-staff-top">
-        <div class="hub-avatar" style="background:${s.color}20;border:1px solid ${s.color}40;color:${s.color}">${s.initials}</div>
-        <div style="flex:1">
-          <div class="hub-staff-name">${s.name}</div>
-          <div class="hub-staff-role">${s.role}</div>
+  const staffCount = document.getElementById('kpi-staff');
+  if (staffCount) staffCount.textContent = data.length;
+  const _hubStaffAll = data;
+  grid._allData = data;
+  _renderStaffCards(grid, data);
+}
+function _renderStaffCards(grid, data) {
+  if (!data.length) { grid.innerHTML = '<div style="padding:40px;text-align:center;color:#2e4a61;font-size:12px">No staff match the filter.</div>'; return; }
+  grid.innerHTML = data.map(s => {
+    const statusCol = s.status === 'active' ? '#22c55e' : s.status === 'warn' ? '#f59e0b' : '#ef4444';
+    const certsHtml = (s.certs||[]).map((c,i) => {
+      const st = (s.certStates||[])[i]||'valid';
+      const col = st==='valid'?'#22c55e':st==='expiring'?'#f59e0b':'#ef4444';
+      return `<span class="hx-cert" style="border-color:${col};color:${col}">${c}</span>`;
+    }).join(' ');
+    const youBadge = s.isUser ? `<span style="font-size:8px;background:#f5a623;color:#fff;padding:1px 5px;border-radius:3px;margin-left:5px;font-weight:700">YOU</span>` : '';
+    return `<div class="hx-staff-card${s.isUser?' is-you':''}">
+      <div style="display:flex;align-items:center;gap:10px;margin-bottom:8px">
+        <div class="hx-staff-avatar" style="background:${s.color}1a;border:2px solid ${s.color};color:${s.color}">${s.initials}</div>
+        <div style="flex:1;min-width:0">
+          <div class="hx-staff-name">${s.name}${youBadge}</div>
+          <div class="hx-staff-role">${s.role}</div>
         </div>
-        <div class="hub-staff-status ${s.status==='warn'?'hs-break':s.status==='offline'?'hs-offline':s.status==='alert'?'hs-alert':'hs-active'}">${s.statusLabel}</div>
+        <div class="hx-staff-status" style="background:${statusCol}" title="${s.statusLabel}"></div>
       </div>
-      <div class="hub-staff-details">
-        <div><div class="hub-detail-label">Site</div><div class="hub-detail-val">${s.site}</div></div>
-        <div><div class="hub-detail-label">Hours Today</div><div class="hub-detail-val">${s.hours}</div></div>
-      </div>
-      <div class="hub-cert-bar">${s.certs.map((c,i)=>`<div class="hub-cert-tag ${s.certStates[i]}">${c}</div>`).join('')}</div>
-    </div>
-  `).join('');
+      <div style="font-size:10px;color:#2e4a61;margin-bottom:8px;font-family:'DM Mono',monospace">${s.site} · ${s.statusLabel} · ${s.hours}</div>
+      <div style="display:flex;gap:4px;flex-wrap:wrap">${certsHtml}</div>
+    </div>`;
+  }).join('');
 }
 
-function filterHubStaff(q) {
-  const filtered = hubStaffData.filter(s =>
-    s.name.toLowerCase().includes(q.toLowerCase()) ||
-    s.role.toLowerCase().includes(q.toLowerCase()) ||
-    s.site.toLowerCase().includes(q.toLowerCase())
-  );
-  renderHubStaff(filtered);
+function getHubEquipPool(project) {
+  const isMining = /mine|shaft|mining|ventilation|reagent/i.test(project.name + project.site);
+  const base = isMining ? [
+    { id: 'E01', name: 'Sandvik LH514 LHD', type: 'Load-Haul-Dump', status: 'active', utilisation: 87, lastService: '2026-03-15', nextService: '2026-06-15', operator: 'Grant Swanepoel', fuel: 78 },
+    { id: 'E02', name: 'Atlas Copco Simba E7', type: 'Production Drill Rig', status: 'warn', utilisation: 62, lastService: '2026-02-28', nextService: '2026-05-01', operator: 'Karabo Nkosi', fuel: 45 },
+    { id: 'E03', name: 'Epiroc Boomer M2C', type: 'Face Drill Rig', status: 'active', utilisation: 91, lastService: '2026-04-01', nextService: '2026-07-01', operator: 'Thabo Sithole', fuel: 82 },
+    { id: 'E04', name: 'Normet Spraymec 8100', type: 'Shotcrete Sprayer', status: 'alert', utilisation: 0, lastService: '2026-01-10', nextService: '2026-04-10', operator: 'Unassigned', fuel: 20 },
+    { id: 'E05', name: 'Hencon T22 Tipper', type: 'Underground Truck', status: 'active', utilisation: 79, lastService: '2026-03-20', nextService: '2026-06-20', operator: 'Solomon Moagi', fuel: 65 },
+  ] : [
+    { id: 'E01', name: 'Liebherr LTM 1100 Crane', type: 'Mobile Crane', status: 'active', utilisation: 74, lastService: '2026-03-10', nextService: '2026-06-10', operator: 'Mpho Selepe', fuel: 70 },
+    { id: 'E02', name: 'CAT 336 Excavator', type: 'Hydraulic Excavator', status: 'active', utilisation: 88, lastService: '2026-04-02', nextService: '2026-07-02', operator: 'Arno Steenkamp', fuel: 55 },
+    { id: 'E03', name: 'Schwing S52 Pump', type: 'Concrete Pump', status: 'warn', utilisation: 50, lastService: '2026-02-15', nextService: '2026-05-15', operator: 'Riaan Botha', fuel: 40 },
+    { id: 'E04', name: 'Manitowoc 222 Tower Crane', type: 'Tower Crane', status: 'active', utilisation: 95, lastService: '2026-03-25', nextService: '2026-06-25', operator: 'Danie Pretorius', fuel: 90 },
+  ];
+  return base;
 }
-
-//  Equipment rendering ––––––––––––
 
 function renderHubEquipment() {
   const list = document.getElementById('hubEquipmentList');
   if (!list) return;
-  list.innerHTML = hubEquipData.map((e, i) => {
-    const col = e.status==='active'?'#22c55e':e.status==='warn'?'#f5a623':e.status==='alert'?'#ef4444':'#64748b';
-    const r = 16, circ = 2*Math.PI*r, dash = (e.health/100)*circ;
-    return `
-    <div class="hub-equip-item ${i===hubSelectedEquip?'sel':''}" onclick="selectHubEquip(${i})">
-      <div class="hub-equip-icon">${e.icon}</div>
-      <div>
-        <div class="hub-equip-name">${e.name}</div>
-        <div class="hub-equip-type">${e.type}</div>
-        <div class="hub-equip-site">${e.site}</div>
-      </div>
-      <div class="hub-equip-right">
-        <div class="hub-health-ring">
-          <svg width="40" height="40" viewBox="0 0 40 40">
-            <circle cx="20" cy="20" r="${r}" fill="none" stroke="#252b38" stroke-width="3"/>
-            <circle cx="20" cy="20" r="${r}" fill="none" stroke="${col}" stroke-width="3"
-              stroke-dasharray="${dash.toFixed(1)} ${circ.toFixed(1)}" stroke-linecap="round"
-              transform="rotate(-90 20 20)"/>
-          </svg>
-          <div class="hub-health-val" style="color:${col}">${e.health}%</div>
+  const data = hubEquipData;
+  list.innerHTML = data.map((e,i) => {
+    const col = e.status==='active'?'#22c55e':e.status==='warn'?'#f59e0b':'#ef4444';
+    const slbl = e.status==='active'?'Operational':e.status==='warn'?'Maintenance Due':'Suspended';
+    const utilPct = e.utilisation||0;
+    return `<div class="hx-equip-row${i===hubSelectedEquip?' active':''}" onclick="hubSelectEquip(${i})">
+      <div style="display:flex;align-items:center;gap:8px">
+        <div style="width:8px;height:8px;border-radius:50%;background:${col};flex-shrink:0"></div>
+        <div style="flex:1;min-width:0">
+          <div class="hx-equip-name">${e.name}</div>
+          <div class="hx-equip-type">${e.type}</div>
         </div>
-        <div class="hub-staff-status ${e.status==='active'?'hs-active':e.status==='warn'?'hs-break':e.status==='alert'?'hs-alert':'hs-offline'}" style="font-size:8px;padding:2px 5px">${e.status.toUpperCase()}</div>
+        <span style="font-size:9px;font-family:'DM Mono',monospace;color:${col}">${slbl}</span>
       </div>
+      <div class="hx-equip-bar"><div class="hx-equip-bar-fill" style="width:${utilPct}%;background:${col}"></div></div>
     </div>`;
   }).join('');
-  renderHubEquipDetail(hubSelectedEquip);
+  hubSelectEquip(hubSelectedEquip);
 }
 
-function selectHubEquip(i) {
-  hubSelectedEquip = i;
-  renderHubEquipment();
-}
-
-function renderHubEquipDetail(i) {
-  const e = hubEquipData[i];
-  if (!e) return;
+function hubSelectEquip(idx) {
+  hubSelectedEquip = idx;
   const detail = document.getElementById('hubEquipDetail');
-  if (!detail) return;
-  const col = e.status==='active'?'#22c55e':e.status==='warn'?'#f5a623':e.status==='alert'?'#ef4444':'#64748b';
-  const fClass = e.fuel < 30 ? 'danger' : e.fuel < 60 ? 'warn' : '';
-  const hClass = e.health < 50 ? 'danger' : e.health < 75 ? 'warn' : '';
+  const list = document.getElementById('hubEquipmentList');
+  if (!detail || !hubEquipData.length) return;
+  // Update active state in list
+  list.querySelectorAll('.hx-equip-row').forEach((r,i) => r.classList.toggle('active', i===idx));
+  const e = hubEquipData[idx];
+  if (!e) return;
+  const col = e.status==='active'?'#22c55e':e.status==='warn'?'#f59e0b':'#ef4444';
+  const slbl = e.status==='active'?'OPERATIONAL':e.status==='warn'?'MAINTENANCE DUE':'SUSPENDED';
+  const utilPct = e.utilisation||0;
   detail.innerHTML = `
-    <div class="hub-detail-hero">
-      <span class="hub-detail-icon-lg">${e.icon}</span>
-      <div class="hub-detail-name">${e.name}</div>
-      <div class="hub-detail-id">ID: ${e.id}</div>
-      <div style="margin-top:10px;display:flex;gap:6px;flex-wrap:wrap;">
-        <span class="hub-tag ${e.status==='active'?'hub-tag-green':e.status==='warn'?'hub-tag-amber':'hub-tag-red'}">${e.status}</span>
-        <span class="hub-tag hub-tag-blue">${e.type}</span>
+    <div style="margin-bottom:16px">
+      <div style="font-size:9px;font-family:'DM Mono',monospace;color:#f5a623;letter-spacing:2px;margin-bottom:4px">${e.id}</div>
+      <div style="font-size:16px;font-weight:700;color:#e8f2ff;margin-bottom:2px">${e.name}</div>
+      <div style="font-size:11px;color:#4a6a84;margin-bottom:10px">${e.type}</div>
+      <span style="font-size:10px;font-weight:700;font-family:'DM Mono',monospace;padding:4px 10px;border-radius:4px;background:${e.status==='active'?'rgba(34,197,94,.1)':e.status==='warn'?'rgba(245,166,35,.1)':'rgba(239,68,68,.1)'};border:1px solid ${col};color:${col}">${slbl}</span>
+    </div>
+    <div style="margin-bottom:14px">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px">
+        <span style="font-size:9px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:#2e4a61">Utilisation</span>
+        <span style="font-size:13px;font-weight:700;font-family:'DM Mono',monospace;color:${col}">${utilPct}%</span>
+      </div>
+      <div style="height:6px;background:rgba(255,255,255,.05);border-radius:3px;overflow:hidden">
+        <div style="height:100%;width:${utilPct}%;background:${col};border-radius:3px;transition:width .6s ease"></div>
       </div>
     </div>
-    <div class="hub-detail-sec">
-      <div class="hub-detail-sec-title">Status Overview</div>
-      <div class="hub-metric-row"><div class="hub-metric-key">Assigned Site</div><div class="hub-metric-v" style="color:var(--hbl)">${e.site}</div></div>
-      <div class="hub-metric-row"><div class="hub-metric-key">Current Operator</div><div class="hub-metric-v">${e.operator}</div></div>
-      <div class="hub-metric-row"><div class="hub-metric-key">Total Hours</div><div class="hub-metric-v">${e.hours.toLocaleString()} hrs</div></div>
-      <div class="hub-metric-row"><div class="hub-metric-key">Next Service</div><div class="hub-metric-v" style="color:${e.nextSvc==='OVERDUE'||e.nextSvc==='ALERT'?'var(--hr)':'var(--ht)'}">${e.nextSvc}</div></div>
-    </div>
-    <div class="hub-detail-sec">
-      <div class="hub-detail-sec-title">Health &amp; Fuel</div>
-      <div style="margin-bottom:8px">
-        <div style="display:flex;justify-content:space-between;margin-bottom:3px"><div class="hub-metric-key">Overall Health</div><div class="hub-metric-v" style="color:${col}">${e.health}%</div></div>
-        <div class="hub-prog-bar"><div class="hub-prog-fill ${hClass}" style="width:${e.health}%"></div></div>
-      </div>
-      ${e.fuel > 0 ? `<div>
-        <div style="display:flex;justify-content:space-between;margin-bottom:3px"><div class="hub-metric-key">Fuel Level</div><div class="hub-metric-v">${e.fuel}%</div></div>
-        <div class="hub-prog-bar"><div class="hub-prog-fill ${fClass}" style="width:${e.fuel}%"></div></div>
-      </div>` : '<div class="hub-metric-row"><div class="hub-metric-key">Power</div><div class="hub-metric-v" style="color:var(--hg)">Electric / Grid</div></div>'}
-    </div>
-    <div class="hub-detail-sec">
-      <div class="hub-detail-sec-title">Notes</div>
-      <div style="font-size:11px;line-height:1.6;color:var(--htd)">${e.notes}</div>
-    </div>
-    <div style="padding:14px 18px;display:flex;flex-direction:column;gap:7px;">
-      <button class="hub-btn hub-btn-amber" style="width:100%">📋 Log Inspection</button>
-      <button class="hub-btn hub-btn-ghost" style="width:100%">📅 Schedule Service</button>
-      <button class="hub-btn hub-btn-ghost" style="width:100%">📦 Track on Map</button>
-    </div>
-  `;
+    <div>
+      ${[
+        ['Asset ID', e.id],
+        ['Type', e.type],
+        ['Operator', e.operator||'—'],
+        ['Fuel Level', (e.fuel||0)+'%'],
+        ['Utilisation', (e.utilisation||0)+'%'],
+        ['Last Service', e.lastService||'—'],
+        ['Next Service', e.nextService||'—'],
+        ['Status', slbl],
+      ].map(([l,v])=>`<div class="hx-detail-row"><div class="hx-detail-lbl">${l}</div><div class="hx-detail-val">${v}</div></div>`).join('')}
+    </div>`;
 }
 
+function getHubMapSites(project) {
+  const isMining = /mine|shaft|mining|ventilation|reagent/i.test(project.name + project.site);
+  if (isMining) return { label1: 'Shaft Head', label2: 'Vent Fan', label3: 'Portal', siteName: project.site || 'Main Site', coords: '-27.9589° S 24.7161° E' };
+  return { label1: 'Crane Bay', label2: 'Concrete Batch', label3: 'Steel Yard', siteName: project.site || 'Site Office', coords: '-25.7479° S 28.2293° E' };
+}
 
+function getHubActivity(project) {
+  const pm = project.manager || 'Site Manager';
+  return [
+    { title: 'Daily progress report submitted', meta: pm + ' · ' + new Date().toLocaleTimeString([], {hour:'2-digit',minute:'2-digit'}), color: '#22c55e', time: 'Now' },
+    { title: 'Safety induction – 4 new workers', meta: 'H&S Officer · 08:30', color: '#3b82f6', time: '2h ago' },
+    { title: 'Concrete pour completed – Grid B4', meta: 'Foreman · 07:15', color: '#f5a623', time: '4h ago' },
+    { title: 'Equipment maintenance alert raised', meta: 'Plant Controller · Yesterday', color: '#ef4444', time: 'Yest.' },
+    { title: 'RFI #' + hubRand(12,20) + ' submitted to engineer', meta: 'Site Supervisor · Yesterday', color: '#a855f7', time: 'Yest.' },
+    { title: 'Material delivery confirmed – rebar', meta: 'Procurement · 2 days ago', color: '#14b8a6', time: '2d' },
+  ];
+}
 
+function getHubGanttTasks(project) {
+  const pct = project.budget > 0 ? Math.min(95, Math.round((project.actualCost / project.budget) * 100)) : 20;
+  return [
+    { label: 'Mobilisation', start: 0, width: 15, pct: '100%', color: '#22c55e' },
+    { label: 'Site Establishment', start: 5, width: 20, pct: '100%', color: '#22c55e' },
+    { label: 'Bulk Earthworks', start: 10, width: 30, pct: pct + '%', color: pct < 50 ? '#f5a623' : '#22c55e' },
+    { label: 'Structural Works', start: 25, width: 35, pct: Math.max(0, pct - 20) + '%', color: '#3b82f6' },
+    { label: 'M&E Installation', start: 45, width: 30, pct: Math.max(0, pct - 45) + '%', color: '#a855f7' },
+    { label: 'Commissioning', start: 70, width: 20, pct: '0%', color: '#6b7280' },
+    { label: 'Close-out & Handover', start: 85, width: 15, pct: '0%', color: '#6b7280' },
+  ];
+}
 
+// ════════════════════════════════════════════════════════════════
+//  PAGINATION + FILTER + SORT ENGINE
+// ════════════════════════════════════════════════════════════════
+const PAGE_SIZE = 25;
+const _tbl = {
+  cust: {q:'',page:1,sort:'companyName',dir:1,seg:''},
+  sup:  {q:'',page:1,sort:'companyName',dir:1,cat:''},
+  inv:  {q:'',page:1,sort:'issued',dir:-1,status:'',from:'',to:''},
+  po:   {q:'',page:1,sort:'ordered',dir:-1,status:'',from:'',to:''},
+  prod: {q:'',page:1,sort:'name',dir:1,cat:''},
+  qt:   {q:'',page:1,sort:'created',dir:-1,status:''},
+  proj: {q:'',page:1,sort:'name',dir:1,status:''},
+  txn:  {q:'',page:1,sort:'date',dir:-1,type:'',from:'',to:''},
+  stmt: {page:1},
+};
+
+function filterTable(tbodyId, searchId) {
+  const keyMap = {
+    'cust-tbody':'cust','sup-tbody':'sup','inv-tbody':'inv','po-tbody':'po',
+    'prod-tbody':'prod','qt-tbody':'qt','proj-tbody':'proj','txn-tbody':'txn','stmt-tbody':'stmt'
+  };
+  const key = keyMap[tbodyId];
+  if (!key || !_tbl[key]) return;
+  const q = (document.getElementById(searchId)?.value || '').trim().toLowerCase();
+  _tbl[key].q = q;
+  _tbl[key].page = 1;
+  ({cust:renderCustomers,sup:renderSuppliers,inv:renderInvoices,po:renderPurchaseOrders,
+    prod:renderProducts,qt:renderQuotes,proj:renderProjects,txn:renderTransactions,stmt:renderStatements})[key]?.();
+}
+
+function _goPage(key, page) {
+  if (_tbl[key]) _tbl[key].page = page;
+  ({cust:renderCustomers,sup:renderSuppliers,inv:renderInvoices,po:renderPurchaseOrders,
+    prod:renderProducts,qt:renderQuotes,proj:renderProjects,txn:renderTransactions,stmt:renderStatements})[key]?.();
+  document.getElementById('pg-'+key)?.scrollIntoView({behavior:'smooth',block:'nearest'});
+}
+
+function _sortTable(key, col) {
+  if (!_tbl[key]) return;
+  _tbl[key].dir = (_tbl[key].sort===col) ? _tbl[key].dir*-1 : 1;
+  _tbl[key].sort = col;
+  _tbl[key].page = 1;
+  ({cust:renderCustomers,sup:renderSuppliers,inv:renderInvoices,po:renderPurchaseOrders,
+    prod:renderProducts,qt:renderQuotes,proj:renderProjects,txn:renderTransactions})[key]?.();
+}
+
+function _pagerHtml(key, total, current) {
+  const pages = Math.max(1, Math.ceil(total / PAGE_SIZE));
+  if (pages <= 1 && total <= PAGE_SIZE) return '';
+  const from = (current-1)*PAGE_SIZE + 1;
+  const to = Math.min(current*PAGE_SIZE, total);
+  const start = Math.max(1, current-2), end = Math.min(pages, start+4);
+  let btns = '';
+  if (current > 1) btns += `<button class="pg-btn" onclick="_goPage('${key}',${current-1})">&#8249;</button>`;
+  for (let p=start; p<=end; p++) btns += `<button class="pg-btn${p===current?' pg-btn-active':''}" onclick="_goPage('${key}',${p})">${p}</button>`;
+  if (current < pages) btns += `<button class="pg-btn" onclick="_goPage('${key}',${current+1})">&#8250;</button>`;
+  return `<div class="pager"><span class="pager-info">${from}–${to} of ${total}</span>${btns}</div>`;
+}
+
+function _setPager(key, total, page) {
+  const el = document.getElementById('pg-'+key);
+  if (el) el.innerHTML = _pagerHtml(key, total, page);
+}
+
+function _sortRows(rows, sort, dir) {
+  if (!sort) return rows;
+  return [...rows].sort((a,b) => {
+    const av = a[sort]??'', bv = b[sort]??'';
+    if (typeof av === 'number' && typeof bv === 'number') return (av-bv)*dir;
+    return String(av).localeCompare(String(bv),undefined,{numeric:true,sensitivity:'base'})*dir;
+  });
+}
+
+function _updateSortHeaders(tableSelector, key) {
+  document.querySelectorAll(`${tableSelector} th[data-sortable]`).forEach(th => {
+    const col = th.dataset.sortable;
+    th.classList.toggle('sort-asc',  _tbl[key]?.sort===col && _tbl[key]?.dir===1);
+    th.classList.toggle('sort-desc', _tbl[key]?.sort===col && _tbl[key]?.dir===-1);
+    th.onclick = () => _sortTable(key, col);
+  });
+}
+
+// Wire sortable headers dynamically given a tbody id and a columns array:
+// cols = [{label, field}] — matches positionally to <th> elements in parent thead
+function _wireSortHeaders(tbodyId, key, cols) {
+  const tbody = document.getElementById(tbodyId); if (!tbody) return;
+  const table = tbody.closest('table'); if (!table) return;
+  const ths = table.querySelectorAll('thead th');
+  const st = _tbl[key]||{};
+  cols.forEach((col, i) => {
+    const th = ths[i]; if (!th || !col.field) return;
+    th.style.cursor = 'pointer';
+    th.style.userSelect = 'none';
+    const arrow = st.sort===col.field ? (st.dir===1 ? ' ↑' : ' ↓') : ' ⇅';
+    const arrowSpan = `<span style="opacity:${st.sort===col.field?1:.35};color:${st.sort===col.field?'var(--blue)':'inherit'};font-size:10px">${arrow}</span>`;
+    th.innerHTML = col.label + arrowSpan;
+    th.onclick = () => _sortTable(key, col.field);
+  });
+}
+
+// ─── Paginated renderCustomers ───────────────────────────────
+function renderCustomers() {
+  const tbody = document.getElementById('cust-tbody'); if (!tbody) return;
+  const st = _tbl.cust;
+  const q = st.q.toLowerCase();
+  const seg = (document.getElementById('cust-seg-filter')?.value||'').toLowerCase();
+  const cstatus = document.getElementById('cust-status-filter')?.value||'';
+  let rows = customers.filter(c =>
+    (!q || (c.companyName+c.customerCode+c.contact+c.industry).toLowerCase().includes(q)) &&
+    (!seg || c.industry?.toLowerCase()===seg) &&
+    (!cstatus || c.status===cstatus)
+  );
+  rows = _sortRows(rows, st.sort, st.dir);
+  const total = rows.length;
+  const slice = rows.slice((st.page-1)*PAGE_SIZE, st.page*PAGE_SIZE);
+  if (!slice.length) {
+    tbody.innerHTML = '<tr><td colspan="6" class="empty-state">No customers match.</td></tr>';
+    _setPager('cust', 0, 1); return;
+  }
+  tbody.innerHTML = slice.map(c => `<tr data-seg="${c.industry}">
+    <td><button class="link-btn" onclick="viewCustomer('${c.customerCode}')" style="font-weight:500;text-align:left;display:block">${c.companyName}</button><div style="font-size:11px;color:var(--txt2);font-family:var(--font-mono)">${c.customerCode}</div></td>
+    <td><span class="status-badge ${c.industry==='Mining'?'badge-approved':c.industry==='Engineering'?'badge-received':'badge-partial'}">${c.industry}</span></td>
+    <td class="amount">${fmt(c.creditLimit)}</td>
+    <td class="amount ${c.currentBalance>0?'negative':''}">${fmt(c.currentBalance)}</td>
+    <td><span class="status-badge ${bc(c.status)}">${c.status}</span></td>
+    <td><button class="row-menu-btn" onclick="rowMenu(this,'customer','${c.customerCode}')">⋯</button></td>
+  </tr>`).join('');
+  _setPager('cust', total, st.page);
+  _wireSortHeaders('cust-tbody','cust',[
+    {label:'Company',field:'companyName'},{label:'Industry',field:'industry'},
+    {label:'Credit Limit',field:'creditLimit'},{label:'Balance',field:'currentBalance'},
+    {label:'Status',field:'status'},{label:'',field:null}
+  ]);
+}
+
+// ─── Paginated renderSuppliers ───────────────────────────────
+function renderSuppliers() {
+  const tbody = document.getElementById('sup-tbody'); if (!tbody) return;
+  const st = _tbl.sup;
+  const q = st.q.toLowerCase();
+  const cat = (document.getElementById('sup-cat-filter')?.value||'').toLowerCase();
+  const sstatus = document.getElementById('sup-status-filter')?.value||'';
+  let rows = suppliers.filter(s =>
+    (!q || (s.companyName+s.supplierCode+s.contact+s.category).toLowerCase().includes(q)) &&
+    (!cat || s.category?.toLowerCase()===cat) &&
+    (!sstatus || s.status===sstatus)
+  );
+  rows = _sortRows(rows, st.sort, st.dir);
+  const total = rows.length;
+  const slice = rows.slice((st.page-1)*PAGE_SIZE, st.page*PAGE_SIZE);
+  if (!slice.length) {
+    tbody.innerHTML = '<tr><td colspan="6" class="empty-state">No suppliers match.</td></tr>';
+    _setPager('sup', 0, 1); return;
+  }
+  tbody.innerHTML = slice.map(s => `<tr data-cat="${s.category}">
+    <td><button class="link-btn" onclick="viewSupplier('${s.supplierCode}')" style="font-weight:500;text-align:left">${s.companyName}</button><div style="font-size:11px;color:var(--txt2);font-family:var(--font-mono)">${s.supplierCode}</div></td>
+    <td><span class="status-badge badge-draft" style="font-size:10px">${s.category}</span></td>
+    <td style="font-family:var(--font-mono);font-size:12px">${s.leadTime} days</td>
+    <td class="amount">${fmt(s.spend)}</td>
+    <td><span class="status-badge ${bc(s.status)}">${s.status}</span></td>
+    <td><button class="row-menu-btn" onclick="rowMenu(this,'supplier','${s.supplierCode}')">⋯</button></td>
+  </tr>`).join('');
+  _setPager('sup', total, st.page);
+  _wireSortHeaders('sup-tbody','sup',[
+    {label:'Company',field:'companyName'},{label:'Category',field:'category'},
+    {label:'Lead Time',field:'leadTime'},{label:'Spend',field:'spend'},
+    {label:'Status',field:'status'},{label:'',field:null}
+  ]);
+}
+
+// ─── Paginated renderInvoices ────────────────────────────────
+function renderInvoices() {
+  const tb = document.getElementById('inv-tbody'); if (!tb) return;
+  const st = _tbl.inv;
+  const q = st.q.toLowerCase();
+  const from = st.from || document.getElementById('inv-from')?.value || '';
+  const to   = st.to   || document.getElementById('inv-to')?.value   || '';
+  const stat = st.status || document.getElementById('inv-status-sel')?.value || '';
+  const icust = st.cust || document.getElementById('inv-cust-filter')?.value || '';
+  // Populate customer dropdown
+  const icustEl = document.getElementById('inv-cust-filter');
+  if (icustEl && icustEl.options.length<=1) {
+    const custNames = [...new Set(invoices.map(i=>i.customerName||i.customer||'').filter(Boolean))].sort();
+    custNames.forEach(n=>{const o=document.createElement('option');o.value=n;o.textContent=n;icustEl.appendChild(o);});
+  }
+  let rows = invoices.filter(i =>
+    (!q || (i.id+i.customerName+i.customer+i.projectName).toLowerCase().includes(q)) &&
+    (!stat || i.status===stat) &&
+    (!icust || (i.customerName||i.customer||'')=== icust) &&
+    (!from || (i.issued||'')>=from) &&
+    (!to   || (i.issued||'')<=to)
+  );
+  rows = _sortRows(rows, st.sort, st.dir);
+  const total = rows.length;
+  const slice = rows.slice((st.page-1)*PAGE_SIZE, st.page*PAGE_SIZE);
+  if (!slice.length) {
+    tb.innerHTML = '<tr><td colspan="11" class="empty-state">No invoices match.</td></tr>';
+    _setPager('inv', 0, 1); return;
+  }
+  tb.innerHTML = slice.map(i => {
+    const bal = Math.max(0,i.amount-i.paid);
+    const pct = i.amount>0 ? Math.min(100,Math.round((i.paid/i.amount)*100)) : 0;
+    const cust = customers.find(c=>c.customerCode===i.customerCode||c.companyName===(i.customerName||i.customer));
+    const barColor = pct>=100?'var(--green)':pct>0?'var(--amber)':'var(--border2)';
+    const settleBtn = bal>0 ? `<button class="settle-btn" onclick="settleInvoice('${i.id}')" title="Settle ${fmt(bal)}">Settle</button>` : '';
+    return `<tr data-status="${i.status}" data-issued="${i.issued||''}">
+    <td><button class="link-btn" onclick="viewInvoice('${i.id}')" style="font-family:var(--font-mono);font-size:12px;color:var(--blue)">${i.id}</button></td>
+    <td>${cust?`<button class="link-btn" onclick="viewCustomer('${cust.customerCode}')">${i.customerName||i.customer}</button>`:(i.customerName||i.customer)}</td>
+    <td style="font-size:11px;color:var(--txt2)">${i.projectName||'Unlinked'}</td>
+    <td style="font-family:var(--font-mono);font-size:11px">${i.issued}</td>
+    <td style="font-family:var(--font-mono);font-size:11px;color:${i.status==='Overdue'?'var(--red)':'inherit'}">${i.due}</td>
+    <td class="amount">${fmt(i.amount)}</td>
+    <td class="amount"><div style="font-weight:500;color:${i.paid>0?'var(--green)':'var(--txt3)'}">${fmt(i.paid)}</div><div class="pay-bar-wrap"><div class="pay-bar-fill" style="width:${pct}%;background:${barColor}"></div></div><div style="font-size:9px;color:var(--txt3);font-family:var(--font-mono)">${pct}% paid</div></td>
+    <td class="amount ${bal>0?'negative':''}">${fmt(bal)}</td>
+    <td><span class="status-badge ${bc(i.status)}">${i.status}</span></td>
+    <td style="white-space:nowrap">${settleBtn}<button class="row-menu-btn" onclick="rowMenu(this,'invoice','${i.id}')">⋯</button></td></tr>`;
+  }).join('');
+  _setPager('inv', total, st.page);
+  _wireSortHeaders('inv-tbody','inv',[
+    {label:'Invoice #',field:'id'},{label:'Customer',field:'customerName'},
+    {label:'Project',field:'projectName'},{label:'Issued',field:'issued'},
+    {label:'Due',field:'due'},{label:'Amount',field:'amount'},
+    {label:'Paid',field:'paid'},{label:'Balance',field:null},
+    {label:'Status',field:'status'},{label:'',field:null}
+  ]);
+}
+
+function invFilter() {
+  _tbl.inv.q = (document.getElementById('inv-search')?.value||'').toLowerCase();
+  _tbl.inv.from = document.getElementById('inv-from')?.value||'';
+  _tbl.inv.to   = document.getElementById('inv-to')?.value||'';
+  _tbl.inv.status = document.getElementById('inv-status-sel')?.value||'';
+  _tbl.inv.cust = document.getElementById('inv-cust-filter')?.value||'';
+  _tbl.inv.page = 1;
+  renderInvoices();
+}
+function invFilterClear() {
+  ['inv-search','inv-from','inv-to','inv-status-sel','inv-cust-filter'].forEach(id=>{const e=document.getElementById(id);if(e)e.value='';});
+  Object.assign(_tbl.inv, {q:'',from:'',to:'',status:'',cust:'',page:1});
+  renderInvoices();
+}
+
+// ─── Paginated renderPurchaseOrders ─────────────────────────
+function renderPurchaseOrders() {
+  const tb = document.getElementById('po-tbody'); if (!tb) return;
+  const st = _tbl.po;
+  const q  = st.q.toLowerCase();
+  const from = st.from || document.getElementById('po-from')?.value || '';
+  const to   = st.to   || document.getElementById('po-to')?.value   || '';
+  const stat = st.status || document.getElementById('po-status-sel')?.value || '';
+  const posup = st.sup || document.getElementById('po-sup-filter')?.value || '';
+  // Populate supplier dropdown
+  const posupEl = document.getElementById('po-sup-filter');
+  if (posupEl && posupEl.options.length<=1) {
+    const supNames = [...new Set(purchaseOrders.map(p=>p.supplierName||p.supplier||'').filter(Boolean))].sort();
+    supNames.forEach(n=>{const o=document.createElement('option');o.value=n;o.textContent=n;posupEl.appendChild(o);});
+  }
+  let rows = purchaseOrders.filter(p =>
+    (!q || (p.id+p.supplierName+p.supplier+p.projectId).toLowerCase().includes(q)) &&
+    (!stat || p.status===stat) &&
+    (!posup || (p.supplierName||p.supplier||'')=== posup) &&
+    (!from || (p.ordered||'')>=from) &&
+    (!to   || (p.ordered||'')<=to)
+  );
+  rows = _sortRows(rows, st.sort, st.dir);
+  const total = rows.length;
+  const slice = rows.slice((st.page-1)*PAGE_SIZE, st.page*PAGE_SIZE);
+  if (!slice.length) {
+    tb.innerHTML = '<tr><td colspan="9" class="empty-state">No purchase orders match.</td></tr>';
+    _setPager('po', 0, 1); return;
+  }
+  tb.innerHTML = slice.map(p => {
+    const bal = Math.max(0, p.value - (p.paid||0));
+    const pct = p.value>0 ? Math.min(100, Math.round(((p.paid||0)/p.value)*100)) : 0;
+    const barColor = pct>=100?'var(--green)':pct>0?'var(--amber)':'var(--border2)';
+    const settleBtn = bal>0 ? `<button class="settle-btn" onclick="settlePO('${p.id}')" title="Settle ${fmt(bal)}">Settle</button>` : '';
+    return `<tr data-status="${p.status}" data-ordered="${p.ordered||''}">
+    <td><button class="link-btn" onclick="viewPurchaseOrder('${p.id}')" style="font-family:var(--font-mono);font-size:12px;color:var(--blue)">${p.id}</button></td>
+    <td style="font-weight:500">${p.supplierName||p.supplier}</td>
+    <td style="font-size:11px;color:var(--txt2)">${p.projectId||'—'}</td>
+    <td style="font-family:var(--font-mono);font-size:11px">${p.ordered||''}</td>
+    <td style="font-family:var(--font-mono);font-size:11px">${p.delivery||''}</td>
+    <td class="amount">${fmt(p.value)}</td>
+    <td class="amount"><div style="font-weight:500;color:${(p.paid||0)>0?'var(--green)':'var(--txt3)'}">${fmt(p.paid||0)}</div><div class="pay-bar-wrap"><div class="pay-bar-fill" style="width:${pct}%;background:${barColor}"></div></div><div style="font-size:9px;color:var(--txt3);font-family:var(--font-mono)">${pct}% paid</div></td>
+    <td class="amount ${bal>0?'negative':''}">${fmt(bal)}</td>
+    <td><span class="status-badge ${bc(p.status)}">${p.status}</span></td>
+    <td style="white-space:nowrap">${settleBtn}<button class="row-menu-btn" onclick="rowMenu(this,'po','${p.id}')">⋯</button></td></tr>`;
+  }).join('');
+  _setPager('po', total, st.page);
+  _wireSortHeaders('po-tbody','po',[
+    {label:'PO #',field:'id'},{label:'Supplier',field:'supplierName'},
+    {label:'Project',field:'projectId'},{label:'Ordered',field:'ordered'},
+    {label:'Delivery',field:'delivery'},{label:'Value',field:'value'},
+    {label:'Paid',field:'paid'},{label:'Balance',field:null},
+    {label:'Status',field:'status'},{label:'',field:null}
+  ]);
+}
+function poFilter() {
+  _tbl.po.q = (document.getElementById('po-search')?.value||'').toLowerCase();
+  _tbl.po.from = document.getElementById('po-from')?.value||'';
+  _tbl.po.to   = document.getElementById('po-to')?.value||'';
+  _tbl.po.status = document.getElementById('po-status-sel')?.value||'';
+  _tbl.po.sup = document.getElementById('po-sup-filter')?.value||'';
+  _tbl.po.page = 1;
+  renderPurchaseOrders();
+}
+function poFilterClear() {
+  ['po-search','po-from','po-to','po-status-sel','po-sup-filter'].forEach(id=>{const e=document.getElementById(id);if(e)e.value='';});
+  Object.assign(_tbl.po, {q:'',from:'',to:'',status:'',sup:'',page:1});
+  renderPurchaseOrders();
+}
+
+// ─── Paginated renderProducts ────────────────────────────────
+function renderProducts() {
+  const tb = document.getElementById('prod-tbody'); if (!tb) return;
+  const st = _tbl.prod;
+  const q = st.q.toLowerCase();
+  const cat = (document.getElementById('prod-cat-filter')?.value||'').toLowerCase();
+  let rows = products.filter(p =>
+    (!q || (p.name+p.sku+p.category+(p.supplierName||p.supplier||'')).toLowerCase().includes(q)) &&
+    (!cat || (p.category||'').toLowerCase()===cat)
+  );
+  rows = _sortRows(rows, st.sort, st.dir);
+  const total = rows.length;
+  const slice = rows.slice((st.page-1)*PAGE_SIZE, st.page*PAGE_SIZE);
+  if (!slice.length) {
+    tb.innerHTML = '<tr><td colspan="6" class="empty-state">No products match.</td></tr>';
+    _setPager('prod', 0, 1); return;
+  }
+  tb.innerHTML = slice.map(p => `<tr data-category="${p.category}">
+    <td><button class="link-btn" onclick="viewProduct('${p.id}')" style="font-weight:500;text-align:left;display:block">${p.name}</button><div style="font-family:var(--font-mono);font-size:11px;color:var(--txt2)">${p.sku}</div></td>
+    <td><span class="status-badge badge-draft" style="font-size:10px">${p.category}</span></td>
+    <td style="font-size:11px;color:var(--txt1)">${p.supplierName||p.supplier}</td>
+    <td style="font-family:var(--font-mono);font-size:12px;color:${p.stock<=p.reorder?'var(--amber)':'var(--txt1)'}">${p.stock}</td>
+    <td><span class="status-badge ${bc(p.status)}">${p.status}</span></td>
+    <td><button class="row-menu-btn" onclick="rowMenu(this,'product','${p.id}')">⋯</button></td>
+  </tr>`).join('');
+  _setPager('prod', total, st.page);
+  _wireSortHeaders('prod-tbody','prod',[
+    {label:'Product',field:'name'},{label:'Category',field:'category'},
+    {label:'Supplier',field:'supplierName'},{label:'Stock',field:'stock'},
+    {label:'Status',field:'status'},{label:'',field:null}
+  ]);
+}
+
+// ─── Paginated renderQuotes ──────────────────────────────────
+function renderQuotes() {
+  const tb = document.getElementById('qt-tbody'); if (!tb) return;
+  const st = _tbl.qt;
+  const q  = st.q.toLowerCase();
+  const stat = st.status;
+  let rows = quotes.filter(qt =>
+    (!q || (qt.id+(qt.customerName||'')+(qt.projectId||'')+(qt.title||'')).toLowerCase().includes(q)) &&
+    (!stat || qt.status===stat)
+  );
+  rows = _sortRows(rows, st.sort, st.dir);
+  const slice = rows.slice((st.page-1)*PAGE_SIZE, st.page*PAGE_SIZE);
+  if (!slice.length) {
+    tb.innerHTML = '<tr><td colspan="9" class="empty-state">No quotes match.</td></tr>';
+    _setPager('qt', 0, 1); return;
+  }
+  const today = todayISO();
+  tb.innerHTML = slice.map(q_ => {
+    const total_ = (q_.lines||[]).reduce((s,l)=>s+toNum(l.unitPrice,0)*toNum(l.qty,1),0);
+    const cost_  = (q_.lines||[]).reduce((s,l)=>s+toNum(l.cost,0)*toNum(l.qty,1),0);
+    const margin = total_>0 ? Math.round(((total_-cost_)/total_)*100) : 0;
+    const projLink = q_.projectId ? `<span class="status-badge badge-approved" style="cursor:pointer" onclick="openView('projects')">${q_.projectId}</span>` : '<span style="color:var(--txt3);font-size:11px">—</span>';
+    const isExpired = q_.validUntil && q_.validUntil < today && q_.status !== 'Accepted';
+    return `<tr data-status="${q_.status}">
+    <td><button class="link-btn" onclick="viewQuote('${q_.id}')" style="font-family:var(--font-mono);font-size:12px;color:var(--blue)">${q_.id}</button></td>
+    <td style="font-weight:500">${q_.customerName||''}</td>
+    <td>${projLink}</td>
+    <td style="font-size:11px;font-family:var(--font-mono)">${q_.created||''}</td>
+    <td style="font-size:11px;font-family:var(--font-mono);color:${isExpired?'var(--red)':'inherit'}">${q_.validUntil||''}</td>
+    <td class="amount">${fmt(total_)}</td>
+    <td class="amount" style="color:${margin>=30?'var(--green)':margin>=15?'var(--amber)':'var(--red)'}">${margin}%</td>
+    <td><span class="status-badge ${bc(q_.status)}">${q_.status}</span></td>
+    <td><button class="row-menu-btn" onclick="rowMenu(this,'quote','${q_.id}')">⋯</button></td>
+    </tr>`;
+  }).join('');
+  _setPager('qt', rows.length, st.page);
+  _wireSortHeaders('qt-tbody','qt',[
+    {label:'Quote #',field:'id'},{label:'Customer',field:'customerName'},
+    {label:'Project',field:'projectId'},
+    {label:'Created',field:'created'},{label:'Valid Until',field:'validUntil'},
+    {label:'Total',field:null},{label:'Margin',field:null},
+    {label:'Status',field:'status'},{label:'',field:null}
+  ]);
+}
+
+// ─── Paginated renderProjects ────────────────────────────────
+function renderProjects() {
+  const tb = document.getElementById('proj-tbody'); if (!tb) return;
+  const st = _tbl.proj;
+  const q = st.q.toLowerCase();
+  const stat = document.getElementById('proj-status-filter')?.value || st.status || '';
+  const pcust = document.getElementById('proj-cust-filter')?.value||'';
+  // Populate customer dropdown dynamically
+  const pcustEl = document.getElementById('proj-cust-filter');
+  if (pcustEl && pcustEl.options.length<=1) {
+    const custNames = [...new Set(projects.map(p=>p.customer||p.manager||'').filter(Boolean))].sort();
+    custNames.forEach(n=>{const o=document.createElement('option');o.value=n;o.textContent=n;pcustEl.appendChild(o);});
+  }
+  let rows = projects.filter(p =>
+    (!q || (p.id+p.name+(p.manager||'')+(p.site||'')).toLowerCase().includes(q)) &&
+    (!stat || p.status===stat) &&
+    (!pcust || (p.customer||p.manager||'')=== pcust)
+  );
+  rows = _sortRows(rows, st.sort, st.dir);
+  const total = rows.length;
+  const slice = rows.slice((st.page-1)*PAGE_SIZE, st.page*PAGE_SIZE);
+  if (!slice.length) {
+    tb.innerHTML = '<tr><td colspan="8" class="empty-state">No projects match.</td></tr>';
+    _setPager('proj', 0, 1); return;
+  }
+  tb.innerHTML = slice.map(p => {
+    const budgetPct = p.budget>0 ? Math.min(100,Math.round((p.actualCost/p.budget)*100)) : 0;
+    const pBarColor = budgetPct>90?'var(--red)':budgetPct>70?'var(--amber)':'var(--green)';
+    const hubBtn = p.status==='In Progress' ? `<button class="settle-btn" onclick="openConstructionHub('${p.id}')" title="Open Construction Hub" style="background:rgba(245,166,35,.12);border-color:var(--amber);color:var(--amber)">🏗 Hub</button>` : '';
+    return `<tr data-status="${p.status}">
+    <td><button class="link-btn" onclick="viewProject('${p.id}')" style="font-weight:500;text-align:left;display:block">${p.name}</button><div style="font-size:11px;color:var(--txt2);font-family:var(--font-mono)">${p.id}</div></td>
+    <td style="font-size:12px">${p.manager||'—'}</td>
+    <td style="font-size:11px;color:var(--txt2)">${p.site||'—'}</td>
+    <td class="amount">${fmt(p.budget)}</td>
+    <td class="amount">
+      <div style="font-family:var(--font-mono);font-size:12px;color:${pBarColor}">${fmt(p.actualCost)}</div>
+      <div class="pay-bar-wrap"><div class="pay-bar-fill" style="width:${budgetPct}%;background:${pBarColor}"></div></div>
+      <div style="font-size:9px;color:var(--txt3);font-family:var(--font-mono)">${budgetPct}% used</div>
+    </td>
+    <td><span class="status-badge ${bc(p.status)}">${p.status}</span></td>
+    <td style="white-space:nowrap">${hubBtn}<button class="row-menu-btn" onclick="rowMenu(this,'project','${p.id}','${p.status}')">⋯</button></td>
+    </tr>`;
+  }).join('');
+  _setPager('proj', total, st.page);
+  _wireSortHeaders('proj-tbody','proj',[
+    {label:'Project',field:'name'},{label:'Customer',field:'customer'},
+    {label:'Start',field:'start'},{label:'End',field:'end'},
+    {label:'Budget',field:'budget'},{label:'Actual Cost',field:'actualCost'},
+    {label:'Status',field:'status'},{label:'',field:null}
+  ]);
+}
+
+// ─── Paginated renderTransactions ───────────────────────────
+function renderTransactions() {
+  const tb = document.getElementById('txn-tbody'); if (!tb) return;
+  const st = _tbl.txn;
+  const filters = getTransactionFilters();
+  const q = st.q.toLowerCase();
+  let rows = companyTransactions.filter(t =>
+    (!q || (t.ref+t.party+t.description+t.category).toLowerCase().includes(q)) &&
+    matchDateFilters(t.date, filters) &&
+    (!filters.type || t.type===filters.type) &&
+    (!filters.customerCode || t.customerCode===filters.customerCode) &&
+    (!filters.supplierCode || t.supplierCode===filters.supplierCode) &&
+    (!filters.projectId || t.projectId===filters.projectId)
+  );
+  rows = _sortRows(rows, st.sort, st.dir);
+  const total = rows.length;
+  const slice = rows.slice((st.page-1)*PAGE_SIZE, st.page*PAGE_SIZE);
+  if (!slice.length) {
+    tb.innerHTML = '<tr><td colspan="9" class="empty-state">No transactions match.</td></tr>';
+    _setPager('txn', 0, 1); return;
+  }
+  tb.innerHTML = slice.map(t => `<tr>
+    <td style="font-family:var(--font-mono);font-size:11px">${t.date}</td>
+    <td style="font-family:var(--font-mono);font-size:11px;color:var(--blue)">${t.ref}</td>
+    <td><span class="status-badge ${t.type==='Inflow'?'badge-approved':'badge-overdue'}" style="font-size:10px">${t.type}</span></td>
+    <td style="font-size:11px">${t.category||'—'}</td>
+    <td style="font-size:12px">${t.party||'—'}</td>
+    <td style="font-size:11px;color:var(--txt2)">${t.description||'—'}</td>
+    <td class="amount positive">${t.type==='Inflow'?fmt(t.amount):'—'}</td>
+    <td class="amount negative">${t.type==='Outflow'?fmt(t.amount):'—'}</td>
+    <td><button class="row-menu-btn" onclick="rowMenu(this,'transaction','${t.ref}')">⋯</button></td>
+  </tr>`).join('');
+  _setPager('txn', total, st.page);
+  _wireSortHeaders('txn-tbody','txn',[
+    {label:'Date',field:'date'},{label:'Ref',field:'ref'},
+    {label:'Type',field:'type'},{label:'Category',field:'category'},
+    {label:'Party',field:'party'},{label:'Description',field:'description'},
+    {label:'Inflow',field:null},{label:'Outflow',field:null},{label:'',field:null}
+  ]);
+}
+
+// ─── Paginated renderStatements ──────────────────────────────
+function populateStmtCustomers() {
+  const sel = document.getElementById('stmt-cust'); if (!sel) return;
+  const current = sel.value;
+  // Only rebuild if still just the default placeholder
+  if (sel.options.length <= 1) {
+    sel.innerHTML = '<option>All Customers</option>' +
+      customers.slice().sort((a,b)=>a.companyName.localeCompare(b.companyName))
+        .map(c=>`<option value="${c.companyName}">${c.companyName}</option>`).join('');
+  }
+  if (current) sel.value = current;
+}
+
+function renderStatements() {
+  const tbody = document.getElementById('stmt-tbody'); if (!tbody) return;
+  populateStatementPeriods();
+  populateStmtCustomers();
+  const customerSel = document.getElementById('stmt-cust');
+  const selectedName = customerSel?.value||'All Customers';
+  const selectedCustomer = customers.find(c=>c.companyName===selectedName);
+  let rows = getStatementRowsByCustomer(selectedCustomer?.customerCode||'');
+  if (!rows.length) {
+    tbody.innerHTML = '<tr><td colspan="9" class="empty-state">No statement entries for selected customer and period.</td></tr>';
+    renderStatementSummary([]);
+    _setPager('stmt', 0, 1); return;
+  }
+  let running = 0;
+  const withBalance = rows.map(r => {
+    running += toNum(r.debit,0) - toNum(r.credit,0);
+    return {...r, bal: Math.max(0, running)};
+  });
+  renderStatementSummary(withBalance);
+  const st = _tbl.stmt;
+  const total = withBalance.length;
+  const slice = withBalance.slice((st.page-1)*PAGE_SIZE, st.page*PAGE_SIZE);
+  tbody.innerHTML = slice.map(s => {
+    const inv = invoices.find(i=>i.id===s.ref);
+    const outstanding = inv ? Math.max(0,inv.amount-inv.paid) : null;
+    const outCell = outstanding!==null
+      ? `<td class="amount ${outstanding>0?'negative':'positive'}" style="font-size:11px">${outstanding>0?`<button class="link-btn" onclick="viewInvoice('${s.ref}')">${fmt(outstanding)}</button>`:'✓ Paid'}</td>`
+      : `<td style="color:var(--txt3);font-size:11px">&mdash;</td>`;
+    return `<tr>
+    <td style="font-family:var(--font-mono);font-size:11px">${s.date}</td>
+    <td style="font-family:var(--font-mono);font-size:11px">${inv?`<button class="link-btn" onclick="viewInvoice('${s.ref}')" style="color:var(--blue)">${s.ref}</button>`:s.ref}</td>
+    <td style="font-size:12px">${s.desc}</td>
+    <td class="amount ${s.debit>0?'negative':''}">${s.debit>0?fmt(s.debit):'&mdash;'}</td>
+    <td class="amount ${s.credit>0?'positive':''}">${s.credit>0?fmt(s.credit):'&mdash;'}</td>
+    <td class="amount">${fmt(s.bal)}</td>
+    ${outCell}
+    <td><span class="status-badge ${bc(s.status)}">${s.status}</span></td>
+    <td><button class="row-menu-btn" onclick="rowMenu(this,'statement','${s.ref}')">⋯</button></td>
+    </tr>`;
+  }).join('');
+  _setPager('stmt', total, st.page);
+}
+
+// ════════════════════════════════════════════════════════════════
+//  ANALYTICS TABS
+// ════════════════════════════════════════════════════════════════
+let _anTab = 'overview';
+let _anCharts = {};
+
+function switchAnalyticsTab(name, btn) {
+  _anTab = name;
+  document.querySelectorAll('.analytics-tab').forEach(t => t.classList.remove('active'));
+  if (btn) btn.classList.add('active');
+  else document.getElementById('an-tab-'+name)?.classList.add('active');
+  document.querySelectorAll('.analytics-tab-panel').forEach(p => p.classList.remove('active'));
+  document.getElementById('an-panel-'+name)?.classList.add('active');
+  renderAnalyticsTab(name);
+}
+
+function renderAnalyticsTab(name) {
+  if (name === 'overview') { updateAnalytics(); return; }
+  if (name === 'revenue')    { _renderAnRevenue(); return; }
+  if (name === 'projects')   { _renderAnProjects(); return; }
+  if (name === 'finance')    { _renderAnFinance(); return; }
+  if (name === 'customers')  { _renderAnCustomers(); return; }
+  if (name === 'quotes')     { _renderAnQuotes(); return; }
+  if (name === 'operations') { _renderAnOperations(); return; }
+}
+
+function _anKpi(id, label, value, meta, metaClass='') {
+  const el = document.getElementById(id);
+  if (!el) return;
+  el.innerHTML = `<div class="an-kpi-label">${label}</div><div class="an-kpi-value">${value}</div><div class="an-kpi-meta ${metaClass}">${meta}</div>`;
+}
+
+function _anKpiRow(containerId, kpis) {
+  const el = document.getElementById(containerId); if (!el) return;
+  el.innerHTML = kpis.map(k =>
+    `<div class="an-kpi"><div class="an-kpi-label">${k.label}</div><div class="an-kpi-value" style="color:${k.color||'var(--txt0)'}">${k.value}</div><div class="an-kpi-meta ${k.cls||''}">${k.meta||''}</div></div>`
+  ).join('');
+}
+
+function _destroyChart(id) {
+  if (_anCharts[id]) { try { _anCharts[id].destroy(); } catch(e){} delete _anCharts[id]; }
+}
+
+function _mkChart(id, type, labels, datasets, opts={}) {
+  _destroyChart(id);
+  const canvas = document.getElementById(id); if (!canvas) return;
+  const chartColors = { grid:'rgba(255,255,255,.06)', tick:'rgba(255,255,255,.35)' };
+  _anCharts[id] = new Chart(canvas, {
+    type,
+    data: { labels, datasets },
+    options: {
+      responsive: true, maintainAspectRatio: false, animation: { duration: 400 },
+      plugins: { legend: { display: opts.legend||false, labels:{color:'rgba(255,255,255,.6)',font:{size:11}} } },
+      scales: type==='pie'||type==='doughnut' ? {} : {
+        x: { grid:{color:chartColors.grid}, ticks:{color:chartColors.tick,font:{size:10}} },
+        y: { grid:{color:chartColors.grid}, ticks:{color:chartColors.tick,font:{size:10}, callback: opts.yFmt||undefined} },
+        ...(opts.stacked ? {x:{stacked:true,grid:{color:chartColors.grid},ticks:{color:chartColors.tick}}, y:{stacked:true,grid:{color:chartColors.grid},ticks:{color:chartColors.tick}}} : {})
+      },
+      ...opts.extra
+    }
+  });
+}
+
+// ─── Revenue tab ─────────────────────────────────────────────
+function _renderAnRevenue() {
+  const filters = readAnalyticsFilters();
+  const invRows = invoices.filter(i => matchDateFilters(i.issued, filters));
+  const totalRev = invRows.reduce((s,i)=>s+toNum(i.amount,0),0);
+  const totalPaid = invRows.reduce((s,i)=>s+toNum(i.paid,0),0);
+  const avgInv = invRows.length ? totalRev/invRows.length : 0;
+  const byMonth = {};
+  invRows.forEach(i => {
+    const m = (i.issued||'').slice(0,7);
+    if (m) byMonth[m] = (byMonth[m]||0) + toNum(i.amount,0);
+  });
+  const months = Object.keys(byMonth).sort().slice(-12);
+  const revVals = months.map(m => byMonth[m]||0);
+  _anKpiRow('an-rev-kpis', [
+    {label:'Total Revenue',value:fmtShort(totalRev),color:'var(--green)',meta:'All invoiced',cls:'up'},
+    {label:'Total Collected',value:fmtShort(totalPaid),color:'var(--blue)',meta:`${totalRev>0?Math.round(totalPaid/totalRev*100):0}% collection rate`},
+    {label:'Avg Invoice',value:fmtShort(avgInv),color:'var(--amber)',meta:`${invRows.length} invoices`},
+    {label:'Outstanding AR',value:fmtShort(totalRev-totalPaid),color:'var(--red)',meta:'Uncollected',cls:'dn'},
+  ]);
+  _mkChart('an-rev-trend', 'line', months, [{
+    label:'Revenue', data:revVals, borderColor:'#4f8ef7', backgroundColor:'rgba(79,142,247,.12)',
+    fill:true, tension:.35, pointRadius:3
+  }], {yFmt: v => 'R'+fmtShort(v)});
+  // By sector
+  const bySector = {};
+  invRows.forEach(i => {
+    const c = customers.find(x=>x.customerCode===i.customerCode||x.companyName===(i.customerName||i.customer));
+    const seg = c?.industry||c?.segment||'Other';
+    bySector[seg] = (bySector[seg]||0) + toNum(i.amount,0);
+  });
+  const secLabels = Object.keys(bySector);
+  const secVals = secLabels.map(k=>bySector[k]);
+  const secColors = ['#4f8ef7','#22c55e','#f5a623','#a855f7','#14b8a6','#ef4444'];
+  _mkChart('an-rev-sector','doughnut',secLabels,[{data:secVals,backgroundColor:secColors,borderWidth:0}],{legend:true});
+  // Top customers bar list
+  const byCust = {};
+  invRows.forEach(i => { const k=i.customerName||i.customer||'Unknown'; byCust[k]=(byCust[k]||0)+toNum(i.amount,0); });
+  const top = Object.entries(byCust).sort((a,b)=>b[1]-a[1]).slice(0,8);
+  const el = document.getElementById('an-rev-top-cust'); if (el) renderTopCustomers(top.map(([name,val])=>({name,val})),'an-rev-top-cust');
+}
+
+// ─── Projects tab ─────────────────────────────────────────────
+function _renderAnProjects() {
+  const active = projects.filter(p=>p.status==='In Progress');
+  const completed = projects.filter(p=>p.status==='Completed');
+  const totalBudget = projects.reduce((s,p)=>s+toNum(p.budget,0),0);
+  const totalActual = projects.reduce((s,p)=>s+toNum(p.actualCost,0),0);
+  const variance = totalBudget - totalActual;
+  _anKpiRow('an-proj-kpis', [
+    {label:'Total Projects',value:projects.length,color:'var(--blue)',meta:`${active.length} active`},
+    {label:'Total Budget',value:fmtShort(totalBudget),color:'var(--txt0)',meta:'All projects'},
+    {label:'Total Spent',value:fmtShort(totalActual),color:totalActual>totalBudget?'var(--red)':'var(--green)',meta:`${totalBudget>0?Math.round(totalActual/totalBudget*100):0}% used`},
+    {label:'Budget Variance',value:fmtShort(Math.abs(variance)),color:variance>=0?'var(--green)':'var(--red)',meta:variance>=0?'Under budget':'Over budget',cls:variance>=0?'up':'dn'},
+    {label:'Completed',value:completed.length,color:'var(--green)',meta:'Projects finished'},
+  ]);
+  const labels = active.slice(0,10).map(p=>p.id);
+  const budgets = active.slice(0,10).map(p=>toNum(p.budget,0));
+  const actuals = active.slice(0,10).map(p=>toNum(p.actualCost,0));
+  _mkChart('an-proj-budget','bar',labels,[
+    {label:'Budget',data:budgets,backgroundColor:'rgba(79,142,247,.5)',borderColor:'#4f8ef7',borderWidth:1},
+    {label:'Actual',data:actuals,backgroundColor:'rgba(245,166,35,.5)',borderColor:'#f5a623',borderWidth:1}
+  ],{legend:true,yFmt:v=>'R'+fmtShort(v)});
+  const statuses = {};
+  projects.forEach(p=>{ statuses[p.status]=(statuses[p.status]||0)+1; });
+  const sKeys=Object.keys(statuses);
+  _mkChart('an-proj-status','doughnut',sKeys,[{data:sKeys.map(k=>statuses[k]),backgroundColor:['#4f8ef7','#22c55e','#f5a623','#ef4444','#a855f7'],borderWidth:0}],{legend:true});
+  const tb = document.getElementById('an-proj-table'); if (!tb) return;
+  tb.innerHTML = projects.map(p => {
+    const invRev = invoices.filter(i=>i.projectId===p.id).reduce((s,i)=>s+toNum(i.amount,0),0);
+    const margin = invRev>0 ? Math.round(((invRev-toNum(p.actualCost,0))/invRev)*100) : 0;
+    const budgetPct = p.budget>0 ? Math.round((p.actualCost/p.budget)*100) : 0;
+    return `<tr>
+    <td><button class="link-btn" onclick="viewProject('${p.id}')" style="font-weight:500">${p.name}</button><div style="font-size:10px;color:var(--txt2);font-family:var(--font-mono)">${p.id}</div></td>
+    <td style="font-size:11px">${p.manager||'—'}</td>
+    <td class="amount">${fmt(p.budget)}</td>
+    <td class="amount" style="color:${budgetPct>90?'var(--red)':budgetPct>70?'var(--amber)':'inherit'}">${fmt(p.actualCost)}</td>
+    <td class="amount positive">${fmt(invRev)}</td>
+    <td class="amount" style="color:${margin>=20?'var(--green)':margin>=0?'var(--amber)':'var(--red)'}">${margin}%</td>
+    <td><span class="status-badge ${bc(p.status)}">${p.status}</span></td></tr>`;
+  }).join('');
+}
+
+// ─── Finance tab ──────────────────────────────────────────────
+function _renderAnFinance() {
+  const totalAR = invoices.reduce((s,i)=>s+Math.max(0,toNum(i.amount,0)-toNum(i.paid,0)),0);
+  const totalAP = purchaseOrders.reduce((s,p)=>s+Math.max(0,toNum(p.value,0)-(toNum(p.paid,0))),0);
+  const totalInflow = companyTransactions.filter(t=>t.type==='Inflow').reduce((s,t)=>s+toNum(t.amount,0),0);
+  const totalOutflow = companyTransactions.filter(t=>t.type==='Outflow').reduce((s,t)=>s+toNum(t.amount,0),0);
+  const overdue = invoices.filter(i=>i.status==='Overdue').reduce((s,i)=>s+Math.max(0,toNum(i.amount,0)-toNum(i.paid,0)),0);
+  _anKpiRow('an-fin-kpis', [
+    {label:'Total Inflows',value:fmtShort(totalInflow),color:'var(--green)',meta:'All time received',cls:'up'},
+    {label:'Total Outflows',value:fmtShort(totalOutflow),color:'var(--red)',meta:'All time paid',cls:'dn'},
+    {label:'Net Cash',value:fmtShort(totalInflow-totalOutflow),color:totalInflow>=totalOutflow?'var(--green)':'var(--red)',meta:'Inflow minus outflow',cls:totalInflow>=totalOutflow?'up':'dn'},
+    {label:'Accounts Receivable',value:fmtShort(totalAR),color:'var(--amber)',meta:'Outstanding invoices',cls:'warn'},
+    {label:'Accounts Payable',value:fmtShort(totalAP),color:'var(--amber)',meta:'Outstanding POs',cls:'warn'},
+    {label:'Overdue AR',value:fmtShort(overdue),color:'var(--red)',meta:'Past due date',cls:'dn'},
+  ]);
+  // 12-month cashflow
+  const months12 = [], inflows12 = [], outflows12 = [];
+  for (let i=11; i>=0; i--) {
+    const d = new Date(); d.setMonth(d.getMonth()-i);
+    const m = d.toISOString().slice(0,7);
+    months12.push(m.slice(5)+'/'+(m.slice(2,4)));
+    inflows12.push(companyTransactions.filter(t=>t.type==='Inflow'&&(t.date||'').startsWith(m)).reduce((s,t)=>s+toNum(t.amount,0),0));
+    outflows12.push(companyTransactions.filter(t=>t.type==='Outflow'&&(t.date||'').startsWith(m)).reduce((s,t)=>s+toNum(t.amount,0),0));
+  }
+  _mkChart('an-fin-cashflow','bar',months12,[
+    {label:'Inflow',data:inflows12,backgroundColor:'rgba(34,197,94,.5)',borderColor:'#22c55e',borderWidth:1},
+    {label:'Outflow',data:outflows12,backgroundColor:'rgba(239,68,68,.4)',borderColor:'#ef4444',borderWidth:1}
+  ],{legend:true,yFmt:v=>'R'+fmtShort(v)});
+  // AR aging
+  const today = new Date();
+  const ageBuckets = {'0-30':0,'31-60':0,'61-90':0,'90+':0};
+  invoices.filter(i=>i.status!=='Paid').forEach(i=>{
+    const days = Math.max(0,Math.floor((today-new Date(i.due+'T00:00:00'))/86400000));
+    const amt = Math.max(0,toNum(i.amount,0)-toNum(i.paid,0));
+    if (days<=30) ageBuckets['0-30']+=amt;
+    else if (days<=60) ageBuckets['31-60']+=amt;
+    else if (days<=90) ageBuckets['61-90']+=amt;
+    else ageBuckets['90+']+=amt;
+  });
+  _mkChart('an-fin-aging','bar',Object.keys(ageBuckets),[{data:Object.values(ageBuckets),backgroundColor:['#22c55e','#f5a623','#ef4444','#7c0000'],borderWidth:0}],{yFmt:v=>'R'+fmtShort(v)});
+  // Invoice status donut
+  const invStat={}; invoices.forEach(i=>{invStat[i.status]=(invStat[i.status]||0)+1;});
+  _mkChart('an-fin-inv-status','doughnut',Object.keys(invStat),[{data:Object.values(invStat),backgroundColor:['#22c55e','#4f8ef7','#f5a623','#ef4444','#a855f7'],borderWidth:0}],{legend:true});
+  // PO status donut
+  const poStat={}; purchaseOrders.forEach(p=>{poStat[p.status]=(poStat[p.status]||0)+1;});
+  _mkChart('an-fin-po-status','doughnut',Object.keys(poStat),[{data:Object.values(poStat),backgroundColor:['#22c55e','#4f8ef7','#f5a623','#ef4444'],borderWidth:0}],{legend:true});
+  // Supplier spend bar
+  const supSpendMap={};
+  purchaseOrders.forEach(p=>{const k=p.supplierName||p.supplier||'Unknown';supSpendMap[k]=(supSpendMap[k]||0)+toNum(p.value,0);});
+  const topSup=Object.entries(supSpendMap).sort((a,b)=>b[1]-a[1]).slice(0,8);
+  _mkChart('an-fin-sup-spend','bar',topSup.map(([k])=>k),[{data:topSup.map(([,v])=>v),backgroundColor:'rgba(20,184,166,.5)',borderColor:'#14b8a6',borderWidth:1}],{yFmt:v=>'R'+fmtShort(v)});
+}
+
+// ─── Customers tab ────────────────────────────────────────────
+function _renderAnCustomers() {
+  const active = customers.filter(c=>c.status==='Active').length;
+  const totalCredit = customers.reduce((s,c)=>s+toNum(c.creditLimit,0),0);
+  const totalBalance = customers.reduce((s,c)=>s+toNum(c.currentBalance,0),0);
+  _anKpiRow('an-cust-kpis', [
+    {label:'Total Customers',value:customers.length,color:'var(--blue)',meta:`${active} active`},
+    {label:'Total Credit Extended',value:fmtShort(totalCredit),color:'var(--amber)',meta:'Combined credit limits'},
+    {label:'Outstanding Balances',value:fmtShort(totalBalance),color:'var(--red)',meta:'Across all accounts',cls:'warn'},
+    {label:'Avg Balance',value:fmtShort(customers.length?totalBalance/customers.length:0),color:'var(--txt0)',meta:'Per customer'},
+  ]);
+  // Revenue by customer (an-cust-revenue)
+  const revMap={};
+  invoices.forEach(i=>{const k=i.customerName||i.customer||'Unknown';revMap[k]=(revMap[k]||0)+toNum(i.amount,0);});
+  const topCust=Object.entries(revMap).sort((a,b)=>b[1]-a[1]).slice(0,10);
+  _mkChart('an-cust-revenue','bar',topCust.map(([k])=>k),
+    [{data:topCust.map(([,v])=>v),backgroundColor:'rgba(79,142,247,.5)',borderColor:'#4f8ef7',borderWidth:1}],
+    {yFmt:v=>'R'+fmtShort(v)});
+  // Customers by Industry (an-cust-industry)
+  const industryMap={};
+  customers.forEach(c=>{const ind=c.industry||c.segment||'Other';industryMap[ind]=(industryMap[ind]||0)+1;});
+  const indLabels=Object.keys(industryMap);
+  const indColors=['#4f8ef7','#22c55e','#f5a623','#a855f7','#14b8a6','#ef4444','#f97316','#06b6d4'];
+  _mkChart('an-cust-industry','doughnut',indLabels,
+    [{data:indLabels.map(k=>industryMap[k]),backgroundColor:indColors.slice(0,indLabels.length),borderWidth:0}],
+    {legend:true});
+  // Customer Health Overview table (an-cust-table)
+  const tb=document.getElementById('an-cust-table'); if(!tb) return;
+  // Build per-customer invoice aggregates
+  const custInvMap={};
+  invoices.forEach(i=>{
+    const code=i.customerCode||i.customerName||i.customer||'Unknown';
+    if(!custInvMap[code]) custInvMap[code]={invoiced:0,paid:0,overdue:0};
+    custInvMap[code].invoiced+=toNum(i.amount,0);
+    custInvMap[code].paid+=toNum(i.paid,0);
+    if(i.status==='Overdue') custInvMap[code].overdue+=Math.max(0,toNum(i.amount,0)-toNum(i.paid,0));
+  });
+  tb.innerHTML=customers.map(c=>{
+    const agg=custInvMap[c.customerCode]||custInvMap[c.companyName]||{invoiced:0,paid:0,overdue:0};
+    const overdueAmt=agg.overdue;
+    const statusCls=c.status==='Active'?'badge-paid':c.status==='Inactive'?'badge-overdue':'badge-pending';
+    return `<tr>
+      <td><button class="link-btn" onclick="viewCustomer('${c.customerCode}')" style="font-weight:500">${c.companyName}</button></td>
+      <td style="font-size:11px;color:var(--txt2)">${c.industry||c.segment||'—'}</td>
+      <td class="amount">${fmt(c.creditLimit)}</td>
+      <td class="amount ${c.currentBalance>0?'negative':''}">${fmt(c.currentBalance)}</td>
+      <td class="amount">${fmt(agg.invoiced)}</td>
+      <td class="amount positive">${fmt(agg.paid)}</td>
+      <td class="amount ${overdueAmt>0?'negative':''}">${overdueAmt>0?fmt(overdueAmt):'—'}</td>
+      <td><span class="status-badge ${statusCls}">${c.status||'Unknown'}</span></td>
+    </tr>`;
+  }).join('');
+}
+
+// ─── Quotes tab ───────────────────────────────────────────────
+function _renderAnQuotes() {
+  const total=quotes.length;
+  const accepted=quotes.filter(q=>q.status==='Accepted').length;
+  const rejected=quotes.filter(q=>q.status==='Rejected').length;
+  const pending=quotes.filter(q=>q.status==='Sent'||q.status==='Draft').length;
+  const totalVal=quotes.reduce((s,q)=>s+toNum(q.total||q.amount,0),0);
+  const acceptedVal=quotes.filter(q=>q.status==='Accepted').reduce((s,q)=>s+toNum(q.total||q.amount,0),0);
+  _anKpiRow('an-qt-kpis',[
+    {label:'Total Quotes',value:total,color:'var(--blue)',meta:`${pending} pending`},
+    {label:'Accepted',value:accepted,color:'var(--green)',meta:`${total?Math.round(accepted/total*100):0}% win rate`},
+    {label:'Total Quote Value',value:fmtShort(totalVal),color:'var(--amber)',meta:'All quotes'},
+    {label:'Accepted Value',value:fmtShort(acceptedVal),color:'var(--green)',meta:'Converted revenue'},
+  ]);
+  // Quote Pipeline by Status (an-qt-funnel) — bar chart showing value at each stage
+  const qStatVal={};
+  quotes.forEach(q=>{const s=q.status||'Draft';qStatVal[s]=(qStatVal[s]||0)+toNum(q.total||q.amount,0);});
+  const qsKeys=Object.keys(qStatVal);
+  const qsColors={'Draft':'rgba(148,163,184,.6)','Sent':'rgba(79,142,247,.6)','Accepted':'rgba(34,197,94,.6)','Rejected':'rgba(239,68,68,.6)','Amended':'rgba(245,166,35,.6)'};
+  _mkChart('an-qt-funnel','bar',qsKeys,
+    [{data:qsKeys.map(k=>qStatVal[k]),backgroundColor:qsKeys.map(k=>qsColors[k]||'rgba(168,85,247,.6)'),borderWidth:0,borderRadius:4}],
+    {yFmt:v=>'R'+fmtShort(v)});
+  // Win Rate Trend (an-qt-winrate) — accepted vs rejected by month
+  const winByMonth={};
+  quotes.forEach(q=>{
+    const d=new Date(q.date||q.createdAt||Date.now());
+    const m=d.toISOString().slice(0,7);
+    if(!winByMonth[m]) winByMonth[m]={acc:0,rej:0};
+    if(q.status==='Accepted') winByMonth[m].acc++;
+    else if(q.status==='Rejected') winByMonth[m].rej++;
+  });
+  const wmKeys=Object.keys(winByMonth).sort().slice(-12);
+  _mkChart('an-qt-winrate','bar',wmKeys,[
+    {label:'Accepted',data:wmKeys.map(m=>winByMonth[m].acc),backgroundColor:'rgba(34,197,94,.55)',borderColor:'#22c55e',borderWidth:1},
+    {label:'Rejected',data:wmKeys.map(m=>winByMonth[m].rej),backgroundColor:'rgba(239,68,68,.45)',borderColor:'#ef4444',borderWidth:1}
+  ],{legend:true,yFmt:v=>v});
+  // Quote Details table (an-qt-table)
+  const tb=document.getElementById('an-qt-table'); if(!tb) return;
+  const sorted=[...quotes].sort((a,b)=>new Date(b.date||b.createdAt||0)-new Date(a.date||a.createdAt||0));
+  tb.innerHTML=sorted.map(q=>{
+    const val=toNum(q.total||q.amount,0);
+    const cost=toNum(q.cost||q.totalCost||0,0);
+    const margin=val>0?Math.round(((val-cost)/val)*100):0;
+    const statusCls={Accepted:'badge-paid',Rejected:'badge-overdue',Sent:'badge-pending',Amended:'badge-partial',Draft:'badge-draft'}[q.status]||'badge-draft';
+    const issued=(q.date||q.createdAt||'').slice(0,10)||'—';
+    return `<tr>
+      <td><span style="font-family:var(--font-mono);font-size:11px">${q.id||q.quoteNumber||'—'}</span></td>
+      <td>${q.customerName||q.customer||'—'}</td>
+      <td class="amount">${fmt(val)}</td>
+      <td class="amount">${cost>0?fmt(cost):'—'}</td>
+      <td style="color:${margin>=20?'var(--green)':margin>=0?'var(--amber)':'var(--red)'};font-weight:600">${cost>0?margin+'%':'—'}</td>
+      <td><span class="status-badge ${statusCls}">${q.status||'Draft'}</span></td>
+      <td style="font-size:11px;color:var(--txt2)">${issued}</td>
+    </tr>`;
+  }).join('');
+}
+
+// ─── Operations tab ───────────────────────────────────────────
+function _renderAnOperations() {
+  const activeProj=projects.filter(p=>p.status==='In Progress').length;
+  const totalSuppliers=suppliers.length;
+  const totalPOVal=purchaseOrders.reduce((s,p)=>s+toNum(p.value,0),0);
+  const openPO=purchaseOrders.filter(p=>p.status==='Pending'||p.status==='Ordered'||p.status==='Issued').length;
+  // YTD spend
+  const ytdStart=new Date(new Date().getFullYear(),0,1).toISOString().slice(0,10);
+  const ytdSpend=purchaseOrders.filter(p=>(p.ordered||p.date||'')>=ytdStart).reduce((s,p)=>s+toNum(p.value,0),0);
+  _anKpiRow('an-ops-kpis',[
+    {label:'Active Projects',value:activeProj,color:'var(--blue)',meta:`of ${projects.length} total`},
+    {label:'Active Suppliers',value:totalSuppliers,color:'var(--txt0)',meta:'On record'},
+    {label:'Total PO Value',value:fmtShort(totalPOVal),color:'var(--amber)',meta:'All purchase orders'},
+    {label:'Open POs',value:openPO,color:'var(--red)',meta:'Pending / Ordered'},
+    {label:'YTD Spend',value:fmtShort(ytdSpend),color:'var(--teal)',meta:'Purchase orders this year'},
+  ]);
+  // Purchase Orders by Category / YTD spend (an-ops-po-cat)
+  const catSpend={};
+  purchaseOrders.filter(p=>(p.ordered||p.date||'')>=ytdStart).forEach(po=>{
+    const cat=po.category||po.productCategory||'General';
+    catSpend[cat]=(catSpend[cat]||0)+toNum(po.value,0);
+  });
+  // Fall back to all-time if no YTD data
+  if(Object.keys(catSpend).length===0){
+    purchaseOrders.forEach(po=>{const cat=po.category||po.productCategory||'General';catSpend[cat]=(catSpend[cat]||0)+toNum(po.value,0);});
+  }
+  const catKeys=Object.keys(catSpend).sort((a,b)=>catSpend[b]-catSpend[a]).slice(0,8);
+  const catColors=['#4f8ef7','#22c55e','#f5a623','#a855f7','#14b8a6','#ef4444','#f97316','#06b6d4'];
+  _mkChart('an-ops-po-cat','doughnut',catKeys,
+    [{data:catKeys.map(k=>catSpend[k]),backgroundColor:catColors.slice(0,catKeys.length),borderWidth:0}],
+    {legend:true});
+  // Supplier Performance (an-ops-suppliers) — top suppliers by spend
+  const supSpend={};
+  purchaseOrders.forEach(po=>{
+    const key=po.supplierName||po.supplier||'Unknown';
+    supSpend[key]=(supSpend[key]||0)+toNum(po.value,0);
+  });
+  const topSup=Object.entries(supSpend).sort((a,b)=>b[1]-a[1]).slice(0,8);
+  _mkChart('an-ops-suppliers','bar',topSup.map(e=>e[0]),
+    [{label:'Spend (R)',data:topSup.map(e=>e[1]),backgroundColor:'rgba(168,85,247,.5)',borderColor:'#a855f7',borderWidth:1,borderRadius:4}],
+    {yFmt:v=>'R'+fmtShort(v)});
+  // Stock Alerts table (an-ops-stock)
+  const tb=document.getElementById('an-ops-stock'); if(!tb) return;
+  const alerts=products.filter(p=>p.stock<=p.reorderLevel||p.stock<=p.reorder||p.stock<=0).sort((a,b)=>a.stock-b.stock);
+  if(alerts.length===0){
+    tb.innerHTML='<tr><td colspan="6" class="empty-state">No stock alerts — all products above reorder level</td></tr>';
+    return;
+  }
+  tb.innerHTML=alerts.map(p=>{
+    const isOut=p.stock<=0;
+    const isLow=!isOut&&p.stock<=(p.reorderLevel||p.reorder||0);
+    const statusLabel=isOut?'Out of Stock':'Low Stock';
+    const statusCls=isOut?'badge-overdue':'badge-pending';
+    return `<tr>
+      <td><span style="font-weight:500">${p.name}</span></td>
+      <td><span style="font-family:var(--font-mono);font-size:11px">${p.sku||p.id||'—'}</span></td>
+      <td style="color:${isOut?'var(--red)':'var(--amber)'};font-weight:600">${p.stock}</td>
+      <td style="color:var(--txt2)">${p.reorderLevel||p.reorder||'—'}</td>
+      <td>${p.supplierName||p.supplier||'—'}</td>
+      <td><span class="status-badge ${statusCls}">${statusLabel}</span></td>
+    </tr>`;
+  }).join('');
+}

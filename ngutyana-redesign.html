@@ -1,0 +1,997 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Ngutyana Group – Engineering Excellence</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Montserrat:wght@300;400;500;600;700;800&family=Playfair+Display:ital,wght@1,400&display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+<style>
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --navy:#09192e;
+  --navy2:#0f2240;
+  --navy3:#0d1d35;
+  --gold:#c9a84c;
+  --gold2:#e8c97a;
+  --white:#fff;
+  --grey:#8090aa;
+  --border:rgba(201,168,76,.22);
+  --ease:.5s cubic-bezier(.23,1,.32,1);
+}
+html{scroll-behavior:smooth}
+body{background:var(--navy);color:var(--white);font-family:'Montserrat',sans-serif;overflow-x:hidden;cursor:none}
+::-webkit-scrollbar{width:3px}::-webkit-scrollbar-track{background:var(--navy)}::-webkit-scrollbar-thumb{background:var(--gold)}
+
+/* CURSOR */
+#cur{position:fixed;width:10px;height:10px;background:var(--gold);border-radius:50%;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);transition:width .25s,height .25s}
+#curR{position:fixed;width:34px;height:34px;border:1.5px solid rgba(201,168,76,.6);border-radius:50%;pointer-events:none;z-index:9998;transform:translate(-50%,-50%);transition:width .4s,height .4s}
+#cur.big{width:5px;height:5px}#curR.big{width:54px;height:54px;border-color:rgba(201,168,76,.2)}
+@media(max-width:768px){#cur,#curR{display:none}}
+
+/* NAV */
+nav{position:fixed;top:0;width:100%;z-index:1000;padding:1.1rem 4%;display:flex;align-items:center;justify-content:space-between;transition:background .4s,box-shadow .4s}
+nav.solid{background:rgba(9,25,46,.97);backdrop-filter:blur(14px);box-shadow:0 1px 0 var(--border)}
+.logo{display:flex;align-items:center;gap:.8rem;text-decoration:none}
+.logo-hex{width:40px;height:40px;background:var(--gold);clip-path:polygon(50% 0%,100% 25%,100% 75%,50% 100%,0% 75%,0% 25%);display:flex;align-items:center;justify-content:center;font-family:'Bebas Neue',sans-serif;font-size:1rem;color:var(--navy)}
+.logo-name{font-family:'Bebas Neue',sans-serif;font-size:1.35rem;letter-spacing:.18em;color:#fff}
+.logo-name span{color:var(--gold)}
+.nav-links{display:flex;align-items:center;gap:2.2rem;list-style:none}
+.nav-links a{color:rgba(255,255,255,.72);text-decoration:none;font-size:.72rem;font-weight:600;letter-spacing:.14em;text-transform:uppercase;transition:color .3s;position:relative}
+.nav-links a::after{content:'';position:absolute;bottom:-3px;left:0;width:0;height:1px;background:var(--gold);transition:width .3s}
+.nav-links a:hover{color:var(--gold)}
+.nav-links a:hover::after{width:100%}
+.nav-call{background:var(--gold);color:var(--navy);padding:.55rem 1.4rem;font-size:.72rem;font-weight:800;letter-spacing:.12em;text-transform:uppercase;text-decoration:none;border-radius:2px;transition:all .3s;display:flex;align-items:center;gap:.5rem}
+.nav-call:hover{background:var(--gold2);transform:translateY(-2px)}
+.hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;z-index:1010;padding:4px}
+.hamburger span{width:24px;height:1.5px;background:#fff;display:block;transition:var(--ease)}
+.hamburger.open span:nth-child(1){transform:translateY(6.5px) rotate(45deg)}
+.hamburger.open span:nth-child(2){opacity:0}
+.hamburger.open span:nth-child(3){transform:translateY(-6.5px) rotate(-45deg)}
+.mob-overlay{display:none;position:fixed;inset:0;background:var(--navy2);z-index:999;flex-direction:column;align-items:center;justify-content:center;gap:2.2rem}
+.mob-overlay.open{display:flex}
+.mob-overlay a{font-family:'Bebas Neue',sans-serif;font-size:2.6rem;letter-spacing:.1em;color:#fff;text-decoration:none;transition:color .3s}
+.mob-overlay a:hover{color:var(--gold)}
+
+/* HERO — looping background video */
+#hero{position:relative;min-height:100vh;display:flex;align-items:center;overflow:hidden}
+.hero-vid{position:absolute;inset:0;overflow:hidden;z-index:0}
+.hero-vid video{width:100%;height:100%;object-fit:cover;display:block}
+/* Fallback poster if video can't load */
+.hero-vid::before{content:'';position:absolute;inset:0;
+  background:url('https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=1920&q=85') center/cover no-repeat;
+  z-index:-1}
+/* Mute button */
+.vid-mute{position:absolute;bottom:5rem;right:2rem;z-index:10;width:40px;height:40px;background:rgba(9,25,46,.6);border:1px solid var(--border);border-radius:3px;display:flex;align-items:center;justify-content:center;cursor:pointer;color:rgba(255,255,255,.7);font-size:.85rem;transition:all .3s;backdrop-filter:blur(6px)}
+.vid-mute:hover{border-color:var(--gold);color:var(--gold)}
+.hero-dim{position:absolute;inset:0;background:linear-gradient(105deg,rgba(9,25,46,.88) 45%,rgba(9,25,46,.45) 100%);z-index:1}
+.hero-grid{position:absolute;inset:0;background-image:linear-gradient(rgba(201,168,76,.05) 1px,transparent 1px),linear-gradient(90deg,rgba(201,168,76,.05) 1px,transparent 1px);background-size:55px 55px;z-index:2}
+.hero-inner{position:relative;z-index:3;max-width:1280px;margin:0 auto;padding:0 4%;padding-top:9rem;width:100%}
+.h-badge{display:inline-flex;align-items:center;gap:.7rem;margin-bottom:1.6rem;opacity:0;animation:fup .7s .3s both}
+.h-dot{width:8px;height:8px;border-radius:50%;background:var(--gold);animation:pulse 2.2s infinite}
+@keyframes pulse{0%,100%{box-shadow:0 0 0 0 rgba(201,168,76,.7)}60%{box-shadow:0 0 0 9px rgba(201,168,76,0)}}
+.h-badge-txt{font-size:.68rem;letter-spacing:.22em;text-transform:uppercase;color:var(--gold);font-weight:700}
+h1.hh{font-family:'Bebas Neue',sans-serif;font-size:clamp(4.5rem,11vw,9.5rem);line-height:.92;opacity:0;animation:fup .8s .5s both}
+h1.hh .l1{display:block;color:#fff}
+h1.hh .l2{display:block;color:var(--gold)}
+h1.hh .l3{display:block;color:transparent;-webkit-text-stroke:1px rgba(255,255,255,.2)}
+.h-p{max-width:500px;margin-top:2rem;font-size:.92rem;line-height:1.9;color:rgba(255,255,255,.58);font-weight:300;opacity:0;animation:fup .8s .7s both}
+.h-btns{display:flex;gap:1.1rem;margin-top:2.6rem;flex-wrap:wrap;opacity:0;animation:fup .8s .9s both}
+.btn-g{display:inline-flex;align-items:center;gap:.6rem;background:var(--gold);color:var(--navy);padding:.95rem 2.4rem;font-size:.76rem;font-weight:800;letter-spacing:.15em;text-transform:uppercase;text-decoration:none;border-radius:2px;transition:all .35s}
+.btn-g:hover{background:var(--gold2);transform:translateY(-3px);box-shadow:0 16px 40px rgba(201,168,76,.35)}
+.btn-o{display:inline-flex;align-items:center;gap:.6rem;border:1px solid rgba(255,255,255,.3);color:#fff;padding:.95rem 2.4rem;font-size:.76rem;font-weight:600;letter-spacing:.15em;text-transform:uppercase;text-decoration:none;border-radius:2px;transition:all .35s}
+.btn-o:hover{border-color:var(--gold);color:var(--gold);transform:translateY(-3px)}
+.h-stats{display:flex;gap:3.5rem;margin-top:5rem;padding-top:2.5rem;border-top:1px solid var(--border);flex-wrap:wrap;opacity:0;animation:fup .8s 1.1s both}
+.hs-n{font-family:'Bebas Neue',sans-serif;font-size:3rem;color:var(--gold);line-height:1}
+.hs-l{font-size:.65rem;letter-spacing:.18em;text-transform:uppercase;color:var(--grey);margin-top:.25rem}
+.scroll-hint{position:absolute;bottom:2rem;left:50%;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;gap:.5rem;color:var(--grey);font-size:.6rem;letter-spacing:.2em;text-transform:uppercase;animation:fup 1s 1.6s both;z-index:3}
+.scroll-bar{width:1px;height:48px;background:linear-gradient(var(--gold),transparent);animation:sdrop 2s ease-in-out infinite}
+@keyframes sdrop{0%{transform:scaleY(0);transform-origin:top}50%{transform:scaleY(1);transform-origin:top}51%{transform:scaleY(1);transform-origin:bottom}100%{transform:scaleY(0);transform-origin:bottom}}
+
+/* TICKER */
+.ticker{background:var(--gold);padding:.75rem 0;overflow:hidden;white-space:nowrap}
+.ticker-inner{display:inline-flex;animation:tick 35s linear infinite}
+.ti{display:inline-flex;align-items:center;gap:1rem;padding:0 2rem;font-family:'Bebas Neue',sans-serif;font-size:1rem;letter-spacing:.12em;color:var(--navy)}
+.tsep{opacity:.4;font-size:1.3rem}
+
+/* SHARED */
+section{position:relative;z-index:1}
+.w{max-width:1280px;margin:0 auto;padding:0 4%}
+.stag{display:inline-flex;align-items:center;gap:.7rem}
+.stag::before{content:'';width:28px;height:1px;background:var(--gold)}
+.stag span{font-size:.62rem;letter-spacing:.28em;text-transform:uppercase;color:var(--gold);font-weight:700}
+.sec-t{font-family:'Bebas Neue',sans-serif;font-size:clamp(2.8rem,5.5vw,4.8rem);line-height:.98}
+.rv{opacity:0;transform:translateY(38px);transition:opacity .8s var(--ease),transform .8s var(--ease)}
+.rv.in{opacity:1;transform:none}
+.rl{opacity:0;transform:translateX(-38px);transition:opacity .8s var(--ease),transform .8s var(--ease)}
+.rl.in{opacity:1;transform:none}
+.rr{opacity:0;transform:translateX(38px);transition:opacity .8s var(--ease),transform .8s var(--ease)}
+.rr.in{opacity:1;transform:none}
+
+/* ABOUT */
+#about{padding:9rem 0;background:var(--navy)}
+.about-grid{display:grid;grid-template-columns:1fr 1fr;gap:6rem;align-items:center}
+.a-photos{position:relative;height:600px}
+/* Main: workers wearing hard hats and PPE on an active site */
+.a-main{position:absolute;top:0;left:0;width:78%;height:82%;border-radius:4px;overflow:hidden;box-shadow:0 30px 70px rgba(0,0,0,.5)}
+.a-main img{width:100%;height:100%;object-fit:cover;display:block;transition:transform 6s ease}
+.a-main:hover img{transform:scale(1.04)}
+/* Accent: wide shot of construction site machinery */
+.a-accent{position:absolute;bottom:0;right:0;width:52%;height:50%;border-radius:4px;overflow:hidden;border:3px solid var(--navy);box-shadow:0 20px 50px rgba(0,0,0,.5)}
+.a-accent img{width:100%;height:100%;object-fit:cover;display:block}
+.a-badge{position:absolute;top:50%;left:62%;transform:translate(-50%,-50%);width:100px;height:100px;background:var(--gold);border-radius:50%;display:flex;flex-direction:column;align-items:center;justify-content:center;z-index:3;border:4px solid var(--navy);box-shadow:0 8px 30px rgba(201,168,76,.4)}
+.a-badge-n{font-family:'Bebas Neue',sans-serif;font-size:2.1rem;color:var(--navy);line-height:1}
+.a-badge-t{font-size:.45rem;letter-spacing:.1em;text-transform:uppercase;color:var(--navy);font-weight:700;text-align:center;line-height:1.4;margin-top:.15rem}
+.a-tag{font-size:.72rem;letter-spacing:.22em;text-transform:uppercase;color:var(--gold);font-weight:700;margin-bottom:.8rem}
+.a-h{font-family:'Bebas Neue',sans-serif;font-size:clamp(2.5rem,4vw,3.6rem);line-height:1.02;margin-bottom:1.6rem}
+.a-h em{color:var(--gold);font-style:italic;font-family:'Playfair Display',serif}
+.a-p{font-size:.87rem;line-height:1.95;color:rgba(255,255,255,.55);font-weight:300;margin-bottom:1.2rem}
+.feats{display:grid;grid-template-columns:1fr 1fr;gap:.9rem;margin:2rem 0}
+.feat{display:flex;align-items:flex-start;gap:.9rem;padding:1rem 1.1rem;border:1px solid var(--border);border-radius:3px;transition:all .3s}
+.feat:hover{border-color:var(--gold);background:rgba(201,168,76,.05)}
+.feat-ic{width:36px;height:36px;background:rgba(201,168,76,.12);border-radius:3px;display:flex;align-items:center;justify-content:center;flex-shrink:0;color:var(--gold);font-size:.88rem}
+.feat-tx{font-size:.78rem;font-weight:600;color:rgba(255,255,255,.82);padding-top:.1rem}
+.cidb-bar{display:flex;align-items:center;gap:1.2rem;margin-top:2rem;padding:1.1rem 1.4rem;background:rgba(201,168,76,.06);border:1px solid var(--border);border-radius:3px}
+.cidb-ic{width:48px;height:48px;background:var(--gold);border-radius:3px;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-family:'Bebas Neue',sans-serif;font-size:.9rem;color:var(--navy)}
+.cidb-t p:first-child{font-size:.76rem;font-weight:700;color:#fff}
+.cidb-t p:last-child{font-size:.7rem;color:var(--grey);margin-top:.2rem;line-height:1.5}
+
+/* ==========================================
+   SERVICES — each card image tightly matched:
+   01 Building → scaffolding/building under construction
+   02 Civil    → earth pipes / drainage trench
+   03 Electrical → power substation / high-voltage lines
+   04 Mining   → open-cast excavation / dump trucks in pit
+   05 Plant Hire → tracked excavator at work on site
+   06 Road     → asphalt paving machine laying road
+   ========================================== */
+#services{padding:9rem 0;background:linear-gradient(180deg,var(--navy) 0%,#060f1e 100%)}
+.svc-head{display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:4rem;gap:2rem;flex-wrap:wrap}
+.svc-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;background:var(--border)}
+.svc-card{background:var(--navy);overflow:hidden;position:relative;cursor:default}
+.svc-img{height:210px;overflow:hidden;position:relative}
+.svc-img img{width:100%;height:100%;object-fit:cover;object-position:center;display:block;transition:transform .65s var(--ease),filter .65s}
+.svc-img::after{content:'';position:absolute;inset:0;background:linear-gradient(to bottom,transparent 35%,rgba(9,25,46,.88))}
+.svc-card:hover .svc-img img{transform:scale(1.09);filter:brightness(.75) saturate(.9)}
+.svc-num{position:absolute;top:.9rem;right:1rem;font-family:'Bebas Neue',sans-serif;font-size:2.8rem;color:rgba(255,255,255,.18);line-height:1;z-index:2}
+.svc-body{padding:1.8rem 2rem 2.2rem}
+.svc-icon{width:46px;height:46px;background:rgba(201,168,76,.1);border:1px solid var(--border);border-radius:3px;display:flex;align-items:center;justify-content:center;color:var(--gold);font-size:1.15rem;margin-bottom:1.2rem;transition:all .35s}
+.svc-card:hover .svc-icon{background:rgba(201,168,76,.2);border-color:var(--gold)}
+.svc-name{font-family:'Bebas Neue',sans-serif;font-size:1.4rem;letter-spacing:.05em;margin-bottom:.8rem;transition:color .3s}
+.svc-card:hover .svc-name{color:var(--gold)}
+.svc-desc{font-size:.79rem;line-height:1.85;color:rgba(255,255,255,.48);font-weight:300}
+.svc-bar{width:28px;height:1.5px;background:var(--gold);margin-top:1.3rem;transition:width .4s var(--ease)}
+.svc-card:hover .svc-bar{width:56px}
+
+/* ==========================================
+   PROJECTS — images matched to each client/type:
+   Emfuleni  → water pipeline / municipal civils
+   Eskom     → high-voltage power lines & substation
+   Harry Gwala → road resurfacing / asphalt paving
+   Transnet  → heavy construction machinery / logistics yard
+   Rosebank  → modern commercial office building exterior
+   ========================================== */
+#projects{padding:9rem 0;background:#060f1e}
+.proj-head{margin-bottom:4rem}
+.proj-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:1.5rem}
+.proj-card{border-radius:4px;overflow:hidden;border:1px solid var(--border);transition:transform var(--ease),border-color var(--ease),box-shadow var(--ease);cursor:default}
+.proj-card:hover{transform:translateY(-8px);border-color:var(--gold);box-shadow:0 28px 60px rgba(0,0,0,.55)}
+.proj-card.wide{grid-column:1/-1}
+.proj-photo{position:relative;overflow:hidden;height:240px}
+.proj-card.wide .proj-photo{height:420px}
+.proj-photo img{width:100%;height:100%;object-fit:cover;object-position:center;display:block;transition:transform .7s var(--ease)}
+.proj-card:hover .proj-photo img{transform:scale(1.07)}
+.proj-dim{position:absolute;inset:0;background:linear-gradient(to bottom,rgba(9,25,46,.05) 30%,rgba(9,25,46,.95))}
+.proj-cat{position:absolute;top:1.1rem;left:1.1rem;background:var(--gold);color:var(--navy);font-size:.62rem;font-weight:800;letter-spacing:.16em;text-transform:uppercase;padding:.3rem .9rem;border-radius:1px;z-index:2}
+.proj-body{padding:1.8rem;background:var(--navy2)}
+.proj-body h3{font-family:'Bebas Neue',sans-serif;font-size:1.35rem;letter-spacing:.04em;margin-bottom:.5rem;transition:color .3s}
+.proj-card:hover .proj-body h3{color:var(--gold)}
+.proj-body p{font-size:.78rem;line-height:1.75;color:rgba(255,255,255,.48);margin-bottom:1rem}
+.proj-meta{display:flex;gap:1.4rem;flex-wrap:wrap}
+.pm{display:flex;align-items:center;gap:.4rem;font-size:.68rem;color:var(--grey)}
+.pm i{color:var(--gold);font-size:.75rem}
+
+/* STATS — background: building frame / structural steel */
+#stats{padding:5.5rem 0;position:relative;overflow:hidden}
+.stats-bg{position:absolute;inset:0;
+  background:url('https://images.unsplash.com/photo-1503387762-592deb58ef4e?w=1600&q=80') center/cover no-repeat}
+.stats-dim{position:absolute;inset:0;background:rgba(201,168,76,.88)}
+.stats-grid{position:relative;display:grid;grid-template-columns:repeat(4,1fr)}
+.stat{padding:2.5rem 1.5rem;text-align:center;border-right:1px solid rgba(9,25,46,.25)}
+.stat:last-child{border-right:none}
+.stat-n{font-family:'Bebas Neue',sans-serif;font-size:4.8rem;color:var(--navy);line-height:1}
+.stat-l{font-size:.72rem;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:rgba(9,25,46,.7);margin-top:.2rem}
+.stat-d{font-size:.7rem;color:rgba(9,25,46,.5);margin-top:.2rem}
+
+/* VALUES */
+#values{padding:9rem 0;background:var(--navy)}
+.val-intro{display:grid;grid-template-columns:1fr 1fr;gap:5rem;align-items:center;margin-bottom:5rem}
+/* Values image: professional team in PPE / safety helmets */
+.val-img{border-radius:4px;overflow:hidden;height:440px;box-shadow:0 30px 70px rgba(0,0,0,.5)}
+.val-img img{width:100%;height:100%;object-fit:cover;display:block}
+.val-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem}
+.val-card{padding:2.2rem;border:1px solid var(--border);border-radius:3px;position:relative;overflow:hidden;transition:all var(--ease)}
+.val-card::after{content:'';position:absolute;bottom:0;left:0;width:0;height:2px;background:var(--gold);transition:width .5s var(--ease)}
+.val-card:hover{background:rgba(201,168,76,.04);transform:translateY(-4px)}
+.val-card:hover::after{width:100%}
+.val-ghost{font-family:'Bebas Neue',sans-serif;font-size:5rem;color:rgba(201,168,76,.06);position:absolute;top:-.5rem;right:.8rem;line-height:1;pointer-events:none}
+.val-icon{width:44px;height:44px;background:rgba(201,168,76,.1);border-radius:3px;display:flex;align-items:center;justify-content:center;color:var(--gold);font-size:1.1rem;margin-bottom:1.4rem}
+.val-name{font-family:'Bebas Neue',sans-serif;font-size:1.35rem;letter-spacing:.08em;margin-bottom:.7rem}
+.val-desc{font-size:.8rem;line-height:1.82;color:rgba(255,255,255,.48);font-weight:300}
+
+/* ==========================================
+   CLIENTS — icons that represent each org:
+   Emfuleni  = municipality / city government → fa-city
+   Eskom     = electricity utility           → fa-bolt
+   Harry Gwala = district / roads authority  → fa-signs-post
+   Transnet  = freight rail & port operator  → fa-train  ← NOT fa-ship
+   ========================================== */
+#clients{padding:7rem 0;background:#060f1e}
+.cli-intro{text-align:center;margin-bottom:4rem}
+.cli-row{display:flex;align-items:center;justify-content:center;flex-wrap:wrap;gap:1.5rem}
+.cli-card{width:190px;height:96px;background:rgba(255,255,255,.04);border:1px solid var(--border);border-radius:4px;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:.5rem;transition:all .35s;cursor:default;padding:1rem}
+.cli-card:hover{background:rgba(201,168,76,.08);border-color:var(--gold);transform:translateY(-4px)}
+.cli-card i{font-size:1.5rem;color:rgba(255,255,255,.28);transition:color .3s}
+.cli-card:hover i{color:var(--gold)}
+.cli-card span{font-family:'Bebas Neue',sans-serif;font-size:.8rem;letter-spacing:.1em;color:rgba(255,255,255,.35);text-align:center;transition:color .3s;line-height:1.3}
+.cli-card:hover span{color:rgba(255,255,255,.82)}
+
+/* CREDENTIALS */
+#creds{padding:7rem 0;background:var(--navy)}
+.cred-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1.5rem;margin-top:3.5rem}
+.cred-card{padding:2rem;background:var(--navy2);border:1px solid var(--border);border-radius:4px;text-align:center;transition:all .35s;position:relative;overflow:hidden}
+.cred-card::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(201,168,76,.06),transparent);opacity:0;transition:opacity .3s}
+.cred-card:hover{border-color:var(--gold);transform:translateY(-4px)}
+.cred-card:hover::before{opacity:1}
+.cred-icon{width:54px;height:54px;background:rgba(201,168,76,.1);border-radius:50%;display:flex;align-items:center;justify-content:center;color:var(--gold);font-size:1.3rem;margin:0 auto 1rem}
+.cred-title{font-size:.62rem;letter-spacing:.18em;text-transform:uppercase;color:var(--gold);font-weight:700;margin-bottom:.5rem}
+.cred-val{font-family:'Bebas Neue',sans-serif;font-size:1.5rem;letter-spacing:.06em;margin-bottom:.4rem}
+.cred-sub{font-size:.68rem;color:var(--grey);line-height:1.55}
+
+/* CONTACT */
+#contact{padding:9rem 0;background:#060f1e}
+.con-grid{display:grid;grid-template-columns:1fr 1.45fr;gap:6rem;align-items:start}
+.con-title{font-family:'Bebas Neue',sans-serif;font-size:clamp(2.2rem,4vw,3.6rem);line-height:1.05;margin:1rem 0 2.2rem}
+.con-title span{color:var(--gold)}
+.con-items{display:flex;flex-direction:column;gap:1.1rem;margin-bottom:2.5rem}
+.con-item{display:flex;align-items:flex-start;gap:1.1rem;padding:1.1rem 1.2rem;border:1px solid var(--border);border-radius:3px;transition:all .3s}
+.con-item:hover{border-color:var(--gold);background:rgba(201,168,76,.04)}
+.con-ic{width:42px;height:42px;background:rgba(201,168,76,.1);border-radius:3px;display:flex;align-items:center;justify-content:center;color:var(--gold);font-size:1rem;flex-shrink:0}
+.con-lbl{font-size:.62rem;letter-spacing:.15em;text-transform:uppercase;color:var(--gold);font-weight:700;margin-bottom:.3rem}
+.con-val{font-size:.82rem;color:rgba(255,255,255,.78);line-height:1.6}
+.socials{display:flex;gap:.8rem;margin-top:1.5rem}
+.soc{width:38px;height:38px;border:1px solid var(--border);border-radius:3px;display:flex;align-items:center;justify-content:center;color:rgba(255,255,255,.45);font-size:.9rem;text-decoration:none;transition:all .3s}
+.soc:hover{border-color:var(--gold);color:var(--gold)}
+
+/* FORM */
+.form-wrap{background:var(--navy2);border:1px solid var(--border);border-radius:5px;padding:3rem;position:relative;overflow:hidden}
+.form-wrap::before{content:'';position:absolute;top:-40px;right:-40px;width:180px;height:180px;border:1px solid var(--border);border-radius:50%;opacity:.3}
+.form-wrap::after{content:'';position:absolute;top:-80px;right:-80px;width:260px;height:260px;border:1px solid var(--border);border-radius:50%;opacity:.15}
+.form-title{font-family:'Bebas Neue',sans-serif;font-size:1.7rem;letter-spacing:.07em;margin-bottom:.3rem}
+.form-sub{font-size:.76rem;color:var(--grey);margin-bottom:2rem}
+.frow{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-bottom:1rem}
+.fg{display:flex;flex-direction:column;gap:.45rem;margin-bottom:1rem}
+.fg label{font-size:.62rem;letter-spacing:.15em;text-transform:uppercase;color:var(--gold);font-weight:700}
+input.fc,select.fc,textarea.fc{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.1);border-radius:2px;padding:.82rem 1rem;color:#fff;font-family:'Montserrat',sans-serif;font-size:.83rem;width:100%;outline:none;transition:border .3s,background .3s,box-shadow .3s;-webkit-appearance:none}
+input.fc:focus,select.fc:focus,textarea.fc:focus{border-color:var(--gold);background:rgba(201,168,76,.04);box-shadow:0 0 0 3px rgba(201,168,76,.1)}
+input.fc::placeholder,textarea.fc::placeholder{color:rgba(255,255,255,.22);font-size:.8rem}
+textarea.fc{resize:vertical;min-height:128px}
+select.fc option{background:var(--navy2)}
+button.fsub{width:100%;padding:1.05rem;background:var(--gold);color:var(--navy);font-family:'Montserrat',sans-serif;font-size:.78rem;font-weight:800;letter-spacing:.2em;text-transform:uppercase;border:none;border-radius:2px;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:.7rem;transition:all .35s}
+button.fsub:hover{background:var(--gold2);transform:translateY(-2px);box-shadow:0 12px 32px rgba(201,168,76,.3)}
+.fnote{font-size:.68rem;color:var(--grey);text-align:center;margin-top:.9rem}
+.fok{display:none;text-align:center;padding:3rem 1rem}
+.fok-check{width:68px;height:68px;background:rgba(201,168,76,.1);border:2px solid var(--gold);border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 1.2rem;font-size:1.5rem;color:var(--gold)}
+.fok h3{font-family:'Bebas Neue',sans-serif;font-size:1.9rem;color:var(--gold);margin-bottom:.5rem}
+.fok p{font-size:.82rem;color:var(--grey);line-height:1.7}
+
+/* MAP */
+.map-outer{background:#060f1e;padding:0 4% 6rem;max-width:1280px;margin:0 auto}
+.map-box{height:340px;background:var(--navy2);border:1px solid var(--border);border-radius:5px;overflow:hidden;position:relative;display:flex;align-items:center;justify-content:center}
+.map-bg-grid{position:absolute;inset:0;background-image:linear-gradient(rgba(201,168,76,.06) 1px,transparent 1px),linear-gradient(90deg,rgba(201,168,76,.06) 1px,transparent 1px);background-size:38px 38px}
+.map-pin-wrap{position:relative;z-index:2;text-align:center}
+.map-pin-body{width:52px;height:52px;background:var(--gold);border-radius:50% 50% 50% 0;transform:rotate(-45deg);display:flex;align-items:center;justify-content:center;margin:0 auto}
+.map-pin-body::after{content:'';width:20px;height:20px;background:var(--navy2);border-radius:50%}
+.map-label{margin-top:1.4rem;font-family:'Bebas Neue',sans-serif;font-size:.95rem;letter-spacing:.1em;color:var(--gold)}
+.map-addr{font-size:.75rem;color:rgba(255,255,255,.45);margin-top:.4rem}
+
+/* FOOTER */
+footer{background:var(--navy3);border-top:1px solid var(--border);padding:5rem 0 2rem}
+.foot-grid{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:3rem;margin-bottom:3.5rem}
+.foot-desc{font-size:.78rem;line-height:1.85;color:rgba(255,255,255,.38);font-weight:300;margin-top:1rem;max-width:270px}
+.foot-t{font-size:.62rem;letter-spacing:.22em;text-transform:uppercase;color:var(--gold);font-weight:700;margin-bottom:1.2rem}
+.foot-links{list-style:none;display:flex;flex-direction:column;gap:.65rem}
+.foot-links a{color:rgba(255,255,255,.48);text-decoration:none;font-size:.8rem;display:flex;align-items:center;gap:.45rem;transition:color .3s}
+.foot-links a i{font-size:.6rem;color:var(--gold);opacity:0;transform:translateX(-4px);transition:all .3s}
+.foot-links a:hover{color:var(--gold)}
+.foot-links a:hover i{opacity:1;transform:none}
+.foot-ci{font-size:.78rem;color:rgba(255,255,255,.45);margin-bottom:.55rem;line-height:1.6}
+.foot-ci strong{color:rgba(255,255,255,.78);font-weight:600;display:block}
+.foot-ci i{color:var(--gold);margin-right:.3rem;font-size:.8rem}
+.foot-bottom{border-top:1px solid var(--border);padding-top:1.8rem;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:1rem}
+.foot-bottom p{font-size:.7rem;color:rgba(255,255,255,.3);letter-spacing:.04em}
+.foot-bottom span{color:var(--gold)}
+
+/* BACK TOP */
+#bt{position:fixed;bottom:1.8rem;right:1.8rem;width:42px;height:42px;background:var(--gold);border:none;border-radius:3px;display:flex;align-items:center;justify-content:center;cursor:pointer;z-index:200;opacity:0;transform:translateY(16px);transition:all .35s;color:var(--navy);font-size:.9rem}
+#bt.show{opacity:1;transform:none}
+#bt:hover{background:var(--gold2);transform:translateY(-3px)}
+
+@keyframes fup{from{opacity:0;transform:translateY(28px)}to{opacity:1;transform:none}}
+@keyframes tick{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
+
+/* RESPONSIVE */
+@media(max-width:1100px){
+  .about-grid,.con-grid,.val-intro{grid-template-columns:1fr;gap:3.5rem}
+  .a-photos{height:380px;margin-bottom:1rem}
+  .svc-grid{grid-template-columns:repeat(2,1fr)}
+  .stats-grid{grid-template-columns:repeat(2,1fr)}
+  .cred-grid{grid-template-columns:repeat(2,1fr)}
+  .foot-grid{grid-template-columns:1fr 1fr;gap:2.5rem}
+}
+@media(max-width:768px){
+  nav{padding:.9rem 5%}
+  .nav-links,.nav-call{display:none}
+  .hamburger{display:flex}
+  .w,.map-outer{padding:0 5%}
+  .svc-grid{grid-template-columns:1fr}
+  .proj-grid{grid-template-columns:1fr}
+  .proj-card.wide{grid-column:1}
+  .val-grid{grid-template-columns:1fr}
+  .feats{grid-template-columns:1fr}
+  .frow{grid-template-columns:1fr}
+  .form-wrap{padding:2rem 1.4rem}
+  .foot-grid{grid-template-columns:1fr}
+  .foot-bottom{flex-direction:column;text-align:center}
+  .stats-grid{grid-template-columns:1fr 1fr}
+  .cred-grid{grid-template-columns:1fr 1fr}
+}
+@media(max-width:480px){
+  .stats-grid,.cred-grid{grid-template-columns:1fr}
+  .stat{border-right:none;border-bottom:1px solid rgba(9,25,46,.2)}
+  .h-btns{flex-direction:column}
+  .btn-g,.btn-o{justify-content:center}
+}
+</style>
+</head>
+<body>
+
+<div id="cur"></div><div id="curR"></div>
+<button id="bt" onclick="scrollTo({top:0,behavior:'smooth'})"><i class="fa-solid fa-chevron-up"></i></button>
+
+<!-- NAV -->
+<nav id="nav">
+  <a href="#hero" class="logo">
+    <div class="logo-hex">NG</div>
+    <div class="logo-name">NGUTYANA <span>GROUP</span></div>
+  </a>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#services">Services</a></li>
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#values">Values</a></li>
+    <li><a href="#clients">Clients</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <a href="tel:+27118396147" class="nav-call"><i class="fa-solid fa-phone"></i>&nbsp; +27 11 839 6147</a>
+  <div class="hamburger" id="hb"><span></span><span></span><span></span></div>
+</nav>
+<div class="mob-overlay" id="mob">
+  <a href="#about" class="ml">About</a>
+  <a href="#services" class="ml">Services</a>
+  <a href="#projects" class="ml">Projects</a>
+  <a href="#values" class="ml">Values</a>
+  <a href="#clients" class="ml">Clients</a>
+  <a href="#contact" class="ml">Contact</a>
+</div>
+
+<!-- HERO: looping construction site video background -->
+<section id="hero">
+  <div class="hero-vid">
+    <video id="heroBgVid" autoplay muted loop playsinline
+      poster="https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=1920&q=85">
+      <!-- 1st: aerial construction site with cranes and machinery (Mixkit free) -->
+      <source src="https://assets.mixkit.co/videos/preview/mixkit-aerial-shot-of-a-large-construction-site-34573-large.mp4" type="video/mp4"/>
+      <!-- 2nd: construction workers on high-rise building edge (Mixkit free) -->
+      <source src="https://assets.mixkit.co/videos/preview/mixkit-construction-workers-at-work-on-the-edge-of-a-building-40363-large.mp4" type="video/mp4"/>
+      <!-- 3rd: heavy machinery / excavators at work (Pexels free) -->
+      <source src="https://videos.pexels.com/video-files/4481259/4481259-hd_1920_1080_25fps.mp4" type="video/mp4"/>
+      <!-- 4th: civil engineering site wide shot (Pexels free) -->
+      <source src="https://videos.pexels.com/video-files/3044943/3044943-hd_1280_720_25fps.mp4" type="video/mp4"/>
+    </video>
+  </div>
+  <div class="hero-dim"></div>
+  <div class="hero-grid"></div>
+  <!-- Mute / unmute toggle -->
+  <button class="vid-mute" id="muteBtn" title="Toggle sound" onclick="toggleMute()">
+    <i class="fa-solid fa-volume-xmark" id="muteIcon"></i>
+  </button>
+  <div class="hero-inner">
+    <div class="h-badge"><div class="h-dot"></div><span class="h-badge-txt">100% Black Owned &nbsp;·&nbsp; South African Excellence &nbsp;·&nbsp; Est. 2005</span></div>
+    <h1 class="hh">
+      <span class="l1">BUILDING</span>
+      <span class="l2">TOMORROW'S</span>
+      <span class="l3">SOUTH AFRICA</span>
+    </h1>
+    <p class="h-p">Ngutyana Construction &amp; Project Management — delivering world-class civil engineering, building, electrical, mining, and plant hire services across South Africa with precision and integrity.</p>
+    <div class="h-btns">
+      <a href="#projects" class="btn-g">View Our Projects &nbsp;<i class="fa-solid fa-arrow-right"></i></a>
+      <a href="#contact" class="btn-o">Get In Touch &nbsp;<i class="fa-regular fa-envelope"></i></a>
+    </div>
+    <div class="h-stats">
+      <div><div class="hs-n" data-count="20">0</div><div class="hs-l">Years of Excellence</div></div>
+      <div><div class="hs-n" data-count="200">0</div><div class="hs-l">Projects Completed</div></div>
+      <div><div class="hs-n" data-count="4">0</div><div class="hs-l">Major Clients</div></div>
+      <div><div class="hs-n" data-count="6">0</div><div class="hs-l">Service Divisions</div></div>
+    </div>
+  </div>
+  <div class="scroll-hint"><div class="scroll-bar"></div><span>Scroll</span></div>
+</section>
+
+<!-- TICKER -->
+<div class="ticker">
+  <div class="ticker-inner">
+    <div class="ti">Civil Engineering <span class="tsep">◆</span></div>
+    <div class="ti">Building Construction <span class="tsep">◆</span></div>
+    <div class="ti">Electrical Engineering <span class="tsep">◆</span></div>
+    <div class="ti">Mining Services <span class="tsep">◆</span></div>
+    <div class="ti">Plant &amp; Truck Hire <span class="tsep">◆</span></div>
+    <div class="ti">Road Earthworks <span class="tsep">◆</span></div>
+    <div class="ti">Project Management <span class="tsep">◆</span></div>
+    <div class="ti">100% BEE Compliant <span class="tsep">◆</span></div>
+    <div class="ti">Civil Engineering <span class="tsep">◆</span></div>
+    <div class="ti">Building Construction <span class="tsep">◆</span></div>
+    <div class="ti">Electrical Engineering <span class="tsep">◆</span></div>
+    <div class="ti">Mining Services <span class="tsep">◆</span></div>
+    <div class="ti">Plant &amp; Truck Hire <span class="tsep">◆</span></div>
+    <div class="ti">Road Earthworks <span class="tsep">◆</span></div>
+    <div class="ti">Project Management <span class="tsep">◆</span></div>
+    <div class="ti">100% BEE Compliant <span class="tsep">◆</span></div>
+  </div>
+</div>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="w">
+    <div class="about-grid">
+      <div class="a-photos rl">
+        <!-- Main: helmeted construction workers on active site -->
+        <div class="a-main">
+          <img src="https://images.unsplash.com/photo-1581094794329-c8112a89af12?w=900&q=85"
+               alt="Ngutyana workers in PPE on construction site" loading="lazy"/>
+        </div>
+        <!-- Accent: aerial view of an active construction site -->
+        <div class="a-accent">
+          <img src="https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=700&q=85"
+               alt="Active construction site aerial view" loading="lazy"/>
+        </div>
+        <div class="a-badge"><div class="a-badge-n">20+</div><div class="a-badge-t">Years<br>Active</div></div>
+      </div>
+      <div class="rr">
+        <div class="a-tag">Who We Are</div>
+        <h2 class="a-h">Built on<br><em>integrity</em><br>&amp; precision</h2>
+        <p class="a-p">Ngutyana Construction and Project Management is a 100% black-owned company offering a full spectrum of construction and contracting services — from civil and building construction, roadworks, and plant hire to opencast mining services across South Africa.</p>
+        <p class="a-p">Our primary goal is to satisfy our customers' needs in the most cost-effective and efficient manner possible. Our experienced staff assess proposed contracts carefully to advise on the most economical approach to complete each project.</p>
+        <div class="feats">
+          <div class="feat"><div class="feat-ic"><i class="fa-solid fa-circle-check"></i></div><div class="feat-tx">Competitive Industry Rates</div></div>
+          <div class="feat"><div class="feat-ic"><i class="fa-solid fa-award"></i></div><div class="feat-tx">Professional Expertise</div></div>
+          <div class="feat"><div class="feat-ic"><i class="fa-solid fa-clock"></i></div><div class="feat-tx">Deadline-Driven Delivery</div></div>
+          <div class="feat"><div class="feat-ic"><i class="fa-solid fa-helmet-safety"></i></div><div class="feat-tx">Heavy Plant Specialists</div></div>
+        </div>
+        <div class="cidb-bar">
+          <div class="cidb-ic">CIDB</div>
+          <div class="cidb-t">
+            <p>CIDB Registered Contractor</p>
+            <p>Construction Industry Development Board certified — Grade 7+ across multiple categories</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SERVICES -->
+<section id="services">
+  <div class="w">
+    <div class="svc-head">
+      <div class="rv">
+        <div class="stag"><span>What We Do</span></div>
+        <h2 class="sec-t">OUR<br>SERVICES</h2>
+      </div>
+      <p class="rv" style="max-width:340px;font-size:.85rem;color:var(--grey);line-height:1.85">Comprehensive construction and engineering solutions tailored to each client's specific project needs.</p>
+    </div>
+    <div class="svc-grid rv">
+
+      <!-- 01 BUILDING: high-rise under construction with scaffolding and cranes -->
+      <div class="svc-card">
+        <div class="svc-img">
+          <img src="https://images.unsplash.com/photo-1503387762-592deb58ef4e?w=700&q=82"
+               alt="Multi-storey building under construction with tower cranes" loading="lazy"/>
+          <div class="svc-num">01</div>
+        </div>
+        <div class="svc-body">
+          <div class="svc-icon"><i class="fa-solid fa-building"></i></div>
+          <div class="svc-name">Building Construction</div>
+          <div class="svc-desc">Residential, commercial, and industrial building projects delivered with the highest quality workmanship, from foundations through to fit-out and handover.</div>
+          <div class="svc-bar"></div>
+        </div>
+      </div>
+
+      <!-- 02 CIVIL ENGINEERING: earthworks and pipeline trench excavation -->
+      <div class="svc-card">
+        <div class="svc-img">
+          <img src="https://images.unsplash.com/photo-1541888946425-d81bb19240f5?w=700&q=82"
+               alt="Civil engineering earthworks and pipe infrastructure" loading="lazy"/>
+          <div class="svc-num">02</div>
+        </div>
+        <div class="svc-body">
+          <div class="svc-icon"><i class="fa-solid fa-trowel-bricks"></i></div>
+          <div class="svc-name">Civil Engineering</div>
+          <div class="svc-desc">Infrastructure development including roads, bridges, stormwater systems, bulk earthworks, and municipal civil works across South Africa.</div>
+          <div class="svc-bar"></div>
+        </div>
+      </div>
+
+      <!-- 03 ELECTRICAL: high-voltage power transmission lines and towers -->
+      <div class="svc-card">
+        <div class="svc-img">
+          <img src="https://images.unsplash.com/photo-1473341304170-971dccb5ac1e?w=700&q=82"
+               alt="High-voltage electrical transmission towers and power lines" loading="lazy"/>
+          <div class="svc-num">03</div>
+        </div>
+        <div class="svc-body">
+          <div class="svc-icon"><i class="fa-solid fa-bolt"></i></div>
+          <div class="svc-name">Electrical Engineering</div>
+          <div class="svc-desc">High and low voltage electrical installations, substation civils, maintenance, and upgrades for industrial, commercial, and residential developments.</div>
+          <div class="svc-bar"></div>
+        </div>
+      </div>
+
+      <!-- 04 MINING: open-cast mine with haul roads and excavation faces -->
+      <div class="svc-card">
+        <div class="svc-img">
+          <img src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=700&q=82"
+               alt="Open-cast mining excavation with heavy machinery" loading="lazy"
+               style="object-position:center 40%"/>
+          <div class="svc-num">04</div>
+        </div>
+        <div class="svc-body">
+          <div class="svc-icon"><i class="fa-solid fa-helmet-safety"></i></div>
+          <div class="svc-name">Mining Services</div>
+          <div class="svc-desc">Opencast mining, blasting, drilling, and materials handling with strict safety standards and full environmental compliance on all sites.</div>
+          <div class="svc-bar"></div>
+        </div>
+      </div>
+
+      <!-- 05 PLANT HIRE: excavator / tracked equipment actively digging on site -->
+      <div class="svc-card">
+        <div class="svc-img">
+          <img src="https://images.unsplash.com/photo-1504917595217-d4dc5ebe6122?w=700&q=82"
+               alt="Heavy tracked excavator working on construction site" loading="lazy"/>
+          <div class="svc-num">05</div>
+        </div>
+        <div class="svc-body">
+          <div class="svc-icon"><i class="fa-solid fa-truck"></i></div>
+          <div class="svc-name">Truck &amp; Plant Hire</div>
+          <div class="svc-desc">Extensive fleet of excavators, bulldozers, graders, tipper trucks, and specialist plant available for hire with trained and experienced operators.</div>
+          <div class="svc-bar"></div>
+        </div>
+      </div>
+
+      <!-- 06 ROAD EARTHWORKS: asphalt paving machine laying road surface -->
+      <div class="svc-card">
+        <div class="svc-img">
+          <img src="https://images.unsplash.com/photo-1587293852726-70cdb56c2866?w=700&q=82"
+               alt="Asphalt paving machine laying road surface" loading="lazy"/>
+          <div class="svc-num">06</div>
+        </div>
+        <div class="svc-body">
+          <div class="svc-icon"><i class="fa-solid fa-road"></i></div>
+          <div class="svc-name">Road Earthworks</div>
+          <div class="svc-desc">Road construction and rehabilitation, bulk earthmoving, embankments, cuttings, and pavement layerworks for government and private clients.</div>
+          <div class="svc-bar"></div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- PROJECTS -->
+<section id="projects">
+  <div class="w">
+    <div class="proj-head rv">
+      <div class="stag"><span>Our Work</span></div>
+      <h2 class="sec-t">FEATURED<br>PROJECTS</h2>
+    </div>
+    <div class="proj-grid">
+
+      <!-- EMFULENI: bulk water / municipal pipeline infrastructure -->
+      <div class="proj-card wide rv">
+        <div class="proj-photo">
+          <img src="https://images.unsplash.com/photo-1541888946425-d81bb19240f5?w=1400&q=85"
+               alt="Bulk municipal water pipeline installation" loading="lazy"/>
+          <div class="proj-dim"></div>
+          <span class="proj-cat">Civil Engineering</span>
+        </div>
+        <div class="proj-body">
+          <h3>Emfuleni Local Municipality — Bulk Infrastructure Upgrade</h3>
+          <p>Comprehensive upgrade of bulk water supply and stormwater infrastructure in the Emfuleni municipal area, including pipeline replacement, manholes, and road reinstatement across multiple phases.</p>
+          <div class="proj-meta">
+            <div class="pm"><i class="fa-solid fa-location-dot"></i> Emfuleni, Gauteng</div>
+            <div class="pm"><i class="fa-solid fa-clock"></i> 12 Months</div>
+            <div class="pm"><i class="fa-solid fa-circle-check"></i> Completed</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ESKOM: high-voltage power lines and substation infrastructure -->
+      <div class="proj-card rv" style="transition-delay:.1s">
+        <div class="proj-photo">
+          <img src="https://images.unsplash.com/photo-1473341304170-971dccb5ac1e?w=800&q=85"
+               alt="Eskom high-voltage power transmission infrastructure" loading="lazy"/>
+          <div class="proj-dim"></div>
+          <span class="proj-cat">Electrical</span>
+        </div>
+        <div class="proj-body">
+          <h3>Eskom Substation Civil Works</h3>
+          <p>Civils and earthworks for Eskom substation upgrades including fencing, cable trenching, access road construction, and comprehensive drainage systems.</p>
+          <div class="proj-meta">
+            <div class="pm"><i class="fa-solid fa-location-dot"></i> Mpumalanga</div>
+            <div class="pm"><i class="fa-solid fa-circle-check"></i> Completed</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- HARRY GWALA: road resurfacing / asphalt paving -->
+      <div class="proj-card rv" style="transition-delay:.2s">
+        <div class="proj-photo">
+          <img src="https://images.unsplash.com/photo-1587293852726-70cdb56c2866?w=800&q=85"
+               alt="Road rehabilitation and asphalt resurfacing" loading="lazy"/>
+          <div class="proj-dim"></div>
+          <span class="proj-cat">Road Earthworks</span>
+        </div>
+        <div class="proj-body">
+          <h3>Harry Gwala District Road Rehabilitation</h3>
+          <p>Full road surface rehabilitation and earthworks for the Harry Gwala District Municipality, including pavement layers, kerbing, and stormwater drainage.</p>
+          <div class="proj-meta">
+            <div class="pm"><i class="fa-solid fa-location-dot"></i> KwaZulu-Natal</div>
+            <div class="pm"><i class="fa-solid fa-circle-check"></i> Completed</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- TRANSNET: heavy construction machinery / logistics earthworks -->
+      <div class="proj-card rv" style="transition-delay:.1s">
+        <div class="proj-photo">
+          <img src="https://images.unsplash.com/photo-1504917595217-d4dc5ebe6122?w=800&q=85"
+               alt="Heavy plant hire equipment for Transnet logistics earthworks" loading="lazy"/>
+          <div class="proj-dim"></div>
+          <span class="proj-cat">Plant Hire</span>
+        </div>
+        <div class="proj-body">
+          <h3>Transnet — Earthmoving &amp; Bulk Plant Hire</h3>
+          <p>Supply of tracked excavators, graders, and bulk tipper trucks for Transnet freight rail yard construction and port logistics expansion projects.</p>
+          <div class="proj-meta">
+            <div class="pm"><i class="fa-solid fa-location-dot"></i> Durban, KZN</div>
+            <div class="pm"><i class="fa-solid fa-circle-check"></i> Completed</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ROSEBANK: modern commercial office building -->
+      <div class="proj-card rv" style="transition-delay:.2s">
+        <div class="proj-photo">
+          <img src="https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?w=800&q=85"
+               alt="Modern commercial office building exterior Rosebank" loading="lazy"/>
+          <div class="proj-dim"></div>
+          <span class="proj-cat">Building</span>
+        </div>
+        <div class="proj-body">
+          <h3>Commercial Building &amp; Fitout — Rosebank, Gauteng</h3>
+          <p>Full commercial building construction and professional interior fitout for a corporate client in the prestigious Rosebank CBD, Gauteng.</p>
+          <div class="proj-meta">
+            <div class="pm"><i class="fa-solid fa-location-dot"></i> Rosebank, Gauteng</div>
+            <div class="pm"><i class="fa-solid fa-circle-check"></i> Completed</div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- STATS: background = building structural steelwork frame -->
+<section id="stats">
+  <div class="stats-bg"></div>
+  <div class="stats-dim"></div>
+  <div class="w">
+    <div class="stats-grid">
+      <div class="stat rv"><div class="stat-n" data-count="200">0</div><div class="stat-l">Projects Delivered</div><div class="stat-d">Across South Africa</div></div>
+      <div class="stat rv" style="transition-delay:.1s"><div class="stat-n" data-count="20">0</div><div class="stat-l">Years in Business</div><div class="stat-d">Proven track record</div></div>
+      <div class="stat rv" style="transition-delay:.2s"><div class="stat-n" data-count="95">0</div><div class="stat-l">Client Satisfaction %</div><div class="stat-d">Repeat client rate</div></div>
+      <div class="stat rv" style="transition-delay:.3s"><div class="stat-n" data-count="50">0</div><div class="stat-l">Team Members</div><div class="stat-d">Skilled professionals</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- VALUES -->
+<section id="values">
+  <div class="w">
+    <div class="val-intro">
+      <div class="rl">
+        <div class="stag"><span>What Drives Us</span></div>
+        <h2 class="sec-t">CORE VALUES<br>THAT BUILD<br><span style="color:var(--gold)">TRUST</span></h2>
+        <p style="margin-top:1.5rem;font-size:.87rem;line-height:1.9;color:rgba(255,255,255,.55);font-weight:300">Our values are the foundation of every project we undertake, every relationship we build, and every community we serve across South Africa.</p>
+      </div>
+      <!-- Image: team of professionals in hard hats in a briefing/handshake -->
+      <div class="val-img rr">
+        <img src="https://images.unsplash.com/photo-1600880292203-757bb62b4baf?w=900&q=85"
+             alt="Professional construction team meeting on site" loading="lazy"/>
+      </div>
+    </div>
+    <div class="val-grid">
+      <div class="val-card rv"><div class="val-ghost">Q</div><div class="val-icon"><i class="fa-solid fa-star"></i></div><div class="val-name">Quality</div><div class="val-desc">Committed to providing the highest level of quality service and professional expertise in every project we undertake, without exception.</div></div>
+      <div class="val-card rv" style="transition-delay:.1s"><div class="val-ghost">I</div><div class="val-icon"><i class="fa-solid fa-handshake"></i></div><div class="val-name">Integrity</div><div class="val-desc">We operate with complete transparency, honesty, and accountability — building trust with every client, community, and partner we engage.</div></div>
+      <div class="val-card rv" style="transition-delay:.2s"><div class="val-ghost">I</div><div class="val-icon"><i class="fa-solid fa-lightbulb"></i></div><div class="val-name">Innovation</div><div class="val-desc">We blend specialised products and services innovatively to offer more comprehensive solutions that meet the evolving needs of our clients.</div></div>
+      <div class="val-card rv"><div class="val-ghost">S</div><div class="val-icon"><i class="fa-solid fa-gauge-high"></i></div><div class="val-name">Speed</div><div class="val-desc">Time is money. Our teams are geared to meet deadlines efficiently without ever compromising on the quality of work or deliverables.</div></div>
+      <div class="val-card rv" style="transition-delay:.1s"><div class="val-ghost">S</div><div class="val-icon"><i class="fa-solid fa-users"></i></div><div class="val-name">Social Impact</div><div class="val-desc">As a 100% black-owned company we actively drive transformation, develop local skills, and empower communities across South Africa.</div></div>
+      <div class="val-card rv" style="transition-delay:.2s"><div class="val-ghost">S</div><div class="val-icon"><i class="fa-solid fa-shield-halved"></i></div><div class="val-name">Safety</div><div class="val-desc">Safety is non-negotiable. Strict protocols are enforced on every site to protect our people, our clients, and surrounding communities.</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- CLIENTS -->
+<section id="clients">
+  <div class="w">
+    <div class="cli-intro rv">
+      <div class="stag" style="justify-content:center"><span>Who We Serve</span></div>
+      <h2 class="sec-t" style="text-align:center;margin-top:.5rem">TRUSTED BY INDUSTRY<br>LEADERS</h2>
+      <p style="color:var(--grey);font-size:.85rem;margin-top:1rem;max-width:480px;margin-left:auto;margin-right:auto;line-height:1.85">Proud to have built enduring relationships with some of South Africa's most respected organisations.</p>
+    </div>
+    <div class="cli-row rv">
+      <!-- Emfuleni = local municipality → city/government icon -->
+      <div class="cli-card">
+        <i class="fa-solid fa-city"></i>
+        <span>EMFULENI LOCAL MUNICIPALITY</span>
+      </div>
+      <!-- Eskom = electricity utility → power/bolt icon -->
+      <div class="cli-card">
+        <i class="fa-solid fa-plug-circle-bolt"></i>
+        <span>ESKOM SOUTH AFRICA</span>
+      </div>
+      <!-- Harry Gwala = district roads authority → road/location icon -->
+      <div class="cli-card">
+        <i class="fa-solid fa-signs-post"></i>
+        <span>HARRY GWALA DISTRICT MUNICIPALITY</span>
+      </div>
+      <!-- Transnet = freight RAIL operator, NOT a shipping company → train icon -->
+      <div class="cli-card">
+        <i class="fa-solid fa-train"></i>
+        <span>TRANSNET SOC LIMITED</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CREDENTIALS -->
+<section id="creds">
+  <div class="w">
+    <div class="rv" style="text-align:center">
+      <div class="stag" style="justify-content:center"><span>Our Credentials</span></div>
+      <h2 class="sec-t" style="text-align:center;margin-top:.5rem">CERTIFIED &amp;<br>ACCREDITED</h2>
+    </div>
+    <div class="cred-grid">
+      <div class="cred-card rv"><div class="cred-icon"><i class="fa-solid fa-certificate"></i></div><div class="cred-title">Registration</div><div class="cred-val">CIDB</div><div class="cred-sub">Construction Industry Development Board Registered Contractor</div></div>
+      <div class="cred-card rv" style="transition-delay:.1s"><div class="cred-icon"><i class="fa-solid fa-people-group"></i></div><div class="cred-title">Ownership</div><div class="cred-val">100% BEE</div><div class="cred-sub">100% Black Economic Empowerment Compliant Business</div></div>
+      <div class="cred-card rv" style="transition-delay:.2s"><div class="cred-icon"><i class="fa-solid fa-file-invoice-dollar"></i></div><div class="cred-title">Tax Compliance</div><div class="cred-val">SARS</div><div class="cred-sub">Fully compliant with South African Revenue Service requirements</div></div>
+      <div class="cred-card rv" style="transition-delay:.3s"><div class="cred-icon"><i class="fa-solid fa-database"></i></div><div class="cred-title">Supplier Database</div><div class="cred-val">CSD</div><div class="cred-sub">Registered on the Central Supplier Database of South Africa</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="w">
+    <div class="con-grid">
+      <div class="rl">
+        <div class="stag"><span>Get In Touch</span></div>
+        <h2 class="con-title">Let's Build<br><span>Something</span><br>Great Together</h2>
+        <div class="con-items">
+          <div class="con-item"><div class="con-ic"><i class="fa-solid fa-location-dot"></i></div><div><div class="con-lbl">Our Office</div><div class="con-val">8 Tyrwhitt Ave, Rosebank<br>Gauteng, South Africa</div></div></div>
+          <div class="con-item"><div class="con-ic"><i class="fa-solid fa-phone"></i></div><div><div class="con-lbl">Phone</div><div class="con-val">+27 11 839 6147<br>+27 10 065 2296</div></div></div>
+          <div class="con-item"><div class="con-ic"><i class="fa-solid fa-envelope"></i></div><div><div class="con-lbl">Email</div><div class="con-val">info@ngutyanagroup.co.za</div></div></div>
+          <div class="con-item"><div class="con-ic"><i class="fa-solid fa-clock"></i></div><div><div class="con-lbl">Business Hours</div><div class="con-val">Monday – Friday: 8:00 AM – 5:00 PM<br>Saturday &amp; Sunday: Closed</div></div></div>
+          <div class="con-item"><div class="con-ic"><i class="fa-solid fa-fax"></i></div><div><div class="con-lbl">Fax</div><div class="con-val">086 535 6136</div></div></div>
+        </div>
+        <div class="socials">
+          <a href="#" class="soc"><i class="fa-brands fa-linkedin-in"></i></a>
+          <a href="#" class="soc"><i class="fa-brands fa-facebook-f"></i></a>
+          <a href="#" class="soc"><i class="fa-brands fa-x-twitter"></i></a>
+          <a href="mailto:info@ngutyanagroup.co.za" class="soc"><i class="fa-solid fa-envelope"></i></a>
+        </div>
+      </div>
+      <div class="rr">
+        <div class="form-wrap">
+          <div id="fc">
+            <div class="form-title">Send Us a Message</div>
+            <div class="form-sub">We'll respond within one business day.</div>
+            <div class="frow">
+              <div class="fg"><label for="fn">First Name *</label><input class="fc" type="text" id="fn" placeholder="John" required/></div>
+              <div class="fg"><label for="ln">Last Name *</label><input class="fc" type="text" id="ln" placeholder="Smith" required/></div>
+            </div>
+            <div class="fg"><label for="em">Email Address *</label><input class="fc" type="email" id="em" placeholder="john@company.co.za" required/></div>
+            <div class="fg"><label for="ph">Phone Number</label><input class="fc" type="tel" id="ph" placeholder="+27 xx xxx xxxx"/></div>
+            <div class="fg">
+              <label for="sv">Service Required</label>
+              <select class="fc" id="sv">
+                <option value="" disabled selected>Select a service...</option>
+                <option>Building Construction</option>
+                <option>Civil Engineering</option>
+                <option>Electrical Engineering</option>
+                <option>Mining Services</option>
+                <option>Truck &amp; Plant Hire</option>
+                <option>Road Earthworks</option>
+                <option>Project Management</option>
+                <option>Other / Multiple Services</option>
+              </select>
+            </div>
+            <div class="fg"><label for="ms">Your Message *</label><textarea class="fc" id="ms" placeholder="Tell us about your project, timeline, and specific requirements..." required></textarea></div>
+            <button class="fsub" onclick="doSubmit(event)">Send Message &nbsp;<i class="fa-solid fa-paper-plane"></i></button>
+            <div class="fnote"><i class="fa-solid fa-lock"></i>&nbsp; Your information is secure and never shared with third parties.</div>
+          </div>
+          <div class="fok" id="fok">
+            <div class="fok-check"><i class="fa-solid fa-check"></i></div>
+            <h3>Message Sent!</h3>
+            <p>Thank you for reaching out to Ngutyana Group.<br>We'll respond within one business day.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MAP -->
+<div style="background:#060f1e;padding-bottom:6rem">
+  <div class="map-outer">
+    <div class="map-box rv">
+      <div class="map-bg-grid"></div>
+      <div class="map-pin-wrap">
+        <div class="map-pin-body"></div>
+        <div class="map-label"><i class="fa-solid fa-location-dot" style="color:var(--navy);margin-right:.4rem"></i>NGUTYANA GROUP HQ</div>
+        <div class="map-addr">8 Tyrwhitt Ave, Rosebank, Gauteng &nbsp;·&nbsp; +27 11 839 6147 &nbsp;·&nbsp; info@ngutyanagroup.co.za</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="w">
+    <div class="foot-grid">
+      <div>
+        <div class="logo" style="text-decoration:none;display:flex">
+          <div class="logo-hex">NG</div>
+          <div class="logo-name" style="margin-left:.8rem">NGUTYANA <span>GROUP</span></div>
+        </div>
+        <p class="foot-desc">A 100% black-owned construction and project management company delivering engineering excellence across South Africa since 2005.</p>
+        <div class="socials" style="margin-top:1.5rem">
+          <a href="#" class="soc"><i class="fa-brands fa-linkedin-in"></i></a>
+          <a href="#" class="soc"><i class="fa-brands fa-facebook-f"></i></a>
+          <a href="#" class="soc"><i class="fa-brands fa-x-twitter"></i></a>
+        </div>
+      </div>
+      <div>
+        <div class="foot-t">Quick Links</div>
+        <ul class="foot-links">
+          <li><a href="#about"><i class="fa-solid fa-chevron-right"></i>About Us</a></li>
+          <li><a href="#services"><i class="fa-solid fa-chevron-right"></i>Our Services</a></li>
+          <li><a href="#projects"><i class="fa-solid fa-chevron-right"></i>Projects</a></li>
+          <li><a href="#values"><i class="fa-solid fa-chevron-right"></i>Our Values</a></li>
+          <li><a href="#creds"><i class="fa-solid fa-chevron-right"></i>Credentials</a></li>
+          <li><a href="#contact"><i class="fa-solid fa-chevron-right"></i>Contact</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="foot-t">Services</div>
+        <ul class="foot-links">
+          <li><a href="#services"><i class="fa-solid fa-chevron-right"></i>Civil Engineering</a></li>
+          <li><a href="#services"><i class="fa-solid fa-chevron-right"></i>Building Construction</a></li>
+          <li><a href="#services"><i class="fa-solid fa-chevron-right"></i>Electrical Engineering</a></li>
+          <li><a href="#services"><i class="fa-solid fa-chevron-right"></i>Mining Services</a></li>
+          <li><a href="#services"><i class="fa-solid fa-chevron-right"></i>Plant &amp; Truck Hire</a></li>
+          <li><a href="#services"><i class="fa-solid fa-chevron-right"></i>Road Earthworks</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="foot-t">Contact Info</div>
+        <div class="foot-ci"><i class="fa-solid fa-location-dot"></i><strong>Address</strong>8 Tyrwhitt Ave, Rosebank, Gauteng</div>
+        <div class="foot-ci"><i class="fa-solid fa-phone"></i><strong>Phone</strong>+27 11 839 6147</div>
+        <div class="foot-ci"><i class="fa-solid fa-envelope"></i><strong>Email</strong>info@ngutyanagroup.co.za</div>
+        <div class="foot-ci"><i class="fa-solid fa-clock"></i><strong>Hours</strong>Mon–Fri: 8AM – 5PM</div>
+        <div class="foot-ci"><i class="fa-solid fa-fax"></i><strong>Fax</strong>086 535 6136</div>
+      </div>
+    </div>
+    <div class="foot-bottom">
+      <p>© 2025 <span>Ngutyana Group</span>. All Rights Reserved. 100% Black Owned &amp; BEE Compliant.</p>
+      <p>Built with <span>◆</span> Engineering Excellence</p>
+    </div>
+  </div>
+</footer>
+
+<script>
+// VIDEO MUTE TOGGLE
+function toggleMute(){
+  const v=document.getElementById('heroBgVid');
+  const ic=document.getElementById('muteIcon');
+  v.muted=!v.muted;
+  ic.className=v.muted?'fa-solid fa-volume-xmark':'fa-solid fa-volume-high';
+}
+
+// VIDEO SOURCE CYCLING — if a source fails, advance to next <source> tag and retry
+(function(){
+  const vid=document.getElementById('heroBgVid');
+  if(!vid)return;
+  let srcIdx=0;
+  const sources=Array.from(vid.querySelectorAll('source'));
+  vid.addEventListener('error',()=>{
+    srcIdx++;
+    if(srcIdx<sources.length){
+      vid.src=sources[srcIdx].src;
+      vid.load();vid.play().catch(()=>{});
+    }
+  },true);
+  // Kick off play explicitly after page load
+  window.addEventListener('load',()=>{vid.play().catch(()=>{})});
+})();
+
+// CURSOR
+const cur=document.getElementById('cur'),curR=document.getElementById('curR');
+let mx=0,my=0,rx=0,ry=0;
+document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;cur.style.left=mx+'px';cur.style.top=my+'px'});
+(function loop(){rx+=(mx-rx)*.14;ry+=(my-ry)*.14;curR.style.left=rx+'px';curR.style.top=ry+'px';requestAnimationFrame(loop)})();
+document.querySelectorAll('a,button,.svc-card,.proj-card,.val-card,.cli-card,.con-item,.feat,.cred-card').forEach(el=>{
+  el.addEventListener('mouseenter',()=>{cur.classList.add('big');curR.classList.add('big')});
+  el.addEventListener('mouseleave',()=>{cur.classList.remove('big');curR.classList.remove('big')});
+});
+
+// SCROLL
+const navEl=document.getElementById('nav'),bt=document.getElementById('bt');
+window.addEventListener('scroll',()=>{
+  navEl.classList.toggle('solid',scrollY>80);
+  bt.classList.toggle('show',scrollY>500);
+});
+
+// HAMBURGER
+const hb=document.getElementById('hb'),mob=document.getElementById('mob');
+hb.addEventListener('click',()=>{hb.classList.toggle('open');mob.classList.toggle('open')});
+document.querySelectorAll('.ml').forEach(l=>l.addEventListener('click',()=>{hb.classList.remove('open');mob.classList.remove('open')}));
+
+// REVEAL
+const obs=new IntersectionObserver(e=>{e.forEach(x=>{if(x.isIntersecting){x.target.classList.add('in');obs.unobserve(x.target)}})},{threshold:.1,rootMargin:'0px 0px -30px 0px'});
+document.querySelectorAll('.rv,.rl,.rr').forEach(el=>obs.observe(el));
+
+// COUNTERS
+function cnt(el,t){let s=null;const f=ts=>{if(!s)s=ts;const p=Math.min((ts-s)/1800,1),e=1-Math.pow(1-p,3);el.textContent=Math.floor(e*t);if(p<1)requestAnimationFrame(f);else el.textContent=t+(t>3?'+':'')};requestAnimationFrame(f)}
+const co=new IntersectionObserver(e=>{e.forEach(x=>{if(x.isIntersecting){cnt(x.target,+x.target.dataset.count);co.unobserve(x.target)}})},{threshold:.5});
+document.querySelectorAll('[data-count]').forEach(el=>co.observe(el));
+
+// FORM
+function doSubmit(e){
+  e.preventDefault();const b=e.target;
+  b.innerHTML='<i class="fa-solid fa-spinner fa-spin"></i>&nbsp; Sending...';b.disabled=true;
+  setTimeout(()=>{document.getElementById('fc').style.display='none';document.getElementById('fok').style.display='block'},1600);
+}
+
+// SMOOTH SCROLL
+document.querySelectorAll('a[href^="#"]').forEach(a=>a.addEventListener('click',ev=>{
+  const t=document.querySelector(a.getAttribute('href'));
+  if(t){ev.preventDefault();t.scrollIntoView({behavior:'smooth',block:'start'})}
+}));
+
+// STAGGER SERVICE CARDS
+document.querySelectorAll('.svc-card').forEach((c,i)=>c.style.transitionDelay=(i*.07)+'s');
+</script>
+</body>
+</html>
